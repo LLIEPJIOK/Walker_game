@@ -1,0 +1,7 @@
+Name <string>
+ID <int>
+CharNumb <int>
+(List of characteristics <string, int>)
+Special <string> (any commentary used for construcor, i.e. Instant/Temporary/TemporaryConst)
+[ALL data needed for special constructor]
+"END"
