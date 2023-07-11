@@ -1,26 +1,30 @@
-
 #ifndef GAME_INTERFACE_H
 #define GAME_INTERFACE_H
+
+#include "gamemap.h"
+#include "minimap.h"
+#include "inventory.h"
+#include "Menu/menu.h"
+#include "equipeditems.h"
+#include "pausemenu.h"
+#include "Engine/DataBase.h"
+#include "Engine/Turn.h"
+#include "actionwindow.h"
 
 #include <QMainWindow>
 #include <QWidget>
 #include <QFrame>
 #include <QLabel>
-#include "gamemap.h"
-#include "minimap.h"
-#include "inventory.h"
 #include <QPushButton>
-#include <Menu/menu.h>
-#include "equipeditems.h"
-#include "pausemenu.h"
-#include "congratulationwindow.h"
-class Game_Interface : public QMainWindow
+
+class GameInterface : public QMainWindow
 {
     Q_OBJECT
+
 public:
-    explicit Game_Interface(QWidget *parent = nullptr);
-    void update_characteristics();
-    ~Game_Interface();
+    explicit GameInterface(QWidget *parent = nullptr);
+    ~GameInterface();
+
 private:
 
     bool is_load;
@@ -30,7 +34,6 @@ private:
     Menu* menu;
 
     QPushButton *menu_button;
-
     QPushButton *roll_button;
     QPushButton *next_turn_button;
     QPushButton *inventory_button;
@@ -45,8 +48,8 @@ private:
 
     PauseMenu* pause;
 
-    QVector<EquipedItems*> wins;
-    EquipedItems* current_win;
+    QVector<EquipedItems*> equipment_slots;
+    EquipedItems* current_equipment_slot;
 
 
     GameMap *current_map;
@@ -60,10 +63,29 @@ private:
 
     void initialize();
     void end_game();
+
+    // восстановление состояния кнопок
+    void update_buttons();
+
+    // обновляет конкретный инвентарь и слоты для экипировки по номеру
+    void update_inventory_and_slots(int id);
+
+    // обновляет все инвентари и слоты для экипировки
+    void update_all_inventories_and_slots();
+
+    // обновляет все лейблы
+    void update_labels();
+
+    // обновляет карту
+    void update_map();
+
+    // обновляет всё вышеперечисленное
+    void update_all();
+
 protected:
     void paintEvent(QPaintEvent* event);
-private slots:
 
+private slots:
     void start(std::vector<std::pair<std::string, std::string>> data);
     void load();
     void inventory_button_clicked();

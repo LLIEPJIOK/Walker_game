@@ -1,21 +1,23 @@
-
 #ifndef PLAYERSMODEL_H
 #define PLAYERSMODEL_H
+
 #include "Engine/Player.h"
+#include "gamemapobject.h"
 
 #include <QTimer>
 #include <QPixmap>
-#include "gamemapobject.h"
+
 class PlayersModel :  public GameMapObject
 {
     Q_OBJECT
     enum class eAnimateState
     {
-        Standing = 0
-        ,Attack
-        ,Moving
-        ,StateEnd
+        Standing = 0,
+        Attack,
+        Moving,
+        StateEnd
     };
+
 public:
     explicit PlayersModel(QObject* parent = nullptr, int xrpos = 0, int yrpos = 0, QBrush brush = QBrush(Qt::NoBrush), QString icon = "knight");
     Player* get_connected_player();

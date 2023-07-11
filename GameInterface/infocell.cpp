@@ -1,5 +1,5 @@
-
 #include "infocell.h"
+
 InfoCell::InfoCell(QWidget *parent, QString terrain, QString item, QString event)
     : QFrame{parent}
 {

@@ -17,7 +17,7 @@ protected:
     std::string type;
     bool is_equiped;
 public:
-    Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
+    Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string _type);
     Equipment();
     std::string get_name() const;
     std::string get_type() const;

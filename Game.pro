@@ -18,6 +18,8 @@ SOURCES += \
     Events/event_window.cpp \
     GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
+    GameInterface/dragitem.cpp \
+    GameInterface/dropitem.cpp \
     GameInterface/equipeditems.cpp \
     GameInterface/gamemapobject.cpp \
     GameInterface/inventory.cpp \
@@ -53,6 +55,8 @@ HEADERS += \
     Events/event_window.h \
     GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
+    GameInterface/dragitem.h \
+    GameInterface/dropitem.h \
     GameInterface/equipeditems.h \
     GameInterface/gamemapobject.h \
     GameInterface/inventory.h \
