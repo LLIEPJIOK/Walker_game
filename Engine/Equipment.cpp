@@ -107,7 +107,7 @@ void Equipment::load(std::ifstream& in)
     in.read((char*)& is_equiped, sizeof(is_equiped));
 }
 
-Equipment::Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+Equipment::Equipment(int ID, std::string _name, std::string _equipment_class, std::map<std::string, int> characteristics, std::string _type)
 {
     item_id = ID;
     name = _name;
@@ -115,10 +115,6 @@ Equipment::Equipment(int ID, std::string name, std::string equipment_class, std:
     type = _type;
     equipment_class = _equipment_class;
     is_equiped = 0;
-}
-
-Equipment::Equipment()
-{
 }
 
 std::string Equipment::get_name() const

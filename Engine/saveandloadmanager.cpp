@@ -1,5 +1,6 @@
 #include "saveandloadmanager.h"
 #include "Turn.h"
+#include "DataBase.h"
 SaveAndLoadManager::SaveAndLoadManager(std::string file_name_)
 {
     //присваивание значения переменной file_name

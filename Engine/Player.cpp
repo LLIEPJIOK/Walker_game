@@ -292,12 +292,12 @@ void Player::set_y(const int& _y)
 
 std::pair<int, int> Player::get_previous_direction() const
 {
-    return previos_direction;
+    return previous_direction;
 }
 
 void Player::set_previous_direction(const std::pair<int, int>& dir)
 {
-    previos_direction = dir;
+    previous_direction = dir;
 }
 
 void Player::change_x(const bool& is_right)

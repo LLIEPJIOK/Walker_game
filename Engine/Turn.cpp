@@ -262,6 +262,11 @@ void Turn::load(std::ifstream& in)
     player = seq->at((turn_number - 1) % seq->size());
 }
 
+bool Turn::was_roll()
+{
+    return roll != 0 || is_moving || has_already_moved;
+}
+
 std::vector<std::pair<int, int>> Turn::move_player()
 {
     is_moving = true;
