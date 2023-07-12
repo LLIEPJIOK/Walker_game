@@ -18,7 +18,7 @@ private:
     static int CURRENT_ID;
     const int PLAYER_ID;
     std::string name;
-    std::pair<int, int> previos_direction;
+    std::pair<int, int> previous_direction;
     int x, y;
     int killed_player;
 
@@ -33,6 +33,10 @@ private:
     std::map<std::string, Weapon*> equiped_weaponary;
     std::map<std::string, Armour*> equiped_armourment;
     std::map<std::string, Jewel*> equiped_jewellery;
+
+    void save_all_items(std::ofstream& out);
+    void load_all_items(std::ifstream& in);
+    void load_equiped_items(std::ifstream& in);
 
 public:
     Player(const std::string& _name);
@@ -83,6 +87,9 @@ public:
 
 
     int die();
+
+    void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 #endif //PLAYER_H

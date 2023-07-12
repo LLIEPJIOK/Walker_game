@@ -14,6 +14,7 @@ SOURCES += \
     Engine/Player.cpp \
     Engine/Turn.cpp \
     Engine/mapcell.cpp \
+    Engine/saveandloadmanager.cpp \
     Events/Event.cpp \
     Events/event_window.cpp \
     GameInterface/actionwindow.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     Engine/Player.h \
     Engine/Turn.h \
     Engine/mapcell.h \
+    Engine/saveandloadmanager.h \
     Events/Event.h \
     Events/event_window.h \
     GameInterface/actionwindow.h \

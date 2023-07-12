@@ -10,12 +10,14 @@
 #include "Engine/DataBase.h"
 #include "Engine/Turn.h"
 #include "actionwindow.h"
+#include "Engine/saveandloadmanager.h"
 
 #include <QMainWindow>
 #include <QWidget>
 #include <QFrame>
 #include <QLabel>
 #include <QPushButton>
+
 
 class GameInterface : public QMainWindow
 {
@@ -60,6 +62,8 @@ private:
     QLabel *players_roll;
     QLabel *players_health_points;
     QLabel *players_armour;
+
+    SaveAndLoadManager* save_load_manager;
 
     void initialize();
     void end_game();

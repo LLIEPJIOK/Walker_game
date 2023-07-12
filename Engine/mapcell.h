@@ -8,7 +8,6 @@
 class MapCell
 {
 private:
-    std::set<Player*> players_on_cell;
     std::string type_of_terrain;
     std::string item;
     std::string event_name;
@@ -16,7 +15,6 @@ private:
 public:
     MapCell();
     MapCell(std::string type_of_terrain, std::string item, std::string event_name);
-    std::set<Player*> get_players_on_cell();
 
     std::string get_type_of_terrain();
     std::string get_item();
@@ -30,8 +28,9 @@ public:
     void set_tile_name(std::string tile_name);
 
     void initiate_event();
-    void add_player(Player* player);
-    void pop_player(Player* player);
+
+    void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 #endif // MAPCELL_H
