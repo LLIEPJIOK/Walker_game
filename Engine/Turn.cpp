@@ -692,7 +692,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
         map[player->get_y()][player->get_x()].set_item("Нет");
     }
     if(map[player->get_y()][player->get_x()].get_event_name()!="???")
-        activated_event = Events::get_Events()->get_events()->at("experiment");
+        activated_event = Events::get_Events()->get_events()->at("mushrooms");
     is_moving = false;
     return std::vector<std::pair<int, int>>();
 }

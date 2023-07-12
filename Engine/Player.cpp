@@ -12,7 +12,7 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     x = y = 0;
     previos_direction = std::make_pair(0, 0);
 	// Characteristics
-    characteristics["HP"] = 5;
+    characteristics["HP"] = 100;
 	characteristics["MAX_HP"] = 100;
 
     characteristics["AGIL"] = 1;
@@ -196,13 +196,15 @@ int Player::die()
 
 void Player::process_active_effects()
 {
-	for (auto i = active_effects.begin(); i!=active_effects.end(); i++)
+    for (auto i = active_effects.begin(); i!=active_effects.end(); i++)
 	{
 		if (!(*i)->get_effect_duration())
 		{
 			(*i)->reverse_effect(*this);
             delete* i;
             active_effects.erase(i);
+            if (i == active_effects.end())
+                break;
         }
 		else
 			(*i)->execute_effect(*this);
@@ -352,18 +354,22 @@ Equipment* Player::add_item(const std::string& equipment_id)
     if(equipment_id == "Загадочное кольцо")
     {
         Jewel* ring = new Jewel("кольцо", Turn::get_Turn()->get_turn_number());
+        jewellery.insert(ring);
         return ring;
     }
     else if(equipment_id == "Загадочное ожерелье")
     {
         Jewel* necklace = new Jewel("ожерелье", Turn::get_Turn()->get_turn_number());
+        jewellery.insert(necklace);
         return necklace;
     }
     else if(equipment_id == "Загадочный пояс")
     {
         Jewel* belt = new Jewel("пояс", Turn::get_Turn()->get_turn_number());
+        jewellery.insert(belt);
         return belt;
     }
+
 
     std::map<std::string, int> item_characteristics;
     for (const auto& i : *DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_object("chars")->get_name_to_value())

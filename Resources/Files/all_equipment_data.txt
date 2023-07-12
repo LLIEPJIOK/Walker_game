@@ -438,7 +438,7 @@
 "chars" :
 {
         "ATK" : "10"
-        "RNG" : ""
+        "RNG" : "0"
 	"PIERCE" : "3"
 	"CRIT_CH" : "10"
 	"CRIT_DMG" : "20"

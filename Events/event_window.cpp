@@ -56,8 +56,8 @@ Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
 
     requirement_info = new QLabel(this);
     requirement_info->setText("Выбор этого действия подразумевает использование характеристики " + type + "\n"
-                              "Требуется очков характеристики для попытки совершить действие: " + QString::number(event->get_requirement() - 6) + "\n"
-                              "Требуется очков характеристики для гарантированного успеха: " + QString::number(event->get_requirement() - 1) + "\n"
+                              "Требуется очков характеристики для попытки совершить действие: " + QString::number(event->get_requirement(target) - 6) + "\n"
+                              "Требуется очков характеристики для гарантированного успеха: " + QString::number(event->get_requirement(target) - 1) + "\n"
                               "Текущее количество очков: " + QString::number(target->get_characteristics().at(needed_characteristic)) + "\n");
     requirement_info->setFont(font);
     requirement_info->setStyleSheet(style);
@@ -94,7 +94,7 @@ void Event_window::challenge_button_was_clicked()
 {
     Event* event = Events::get_Events()->get_events()->at(event_name);
 
-    int need = event->get_requirement() - target->get_characteristics().at(event->get_type());
+    int need = event->get_requirement(target) - target->get_characteristics().at(event->get_type());
 
     srand(time(NULL));
     int DQNT = target->get_characteristics()["DQNT"];
@@ -132,9 +132,9 @@ void Event_window::challenge_button_was_clicked()
 void Event_window::continue_playing()
 {
     if(success)
-        Events::get_Events()->get_events()->at(event_name)->execute_success();
+        Events::get_Events()->get_events()->at(event_name)->execute_success(target);
     else
-        Events::get_Events()->get_events()->at(event_name)->execute_failure();
+        Events::get_Events()->get_events()->at(event_name)->execute_failure(target);
     delete this;
 }
 
