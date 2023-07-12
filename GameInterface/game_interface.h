@@ -14,6 +14,8 @@
 #include "equipeditems.h"
 #include "pausemenu.h"
 #include "congratulationwindow.h"
+#include "Engine/saveandloadmanager.h"
+
 class Game_Interface : public QMainWindow
 {
     Q_OBJECT
@@ -57,6 +59,8 @@ private:
     QLabel *players_roll;
     QLabel *players_health_points;
     QLabel *players_armour;
+
+    SaveAndLoadManager* save_load_manager;
 
     void initialize();
     void end_game();

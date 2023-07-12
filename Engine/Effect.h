@@ -27,6 +27,11 @@ public:
 	virtual void apply_effect(Player&, int, int) = 0;
 	virtual void execute_effect(Player&) = 0;
 	virtual void reverse_effect(Player&) = 0;
+
+    static std::string read_name(std::ifstream& in);
+
+    void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 class Small_healing_effect : public Effect

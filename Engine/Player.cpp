@@ -6,13 +6,189 @@
 #define seq DataBase::get_DataBase()->get_sequence()
 int Player::CURRENT_ID = 0;
 
+void Player::save_all_items(std::ofstream &out)
+{
+    //размер контейнера weaponary
+    size_t size = weaponary.size();
+    //запись размера weaponary
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Weapon
+    for(const auto &i : weaponary)
+    {
+        //вызов метода записи у объекта класса Weapon
+        i->save(out);
+    }
+
+    //размер контейнера armourment
+    size = armourment.size();
+    //запись размера armourment
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Armour
+    for(const auto &i : armourment)
+    {
+        //вызов метода записи у объекта класса Armour
+        i->save(out);
+    }
+
+    //размер контейнера jewellery
+    size = jewellery.size();
+    //запись размера jewellery
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Jewel
+    for(const auto &i : jewellery)
+    {
+        //вызов метода записи у объекта класса Jewel
+        i->save(out);
+    }
+
+    //размер контейнера potions
+    size = potions.size();
+    //запись размера potions
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Potion
+    for(const auto &i : potions)
+    {
+        //вызов метода записи у объекта класса Potion
+        i->save(out);
+    }
+
+    //размер контейнера active_effects
+    size = active_effects.size();
+    //запись размера active_effects
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Effect и его наследников
+    for(const auto &i : active_effects)
+    {
+        //вызов метода записи у объектов класса Effect и его наследников
+        i->save(out);
+    }
+}
+
+void Player::load_all_items(std::ifstream &in)
+{
+    //переменная для размеров контейнеров
+    size_t size;
+    //чтение размера контейнера weaponary
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера weaponary
+    weaponary.clear();
+    //цикл для заполенения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //создание нового объекта класса Weapon без значений
+        Weapon* item = new Weapon();
+        //вызов метода чтения объекта класса Weapon
+        item->load(in);
+        //добавление в контейнер указателя на объект класса Weapon
+        weaponary.insert(item);
+    }
+
+    //чтение размера контейнера armourment
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера armourment
+    armourment.clear();
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //создание нового объекта класса Armour без значений
+        Armour* item = new Armour();
+        //вызов метода чтения объекта класса Armour
+        item->load(in);
+        //добавление в контейнер указателя на объект класса Armour
+        armourment.insert(item);
+    }
+
+    //чтение размера контейнера jewellery
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера jewellery
+    jewellery.clear();
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //создание нового объекта класса Jewel без значений
+        Jewel* item = new Jewel();
+        //вызов метода чтения объекта класса Jewel
+        item->load(in);
+        //добавление в контейнер указателя на объект класса Jewel
+        jewellery.insert(item);
+    }
+
+    //чтение размера контейнера potions
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера potions
+    potions.clear();
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //создание нового объекта класса Potion
+        Potion* item = new Potion();
+        //вызов метода чтения объекта класса Potion
+        item->load(in);
+        //добавление в контейнер указателя на объект класса Potion
+        potions.insert(item);
+    }
+
+    //чтение размера контейнера active_effects
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера active_effects
+    active_effects.clear();
+    //цикл для заполения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //чтение поля name объекта класса Effect для инициализации указателя
+        std::string s = Effect::read_name(in);
+        //инициализация указателя новым объектом наследника класса Effect
+        Effect* item = All_effects::get_effects_data()->get_effects()->at(s);
+        //вызов метода чтения объекта класса Effect или его наследника
+        item->load(in);
+        //добавление в контейнер указателя на объект наследника класса Effect
+        active_effects.push_back(item);
+    }
+}
+
+void Player::load_equiped_items(std::ifstream &in)
+{
+    //цикл для заполнения контейнера equiped_weaponary
+    for(auto & i : weaponary)
+    {
+        //проверка на экипированность предмета
+        if(i->get_equiped())
+        {
+            //присваивание указателя по ключу
+            equiped_weaponary[i->get_type()] = i;
+        }
+    }
+
+    //цикл для заполнения контейнера equiped_armourment
+    for(auto& i : armourment)
+    {
+        //проверка на экипированность предмета
+        if (i->get_equiped())
+        {
+            //присваивание указателя по ключу
+            equiped_armourment[i->get_type()] = i;
+        }
+    }
+
+    //цикл для заполнения контейнера equiped_jewellery
+    for(auto& i : jewellery)
+    {
+        //проверка на экипированность предмета
+        if(i->get_equiped())
+        {
+            //присваивание указателя по ключу
+            equiped_jewellery[i->get_type()] = i;
+        }
+    }
+}
+
 Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 {
 	name = _name;
     x = y = 0;
-    previos_direction = std::make_pair(0, 0);
+    previous_direction = std::make_pair(0, 0);
 	// Characteristics
-    characteristics["HP"] = 5;
+    characteristics["HP"] = 100;
 	characteristics["MAX_HP"] = 100;
 
     characteristics["AGIL"] = 1;
@@ -85,9 +261,9 @@ int Player::get_y() const { return y; }
 
 void Player::set_y(const int& _y) { y = _y; }
 
-std::pair<int, int> Player::get_previous_direction() const {return previos_direction; }
+std::pair<int, int> Player::get_previous_direction() const {return previous_direction; }
 
-void Player::set_previous_direction(const std::pair<int, int>& dir) { previos_direction = dir; }
+void Player::set_previous_direction(const std::pair<int, int>& dir) { previous_direction = dir; }
 
 void Player::change_x(const bool& is_right)
 {
@@ -192,6 +368,99 @@ int Player::die()
         return to_return;
 	}
     return -1;
+}
+
+void Player::save(std::ofstream& out)
+{
+    //размер name
+    size_t size = name.size() + 1;
+    //запись размера name
+    out.write((char*)& size, sizeof(size));
+    //запись name
+    out.write(name.c_str(), size);
+
+    //запись первого значения previous_direction
+    out.write((char*)& previous_direction.first, sizeof(previous_direction.first));
+    //запись второго значения previous_direction
+    out.write((char*)& previous_direction.second, sizeof(previous_direction.second));
+
+    //запись x
+    out.write((char*)& x, sizeof(x));
+    //запись y
+    out.write((char*)& y, sizeof(y));
+
+    //размер контейнера characteristics
+    size = characteristics.size();
+    //запись размера characteristics
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи контейнера
+    for(const auto &i : characteristics)
+    {
+        //размер ключа
+        size_t string_size = i.first.size() + 1;
+        //запись размера ключа
+        out.write((char*)& string_size, sizeof(string_size));
+        //запись ключа
+        out.write(i.first.c_str(), string_size);
+
+        //запись значения
+        out.write((char*)& i.second, sizeof(i.second));
+    }
+
+    //вызов метода записи всех предметов
+    save_all_items(out);
+}
+
+void Player::load(std::ifstream &in)
+{
+    //переменная для размера строки и контейнера
+    size_t size;
+    //чтение размера строки
+    in.read((char*) & size, sizeof(size));
+    //присваивание name строки из пробелов длиной size-1, без /0
+    name = std::string(size - 1, ' ');
+    //чтение name
+    in.read(name.data(), size);
+
+    //чтение первого значния previous_direction
+    in.read((char*)& previous_direction.first, sizeof(previous_direction.first));
+    //чтение второго значения previous_direction
+    in.read((char*)& previous_direction.second, sizeof(previous_direction.second));
+
+    //чтение x
+    in.read((char*)& x, sizeof(x));
+    //чтение y
+    in.read((char*)& y, sizeof(y));
+
+    //чтение размера контейнера characteristics
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера characteristics
+    characteristics.clear();
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //переменная для размера ключа
+        size_t string_size;
+        //чтение размера ключа
+        in.read((char*)& string_size, sizeof(string_size));
+        //присваивание ключу строки из пробелов длиной size-1, без /0
+        std::string key(string_size - 1, ' ');
+        //чтение ключа
+        in.read(key.data(), string_size);
+
+        //переменная для значения
+        int value;
+        //чтение значения
+        in.read((char*)& value, sizeof(value));
+
+        //добавление или изменение пары ключ-значение
+        characteristics[key] = value;
+    }
+
+    //вызов метода чтения всех предметов
+    load_all_items(in);
+    //вызов метода заполнения всех экипированныех предметов
+    load_equiped_items(in);
 }
 
 void Player::process_active_effects()

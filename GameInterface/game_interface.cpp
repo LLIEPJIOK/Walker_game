@@ -19,8 +19,12 @@ Game_Interface::Game_Interface(QWidget *parent)
     showFullScreen();
     menu = new Menu();
     setCentralWidget(menu);
+
+    //создание нового объекта класса SaveAndLoadManager
+    save_load_manager = new SaveAndLoadManager("SAVE_FILE");
+
     connect(General::get_general(), &General::start_game, this, &Game_Interface::start);
-    //connect(menu, &Menu::load_the_game, this, &Game_Interface::load);
+    connect(menu, &Menu::load_the_game, this, &Game_Interface::load);
 }
 
 void Game_Interface::update_characteristics()
@@ -209,6 +213,8 @@ void Game_Interface::paintEvent(QPaintEvent *event)
 void Game_Interface::start(std::vector<std::pair<std::string, std::string>> data)
 {
     data_base->generate_players(data);
+    data_base->generate_map();
+    data_base->generate_items();
     turn->next_player();
     initialize();
     delete menu;
@@ -217,7 +223,8 @@ void Game_Interface::start(std::vector<std::pair<std::string, std::string>> data
 
 void Game_Interface::load()
 {
-    turn->load("../Game/Saves/SAVE_FILE.txt");
+    //вызов метода загрузки
+    save_load_manager->load_all();
     is_load = true;
     initialize();
     delete menu;
@@ -245,6 +252,9 @@ void Game_Interface::next_turn_button_clicked()
 
     current_win->setVisible(false);
     current_win = wins[(turn->get_turn_number()-1) % wins.size()];
+
+    //вызов метода сохранения
+    save_load_manager->save_all();
 
     update_characteristics();
 }

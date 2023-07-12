@@ -93,15 +93,12 @@ public:
     void set_chosen_direction(int x, int y);
     std::vector<std::pair<int, int>> move_player();
     std::vector<std::pair<int, int>> find_possible_ways();
-    void change_player_position(const int& x1, const int& y1, const int& x2, const int& y2) const;
+    //void change_player_position(const int& x1, const int& y1, const int& x2, const int& y2) const;
 
     std::set<Player*> check_players_in_range() const;
 
-    void save(std::string file_name);
-    void load(std::string file_name);
-    std::string load_players(std::vector<JSONObject*>* sequence);
-    std::string load_map(std::vector<JSONObject*>* map);
-    std::string load_turn(JSONObject* turn);
+    void save(std::ofstream& out);
+    void load(std::ifstream& in);
 };
 
 #endif //TURN_H
