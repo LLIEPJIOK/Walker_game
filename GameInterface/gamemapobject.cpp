@@ -1,4 +1,3 @@
-
 #include "gamemapobject.h"
 
 GameMapObject::GameMapObject(QObject *parent, int width, int height, QBrush brush) :

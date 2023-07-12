@@ -1,4 +1,3 @@
-
 #include "DataBase.h"
 
 void Equipment::save(std::ofstream& out)
@@ -111,26 +110,48 @@ void Equipment::load(std::ifstream& in)
 Equipment::Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
 {
     item_id = ID;
-    this->name = name;
+    name = _name;
     item_characteristics = characteristics;
-    this->type = type;
-    this->equipment_class = equipment_class;
+    type = _type;
+    equipment_class = _equipment_class;
     is_equiped = 0;
 }
 
-std::string Equipment::get_name() const { return name; }
+Equipment::Equipment()
+{
+}
 
-const std::map<std::string, int>* Equipment::get_item_characteristics() const { return &item_characteristics; }
+std::string Equipment::get_name() const
+{
+    return name;
+}
 
-int Equipment::get_id() const { return item_id; }
+const std::map<std::string, int>* Equipment::get_item_characteristics() const
+{
+    return &item_characteristics;
+}
 
-bool Equipment::get_equiped() const { return is_equiped; }
+int Equipment::get_id() const
+{
+    return item_id;
+}
 
-std::string Equipment::get_type() const { return type; }
+bool Equipment::get_equiped() const
+{
+    return is_equiped;
+}
+
+std::string Equipment::get_type() const
+{
+    return type;
+}
 
 std::string Equipment::get_class() const { return equipment_class; }
 
-void Equipment::change_equiped() { is_equiped = !is_equiped; }
+void Equipment::change_equiped()
+{
+    is_equiped = !is_equiped;
+}
 
 
 //Jewellery
@@ -525,7 +546,11 @@ void Jewel::make_belt(int turn_number)
     }
 }
 
-Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type) : Equipment(ID, name, equipment_class, characteristics, type) { }
+Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+    : Equipment(ID, name, equipment_class, characteristics, type)
+{
+
+}
 
 Jewel::Jewel(std::string type, int turn_number) : Equipment()
 {
@@ -538,10 +563,18 @@ Jewel::Jewel(std::string type, int turn_number) : Equipment()
 }
 
 //Weaponary
-Weapon::Weapon(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type) : Equipment(ID, name, equipment_class, characteristics, type) { }
+Weapon::Weapon(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+    : Equipment(ID, name, equipment_class, characteristics, type)
+{
+
+}
 
 //Armourment
-Armour::Armour(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type) : Equipment(ID, name, equipment_class, characteristics, type) { }
+Armour::Armour(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+    : Equipment(ID, name, equipment_class, characteristics, type)
+{
+
+}
 
 //Potion
 void Potion::save(std::ofstream& out)
@@ -565,14 +598,22 @@ void Potion::load(std::ifstream& in)
     in.read(effect_name.data(), size);
 }
 
-Potion::Potion(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type, int _duration, std::string _effect_name) : Equipment(ID, name, equipment_class, characteristics, type)
+Potion::Potion(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type, int _duration, std::string _effect_name)
+    : Equipment(ID, name, equipment_class, characteristics, type)
+
 {
     duration = _duration;
     effect_name = _effect_name;
 }
 
-void Potion::dec_duration() { duration--; }
+void Potion::dec_duration()
+{
+    duration--;
+}
 
-int Potion::get_duration() const { return duration; }
+int Potion::get_duration() const
+{
+    return duration;
+}
 
 std::string Potion::get_effect_name() const { return effect_name; }

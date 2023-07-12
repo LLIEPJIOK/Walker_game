@@ -1,4 +1,11 @@
 #include "Turn.h"
+#include "DataBase.h"
+#include "Effect.h"
+
+#define seq DataBase::get_DataBase()->get_sequence()
+#define db DataBase::get_DataBase()
+#define sleep std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
 Turn* Turn::turn = nullptr;
 
 
@@ -30,27 +37,45 @@ void Turn::dice_roll()
     roll =  rand() % (5 * DQNT + 1) + DQNT;
 }
 
-Player* Turn::get_player() {  return player; }
+Player* Turn::get_player()
+{
+    return player;
+}
 
 void Turn::set_player(Player *_player)
 {
     player = _player;
 }
 
-int Turn::get_roll() { return roll; }
+int Turn::get_roll()
+{
+    return roll;
+}
 
-bool Turn::get_moving() { return is_moving; }
+bool Turn::get_moving()
+{
+    return is_moving;
+}
 
-bool Turn::get_already_moved() { return has_already_moved; }
+bool Turn::get_already_moved()
+{
+    return has_already_moved;
+}
 
 bool Turn::get_game_over()
 {
     return game_over;
 }
 
-void Turn::set_already_moved(bool moved) { has_already_moved = moved; }
+void Turn::set_already_moved(bool moved)
+{
+    has_already_moved = moved;
+}
 
-bool Turn::get_has_attacked() { return has_attacked; }
+bool Turn::get_has_attacked()
+{
+    return has_attacked;
+}
 
 bool Turn::event_is_finished()
 {
@@ -62,7 +87,10 @@ void Turn::set_event_is_finished(bool finished)
     event_finished = finished;
 }
 
-void Turn::set_has_attacked(bool atk) { has_attacked = atk; }
+void Turn::set_has_attacked(bool atk)
+{
+    has_attacked = atk;
+}
 
 void Turn::set_game_over(bool over)
 {
@@ -119,7 +147,10 @@ int Turn::get_start_y()
     return start_y;
 }
 
-int Turn::get_turn_number() { return turn_number; }
+int Turn::get_turn_number()
+{
+    return turn_number;
+}
 
 void Turn::set_chosen_direction(int x, int y)
 {
@@ -193,42 +224,42 @@ void Turn::save(std::ofstream &out)
     out.write((char*)& chosen_direction.second, sizeof(chosen_direction.second));
 }
 
-void Turn::load(std::ifstream &in)
+void Turn::load(std::ifstream& in)
 {
     //чтение turn_number
-    in.read((char*)& turn_number, sizeof(turn_number));
+    in.read((char*)&turn_number, sizeof(turn_number));
 
     //чтение game_over
-    in.read((char*)& game_over, sizeof(game_over));
+    in.read((char*)&game_over, sizeof(game_over));
 
     //чтение roll
-    in.read((char*)& roll, sizeof(roll));
+    in.read((char*)&roll, sizeof(roll));
 
     //чтение is_moving
-    in.read((char*)& is_moving, sizeof(is_moving));
+    in.read((char*)&is_moving, sizeof(is_moving));
 
     //чтение has_already_moved
-    in.read((char*)& has_already_moved, sizeof(has_already_moved));
+    in.read((char*)&has_already_moved, sizeof(has_already_moved));
 
     //чтение has_attacked
-    in.read((char*)& has_attacked, sizeof(has_attacked));
+    in.read((char*)&has_attacked, sizeof(has_attacked));
 
     //чтение event_finished
-    in.read((char*)& event_finished, sizeof(event_finished));
+    in.read((char*)&event_finished, sizeof(event_finished));
 
     //чтение start_x
-    in.read((char*)& start_x, sizeof(start_x));
+    in.read((char*)&start_x, sizeof(start_x));
 
     //чтение start_y
-    in.read((char*)& start_y, sizeof(start_y));
+    in.read((char*)&start_y, sizeof(start_y));
 
     //чтение первого значения chosen_direction
-    in.read((char*)& chosen_direction.first, sizeof(chosen_direction.first));
+    in.read((char*)&chosen_direction.first, sizeof(chosen_direction.first));
     //чтение второго значения chosen_direction
-    in.read((char*)& chosen_direction.second, sizeof(chosen_direction.second));
+    in.read((char*)&chosen_direction.second, sizeof(chosen_direction.second));
 
     //присваивание указателя на объект класса Player в зависимости от переменной turn_number
-    player = seq->at((turn_number - 1)%seq->size());
+    player = seq->at((turn_number - 1) % seq->size());
 }
 
 std::vector<std::pair<int, int>> Turn::move_player()
@@ -237,7 +268,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
     std::vector<std::pair<int, int>> ways = find_possible_ways();
     if(chosen_direction == std::make_pair(-1, -1))
         return ways;
-    if(roll>0)
+    if(roll > 0)
     {
         roll--;
         player->set_previous_direction(std::make_pair(player->get_x()-chosen_direction.first, player->get_y() - chosen_direction.second));
@@ -268,7 +299,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
 
 void Turn::next_player()
 {
-    if(turn->turn_number!=0)
+    if(turn->turn_number != 0)
     {
         player->process_active_effects();
         player->set_killed_player(-1);

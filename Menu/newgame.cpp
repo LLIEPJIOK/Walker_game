@@ -18,7 +18,6 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
 
     label_2 = new QLabel("2");
     label_2->setAlignment(Qt::AlignTop);
-    label_2->setContentsMargins(2, 0, 0, 0);
     label_2->setStyleSheet(style);
     label_3 = new QLabel("3");
     label_3->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
@@ -26,15 +25,16 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
     label_4 = new QLabel("4");
     label_4->setAlignment(Qt::AlignRight | Qt::AlignTop);
     label_4->setStyleSheet(style);
-    label_4->setContentsMargins(0, 0, 2, 0);
+
+    label_hblay = new QHBoxLayout();
+    label_hblay->addWidget(label_2);
+    label_hblay->addWidget(label_3);
+    label_hblay->addWidget(label_4);
 
     gridlay = new QGridLayout();
     gridlay->setSpacing(0);
-    gridlay->addWidget(slider, 0, 0, 1, 3);
-    gridlay->addWidget(label_2, 1, 0);
-    gridlay->addWidget(label_3, 1, 1);
-    gridlay->addWidget(label_4, 1, 2);
-
+    gridlay->addWidget(slider, 0, 0);
+    gridlay->addLayout(label_hblay, 1, 0);
     btn_next = new QPushButton();
     btn_next->setFlat(1);
     btn_next->setText("Дальше");

@@ -1,6 +1,10 @@
 #ifndef TURN_H
 #define TURN_H
 
+#include "Player.h"
+#include "Json.h"
+#include "Events/Event.h"
+
 #include <iostream>
 #include <ctime>
 #include <string>
@@ -8,14 +12,6 @@
 #include <iomanip>
 #include <thread>
 #include <chrono>
-#include "Player.h"
-#include "DataBase.h"
-
-#define seq DataBase::get_DataBase()->get_sequence()
-#define db DataBase::get_DataBase()
-#define sleep std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
-class Event;
 
 class Turn
 {
@@ -62,6 +58,7 @@ public:
     void set_already_moved(bool moved);
     bool get_has_attacked();
     bool event_is_finished();
+
     void set_event_is_finished(bool finished);
     void set_has_attacked(bool atk);
     void set_game_over(bool over);
@@ -99,6 +96,9 @@ public:
 
     void save(std::ofstream& out);
     void load(std::ifstream& in);
+
+    // был ли бросок кубика в это ходу
+    bool was_roll();
 };
 
 #endif //TURN_H

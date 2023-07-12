@@ -1,5 +1,7 @@
-
 #include "minimap.h"
+#include "Engine/mapcell.h"
+#include "Engine/DataBase.h"
+
 MiniMap::MiniMap(QWidget *parent, GameMap* battle_map)
     : QFrame{parent}
 {

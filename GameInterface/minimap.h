@@ -1,7 +1,7 @@
-
 #ifndef MINIMAP_H
 #define MINIMAP_H
 
+#include "movingarea.h"
 
 #include <QFrame>
 #include <QPainter>
@@ -10,7 +10,6 @@
 #include <QPaintEvent>
 #include <QDragMoveEvent>
 #include <QApplication>
-#include "movingarea.h"
 
 class MiniMap : public QFrame
 {

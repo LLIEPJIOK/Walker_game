@@ -1,8 +1,13 @@
-
 #include "gamemap.h"
 #include "Events/event_window.h"
+#include "Engine/DataBase.h"
+#include "Engine/Turn.h"
+
 #include <QApplication>
 #include <QScreen>
+
+#define seq DataBase::get_DataBase()->get_sequence()
+
 GameMap::GameMap(QWidget *parent)
     : QGraphicsView{parent}
 {
@@ -35,7 +40,6 @@ GameMap::GameMap(QWidget *parent)
     chosen_way = QPoint(-1, -1);
 
     continue_moving = false;
-
 }
 
 GameMap::~GameMap()
@@ -91,16 +95,33 @@ void GameMap::clear_chosen_way()
     chosen_way = QPoint(-1, -1);
 }
 
+// обновляет координаты игрока
+void GameMap::update_player_coords(Player *player)
+{
+    auto i = player->get_id() - 1;
+    players_on_map[i]->setPos(player->get_x() * scalex + positions[i].x() * 0.6 * scalex,
+                              player->get_y() * scaley + positions[i].y() * 0.6 * scaley);
+}
+
+// обновляет координаты игрока
+void GameMap::update_coords()
+{
+    for (int i = 0; i < seq->size(); i++)
+    {
+        update_player_coords(seq->at(i));
+    }
+}
+
 void GameMap::end_movement()
 {
     emit update_roll();
     Turn* turn = Turn::get_Turn();
-    if(turn->get_activated_event())
+    if (turn->get_activated_event())
     {
         Event_window *event_window = new Event_window(nullptr, turn->get_player(), turn->get_activated_event());
         event_window->setVisible(true);
     }
-    if(turn->get_already_moved())
+    if (turn->get_already_moved())
     {
         emit can_finish_turn();
         if(turn->get_picked_item())
@@ -170,7 +191,6 @@ void GameMap::player_move()
         end_movement();
         highlight_possible_ways(ways);   
     }
-
 }
 
 void GameMap::process_attack()
@@ -231,6 +251,7 @@ void GameMap::initialize()
     timer->stop();
     disconnect(timer, &QTimer::timeout, this, &GameMap::initialize);
     connect(timer, &QTimer::timeout, this, &GameMap::player_move);
+
     MapCell **field = DataBase::get_DataBase()->get_map();
     int battle_map_height = DataBase::get_DataBase()->get_height();
     int battle_map_width = DataBase::get_DataBase()->get_width();
@@ -246,22 +267,27 @@ void GameMap::initialize()
         for(int j = 0; j < battle_map_width; j++)
         {
            Cell* cell = new Cell(battle_map, scalex, scaley, brush, QString::fromStdString(field[i][j].get_tile_name()));
+
            connect(cell, &Cell::cell_signal, this, &GameMap::show_cell_info);
            connect(cell, &Cell::way_to_go, this, &GameMap::clear_ways);
+
            battle_map->addItem(cell);
-           cell->setPos(j*scalex, i*scaley);
+           cell->setPos(j * scalex, i * scaley);
            cells[i][j] = cell;
         }
     }
 
-    for(int i =0; i < s->size(); i++)
+    for(int i = 0; i < s->size(); i++)
     {
-        PlayersModel *players_model = new PlayersModel(battle_map, 0.3*scalex, 0.3*scaley, QBrush(Qt::white), icons[i]);
+        PlayersModel *players_model = new PlayersModel(battle_map, 0.3 * scalex, 0.3 * scaley, QBrush(Qt::white), icons[i]);
+
         connect(players_model, &PlayersModel::target_to_attack, this, &GameMap::process_attack);
+
         players_on_map.push_back(players_model);
         players_model->set_connected_plaeyr(s->at(i));
         battle_map->addItem(players_model);
-        players_model->setPos(s->at(i)->get_x()*scalex + positions[i].x() * 0.6 *scalex, s->at(i)->get_y()*scaley + positions[i].y()*0.6*scaley);
+        players_model->setPos(s->at(i)->get_x() * scalex + positions[i].x() * 0.6 * scalex,
+                              s->at(i)->get_y() * scaley + positions[i].y() * 0.6 * scaley);
     }
 
 }
