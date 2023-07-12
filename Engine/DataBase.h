@@ -7,8 +7,6 @@
 #include <iostream>
 #include "Json.h"
 #include "mapcell.h"
-#include "Effect.h"
-#include "Events/Event.h"
 
 
 const std::string map_file = "../Game/Resources/Files/in.txt";

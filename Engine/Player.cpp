@@ -21,13 +21,24 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 
     characteristics["ATK"] = 10;
     characteristics["ARM"] =  0;
-	characteristics["KG"] =  0;
+
+    // рейндж
 	characteristics["RNG"] = 1;
+
+    // регенерация
 	characteristics["RGN"] = 0;
     characteristics["ARM_VIT"] = 1;
+
+    // количество кубиков
     characteristics["DQNT"] = 1;
+
+    // блокирования прорубающего урона
     characteristics["PIERCE_ARM"] = 0;
+
+    // прорубающий урон
     characteristics["PIERCE"] = 0;
+
+    // криты
     characteristics["CRIT_CH"] = 5;
     characteristics["CRIT_DMG"] = 100;
 
@@ -48,7 +59,7 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     equiped_jewellery["ожерелье"] = nullptr;
     equiped_jewellery["пояс"] = nullptr;
 
-   killed_player = -1;
+    killed_player = -1;
 }
 
 Player::~Player()
@@ -63,9 +74,15 @@ Player::~Player()
 		delete i;
 }
 
-int Player::get_id() const { return PLAYER_ID; }
+int Player::get_id() const
+{
+    return PLAYER_ID;
+}
 
-std::string Player::get_name() const { return name; }
+std::string Player::get_name() const
+{
+    return name;
+}
 
 int Player::get_killed_player()
 {
@@ -77,17 +94,35 @@ void Player::set_killed_player(int id)
     killed_player = id;
 }
 
-int Player::get_x() const { return x; }
+int Player::get_x() const
+{
+    return x;
+}
 
-void Player::set_x(const int& _x) { x = _x; }
+void Player::set_x(const int& _x)
+{
+    x = _x;
+}
 
-int Player::get_y() const { return y; }
+int Player::get_y() const
+{
+    return y;
+}
 
-void Player::set_y(const int& _y) { y = _y; }
+void Player::set_y(const int& _y)
+{
+    y = _y;
+}
 
-std::pair<int, int> Player::get_previous_direction() const {return previos_direction; }
+std::pair<int, int> Player::get_previous_direction() const
+{
+    return previos_direction;
+}
 
-void Player::set_previous_direction(const std::pair<int, int>& dir) { previos_direction = dir; }
+void Player::set_previous_direction(const std::pair<int, int>& dir)
+{
+    previos_direction = dir;
+}
 
 void Player::change_x(const bool& is_right)
 {
@@ -114,23 +149,50 @@ void Player::set_current_id(int id)
     CURRENT_ID = id;
 }
 
-std::map<std::string, int>& Player::get_characteristics() { return characteristics; }
+std::map<std::string, int>& Player::get_characteristics()
+{
+    return characteristics;
+}
 
-std::multiset <Weapon*, Equipment_Comparator>* Player::get_weaponary() { return &weaponary; }
+std::multiset <Weapon*, Equipment_Comparator>* Player::get_weaponary()
+{
+    return &weaponary;
+}
 
-std::multiset <Armour*, Equipment_Comparator>* Player::get_armourment() { return &armourment; }
+std::multiset <Armour*, Equipment_Comparator>* Player::get_armourment()
+{
+    return &armourment;
+}
 
-std::multiset <Potion*, Equipment_Comparator>* Player::get_potions() { return &potions; }
+std::multiset <Potion*, Equipment_Comparator>* Player::get_potions()
+{
+    return &potions;
+}
 
-std::multiset <Jewel*, Equipment_Comparator>* Player::get_jewellery() { return &jewellery; }
+std::multiset <Jewel*, Equipment_Comparator>* Player::get_jewellery()
+{
+    return &jewellery;
+}
 
-std::vector <Effect*>* Player::get_active_effects() { return &active_effects; }
+std::vector <Effect*>* Player::get_active_effects()
+{
+    return &active_effects;
+}
 
-std::map<std::string, Weapon*>* Player::get_equiped_weaponary() { return &equiped_weaponary; }
+std::map<std::string, Weapon*>* Player::get_equiped_weaponary()
+{
+    return &equiped_weaponary;
+}
 
-std::map<std::string, Armour*>* Player::get_equiped_armourment() { return &equiped_armourment; }
+std::map<std::string, Armour*>* Player::get_equiped_armourment()
+{
+    return &equiped_armourment;
+}
 
-std::map<std::string, Jewel*>* Player::get_equiped_jewellery() { return &equiped_jewellery; }
+std::map<std::string, Jewel*>* Player::get_equiped_jewellery()
+{
+    return &equiped_jewellery;
+}
 
 void Player::attack(Player* pl)
 {

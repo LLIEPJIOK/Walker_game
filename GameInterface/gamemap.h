@@ -1,24 +1,22 @@
-
 #ifndef GAMEMAP_H
 #define GAMEMAP_H
 
+#include "cell.h"
+#include "playersmodel.h"
+#include "infocell.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>
 #include <QPainter>
 #include <QGraphicsItemGroup>
-#include "cell.h"
-#include "playersmodel.h"
-#include <QSet>
-#include "infocell.h"
-#include "actionwindow.h"
-#include "Engine/Turn.h"
 #include <QApplication>
+#include <QSet>
 
 class GameMap : public QGraphicsView
 {
     Q_OBJECT
+
 public:
     explicit GameMap(QWidget *parent = nullptr);
     ~GameMap();
@@ -28,6 +26,13 @@ public:
     void want_to_move();
     QPoint get_chosen_way();
     void clear_chosen_way();
+
+    // обновляет координаты игрока
+    void update_player_coords(Player *player);
+
+    // обновляет координаты всех игроков
+    void update_coords();
+
 private:
     QVector<QString> icons;
     Cell*** cells;
@@ -47,12 +52,14 @@ private:
     bool continue_moving;
 
     void end_movement();
+
 signals:
     void win_by_killing();
     void update_roll();
     void can_finish_turn();
     void item_was_picked(Equipment* item);
     void action(QString text);
+
 private slots:
 
     void initialize();

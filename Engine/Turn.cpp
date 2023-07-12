@@ -1,4 +1,11 @@
 #include "Turn.h"
+#include "DataBase.h"
+#include "Effect.h"
+
+#define seq DataBase::get_DataBase()->get_sequence()
+#define db DataBase::get_DataBase()
+#define sleep std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
 Turn* Turn::turn = nullptr;
 
 
@@ -30,27 +37,45 @@ void Turn::dice_roll()
     roll =  rand() % (5 * DQNT + 1) + DQNT;
 }
 
-Player* Turn::get_player() {  return player; }
+Player* Turn::get_player()
+{
+    return player;
+}
 
 void Turn::set_player(Player *_player)
 {
     player = _player;
 }
 
-int Turn::get_roll() { return roll; }
+int Turn::get_roll()
+{
+    return roll;
+}
 
-bool Turn::get_moving() { return is_moving; }
+bool Turn::get_moving()
+{
+    return is_moving;
+}
 
-bool Turn::get_already_moved() { return has_already_moved; }
+bool Turn::get_already_moved()
+{
+    return has_already_moved;
+}
 
 bool Turn::get_game_over()
 {
     return game_over;
 }
 
-void Turn::set_already_moved(bool moved) { has_already_moved = moved; }
+void Turn::set_already_moved(bool moved)
+{
+    has_already_moved = moved;
+}
 
-bool Turn::get_has_attacked() { return has_attacked; }
+bool Turn::get_has_attacked()
+{
+    return has_attacked;
+}
 
 bool Turn::event_is_finished()
 {
@@ -62,7 +87,10 @@ void Turn::set_event_is_finished(bool finished)
     event_finished = finished;
 }
 
-void Turn::set_has_attacked(bool atk) { has_attacked = atk; }
+void Turn::set_has_attacked(bool atk)
+{
+    has_attacked = atk;
+}
 
 void Turn::set_game_over(bool over)
 {
@@ -119,7 +147,10 @@ int Turn::get_start_y()
     return start_y;
 }
 
-int Turn::get_turn_number() { return turn_number; }
+int Turn::get_turn_number()
+{
+    return turn_number;
+}
 
 void Turn::set_chosen_direction(int x, int y)
 {
@@ -193,7 +224,7 @@ void Turn::save(std::string file_name)
         save_file << "\"weaponary\" :" << "[\n"; // weaponary save begin (result : array of objects)
         for (const auto& j : *pl->get_weaponary())
         {
-            if(!j->get_equiped())
+            if (!j->get_equiped())
             {
                 save_file << "\t\"" << j->get_name() << "\"" << ": {\n";
                 save_file << "\t" << "\"name\":\"" << j->get_name() << "\"\n";
@@ -207,7 +238,6 @@ void Turn::save(std::string file_name)
                 save_file << "}\n";
                 save_file << "}\n";
             }
-
         }
         save_file << "\t]\n";
 
@@ -252,7 +282,7 @@ void Turn::save(std::string file_name)
         }
         save_file << "\t]\n";
 
-        save_file << "\"equiped_armoury\" :" << "[\n"; // equiped_armoury save begin (result : array of objects)
+        save_file << "\"equiped_armourment\" :" << "[\n"; // equiped_armoury save begin (result : array of objects)
         for (const auto& j : *pl->get_equiped_armourment())
         {
             if(j.second != nullptr)
@@ -353,7 +383,6 @@ void Turn::save(std::string file_name)
     if(player == nullptr)
         save_file << "\"turn\" : { }\n";
     else
-
     {
         save_file << "\"turn\" : {\n";
 
@@ -445,17 +474,18 @@ std::string Turn::load_players(std::vector<JSONObject *> *sequence)
 {
     for (const auto& i : *sequence)
     {
-
         Player::set_current_id(stoi(i->get_value("player_id")) - 1);
         Player* pl = new Player(i->get_value("name"));
-        pl->set_previous_direction(std::make_pair(std::stoi(i->get_value("previous_direction_x")),std::stoi(i->get_value("previous_direction_y"))));
+        pl->set_previous_direction(std::make_pair(std::stoi(i->get_value("previous_direction_x")), std::stoi(i->get_value("previous_direction_y"))));
         pl->set_x(stoi(i->get_value("x")));
         pl->set_y(stoi(i->get_value("y")));
 
         for (const auto& ch : *i->get_object("characteristics")->get_name_to_value()) // loading characteristics
-            pl->get_characteristics().insert(std::make_pair(ch.first, stoi(ch.second)));
+        {
+            pl->get_characteristics()[ch.first] = stoi(ch.second);
+        }
 
-        if(i->is_in_object_arrays("weaponary"))
+        if (i->is_in_object_arrays("weaponary"))
         {
             for (const auto& j : *i->get_objects("weaponary")) // loading all weapons (except for the equipped ones)
             {
@@ -631,12 +661,14 @@ std::string Turn::load_map(std::vector<JSONObject *> *map)
         int J = std::stoi(i->get_value("j"));
         karta[I][J] = tmp;
     }
+
     DataBase::get_DataBase()->set_map(karta);
     return "success";
 }
 
 std::string Turn::load_turn(JSONObject *turn_object)
 {
+
     has_already_moved = (std::stoi(turn_object->get_value("has_already_moved")));
     chosen_direction = std::make_pair(std::stoi(turn_object->get_value("chosen_x")), std::stoi(turn_object->get_value("chosen_y")));
     event_finished = (std::stoi(turn_object->get_value("event_finished")));
@@ -655,6 +687,11 @@ std::string Turn::load_turn(JSONObject *turn_object)
     return "success";
 }
 
+bool Turn::was_roll()
+{
+    return roll != 0 || is_moving || has_already_moved;
+}
+
 void Turn::change_player_position(const int& x1, const int& y1, const int& x2, const int& y2) const
 {
     MapCell **map = DataBase::get_DataBase()->get_map();
@@ -668,7 +705,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
     std::vector<std::pair<int, int>> ways = find_possible_ways();
     if(chosen_direction == std::make_pair(-1, -1))
         return ways;
-    if(roll>0)
+    if(roll > 0)
     {
         roll--;
         player->set_previous_direction(std::make_pair(player->get_x()-chosen_direction.first, player->get_y() - chosen_direction.second));
@@ -699,7 +736,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
 
 void Turn::next_player()
 {
-    if(turn->turn_number!=0)
+    if(turn->turn_number != 0)
     {
         player->process_active_effects();
         player->set_killed_player(-1);
