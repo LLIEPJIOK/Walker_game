@@ -25,6 +25,7 @@ void DragItem::mousePressEvent(QMouseEvent *event)
     if(event->button() == Qt::RightButton && connected_item->get_class() == "зелье")
     {
         Turn::get_Turn()->get_player()->use_potion(dynamic_cast<Potion*>(connected_item));
+        emit potion_was_used();
         delete this;
     }
 }

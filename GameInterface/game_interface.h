@@ -17,6 +17,7 @@
 #include <QLabel>
 #include <QPushButton>
 
+
 class GameInterface : public QMainWindow
 {
     Q_OBJECT
@@ -24,6 +25,16 @@ class GameInterface : public QMainWindow
 public:
     explicit GameInterface(QWidget *parent = nullptr);
     ~GameInterface();
+
+public slots:
+    // обновляет инвентарь, слоты экипировки, лэйблы текщуго игрока
+    void update_player_status();
+
+    // создание окна события при вызове события
+    void process_event_start();
+
+    // обработка подбора предмета
+    void process_item_pick();
 
 private:
 

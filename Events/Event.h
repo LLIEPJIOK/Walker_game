@@ -39,9 +39,9 @@ public:
     std::string get_success_image();
     std::string get_failure_image();
 
-    virtual int get_requirement(Player* pl);
-    virtual void execute_success(Player* pl) = 0;
-    virtual void execute_failure(Player* pl) = 0;
+    virtual int get_requirement(Player* pl); // в зависимости от статов игрока возвращает необходимое значение (ролл + стат) для успеха
+    virtual void execute_success(Player* pl) = 0; // выполняет задуманную разработчиком функцию, связанную с успехом события
+    virtual void execute_failure(Player* pl) = 0; // выполняет задуманную разработчиком функцию, связанную с провалом события
 };
 
 class experiment_event : public Event

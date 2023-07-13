@@ -1,6 +1,7 @@
 #include "congratulationwindow.h"
 #include "game_interface.h"
 #include "Menu/general.h"
+#include "Events/event_window.h"
 
 #include <QApplication>
 
@@ -93,6 +94,7 @@ void GameInterface::initialize()
         inventories.push_back(inventory);
         connect(inventory, &Inventory::item_was_equiped, this, &GameInterface::process_equip);
         connect(inventory, &Inventory::item_was_unequiped, this, &GameInterface::process_unequip);
+        connect(inventory, &Inventory::potion_was_used, this, &GameInterface::update_player_status);
     }
 
     for(int i = 0; i < data_base->get_sequence()->size(); i++)
@@ -286,6 +288,8 @@ void GameInterface::update_buttons()
 {
     roll_button->setEnabled(!turn->was_roll());
     next_turn_button->setEnabled(turn->get_already_moved());
+    inventory_button->setEnabled(true);
+    menu_button->setEnabled(true);
 }
 
 // обновляет конкретный инвентарь и слоты для экипировки по номеру
@@ -337,10 +341,10 @@ void GameInterface::update_map()
     current_map->lower();
 
     connect(current_map, &GameMap::can_finish_turn, this, &GameInterface::enable_next_button);
-    connect(current_map, &GameMap::item_was_picked, this, &GameInterface::add_item);
     connect(current_map, &GameMap::update_roll, this, &GameInterface::remaining_rolls);
     connect(current_map, &GameMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
     connect(current_map, &GameMap::action, action, &ActionWindow::set_text);
+    connect(current_map, &GameMap::event_triggered, this, &GameInterface::process_event_start);
 
     mini_map = new MiniMap(this, current_map);
     mini_map->setGeometry(0.8 * screen_size.width(), 0.6 * screen_size.height(), 0.195 * screen_size.width(), 0.347 * screen_size.height());
@@ -355,4 +359,39 @@ void GameInterface::update_all()
     update_all_inventories_and_slots();
     update_labels();
     update_map();
+}
+
+// обновляет инвентарь, слоты экипировки, лэйблы текщуго игрока
+void GameInterface::update_player_status()
+{
+    update_inventory_and_slots(turn->get_player()->get_id() - 1); // айдишники начинаются с 1
+    update_labels();
+    update_buttons();
+}
+
+void GameInterface::process_event_start()
+{
+    Event_window *event_window = new Event_window(this, turn->get_player(), turn->get_activated_event());
+
+    // здесь можно было приконектить к методу, который бы отдельно обработал конец ивента и затем отправлял сигнал,
+    // связанный с обработкой подбора предмета (условно не вывод в action, а отдельное окно с изображением полученного предмета)
+    // однако пока что такого окна нету, поэтому можно скипнуть, сразу привязав конец ивента к подбору предмета
+    connect(event_window, &Event_window::event_ended, this, &GameInterface::process_item_pick);
+
+    roll_button->setEnabled(false);
+    next_turn_button->setEnabled(false);
+    inventory_button->setEnabled(false);
+    menu_button->setEnabled(false);
+    event_window->setVisible(true);
+}
+
+void GameInterface::process_item_pick() // совершает подбор предмета, по совместительству заканичивает цепочку действий после конца движения
+{
+        if(turn->get_picked_item())
+        {
+            add_item(turn->get_picked_item());
+            action->set_text("Вы получили предмет: " + QString::fromStdString(turn->get_picked_item()->get_name()) + " (предмет тайла)");
+        }
+
+        update_player_status();
 }

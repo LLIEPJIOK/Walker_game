@@ -4,179 +4,47 @@
 "sequence" : [
 "name" :
 {
-"name" :"Денис"
+"name" :"Игрок1"
 "player_id" :"1"
-<<<<<<< HEAD
-"previous_direction_x" :"-1"
-"previous_direction_y" :"0"
-"x" :"1"
-"y" :"4"
-=======
 "previous_direction_x" :"0"
 "previous_direction_y" :"-1"
-"x" :"15"
-"y" :"15"
->>>>>>> development
+"x" :"6"
+"y" :"4"
 "characteristics" :{
-	"AGIL":"0"
-	"ARM":"116"
-	"ARM_VIT":"251"
-	"ATK":"40"
-	"CRIT_CH":"42"
-	"CRIT_DMG":"168"
+	"AGIL":"4"
+	"ARM":"0"
+	"ARM_VIT":"1"
+	"ATK":"10"
+	"CRIT_CH":"5"
+	"CRIT_DMG":"100"
 	"DQNT":"1"
-<<<<<<< HEAD
-	"HP":"100"
-	"INT":"0"
-	"KG":"0"
-=======
-	"HP":"94"
-	"INT":"4"
->>>>>>> development
+	"HP":"105"
+	"INT":"1"
 	"MAX_HP":"100"
-	"PIERCE":"14"
+	"PIERCE":"0"
 	"PIERCE_ARM":"0"
-	"PIERCE_DEF":"7"
 	"RGN":"0"
 	"RNG":"1"
-	"STR":"0"
+	"ROLL_MOD":"0"
+	"STR":"1"
 }
 "weaponary" :[
-<<<<<<< HEAD
-	"Деревянный щит": {
-	"name":"Деревянный щит"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"105"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ARM":"5"
-		"ATK":"3"
-		"CRIT_CH":"0"
-		"CRIT_DMG":"0"
-		"PIERCE":"0"
-=======
-	"Алебарда": {
-	"name":"Алебарда"
+	"Ржавый колун": {
+	"name":"Ржавый колун"
 	"class":"оружие"
 	"type":"двуручное"
-	"id":"120"
+	"id":"102"
 	"is_equipped": "0"
 	"item_characteristics": {
-		"ATK":"30"
-		"CRIT_CH":"25"
-		"CRIT_DMG":"60"
-		"PIERCE":"30"
-		"RNG":"0"
-}
-}
-	"Железная секира": {
-	"name":"Железная секира"
-	"class":"оружие"
-	"type":"двуручное"
-	"id":"111"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"22"
-		"CRIT_CH":"12"
-		"CRIT_DMG":"60"
-		"PIERCE":"10"
-		"RNG":"0"
-}
-}
-	"Железная секира": {
-	"name":"Железная секира"
-	"class":"оружие"
-	"type":"двуручное"
-	"id":"111"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"22"
-		"CRIT_CH":"12"
-		"CRIT_DMG":"60"
-		"PIERCE":"10"
-		"RNG":"0"
-}
-}
-	"Железный топор": {
-	"name":"Железный топор"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"108"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"10"
-		"CRIT_CH":"12"
-		"CRIT_DMG":"18"
-		"PIERCE":"4"
-		"RNG":"0"
-}
-}
-	"Стальная секира": {
-	"name":"Стальная секира"
-	"class":"оружие"
-	"type":"двуручное"
-	"id":"117"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"40"
-		"CRIT_CH":"20"
-		"CRIT_DMG":"75"
-		"PIERCE":"20"
-		"RNG":"0"
-}
-}
-	"Стальной двуручный меч": {
-	"name":"Стальной двуручный меч"
-	"class":"оружие"
-	"type":"двуручное"
-	"id":"116"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"40"
-		"CRIT_CH":"30"
-		"CRIT_DMG":"80"
-		"PIERCE":"20"
-		"RNG":"0"
-}
-}
-	"Стальной двуручный меч": {
-	"name":"Стальной двуручный меч"
-	"class":"оружие"
-	"type":"двуручное"
-	"id":"116"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"40"
-		"CRIT_CH":"30"
-		"CRIT_DMG":"80"
-		"PIERCE":"20"
-		"RNG":"0"
-}
-}
-	"Стальной меч": {
-	"name":"Стальной меч"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"114"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"20"
-		"CRIT_CH":"20"
-		"CRIT_DMG":"40"
-		"PIERCE":"15"
->>>>>>> development
+		"ATK":"9"
+		"CRIT_CH":"8"
+		"CRIT_DMG":"15"
+		"PIERCE":"3"
 		"RNG":"0"
 }
 }
 	]
 "equiped_weaponary" :[
-<<<<<<< HEAD
-	]
-"armourment" :[
-	]
-"equiped_armoury" :[
-=======
 	"Щит Ахилла": {
 	"slot":"неосновная_рука"
 	"name":"Щит Ахилла"
@@ -193,131 +61,37 @@
 		"RNG":"0"
 }
 }
-	"Железный топор": {
-	"slot":"основная_рука"
-	"name":"Железный топор"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"108"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ATK":"10"
-		"CRIT_CH":"12"
-		"CRIT_DMG":"18"
-		"PIERCE":"4"
-		"RNG":"0"
-}
-}
 	]
 "armourment" :[
-	"Кожаные поножи": {
-	"name":"Кожаные поножи"
-	"class":"броня"
-	"type":"поножи"
-	"id":"206"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ARM":"2"
-		"ARM_VIT":"20"
-		"PIERCE_DEF":"0"
-}
-}
 	]
 "equiped_armourment" :[
-	"Железный нагрудник": {
-	"slot":"нагрудник"
-	"name":"Железный нагрудник"
-	"class":"броня"
-	"type":"нагрудник"
-	"id":"205"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ARM":"6"
-		"ARM_VIT":"50"
-		"PIERCE_DEF":"2"
-}
-}
-	"Железные поножи": {
-	"slot":"поножи"
-	"name":"Железные поножи"
-	"class":"броня"
-	"type":"поножи"
-	"id":"207"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ARM":"3"
-		"ARM_VIT":"40"
-		"PIERCE_DEF":"1"
-}
-}
-	"Стальные сапоги": {
-	"slot":"сапоги"
-	"name":"Стальные сапоги"
-	"class":"броня"
-	"type":"сапоги"
-	"id":"213"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ARM":"4"
-		"ARM_VIT":"80"
-		"PIERCE_DEF":"2"
-}
-}
-	"Стальной шлем": {
-	"slot":"шлем"
-	"name":"Стальной шлем"
-	"class":"броня"
-	"type":"шлем"
-	"id":"209"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ARM":"3"
-		"ARM_VIT":"80"
-		"PIERCE_DEF":"2"
-}
-}
->>>>>>> development
 	]
 "jewellery" :[
 	]
 "equiped_jewellery" :[
+	"Простой пояс здоровья(INT)": {
+	"slot":"пояс"
+	"name":"Простой пояс здоровья(INT)"
+	"class":"украшение"
+	"type":"пояс"
+	"id":"991"
+	"is_equipped": "1"
+	"item_characteristics": {
+		"HP":"5"
+		"INT":"1"
+}
+}
 	]
 "potions" :[
-<<<<<<< HEAD
-=======
-	"Зелье развивания": {
-	"name": "Зелье развивания"
-	"class": "зелье"
-	"type": "мгновенное"
-	"id": "300"
-	"is_equipped": "0"
-	"effect_name": "развеивание"
-	"effect_duration": "1"
-	"item_characteristics": {
-}
-}
-	"Зелье регенерации": {
-	"name": "Зелье регенерации"
+	"Зелье силы": {
+	"name": "Зелье силы"
 	"class": "зелье"
 	"type": "длительное"
-	"id": "304"
+	"id": "305"
 	"is_equipped": "0"
-	"effect_name": "регенерация"
+	"effect_name": "усиление"
 	"effect_duration": "3"
 	"item_characteristics": {
-}
-}
->>>>>>> development
-	"Малое зелье лечения": {
-	"name": "Малое зелье лечения"
-	"class": "зелье"
-	"type": "мгновенное"
-	"id": "301"
-	"is_equipped": "0"
-	"effect_name": "нет"
-	"effect_duration": "1"
-	"item_characteristics": {
-		"HP":"10"
 }
 }
 	]
@@ -326,13 +100,12 @@
 }
 "name" :
 {
-"name" :"Никита"
+"name" :"Игрок2"
 "player_id" :"2"
 "previous_direction_x" :"0"
-<<<<<<< HEAD
-"previous_direction_y" :"0"
-"x" :"0"
-"y" :"0"
+"previous_direction_y" :"1"
+"x" :"3"
+"y" :"3"
 "characteristics" :{
 	"AGIL":"0"
 	"ARM":"0"
@@ -341,248 +114,89 @@
 	"CRIT_CH":"5"
 	"CRIT_DMG":"100"
 	"DQNT":"1"
-	"HP":"100"
-	"INT":"4"
-	"KG":"0"
-=======
-"previous_direction_y" :"1"
-"x" :"20"
-"y" :"11"
-"characteristics" :{
-	"AGIL":"8"
-	"ARM":"65"
-	"ARM_VIT":"331"
-	"ATK":"100"
-	"CRIT_CH":"205"
-	"CRIT_DMG":"320"
-	"DQNT":"1"
-	"HP":"200"
-	"INT":"1"
->>>>>>> development
+	"HP":"84"
+	"INT":"0"
 	"MAX_HP":"100"
-	"PIERCE":"90"
+	"PIERCE":"0"
 	"PIERCE_ARM":"0"
-	"PIERCE_DEF":"9"
 	"RGN":"0"
 	"RNG":"1"
-	"STR":"4"
+	"ROLL_MOD":"0"
+	"STR":"5"
 }
 "weaponary" :[
-	"Железная секира": {
-	"name":"Железная секира"
+	"Алебарда": {
+	"name":"Алебарда"
 	"class":"оружие"
 	"type":"двуручное"
-	"id":"111"
+	"id":"120"
 	"is_equipped": "0"
 	"item_characteristics": {
-		"ATK":"22"
-		"CRIT_CH":"12"
+		"ATK":"30"
+		"CRIT_CH":"25"
 		"CRIT_DMG":"60"
-		"PIERCE":"10"
+		"PIERCE":"30"
 		"RNG":"0"
 }
 }
-	"Ржавый колун": {
-	"name":"Ржавый колун"
+	"Стальной боевой молот": {
+	"name":"Стальной боевой молот"
 	"class":"оружие"
 	"type":"двуручное"
-	"id":"102"
+	"id":"118"
 	"is_equipped": "0"
 	"item_characteristics": {
-		"ATK":"9"
-		"CRIT_CH":"8"
-		"CRIT_DMG":"15"
-		"PIERCE":"3"
-		"RNG":"0"
-}
-}
-	"Ржавый колун": {
-	"name":"Ржавый колун"
-	"class":"оружие"
-	"type":"двуручное"
-	"id":"102"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"9"
-		"CRIT_CH":"8"
-		"CRIT_DMG":"15"
-		"PIERCE":"3"
-		"RNG":"0"
-}
-}
-	"Серп Кроноса": {
-	"name":"Серп Кроноса"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"170"
-	"is_equipped": "0"
-	"item_characteristics": {
-		"ATK":"45"
-		"CRIT_CH":"100"
-		"CRIT_DMG":"100"
-		"PIERCE":"45"
+		"ATK":"40"
+		"CRIT_CH":"25"
+		"CRIT_DMG":"80"
+		"PIERCE":"25"
 		"RNG":"0"
 }
 }
 	]
 "equiped_weaponary" :[
-	"Серп Кроноса": {
-	"slot":"неосновная_рука"
-	"name":"Серп Кроноса"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"170"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ATK":"45"
-		"CRIT_CH":"100"
-		"CRIT_DMG":"100"
-		"PIERCE":"45"
-		"RNG":"0"
-}
-}
-	"Серп Кроноса": {
-	"slot":"основная_рука"
-	"name":"Серп Кроноса"
-	"class":"оружие"
-	"type":"одноручное"
-	"id":"170"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ATK":"45"
-		"CRIT_CH":"100"
-		"CRIT_DMG":"100"
-		"PIERCE":"45"
-		"RNG":"0"
-}
-}
 	]
 "armourment" :[
-<<<<<<< HEAD
-=======
+	"Кожаные перчатки": {
+	"name":"Кожаные перчатки"
+	"class":"броня"
+	"type":"перчатки"
+	"id":"201"
+	"is_equipped": "0"
+	"item_characteristics": {
+		"ARM":"1"
+		"ARM_VIT":"20"
+		"PIERCE_DEF":"0"
+}
+}
 	]
 "equiped_armourment" :[
-	"Железный нагрудник": {
-	"slot":"нагрудник"
-	"name":"Железный нагрудник"
-	"class":"броня"
-	"type":"нагрудник"
-	"id":"205"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ARM":"6"
-		"ARM_VIT":"50"
-		"PIERCE_DEF":"2"
-}
-}
-	"Стальные поножи": {
-	"slot":"поножи"
-	"name":"Стальные поножи"
-	"class":"броня"
-	"type":"поножи"
-	"id":"212"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"ARM":"4"
-		"ARM_VIT":"80"
-		"PIERCE_DEF":"2"
-}
-}
-	"Таларии": {
-	"slot":"сапоги"
-	"name":"Таларии"
-	"class":"броня"
-	"type":"сапоги"
-	"id":"240"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"AGIL":"5"
-		"ARM":"5"
-		"ARM_VIT":"200"
-		"PIERCE_DEF":"5"
-}
-}
->>>>>>> development
 	]
 "jewellery" :[
 	]
 "equiped_jewellery" :[
-	"Малое ожерелье критческого удара и защиты(AGIL)": {
-	"slot":"ожерелье"
-	"name":"Малое ожерелье критческого удара и защиты(AGIL)"
-	"class":"украшение"
-	"type":"ожерелье"
-	"id":"863"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"AGIL":"1"
-		"ARM":"5"
-		"CRIT_DMG":"10"
-}
-}
-	"Малое кольцо критческого удара(INT)": {
-	"slot":"первое_кольцо"
-	"name":"Малое кольцо критческого удара(INT)"
-	"class":"украшение"
-	"type":"кольцо"
-	"id":"931"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"CRIT_DMG":"10"
-		"INT":"1"
-}
-}
-	"Пояс здоровья(AGIL)": {
-	"slot":"пояс"
-	"name":"Пояс здоровья(AGIL)"
-	"class":"украшение"
-	"type":"пояс"
-	"id":"872"
-	"is_equipped": "1"
-	"item_characteristics": {
-		"AGIL":"2"
-		"HP":"10"
-}
-}
 	]
 "potions" :[
-	"Зелье развивания": {
-	"name": "Зелье развивания"
-	"class": "зелье"
-	"type": "мгновенное"
-	"id": "300"
-	"is_equipped": "0"
-	"effect_name": "развеивание"
-	"effect_duration": "1"
-	"item_characteristics": {
-}
-}
 	]
 "active_effects" :[
-	"стойкость": {
-	"effect_name": "стойкость"
-	"effect_duration": "3"
-	"effect_counter": "1"
+	"отравление": {
+	"effect_name": "отравление"
+	"effect_duration": "1"
+	"effect_counter": "4"
 }
 	]
 }
 ]
 "turn" : {
-	"player" :"2"
+	"player" :"1"
 	"game_over" :"0"
 	"roll" :"0"
 	"is_moving" :"0"
 	"has_already_moved" :"0"
 	"has_attacked" :"0"
-<<<<<<< HEAD
-	"turn_number" :"2"
-	"start_x" :"0"
-	"start_y" :"0"
-=======
-	"turn_number" :"42"
-	"start_x" :"20"
-	"start_y" :"11"
->>>>>>> development
+	"turn_number" :"7"
+	"start_x" :"6"
+	"start_y" :"4"
 	"chosen_x" :"-1"
 	"chosen_y" :"-1"
 	"event_finished" :"1"
@@ -590,17 +204,12 @@
 "map" : [
 "0und0":{
 	"players_on_cell" : [
-	"2"
 	]
 	"i" :"0"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Кастет"
->>>>>>> development
+	"item" :"Алебарда"
 }
 "0und1":{
 	"players_on_cell" : [
@@ -608,12 +217,8 @@
 	"i" :"0"
 	"j" :"1"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье развеивания"
-=======
-	"item" :"Малое зелье лечения"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Стальной двуручный меч"
 }
 "0und2":{
 	"players_on_cell" : [
@@ -621,12 +226,8 @@
 	"i" :"0"
 	"j" :"2"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный шлем"
-=======
-	"item" :"Арбалет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Нет"
 }
 "0und3":{
 	"players_on_cell" : [
@@ -634,12 +235,8 @@
 	"i" :"0"
 	"j" :"3"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Госвит"
-=======
+	"event_name" :"empty house"
 	"item" :"Нет"
->>>>>>> development
 }
 "0und4":{
 	"players_on_cell" : [
@@ -648,11 +245,7 @@
 	"j" :"4"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Мьёлнир"
-=======
-	"item" :"Стальные поножи"
->>>>>>> development
+	"item" :"Нет"
 }
 "0und5":{
 	"players_on_cell" : [
@@ -660,12 +253,8 @@
 	"i" :"0"
 	"j" :"5"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные поножи"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Загадочный пояс"
 }
 "0und6":{
 	"players_on_cell" : [
@@ -673,12 +262,8 @@
 	"i" :"0"
 	"j" :"6"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный шлем"
-=======
-	"item" :"Арбалет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Кожаные перчатки"
 }
 "0und7":{
 	"players_on_cell" : [
@@ -686,7 +271,7 @@
 	"i" :"0"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "0und8":{
@@ -695,12 +280,8 @@
 	"i" :"0"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный нагрудник"
-=======
-	"item" :"Кожаные поножи"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальные поножи"
 }
 "0und9":{
 	"players_on_cell" : [
@@ -708,12 +289,8 @@
 	"i" :"0"
 	"j" :"9"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный молот"
-=======
-	"item" :"Железный щит"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаные сапоги"
 }
 "0und10":{
 	"players_on_cell" : [
@@ -722,11 +299,7 @@
 	"j" :"10"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Алебарда"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Загадочное ожерелье"
 }
 "0und11":{
 	"players_on_cell" : [
@@ -735,11 +308,7 @@
 	"j" :"11"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Деревянный щит"
-=======
-	"item" :"Железные сапоги"
->>>>>>> development
+	"item" :"Стальной меч"
 }
 "0und12":{
 	"players_on_cell" : [
@@ -748,11 +317,7 @@
 	"j" :"12"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный шлем"
-=======
-	"item" :"Стальной топор"
->>>>>>> development
+	"item" :"Кастет"
 }
 "0und13":{
 	"players_on_cell" : [
@@ -760,12 +325,8 @@
 	"i" :"0"
 	"j" :"13"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железная булава"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Стальной двуручный меч"
 }
 "0und14":{
 	"players_on_cell" : [
@@ -774,11 +335,7 @@
 	"j" :"14"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Мьёлнир"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Загадочное ожерелье"
 }
 "0und15":{
 	"players_on_cell" : [
@@ -786,12 +343,8 @@
 	"i" :"0"
 	"j" :"15"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной щит"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железный топор"
 }
 "0und16":{
 	"players_on_cell" : [
@@ -799,12 +352,8 @@
 	"i" :"0"
 	"j" :"16"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
+	"event_name" :"mushrooms"
 	"item" :"Зелье стойкости"
-=======
-	"item" :"Стальные сапоги"
->>>>>>> development
 }
 "0und17":{
 	"players_on_cell" : [
@@ -812,12 +361,8 @@
 	"i" :"0"
 	"j" :"17"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Зелье развеивания"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Копье Пелея"
 }
 "0und18":{
 	"players_on_cell" : [
@@ -825,12 +370,8 @@
 	"i" :"0"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный нагрудник"
-=======
-	"item" :"Алебарда"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Нет"
 }
 "0und19":{
 	"players_on_cell" : [
@@ -838,7 +379,7 @@
 	"i" :"0"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "0und20":{
@@ -847,7 +388,7 @@
 	"i" :"0"
 	"j" :"20"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "1und0":{
@@ -856,12 +397,8 @@
 	"i" :"1"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный шлем"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Алебарда"
 }
 "1und1":{
 	"players_on_cell" : [
@@ -869,7 +406,7 @@
 	"i" :"1"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "1und2":{
@@ -879,11 +416,7 @@
 	"j" :"2"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Арбалет"
-=======
-	"item" :"Кожаные поножи"
->>>>>>> development
+	"item" :"Стальной щит"
 }
 "1und3":{
 	"players_on_cell" : [
@@ -891,7 +424,7 @@
 	"i" :"1"
 	"j" :"3"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "1und4":{
@@ -900,12 +433,8 @@
 	"i" :"1"
 	"j" :"4"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Таларии"
-=======
-	"item" :"Большое зелье лечения"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Кожаные перчатки"
 }
 "1und5":{
 	"players_on_cell" : [
@@ -922,12 +451,8 @@
 	"i" :"1"
 	"j" :"6"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное кольцо"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Таларии"
 }
 "1und7":{
 	"players_on_cell" : [
@@ -935,12 +460,8 @@
 	"i" :"1"
 	"j" :"7"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной топор"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Зелье лечения"
 }
 "1und8":{
 	"players_on_cell" : [
@@ -948,12 +469,8 @@
 	"i" :"1"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Зелье развеивания"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Шкура немейского льва"
 }
 "1und9":{
 	"players_on_cell" : [
@@ -961,7 +478,7 @@
 	"i" :"1"
 	"j" :"9"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "1und10":{
@@ -970,12 +487,8 @@
 	"i" :"1"
 	"j" :"10"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье лечения"
-=======
-	"item" :"Железные сапоги"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Загадочное ожерелье"
 }
 "1und11":{
 	"players_on_cell" : [
@@ -983,7 +496,7 @@
 	"i" :"1"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "1und12":{
@@ -992,12 +505,8 @@
 	"i" :"1"
 	"j" :"12"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный топор"
-=======
-	"item" :"Копье Пелея"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Зелье силы"
 }
 "1und13":{
 	"players_on_cell" : [
@@ -1014,12 +523,8 @@
 	"i" :"1"
 	"j" :"14"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной боевой молот"
-=======
-	"item" :"Железные перчатки"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье развеивания"
 }
 "1und15":{
 	"players_on_cell" : [
@@ -1027,7 +532,7 @@
 	"i" :"1"
 	"j" :"15"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "1und16":{
@@ -1036,12 +541,8 @@
 	"i" :"1"
 	"j" :"16"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Алебарда"
-=======
-	"item" :"Стальной щит"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Зелье регенерации"
 }
 "1und17":{
 	"players_on_cell" : [
@@ -1049,7 +550,7 @@
 	"i" :"1"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "1und18":{
@@ -1058,12 +559,8 @@
 	"i" :"1"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Госвит"
-=======
-	"item" :"Стальной нагрудник"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железная секира"
 }
 "1und19":{
 	"players_on_cell" : [
@@ -1071,12 +568,8 @@
 	"i" :"1"
 	"j" :"19"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Деревянный щит"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железный меч"
 }
 "1und20":{
 	"players_on_cell" : [
@@ -1084,12 +577,8 @@
 	"i" :"1"
 	"j" :"20"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Большое зелье лечения"
-=======
-	"item" :"Шкура немейского льва"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Стальные сапоги"
 }
 "2und0":{
 	"players_on_cell" : [
@@ -1097,12 +586,8 @@
 	"i" :"2"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Малое зелье лечения"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Нет"
 }
 "2und1":{
 	"players_on_cell" : [
@@ -1120,11 +605,7 @@
 	"j" :"2"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный молот"
-=======
-	"item" :"Железная секира"
->>>>>>> development
+	"item" :"Загадочное ожерелье"
 }
 "2und3":{
 	"players_on_cell" : [
@@ -1132,12 +613,8 @@
 	"i" :"2"
 	"j" :"3"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные сапоги"
-=======
-	"item" :"Ржавый колун"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальные поножи"
 }
 "2und4":{
 	"players_on_cell" : [
@@ -1146,7 +623,7 @@
 	"j" :"4"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-	"item" :"Загадочный пояс"
+	"item" :"Нет"
 }
 "2und5":{
 	"players_on_cell" : [
@@ -1154,7 +631,7 @@
 	"i" :"2"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "2und6":{
@@ -1164,11 +641,7 @@
 	"j" :"6"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Копье Пелея"
-=======
-	"item" :"Щит Ахилла"
->>>>>>> development
+	"item" :"Стальная булава"
 }
 "2und7":{
 	"players_on_cell" : [
@@ -1176,7 +649,7 @@
 	"i" :"2"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "2und8":{
@@ -1185,12 +658,8 @@
 	"i" :"2"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Ржавый колун"
-=======
-	"item" :"Железный меч"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железный молот"
 }
 "2und9":{
 	"players_on_cell" : [
@@ -1198,12 +667,8 @@
 	"i" :"2"
 	"j" :"9"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье регенерации"
-=======
-	"item" :"Кожаные поножи"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье стойкости"
 }
 "2und10":{
 	"players_on_cell" : [
@@ -1211,12 +676,8 @@
 	"i" :"2"
 	"j" :"10"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Копье Пелея"
-=======
-	"item" :"Арбалет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Большое зелье лечения"
 }
 "2und11":{
 	"players_on_cell" : [
@@ -1234,11 +695,7 @@
 	"j" :"12"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной нагрудник"
-=======
-	"item" :"Стальная булава"
->>>>>>> development
+	"item" :"Стальные перчатки"
 }
 "2und13":{
 	"players_on_cell" : [
@@ -1246,7 +703,7 @@
 	"i" :"2"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "2und14":{
@@ -1255,12 +712,8 @@
 	"i" :"2"
 	"j" :"14"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной меч"
-=======
-	"item" :"Зелье силы"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Серп Кроноса"
 }
 "2und15":{
 	"players_on_cell" : [
@@ -1269,11 +722,7 @@
 	"j" :"15"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Алебарда"
-=======
-	"item" :"Кожаный шлем"
->>>>>>> development
+	"item" :"Зелье регенерации"
 }
 "2und16":{
 	"players_on_cell" : [
@@ -1282,7 +731,7 @@
 	"j" :"16"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-	"item" :"Стальная булава"
+	"item" :"Железные перчатки"
 }
 "2und17":{
 	"players_on_cell" : [
@@ -1290,7 +739,7 @@
 	"i" :"2"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "2und18":{
@@ -1299,12 +748,8 @@
 	"i" :"2"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Госвит"
-=======
-	"item" :"Железный двуручный меч"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаный шлем"
 }
 "2und19":{
 	"players_on_cell" : [
@@ -1312,7 +757,7 @@
 	"i" :"2"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "2und20":{
@@ -1321,12 +766,8 @@
 	"i" :"2"
 	"j" :"20"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Стальной двуручный меч"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Кастет"
 }
 "3und0":{
 	"players_on_cell" : [
@@ -1334,8 +775,8 @@
 	"i" :"3"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-	"item" :"Щит Ахилла"
+	"event_name" :"loggers"
+	"item" :"Железные сапоги"
 }
 "3und1":{
 	"players_on_cell" : [
@@ -1343,7 +784,7 @@
 	"i" :"3"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "3und2":{
@@ -1352,21 +793,18 @@
 	"i" :"3"
 	"j" :"2"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "3und3":{
 	"players_on_cell" : [
+	"2"
 	]
 	"i" :"3"
 	"j" :"3"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кастет"
-=======
-	"item" :"Кожаные сапоги"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Нет"
 }
 "3und4":{
 	"players_on_cell" : [
@@ -1374,7 +812,7 @@
 	"i" :"3"
 	"j" :"4"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "3und5":{
@@ -1383,7 +821,7 @@
 	"i" :"3"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "3und6":{
@@ -1392,12 +830,8 @@
 	"i" :"3"
 	"j" :"6"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Деревянный щит"
-=======
-	"item" :"Зелье развеивания"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железный шлем"
 }
 "3und7":{
 	"players_on_cell" : [
@@ -1405,7 +839,7 @@
 	"i" :"3"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "3und8":{
@@ -1423,12 +857,8 @@
 	"i" :"3"
 	"j" :"9"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные поножи"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Госвит"
 }
 "3und10":{
 	"players_on_cell" : [
@@ -1445,7 +875,7 @@
 	"i" :"3"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "3und12":{
@@ -1454,12 +884,8 @@
 	"i" :"3"
 	"j" :"12"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной топор"
-=======
-	"item" :"Шкура немейского льва"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железный нагрудник"
 }
 "3und13":{
 	"players_on_cell" : [
@@ -1467,7 +893,7 @@
 	"i" :"3"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "3und14":{
@@ -1486,11 +912,7 @@
 	"j" :"15"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Ржавый колун"
-=======
-	"item" :"Зелье силы"
->>>>>>> development
+	"item" :"Стальной щит"
 }
 "3und16":{
 	"players_on_cell" : [
@@ -1498,7 +920,7 @@
 	"i" :"3"
 	"j" :"16"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "3und17":{
@@ -1516,8 +938,8 @@
 	"i" :"3"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-	"item" :"Нет"
+	"event_name" :"mushrooms"
+	"item" :"Деревянный щит"
 }
 "3und19":{
 	"players_on_cell" : [
@@ -1525,7 +947,7 @@
 	"i" :"3"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "3und20":{
@@ -1534,12 +956,8 @@
 	"i" :"3"
 	"j" :"20"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный шлем"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Лук Аполонна"
 }
 "4und0":{
 	"players_on_cell" : [
@@ -1547,26 +965,17 @@
 	"i" :"4"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный топор"
-=======
-	"item" :"Кожаные сапоги"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье силы"
 }
 "4und1":{
 	"players_on_cell" : [
-	"1"
 	]
 	"i" :"4"
 	"j" :"1"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Стальной боевой молот"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железный щит"
 }
 "4und2":{
 	"players_on_cell" : [
@@ -1574,12 +983,8 @@
 	"i" :"4"
 	"j" :"2"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной топор"
-=======
-	"item" :"Кожаный шлем"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Арбалет"
 }
 "4und3":{
 	"players_on_cell" : [
@@ -1587,12 +992,8 @@
 	"i" :"4"
 	"j" :"3"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной нагрудник"
-=======
-	"item" :"Железный шлем"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Нет"
 }
 "4und4":{
 	"players_on_cell" : [
@@ -1600,7 +1001,7 @@
 	"i" :"4"
 	"j" :"4"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "4und5":{
@@ -1609,21 +1010,18 @@
 	"i" :"4"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "4und6":{
 	"players_on_cell" : [
+	"1"
 	]
 	"i" :"4"
 	"j" :"6"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Ржавый меч"
-=======
+	"event_name" :"empty house"
 	"item" :"Нет"
->>>>>>> development
 }
 "4und7":{
 	"players_on_cell" : [
@@ -1631,12 +1029,8 @@
 	"i" :"4"
 	"j" :"7"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной меч"
-=======
-	"item" :"Железный шлем"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Кожаный нагрудник"
 }
 "4und8":{
 	"players_on_cell" : [
@@ -1644,12 +1038,8 @@
 	"i" :"4"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные перчатки"
-=======
-	"item" :"Ржавый меч"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Малое зелье лечения"
 }
 "4und9":{
 	"players_on_cell" : [
@@ -1657,8 +1047,8 @@
 	"i" :"4"
 	"j" :"9"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-	"item" :"Ржавый меч"
+	"event_name" :"mushrooms"
+	"item" :"Стальной топор"
 }
 "4und10":{
 	"players_on_cell" : [
@@ -1675,7 +1065,7 @@
 	"i" :"4"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "4und12":{
@@ -1684,12 +1074,8 @@
 	"i" :"4"
 	"j" :"12"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной нагрудник"
-=======
-	"item" :"Кастет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальной двуручный меч"
 }
 "4und13":{
 	"players_on_cell" : [
@@ -1697,12 +1083,8 @@
 	"i" :"4"
 	"j" :"13"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной щит"
-=======
-	"item" :"Малое зелье лечения"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железный шлем"
 }
 "4und14":{
 	"players_on_cell" : [
@@ -1711,11 +1093,7 @@
 	"j" :"14"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Малое зелье лечения"
-=======
-	"item" :"Стальной щит"
->>>>>>> development
+	"item" :"Копье Пелея"
 }
 "4und15":{
 	"players_on_cell" : [
@@ -1724,11 +1102,7 @@
 	"j" :"15"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железная секира"
-=======
-	"item" :"Лук Аполонна"
->>>>>>> development
+	"item" :"Стальные поножи"
 }
 "4und16":{
 	"players_on_cell" : [
@@ -1745,7 +1119,7 @@
 	"i" :"4"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "4und18":{
@@ -1754,12 +1128,8 @@
 	"i" :"4"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной топор"
-=======
-	"item" :"Стальной шлем"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Кожаные поножи"
 }
 "4und19":{
 	"players_on_cell" : [
@@ -1767,12 +1137,8 @@
 	"i" :"4"
 	"j" :"19"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Малое зелье лечения"
-=======
-	"item" :"Госвит"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железный меч"
 }
 "4und20":{
 	"players_on_cell" : [
@@ -1780,12 +1146,8 @@
 	"i" :"4"
 	"j" :"20"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное ожерелье"
-=======
-	"item" :"Стальной двуручный меч"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальной боевой молот"
 }
 "5und0":{
 	"players_on_cell" : [
@@ -1793,7 +1155,7 @@
 	"i" :"5"
 	"j" :"0"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "5und1":{
@@ -1811,12 +1173,8 @@
 	"i" :"5"
 	"j" :"2"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной топор"
-=======
-	"item" :"Загадочный пояс"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Ржавый меч"
 }
 "5und3":{
 	"players_on_cell" : [
@@ -1833,7 +1191,7 @@
 	"i" :"5"
 	"j" :"4"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "5und5":{
@@ -1860,7 +1218,7 @@
 	"i" :"5"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "5und8":{
@@ -1869,12 +1227,8 @@
 	"i" :"5"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Серп Кроноса"
-=======
-	"item" :"Щит Ахилла"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаные поножи"
 }
 "5und9":{
 	"players_on_cell" : [
@@ -1882,7 +1236,7 @@
 	"i" :"5"
 	"j" :"9"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "5und10":{
@@ -1927,12 +1281,8 @@
 	"i" :"5"
 	"j" :"14"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Щит Ахилла"
-=======
-	"item" :"Загадочное кольцо"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Шкура немейского льва"
 }
 "5und15":{
 	"players_on_cell" : [
@@ -1940,7 +1290,7 @@
 	"i" :"5"
 	"j" :"15"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "5und16":{
@@ -1949,7 +1299,7 @@
 	"i" :"5"
 	"j" :"16"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "5und17":{
@@ -1967,7 +1317,7 @@
 	"i" :"5"
 	"j" :"18"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "5und19":{
@@ -1976,7 +1326,7 @@
 	"i" :"5"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "5und20":{
@@ -1985,12 +1335,8 @@
 	"i" :"5"
 	"j" :"20"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные сапоги"
-=======
-	"item" :"Зелье ускорения"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Загадочное кольцо"
 }
 "6und0":{
 	"players_on_cell" : [
@@ -1998,7 +1344,7 @@
 	"i" :"6"
 	"j" :"0"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "6und1":{
@@ -2007,7 +1353,7 @@
 	"i" :"6"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "6und2":{
@@ -2016,12 +1362,8 @@
 	"i" :"6"
 	"j" :"2"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные перчатки"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Мьёлнир"
 }
 "6und3":{
 	"players_on_cell" : [
@@ -2029,12 +1371,8 @@
 	"i" :"6"
 	"j" :"3"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Кожаные перчатки"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Серп Кроноса"
 }
 "6und4":{
 	"players_on_cell" : [
@@ -2042,12 +1380,8 @@
 	"i" :"6"
 	"j" :"4"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный топор"
-=======
-	"item" :"Зелье ускорения"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Щит Ахилла"
 }
 "6und5":{
 	"players_on_cell" : [
@@ -2055,12 +1389,8 @@
 	"i" :"6"
 	"j" :"5"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочный пояс"
-=======
-	"item" :"Копье Пелея"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Кастет"
 }
 "6und6":{
 	"players_on_cell" : [
@@ -2069,11 +1399,7 @@
 	"j" :"6"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье стойкости"
-=======
-	"item" :"Лук Аполонна"
->>>>>>> development
+	"item" :"Ржавый меч"
 }
 "6und7":{
 	"players_on_cell" : [
@@ -2081,7 +1407,7 @@
 	"i" :"6"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "6und8":{
@@ -2090,12 +1416,8 @@
 	"i" :"6"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные перчатки"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Ржавый колун"
 }
 "6und9":{
 	"players_on_cell" : [
@@ -2103,12 +1425,8 @@
 	"i" :"6"
 	"j" :"9"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной двуручный меч"
-=======
-	"item" :"Деревянный щит"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Зелье силы"
 }
 "6und10":{
 	"players_on_cell" : [
@@ -2116,12 +1434,8 @@
 	"i" :"6"
 	"j" :"10"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный шлем"
-=======
-	"item" :"Лук Аполонна"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Загадочный пояс"
 }
 "6und11":{
 	"players_on_cell" : [
@@ -2129,7 +1443,7 @@
 	"i" :"6"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "6und12":{
@@ -2138,7 +1452,7 @@
 	"i" :"6"
 	"j" :"12"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "6und13":{
@@ -2157,11 +1471,7 @@
 	"j" :"14"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные поножи"
-=======
-	"item" :"Стальные сапоги"
->>>>>>> development
+	"item" :"Железный меч"
 }
 "6und15":{
 	"players_on_cell" : [
@@ -2169,12 +1479,8 @@
 	"i" :"6"
 	"j" :"15"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Лук Аполонна"
-=======
+	"event_name" :"mushrooms"
 	"item" :"Ржавый меч"
->>>>>>> development
 }
 "6und16":{
 	"players_on_cell" : [
@@ -2183,11 +1489,7 @@
 	"j" :"16"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
 	"item" :"Стальные поножи"
-=======
-	"item" :"Кожаные поножи"
->>>>>>> development
 }
 "6und17":{
 	"players_on_cell" : [
@@ -2195,12 +1497,8 @@
 	"i" :"6"
 	"j" :"17"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Ржавый колун"
-=======
-	"item" :"Кожаные поножи"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Зелье ускорения"
 }
 "6und18":{
 	"players_on_cell" : [
@@ -2209,11 +1507,7 @@
 	"j" :"18"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной боевой молот"
-=======
-	"item" :"Стальные поножи"
->>>>>>> development
+	"item" :"Малое зелье лечения"
 }
 "6und19":{
 	"players_on_cell" : [
@@ -2231,11 +1525,7 @@
 	"j" :"20"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Арбалет"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Стальная секира"
 }
 "7und0":{
 	"players_on_cell" : [
@@ -2243,12 +1533,8 @@
 	"i" :"7"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье силы"
-=======
-	"item" :"Серп Кроноса"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железный щит"
 }
 "7und1":{
 	"players_on_cell" : [
@@ -2257,11 +1543,7 @@
 	"j" :"1"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные сапоги"
-=======
-	"item" :"Кожаные сапоги"
->>>>>>> development
+	"item" :"Нет"
 }
 "7und2":{
 	"players_on_cell" : [
@@ -2269,12 +1551,8 @@
 	"i" :"7"
 	"j" :"2"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Стальной топор"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье ускорения"
 }
 "7und3":{
 	"players_on_cell" : [
@@ -2282,7 +1560,7 @@
 	"i" :"7"
 	"j" :"3"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "7und4":{
@@ -2291,12 +1569,8 @@
 	"i" :"7"
 	"j" :"4"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный меч"
-=======
-	"item" :"Стальной топор"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Серп Кроноса"
 }
 "7und5":{
 	"players_on_cell" : [
@@ -2304,7 +1578,7 @@
 	"i" :"7"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "7und6":{
@@ -2313,12 +1587,8 @@
 	"i" :"7"
 	"j" :"6"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные перчатки"
-=======
-	"item" :"Ржавый колун"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальная булава"
 }
 "7und7":{
 	"players_on_cell" : [
@@ -2327,11 +1597,7 @@
 	"j" :"7"
 	"type_of_terrain" :"Лес"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Зелье стойкости"
->>>>>>> development
+	"item" :"Зелье лечения"
 }
 "7und8":{
 	"players_on_cell" : [
@@ -2339,12 +1605,8 @@
 	"i" :"7"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный нагрудник"
-=======
-	"item" :"Таларии"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Ржавый меч"
 }
 "7und9":{
 	"players_on_cell" : [
@@ -2352,7 +1614,7 @@
 	"i" :"7"
 	"j" :"9"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "7und10":{
@@ -2361,12 +1623,8 @@
 	"i" :"7"
 	"j" :"10"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Железный шлем"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Щит Ахилла"
 }
 "7und11":{
 	"players_on_cell" : [
@@ -2374,12 +1632,8 @@
 	"i" :"7"
 	"j" :"11"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Шкура немейского льва"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железные сапоги"
 }
 "7und12":{
 	"players_on_cell" : [
@@ -2387,12 +1641,8 @@
 	"i" :"7"
 	"j" :"12"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Арбалет"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Зелье лечения"
 }
 "7und13":{
 	"players_on_cell" : [
@@ -2400,12 +1650,8 @@
 	"i" :"7"
 	"j" :"13"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные перчатки"
-=======
-	"item" :"Кожаные перчатки"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальные поножи"
 }
 "7und14":{
 	"players_on_cell" : [
@@ -2413,12 +1659,8 @@
 	"i" :"7"
 	"j" :"14"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железная булава"
-=======
-	"item" :"Железный топор"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Щит Ахилла"
 }
 "7und15":{
 	"players_on_cell" : [
@@ -2426,7 +1668,7 @@
 	"i" :"7"
 	"j" :"15"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "7und16":{
@@ -2436,11 +1678,7 @@
 	"j" :"16"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное кольцо"
-=======
-	"item" :"Железный шлем"
->>>>>>> development
+	"item" :"Копье Пелея"
 }
 "7und17":{
 	"players_on_cell" : [
@@ -2448,7 +1686,7 @@
 	"i" :"7"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "7und18":{
@@ -2457,12 +1695,8 @@
 	"i" :"7"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Таларии"
-=======
-	"item" :"Железная булава"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железная секира"
 }
 "7und19":{
 	"players_on_cell" : [
@@ -2470,12 +1704,8 @@
 	"i" :"7"
 	"j" :"19"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные перчатки"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Зелье ускорения"
 }
 "7und20":{
 	"players_on_cell" : [
@@ -2484,11 +1714,7 @@
 	"j" :"20"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные перчатки"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Ржавый меч"
 }
 "8und0":{
 	"players_on_cell" : [
@@ -2496,12 +1722,8 @@
 	"i" :"8"
 	"j" :"0"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Копье Пелея"
-=======
-	"item" :"Стальные поножи"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальной нагрудник"
 }
 "8und1":{
 	"players_on_cell" : [
@@ -2509,7 +1731,7 @@
 	"i" :"8"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "8und2":{
@@ -2518,12 +1740,8 @@
 	"i" :"8"
 	"j" :"2"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кастет"
-=======
-	"item" :"Железный двуручный меч"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Кожаные перчатки"
 }
 "8und3":{
 	"players_on_cell" : [
@@ -2531,12 +1749,8 @@
 	"i" :"8"
 	"j" :"3"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные перчатки"
-=======
-	"item" :"Железный меч"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье лечения"
 }
 "8und4":{
 	"players_on_cell" : [
@@ -2544,12 +1758,8 @@
 	"i" :"8"
 	"j" :"4"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное ожерелье"
-=======
-	"item" :"Ржавый колун"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Лук Аполонна"
 }
 "8und5":{
 	"players_on_cell" : [
@@ -2557,7 +1767,7 @@
 	"i" :"8"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "8und6":{
@@ -2566,12 +1776,8 @@
 	"i" :"8"
 	"j" :"6"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное кольцо"
-=======
-	"item" :"Зелье развеивания"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаный нагрудник"
 }
 "8und7":{
 	"players_on_cell" : [
@@ -2588,12 +1794,8 @@
 	"i" :"8"
 	"j" :"8"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье регенерации"
-=======
-	"item" :"Таларии"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаный нагрудник"
 }
 "8und9":{
 	"players_on_cell" : [
@@ -2601,8 +1803,8 @@
 	"i" :"8"
 	"j" :"9"
 	"type_of_terrain" :"Лес"
-	"event_name" :"experiment"
-	"item" :"Зелье ускорения"
+	"event_name" :"mushrooms"
+	"item" :"Зелье лечения"
 }
 "8und10":{
 	"players_on_cell" : [
@@ -2610,12 +1812,8 @@
 	"i" :"8"
 	"j" :"10"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье силы"
-=======
-	"item" :"Ржавый колун"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье лечения"
 }
 "8und11":{
 	"players_on_cell" : [
@@ -2623,7 +1821,7 @@
 	"i" :"8"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "8und12":{
@@ -2633,11 +1831,7 @@
 	"j" :"12"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные перчатки"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Госвит"
 }
 "8und13":{
 	"players_on_cell" : [
@@ -2645,7 +1839,7 @@
 	"i" :"8"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "8und14":{
@@ -2655,11 +1849,7 @@
 	"j" :"14"
 	"type_of_terrain" :"Горы"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные поножи"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"item" :"Ржавый меч"
 }
 "8und15":{
 	"players_on_cell" : [
@@ -2667,12 +1857,8 @@
 	"i" :"8"
 	"j" :"15"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный меч"
-=======
-	"item" :"Зелье стойкости"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Стальной топор"
 }
 "8und16":{
 	"players_on_cell" : [
@@ -2680,12 +1866,8 @@
 	"i" :"8"
 	"j" :"16"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Зелье ускорения"
 }
 "8und17":{
 	"players_on_cell" : [
@@ -2693,7 +1875,7 @@
 	"i" :"8"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "8und18":{
@@ -2702,12 +1884,8 @@
 	"i" :"8"
 	"j" :"18"
 	"type_of_terrain" :"Горы"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный нагрудник"
-=======
-	"item" :"Железные сапоги"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Загадочное ожерелье"
 }
 "8und19":{
 	"players_on_cell" : [
@@ -2715,7 +1893,7 @@
 	"i" :"8"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "8und20":{
@@ -2724,7 +1902,7 @@
 	"i" :"8"
 	"j" :"20"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "9und0":{
@@ -2733,12 +1911,8 @@
 	"i" :"9"
 	"j" :"0"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Госвит"
-=======
-	"item" :"Мьёлнир"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Стальные поножи"
 }
 "9und1":{
 	"players_on_cell" : [
@@ -2746,7 +1920,7 @@
 	"i" :"9"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "9und2":{
@@ -2764,12 +1938,8 @@
 	"i" :"9"
 	"j" :"3"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной шлем"
-=======
-	"item" :"Стальная секира"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железные поножи"
 }
 "9und4":{
 	"players_on_cell" : [
@@ -2777,7 +1947,7 @@
 	"i" :"9"
 	"j" :"4"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "9und5":{
@@ -2786,7 +1956,7 @@
 	"i" :"9"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "9und6":{
@@ -2796,11 +1966,7 @@
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье силы"
-=======
-	"item" :"Железный молот"
->>>>>>> development
+	"item" :"Железные сапоги"
 }
 "9und7":{
 	"players_on_cell" : [
@@ -2808,7 +1974,7 @@
 	"i" :"9"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "9und8":{
@@ -2827,11 +1993,7 @@
 	"j" :"9"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный молот"
-=======
-	"item" :"Стальная булава"
->>>>>>> development
+	"item" :"Зелье силы"
 }
 "9und10":{
 	"players_on_cell" : [
@@ -2839,7 +2001,7 @@
 	"i" :"9"
 	"j" :"10"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "9und11":{
@@ -2857,12 +2019,8 @@
 	"i" :"9"
 	"j" :"12"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Большое зелье лечения"
-=======
-	"item" :"Деревянный щит"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Арбалет"
 }
 "9und13":{
 	"players_on_cell" : [
@@ -2870,7 +2028,7 @@
 	"i" :"9"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "9und14":{
@@ -2879,7 +2037,7 @@
 	"i" :"9"
 	"j" :"14"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "9und15":{
@@ -2888,12 +2046,8 @@
 	"i" :"9"
 	"j" :"15"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной шлем"
-=======
-	"item" :"Железная секира"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железная булава"
 }
 "9und16":{
 	"players_on_cell" : [
@@ -2910,7 +2064,7 @@
 	"i" :"9"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "9und18":{
@@ -2919,12 +2073,8 @@
 	"i" :"9"
 	"j" :"18"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной двуручный меч"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальная булава"
 }
 "9und19":{
 	"players_on_cell" : [
@@ -2932,7 +2082,7 @@
 	"i" :"9"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "9und20":{
@@ -2941,7 +2091,7 @@
 	"i" :"9"
 	"j" :"20"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "10und0":{
@@ -2950,12 +2100,8 @@
 	"i" :"10"
 	"j" :"0"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный топор"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаные сапоги"
 }
 "10und1":{
 	"players_on_cell" : [
@@ -2963,12 +2109,8 @@
 	"i" :"10"
 	"j" :"1"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные сапоги"
-=======
-	"item" :"Кожаный нагрудник"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Мьёлнир"
 }
 "10und2":{
 	"players_on_cell" : [
@@ -2976,12 +2118,8 @@
 	"i" :"10"
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные поножи"
-=======
-	"item" :"Кожаные перчатки"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальные перчатки"
 }
 "10und3":{
 	"players_on_cell" : [
@@ -2990,11 +2128,7 @@
 	"j" :"3"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальная секира"
-=======
-	"item" :"Деревянный щит"
->>>>>>> development
+	"item" :"Железный щит"
 }
 "10und4":{
 	"players_on_cell" : [
@@ -3011,7 +2145,7 @@
 	"i" :"10"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "10und6":{
@@ -3020,12 +2154,8 @@
 	"i" :"10"
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье лечения"
-=======
-	"item" :"Алебарда"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Загадочное кольцо"
 }
 "10und7":{
 	"players_on_cell" : [
@@ -3034,7 +2164,7 @@
 	"j" :"7"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-	"item" :"Железный молот"
+	"item" :"Серп Кроноса"
 }
 "10und8":{
 	"players_on_cell" : [
@@ -3043,11 +2173,7 @@
 	"j" :"8"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье ускорения"
-=======
-	"item" :"Большое зелье лечения"
->>>>>>> development
+	"item" :"Стальной нагрудник"
 }
 "10und9":{
 	"players_on_cell" : [
@@ -3055,12 +2181,8 @@
 	"i" :"10"
 	"j" :"9"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Лук Аполонна"
-=======
-	"item" :"Копье Пелея"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железный нагрудник"
 }
 "10und10":{
 	"players_on_cell" : [
@@ -3068,7 +2190,7 @@
 	"i" :"10"
 	"j" :"10"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "10und11":{
@@ -3077,7 +2199,7 @@
 	"i" :"10"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "10und12":{
@@ -3086,12 +2208,8 @@
 	"i" :"10"
 	"j" :"12"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной шлем"
-=======
-	"item" :"Стальной боевой молот"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальные перчатки"
 }
 "10und13":{
 	"players_on_cell" : [
@@ -3099,12 +2217,8 @@
 	"i" :"10"
 	"j" :"13"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кастет"
-=======
-	"item" :"Госвит"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железный меч"
 }
 "10und14":{
 	"players_on_cell" : [
@@ -3112,12 +2226,8 @@
 	"i" :"10"
 	"j" :"14"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Кожаные сапоги"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Щит Ахилла"
 }
 "10und15":{
 	"players_on_cell" : [
@@ -3125,8 +2235,8 @@
 	"i" :"10"
 	"j" :"15"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-	"item" :"Загадочное кольцо"
+	"event_name" :"empty house"
+	"item" :"Большое зелье лечения"
 }
 "10und16":{
 	"players_on_cell" : [
@@ -3134,7 +2244,7 @@
 	"i" :"10"
 	"j" :"16"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "10und17":{
@@ -3143,7 +2253,7 @@
 	"i" :"10"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "10und18":{
@@ -3152,12 +2262,8 @@
 	"i" :"10"
 	"j" :"18"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Госвит"
-=======
-	"item" :"Стальной щит"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Серп Кроноса"
 }
 "10und19":{
 	"players_on_cell" : [
@@ -3165,12 +2271,8 @@
 	"i" :"10"
 	"j" :"19"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
+	"event_name" :"empty house"
 	"item" :"Зелье стойкости"
-=======
-	"item" :"Железная секира"
->>>>>>> development
 }
 "10und20":{
 	"players_on_cell" : [
@@ -3178,8 +2280,8 @@
 	"i" :"10"
 	"j" :"20"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-	"item" :"Железный меч"
+	"event_name" :"loggers"
+	"item" :"Железный нагрудник"
 }
 "11und0":{
 	"players_on_cell" : [
@@ -3205,12 +2307,8 @@
 	"i" :"11"
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной меч"
-=======
-	"item" :"Кастет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Таларии"
 }
 "11und3":{
 	"players_on_cell" : [
@@ -3236,7 +2334,7 @@
 	"i" :"11"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "11und6":{
@@ -3245,7 +2343,7 @@
 	"i" :"11"
 	"j" :"6"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "11und7":{
@@ -3254,7 +2352,7 @@
 	"i" :"11"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "11und8":{
@@ -3263,7 +2361,7 @@
 	"i" :"11"
 	"j" :"8"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "11und9":{
@@ -3272,7 +2370,7 @@
 	"i" :"11"
 	"j" :"9"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "11und10":{
@@ -3281,7 +2379,7 @@
 	"i" :"11"
 	"j" :"10"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "11und11":{
@@ -3290,7 +2388,7 @@
 	"i" :"11"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "11und12":{
@@ -3300,11 +2398,7 @@
 	"j" :"12"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье ускорения"
-=======
-	"item" :"Железный молот"
->>>>>>> development
+	"item" :"Железные сапоги"
 }
 "11und13":{
 	"players_on_cell" : [
@@ -3312,7 +2406,7 @@
 	"i" :"11"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "11und14":{
@@ -3321,7 +2415,7 @@
 	"i" :"11"
 	"j" :"14"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "11und15":{
@@ -3330,7 +2424,7 @@
 	"i" :"11"
 	"j" :"15"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "11und16":{
@@ -3339,7 +2433,7 @@
 	"i" :"11"
 	"j" :"16"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "11und17":{
@@ -3348,7 +2442,7 @@
 	"i" :"11"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "11und18":{
@@ -3357,7 +2451,7 @@
 	"i" :"11"
 	"j" :"18"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "11und19":{
@@ -3366,7 +2460,7 @@
 	"i" :"11"
 	"j" :"19"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "11und20":{
@@ -3375,12 +2469,8 @@
 	"i" :"11"
 	"j" :"20"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железная секира"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Мьёлнир"
 }
 "12und0":{
 	"players_on_cell" : [
@@ -3388,8 +2478,8 @@
 	"i" :"12"
 	"j" :"0"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-	"item" :"Железные поножи"
+	"event_name" :"empty house"
+	"item" :"Шкура немейского льва"
 }
 "12und1":{
 	"players_on_cell" : [
@@ -3397,12 +2487,8 @@
 	"i" :"12"
 	"j" :"1"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железная булава"
-=======
+	"event_name" :"mushrooms"
 	"item" :"Нет"
->>>>>>> development
 }
 "12und2":{
 	"players_on_cell" : [
@@ -3410,12 +2496,8 @@
 	"i" :"12"
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье силы"
-=======
-	"item" :"Загадочное кольцо"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Загадочное ожерелье"
 }
 "12und3":{
 	"players_on_cell" : [
@@ -3423,7 +2505,7 @@
 	"i" :"12"
 	"j" :"3"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "12und4":{
@@ -3432,7 +2514,7 @@
 	"i" :"12"
 	"j" :"4"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "12und5":{
@@ -3441,7 +2523,7 @@
 	"i" :"12"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "12und6":{
@@ -3450,12 +2532,8 @@
 	"i" :"12"
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железная булава"
-=======
-	"item" :"Деревянный щит"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железная секира"
 }
 "12und7":{
 	"players_on_cell" : [
@@ -3464,11 +2542,7 @@
 	"j" :"7"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное ожерелье"
-=======
-	"item" :"Железный молот"
->>>>>>> development
+	"item" :"Кожаные поножи"
 }
 "12und8":{
 	"players_on_cell" : [
@@ -3477,11 +2551,7 @@
 	"j" :"8"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные поножи"
-=======
-	"item" :"Железный двуручный меч"
->>>>>>> development
+	"item" :"Копье Пелея"
 }
 "12und9":{
 	"players_on_cell" : [
@@ -3489,7 +2559,7 @@
 	"i" :"12"
 	"j" :"9"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "12und10":{
@@ -3498,12 +2568,8 @@
 	"i" :"12"
 	"j" :"10"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Таларии"
-=======
-	"item" :"Кожаный нагрудник"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Большое зелье лечения"
 }
 "12und11":{
 	"players_on_cell" : [
@@ -3511,12 +2577,8 @@
 	"i" :"12"
 	"j" :"11"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Госвит"
-=======
-	"item" :"Зелье развеивания"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальные сапоги"
 }
 "12und12":{
 	"players_on_cell" : [
@@ -3525,11 +2587,7 @@
 	"j" :"12"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье развеивания"
-=======
-	"item" :"Железные сапоги"
->>>>>>> development
+	"item" :"Лук Аполонна"
 }
 "12und13":{
 	"players_on_cell" : [
@@ -3537,7 +2595,7 @@
 	"i" :"12"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "12und14":{
@@ -3546,7 +2604,7 @@
 	"i" :"12"
 	"j" :"14"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "12und15":{
@@ -3555,7 +2613,7 @@
 	"i" :"12"
 	"j" :"15"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "12und16":{
@@ -3573,7 +2631,7 @@
 	"i" :"12"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "12und18":{
@@ -3591,8 +2649,8 @@
 	"i" :"12"
 	"j" :"19"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-	"item" :"Стальной щит"
+	"event_name" :"empty house"
+	"item" :"Железный меч"
 }
 "12und20":{
 	"players_on_cell" : [
@@ -3600,12 +2658,8 @@
 	"i" :"12"
 	"j" :"20"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной меч"
-=======
-	"item" :"Зелье развеивания"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье лечения"
 }
 "13und0":{
 	"players_on_cell" : [
@@ -3614,11 +2668,7 @@
 	"j" :"0"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье развеивания"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Железные сапоги"
 }
 "13und1":{
 	"players_on_cell" : [
@@ -3626,7 +2676,7 @@
 	"i" :"13"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "13und2":{
@@ -3635,12 +2685,8 @@
 	"i" :"13"
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Малое зелье лечения"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальная секира"
 }
 "13und3":{
 	"players_on_cell" : [
@@ -3648,12 +2694,8 @@
 	"i" :"13"
 	"j" :"3"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной боевой молот"
-=======
-	"item" :"Ржавый меч"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальной шлем"
 }
 "13und4":{
 	"players_on_cell" : [
@@ -3661,12 +2703,8 @@
 	"i" :"13"
 	"j" :"4"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный двуручный меч"
-=======
-	"item" :"Железный нагрудник"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальной двуручный меч"
 }
 "13und5":{
 	"players_on_cell" : [
@@ -3674,12 +2712,8 @@
 	"i" :"13"
 	"j" :"5"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Лук Аполонна"
-=======
-	"item" :"Стальные сапоги"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Железный молот"
 }
 "13und6":{
 	"players_on_cell" : [
@@ -3688,11 +2722,7 @@
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное кольцо"
-=======
-	"item" :"Щит Ахилла"
->>>>>>> development
+	"item" :"Железные сапоги"
 }
 "13und7":{
 	"players_on_cell" : [
@@ -3709,12 +2739,8 @@
 	"i" :"13"
 	"j" :"8"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Мьёлнир"
-=======
-	"item" :"Стальные сапоги"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железная секира"
 }
 "13und9":{
 	"players_on_cell" : [
@@ -3723,7 +2749,7 @@
 	"j" :"9"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-	"item" :"Зелье регенерации"
+	"item" :"Кожаный нагрудник"
 }
 "13und10":{
 	"players_on_cell" : [
@@ -3732,11 +2758,7 @@
 	"j" :"10"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной меч"
-=======
-	"item" :"Зелье лечения"
->>>>>>> development
+	"item" :"Большое зелье лечения"
 }
 "13und11":{
 	"players_on_cell" : [
@@ -3744,7 +2766,7 @@
 	"i" :"13"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "13und12":{
@@ -3753,12 +2775,8 @@
 	"i" :"13"
 	"j" :"12"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
+	"event_name" :"mushrooms"
 	"item" :"Зелье ускорения"
-=======
-	"item" :"Железная булава"
->>>>>>> development
 }
 "13und13":{
 	"players_on_cell" : [
@@ -3766,7 +2784,7 @@
 	"i" :"13"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "13und14":{
@@ -3784,12 +2802,8 @@
 	"i" :"13"
 	"j" :"15"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Серп Кроноса"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Таларии"
 }
 "13und16":{
 	"players_on_cell" : [
@@ -3798,11 +2812,7 @@
 	"j" :"16"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное ожерелье"
-=======
-	"item" :"Железный шлем"
->>>>>>> development
+	"item" :"Железный топор"
 }
 "13und17":{
 	"players_on_cell" : [
@@ -3810,12 +2820,8 @@
 	"i" :"13"
 	"j" :"17"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные перчатки"
-=======
+	"event_name" :"empty house"
 	"item" :"Нет"
->>>>>>> development
 }
 "13und18":{
 	"players_on_cell" : [
@@ -3823,12 +2829,8 @@
 	"i" :"13"
 	"j" :"18"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочный пояс"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Зелье ускорения"
 }
 "13und19":{
 	"players_on_cell" : [
@@ -3837,11 +2839,7 @@
 	"j" :"19"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной щит"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Серп Кроноса"
 }
 "13und20":{
 	"players_on_cell" : [
@@ -3858,8 +2856,8 @@
 	"i" :"14"
 	"j" :"0"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-	"item" :"Кожаные перчатки"
+	"event_name" :"empty house"
+	"item" :"Стальной шлем"
 }
 "14und1":{
 	"players_on_cell" : [
@@ -3867,7 +2865,7 @@
 	"i" :"14"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "14und2":{
@@ -3885,8 +2883,8 @@
 	"i" :"14"
 	"j" :"3"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-	"item" :"Нет"
+	"event_name" :"loggers"
+	"item" :"Стальной шлем"
 }
 "14und4":{
 	"players_on_cell" : [
@@ -3912,12 +2910,8 @@
 	"i" :"14"
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаный нагрудник"
-=======
-	"item" :"Железный шлем"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье развеивания"
 }
 "14und7":{
 	"players_on_cell" : [
@@ -3934,7 +2928,7 @@
 	"i" :"14"
 	"j" :"8"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "14und9":{
@@ -3943,12 +2937,8 @@
 	"i" :"14"
 	"j" :"9"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье регенерации"
-=======
+	"event_name" :"empty house"
 	"item" :"Серп Кроноса"
->>>>>>> development
 }
 "14und10":{
 	"players_on_cell" : [
@@ -3965,7 +2955,7 @@
 	"i" :"14"
 	"j" :"11"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "14und12":{
@@ -3974,12 +2964,8 @@
 	"i" :"14"
 	"j" :"12"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной топор"
-=======
-	"item" :"Кожаные сапоги"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальной щит"
 }
 "14und13":{
 	"players_on_cell" : [
@@ -4005,12 +2991,8 @@
 	"i" :"14"
 	"j" :"15"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный шлем"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Кожаный шлем"
 }
 "14und16":{
 	"players_on_cell" : [
@@ -4027,7 +3009,7 @@
 	"i" :"14"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "14und18":{
@@ -4036,7 +3018,7 @@
 	"i" :"14"
 	"j" :"18"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "14und19":{
@@ -4046,11 +3028,7 @@
 	"j" :"19"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Зелье лечения"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Стальные сапоги"
 }
 "14und20":{
 	"players_on_cell" : [
@@ -4058,7 +3036,7 @@
 	"i" :"14"
 	"j" :"20"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "15und0":{
@@ -4067,12 +3045,8 @@
 	"i" :"15"
 	"j" :"0"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Малое зелье лечения"
-=======
-	"item" :"Стальная булава"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Таларии"
 }
 "15und1":{
 	"players_on_cell" : [
@@ -4080,12 +3054,8 @@
 	"i" :"15"
 	"j" :"1"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные сапоги"
-=======
-	"item" :"Железный щит"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Кастет"
 }
 "15und2":{
 	"players_on_cell" : [
@@ -4093,12 +3063,8 @@
 	"i" :"15"
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Мьёлнир"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Малое зелье лечения"
 }
 "15und3":{
 	"players_on_cell" : [
@@ -4106,12 +3072,8 @@
 	"i" :"15"
 	"j" :"3"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной двуручный меч"
-=======
-	"item" :"Стальная булава"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Загадочный пояс"
 }
 "15und4":{
 	"players_on_cell" : [
@@ -4138,11 +3100,7 @@
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное ожерелье"
-=======
-	"item" :"Стальной меч"
->>>>>>> development
+	"item" :"Серп Кроноса"
 }
 "15und7":{
 	"players_on_cell" : [
@@ -4150,12 +3108,8 @@
 	"i" :"15"
 	"j" :"7"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные поножи"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железные перчатки"
 }
 "15und8":{
 	"players_on_cell" : [
@@ -4164,7 +3118,7 @@
 	"j" :"8"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-	"item" :"Ржавый меч"
+	"item" :"Стальные сапоги"
 }
 "15und9":{
 	"players_on_cell" : [
@@ -4173,11 +3127,7 @@
 	"j" :"9"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальная булава"
-=======
-	"item" :"Загадочное ожерелье"
->>>>>>> development
+	"item" :"Железный топор"
 }
 "15und10":{
 	"players_on_cell" : [
@@ -4185,7 +3135,7 @@
 	"i" :"15"
 	"j" :"10"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "15und11":{
@@ -4203,12 +3153,8 @@
 	"i" :"15"
 	"j" :"12"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные перчатки"
-=======
-	"item" :"Шкура немейского льва"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Загадочное ожерелье"
 }
 "15und13":{
 	"players_on_cell" : [
@@ -4216,12 +3162,8 @@
 	"i" :"15"
 	"j" :"13"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Нет"
-=======
-	"item" :"Железный двуручный меч"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Загадочный пояс"
 }
 "15und14":{
 	"players_on_cell" : [
@@ -4230,25 +3172,16 @@
 	"j" :"14"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кожаные перчатки"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Кастет"
 }
 "15und15":{
 	"players_on_cell" : [
-	"1"
 	]
 	"i" :"15"
 	"j" :"15"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Стальной щит"
 }
 "15und16":{
 	"players_on_cell" : [
@@ -4256,7 +3189,7 @@
 	"i" :"15"
 	"j" :"16"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "15und17":{
@@ -4265,7 +3198,7 @@
 	"i" :"15"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "15und18":{
@@ -4274,7 +3207,7 @@
 	"i" :"15"
 	"j" :"18"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "15und19":{
@@ -4283,12 +3216,8 @@
 	"i" :"15"
 	"j" :"19"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный шлем"
-=======
-	"item" :"Железные поножи"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железный щит"
 }
 "15und20":{
 	"players_on_cell" : [
@@ -4305,7 +3234,7 @@
 	"i" :"16"
 	"j" :"0"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "16und1":{
@@ -4314,7 +3243,7 @@
 	"i" :"16"
 	"j" :"1"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "16und2":{
@@ -4323,12 +3252,8 @@
 	"i" :"16"
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный молот"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальной нагрудник"
 }
 "16und3":{
 	"players_on_cell" : [
@@ -4336,7 +3261,7 @@
 	"i" :"16"
 	"j" :"3"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "16und4":{
@@ -4354,7 +3279,7 @@
 	"i" :"16"
 	"j" :"5"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"mushrooms"
 	"item" :"Нет"
 }
 "16und6":{
@@ -4364,11 +3289,7 @@
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Алебарда"
-=======
-	"item" :"Стальной щит"
->>>>>>> development
+	"item" :"Загадочное кольцо"
 }
 "16und7":{
 	"players_on_cell" : [
@@ -4385,12 +3306,8 @@
 	"i" :"16"
 	"j" :"8"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной меч"
-=======
-	"item" :"Железные перчатки"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Зелье лечения"
 }
 "16und9":{
 	"players_on_cell" : [
@@ -4398,7 +3315,7 @@
 	"i" :"16"
 	"j" :"9"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "16und10":{
@@ -4407,7 +3324,7 @@
 	"i" :"16"
 	"j" :"10"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "16und11":{
@@ -4426,11 +3343,7 @@
 	"j" :"12"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Загадочное ожерелье"
-=======
-	"item" :"Кожаные поножи"
->>>>>>> development
+	"item" :"Кожаный нагрудник"
 }
 "16und13":{
 	"players_on_cell" : [
@@ -4438,7 +3351,7 @@
 	"i" :"16"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "16und14":{
@@ -4448,11 +3361,7 @@
 	"j" :"14"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
 	"item" :"Зелье ускорения"
-=======
-	"item" :"Нет"
->>>>>>> development
 }
 "16und15":{
 	"players_on_cell" : [
@@ -4460,7 +3369,7 @@
 	"i" :"16"
 	"j" :"15"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "16und16":{
@@ -4469,7 +3378,7 @@
 	"i" :"16"
 	"j" :"16"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "16und17":{
@@ -4478,7 +3387,7 @@
 	"i" :"16"
 	"j" :"17"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "16und18":{
@@ -4496,8 +3405,8 @@
 	"i" :"16"
 	"j" :"19"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-	"item" :"Нет"
+	"event_name" :"empty house"
+	"item" :"Загадочный пояс"
 }
 "16und20":{
 	"players_on_cell" : [
@@ -4505,7 +3414,7 @@
 	"i" :"16"
 	"j" :"20"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "17und0":{
@@ -4514,7 +3423,7 @@
 	"i" :"17"
 	"j" :"0"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "17und1":{
@@ -4533,11 +3442,7 @@
 	"j" :"2"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Шкура немейского льва"
-=======
-	"item" :"Стальная булава"
->>>>>>> development
+	"item" :"Железные перчатки"
 }
 "17und3":{
 	"players_on_cell" : [
@@ -4545,12 +3450,8 @@
 	"i" :"17"
 	"j" :"3"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Шкура немейского льва"
-=======
-	"item" :"Кожаный шлем"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Серп Кроноса"
 }
 "17und4":{
 	"players_on_cell" : [
@@ -4558,8 +3459,8 @@
 	"i" :"17"
 	"j" :"4"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-	"item" :"Нет"
+	"event_name" :"loggers"
+	"item" :"Стальной шлем"
 }
 "17und5":{
 	"players_on_cell" : [
@@ -4568,11 +3469,7 @@
 	"j" :"5"
 	"type_of_terrain" :"Пустыня"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Малое зелье лечения"
-=======
-	"item" :"Таларии"
->>>>>>> development
+	"item" :"Кожаные перчатки"
 }
 "17und6":{
 	"players_on_cell" : [
@@ -4580,12 +3477,8 @@
 	"i" :"17"
 	"j" :"6"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Кастет"
-=======
-	"item" :"Щит Ахилла"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Шкура немейского льва"
 }
 "17und7":{
 	"players_on_cell" : [
@@ -4593,7 +3486,7 @@
 	"i" :"17"
 	"j" :"7"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"empty house"
 	"item" :"Нет"
 }
 "17und8":{
@@ -4602,12 +3495,8 @@
 	"i" :"17"
 	"j" :"8"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный нагрудник"
-=======
+	"event_name" :"mushrooms"
 	"item" :"Нет"
->>>>>>> development
 }
 "17und9":{
 	"players_on_cell" : [
@@ -4615,12 +3504,8 @@
 	"i" :"17"
 	"j" :"9"
 	"type_of_terrain" :"Пустыня"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальные поножи"
-=======
-	"item" :"Ржавый колун"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железные перчатки"
 }
 "17und10":{
 	"players_on_cell" : [
@@ -4628,12 +3513,8 @@
 	"i" :"17"
 	"j" :"10"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Стальной двуручный меч"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"mushrooms"
+	"item" :"Стальные поножи"
 }
 "17und11":{
 	"players_on_cell" : [
@@ -4642,11 +3523,7 @@
 	"j" :"11"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные поножи"
-=======
-	"item" :"Железная булава"
->>>>>>> development
+	"item" :"Серп Кроноса"
 }
 "17und12":{
 	"players_on_cell" : [
@@ -4654,12 +3531,8 @@
 	"i" :"17"
 	"j" :"12"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный молот"
-=======
-	"item" :"Большое зелье лечения"
->>>>>>> development
+	"event_name" :"empty house"
+	"item" :"Железный шлем"
 }
 "17und13":{
 	"players_on_cell" : [
@@ -4667,7 +3540,7 @@
 	"i" :"17"
 	"j" :"13"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 "17und14":{
@@ -4676,12 +3549,8 @@
 	"i" :"17"
 	"j" :"14"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный молот"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Стальной топор"
 }
 "17und15":{
 	"players_on_cell" : [
@@ -4690,11 +3559,7 @@
 	"j" :"15"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Шкура немейского льва"
-=======
-	"item" :"Железные сапоги"
->>>>>>> development
+	"item" :"Железные перчатки"
 }
 "17und16":{
 	"players_on_cell" : [
@@ -4703,11 +3568,7 @@
 	"j" :"16"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Мьёлнир"
-=======
-	"item" :"Стальной двуручный меч"
->>>>>>> development
+	"item" :"Стальной меч"
 }
 "17und17":{
 	"players_on_cell" : [
@@ -4715,12 +3576,8 @@
 	"i" :"17"
 	"j" :"17"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железные перчатки"
-=======
-	"item" :"Железный молот"
->>>>>>> development
+	"event_name" :"loggers"
+	"item" :"Железный меч"
 }
 "17und18":{
 	"players_on_cell" : [
@@ -4729,11 +3586,7 @@
 	"j" :"18"
 	"type_of_terrain" :"Болото"
 	"event_name" :"experiment"
-<<<<<<< HEAD
-	"item" :"Железный щит"
-=======
-	"item" :"Нет"
->>>>>>> development
+	"item" :"Зелье ускорения"
 }
 "17und19":{
 	"players_on_cell" : [
@@ -4741,12 +3594,8 @@
 	"i" :"17"
 	"j" :"19"
 	"type_of_terrain" :"Болото"
-	"event_name" :"experiment"
-<<<<<<< HEAD
+	"event_name" :"loggers"
 	"item" :"Нет"
-=======
-	"item" :"Железный топор"
->>>>>>> development
 }
 "17und20":{
 	"players_on_cell" : [
@@ -4754,7 +3603,7 @@
 	"i" :"17"
 	"j" :"20"
 	"type_of_terrain" :"non_moving_area"
-	"event_name" :"experiment"
+	"event_name" :"loggers"
 	"item" :"Нет"
 }
 ]

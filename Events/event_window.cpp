@@ -1,7 +1,9 @@
 
 #include "event_window.h"
 #include "Event.h"
+
 #include <QPainter>
+
 Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
     : QWidget(parent)
 {
@@ -14,7 +16,7 @@ Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
 
     main_layout = new QVBoxLayout(this);
 
-    QPixmap img(QString::fromStdString(event->get_img_path())); // Event rework
+    QPixmap img(QString::fromStdString(event->get_img_path())); // Картинки надо сделать с нормальным соотношением, потому что все пикчи - квадратные
     img.scaled(550, 250);
     img_label = new QLabel(this);
     img_label->setPixmap(img);
@@ -135,7 +137,8 @@ void Event_window::continue_playing()
         Events::get_Events()->get_events()->at(event_name)->execute_success(target);
     else
         Events::get_Events()->get_events()->at(event_name)->execute_failure(target);
+
+    emit event_ended();
+
     delete this;
 }
-
-

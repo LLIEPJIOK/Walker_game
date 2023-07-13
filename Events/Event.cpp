@@ -211,7 +211,7 @@ void empty_house_event::execute_failure(Player *pl)
         throw std::invalid_argument("All_effects does not contain \"" + ev + "\" class instance");
     }
 
-    All_effects::get_effects_data()->get_effects()->at(ev)->execute_effect(*pl);
+    All_effects::get_effects_data()->get_effects()->at(ev)->apply_effect(*pl, 2);
 }
 
 int mushrooms_event::get_requirement(Player *pl)
@@ -233,10 +233,15 @@ void mushrooms_event::execute_success(Player *pl)
     switch (type)
     {
     case 0: pl->add_item("Зелье регенерации");
+        break;
     case 1: pl->add_item("Зелье силы");
+        break;
     case 2: pl->add_item("Зелье стойкости");
+        break;
     case 3: pl->add_item("Зелье ускорения");
+        break;
     case 4:
+{
         int stat = pl->get_characteristics().at("INT");
         if (stat < 5)
         {
@@ -250,6 +255,8 @@ void mushrooms_event::execute_success(Player *pl)
         {
             pl->add_item("Большое зелье лечения");
         }
+        break;
+}
     }
 }
 
@@ -261,7 +268,7 @@ void mushrooms_event::execute_failure(Player *pl)
         throw std::invalid_argument("All_effects does not contain \"" + ev + "\" class instance");
     }
 
-    All_effects::get_effects_data()->get_effects()->at(ev)->execute_effect(*pl);
+    All_effects::get_effects_data()->get_effects()->at(ev)->apply_effect(*pl, 3);
 }
 
 Events::Events()
@@ -275,7 +282,9 @@ Events::Events()
     }
 
     JSONObject events_info(info);
-    events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment"))));
+
+    // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
+    events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
     events.emplace(std::make_pair("loggers", new loggers_event(events_info.get_object("loggers"))));
     events.emplace(std::make_pair("empty house", new empty_house_event(events_info.get_object("empty house"))));
     events.emplace(std::make_pair("mushrooms", new mushrooms_event(events_info.get_object("mushrooms"))));

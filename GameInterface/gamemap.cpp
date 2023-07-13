@@ -116,19 +116,10 @@ void GameMap::end_movement()
 {
     emit update_roll();
     Turn* turn = Turn::get_Turn();
-    if (turn->get_activated_event())
-    {
-        Event_window *event_window = new Event_window(nullptr, turn->get_player(), turn->get_activated_event());
-        event_window->setVisible(true);
-    }
+
     if (turn->get_already_moved())
     {
-        emit can_finish_turn();
-        if(turn->get_picked_item())
-        {
-            emit item_was_picked(turn->get_picked_item());
-            emit action("Вы подобрали предмет: " + QString::fromStdString(turn->get_picked_item()->get_name()));
-        }
+        emit event_triggered(); // запуск цепочки обработок всех действий, происходящих после конца движения
     }
 }
 

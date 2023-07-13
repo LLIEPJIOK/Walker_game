@@ -179,7 +179,6 @@ void DataBase::generate_map()
             fin >> c;
             if (c)
                 map[i][j].set_type_of_terrain("moving_area");
-            map[i][j].set_event_name("experiment");
         }
     }
     fin.close();
