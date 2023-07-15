@@ -113,6 +113,7 @@ void DataBase::load(std::ifstream &in)
     in.read((char*)& size, sizeof(size));
     //очистка контейнера sequence
     sequence.clear();
+    sequence.reserve(size);
     //цикл для заполнения контейнера данными
     for(int i = 0; i < size; i++)
     {
@@ -162,6 +163,7 @@ DataBase::~DataBase()
         delete *i;
     delete all_equipment;
     delete jewellery_stats;
+    data = 0;
 }
 
 DataBase* DataBase::get_DataBase()

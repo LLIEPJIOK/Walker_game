@@ -11,7 +11,7 @@ protected:
 
 public:
 	Effect();
-    virtual ~Effect(){};
+    virtual ~Effect() = default;
 	std::string get_effect_name();
 	std::string get_effect_type();
 	int get_effect_duration();
@@ -39,6 +39,7 @@ class Small_healing_effect : public Effect
 	std::map<std::string, int> chars;
 public:
 	Small_healing_effect();
+    ~Small_healing_effect() = default;
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -50,6 +51,7 @@ class Burning_effect : public Effect
 	std::map<std::string, int> chars;
 public:
 	Burning_effect();
+    ~Burning_effect() = default;
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -61,6 +63,7 @@ class Shock_effect : public Effect
 	std::map<std::string, int> chars;
 public:
 	Shock_effect();
+    ~Shock_effect() = default;
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -71,6 +74,7 @@ class Intoxication_effect : public Effect
 {
 public:
 	Intoxication_effect();
+    ~Intoxication_effect() = default;
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -81,6 +85,7 @@ class Frostbite_effect : public Effect
 {
 public:
 	Frostbite_effect();
+    ~Frostbite_effect() = default;
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -92,6 +97,7 @@ class Bleeding_effect : public Effect
 	int latest_x, latest_y;
 public:
 	Bleeding_effect();
+    ~Bleeding_effect() = default;
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -102,6 +108,7 @@ class Slowdown_effect : public Effect
 {
 public:
     Slowdown_effect();
+    ~Slowdown_effect() = default;
     void apply_effect(Player&, int);
     void apply_effect(Player&, int, int);
     void execute_effect(Player&);
@@ -112,6 +119,7 @@ class Haste_effect : public Effect
 {
 public:
     Haste_effect();
+    ~Haste_effect() = default;
     void apply_effect(Player&, int);
     void apply_effect(Player&, int, int);
     void execute_effect(Player&);
@@ -124,6 +132,7 @@ private:
     int extra_armour, extra_pierce_armour;
 public:
     Endurance_effect(int, int);
+    ~Endurance_effect() = default;
     void apply_effect(Player&, int);
     void apply_effect(Player&, int, int);
     void execute_effect(Player&);
@@ -136,6 +145,7 @@ private:
     int extra_atk, extra_pierce, extra_ctir_ch, extra_crit;
 public:
     Empower_effect(int, int, int, int);
+    ~Empower_effect() = default;
     void apply_effect(Player&, int);
     void apply_effect(Player&, int, int);
     void execute_effect(Player&);
@@ -146,6 +156,7 @@ class Dispell_effect : public Effect
 {
 public:
     Dispell_effect();
+    ~Dispell_effect() = default;
     void apply_effect(Player&, int);
     void apply_effect(Player&, int, int);
     void execute_effect(Player&);

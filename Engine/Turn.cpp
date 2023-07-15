@@ -27,7 +27,7 @@ Turn *Turn::get_Turn()
 
 Turn::~Turn()
 {
-
+    turn = 0;
 }
 
 void Turn::dice_roll()

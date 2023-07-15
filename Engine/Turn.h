@@ -41,7 +41,7 @@ private:
 
 public:
     static Turn* get_Turn();
-	~Turn();
+    ~Turn();
 
     Player* get_player();
     void set_player(Player* player);
