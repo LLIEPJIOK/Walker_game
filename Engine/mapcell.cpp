@@ -1,10 +1,14 @@
 #include "mapcell.h"
+#include "Events/Event.h"
 
 MapCell::MapCell()
 {
     this->type_of_terrain = "non_moving_area";
     this->item = "Нет";
-    this->event_name = "???";
+    int ev = rand() % Events::get_Events()->get_events()->size(); //рандомный номер ивента из всех
+    std::map<std::string, Event*>::iterator it = Events::get_Events()->get_events()->begin();
+    std::advance(it, ev); // адванс до нужного
+    this->event_name = it->first;
 }
 
 MapCell::MapCell(std::string type_of_terrain, std::string item, std::string event_name)

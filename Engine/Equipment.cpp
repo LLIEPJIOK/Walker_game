@@ -153,393 +153,216 @@ void Equipment::change_equiped()
 //Jewellery
 void Jewel::make_ring(int turn_number)
 {
+    if (turn_number < 1)
+    {
+        throw std::exception("номер хода не может быть меньше 1");
+    }
+
     int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
     item_id = base*100 + spec*10 + utility + 600;
     equipment_class = "украшение";
     type = "кольцо";
-    is_equiped = 0; 
-    if(turn_number < 20)
+    is_equiped = 0;
+
+    std::string tier = "";
+
+    if (turn_number < 20) // определяет тир кольца
     {
+        tier = "T1";
         name = "Малое кольцо ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("PIERCE",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("STR"))));
-            name += "пронзания";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("CRIT_CH"))));
-            name+= "шанса крит. удара";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("CRIT_DMG",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("CRIT_DMG"))));
-            name += "критческого удара";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
-    else if(turn_number > 50)
+    else if (turn_number > 50)
     {
+        tier = "T3";
         name = "Великое кольцо ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("PIERCE",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("STR"))));
-            name += "пронзания";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("CRIT_CH"))));
-            name+= "шанса крит. удара";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("CRIT_DMG",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("CRIT_DMG"))));
-            name += "критческого удара";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
     else
     {
+        tier = "T2";
         name = "Кольцо ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("PIERCE",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("STR"))));
-            name += "пронзания";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("CRIT_CH"))));
-            name+= "шанса крит. удара";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("CRIT_DMG",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("CRIT_DMG"))));
-            name += "критческого удара";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
+
+    std::string special = "";
+
+    switch (spec) // определяет атакующее свойство кольца
+    {
+    case 1: name  += "пронзания ";
+        special = "PIERCE";
+        break;
+    case 2: name += "шанса крит. удара ";
+        special = "CRIT_CH";
+        break;
+    case 3: name += "крит. удара ";
+        special = "CRIT_DMG";
+        break;
+    }
+
+    std::string basa ="";
+
+    switch (base) // определяет атрибут в кольце
+    {
+    case 1: name += "(STR)";
+        basa = "STR";
+        break;
+    case 2: name += "(AGIL)";
+        basa = "AGIL";
+        break;
+    case 3: name += "(INT)";
+        basa = "INT";
+        break;
+    }
+
+    // заполнение характеристик
+    item_characteristics.insert(std::make_pair(special ,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(special))));
+    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(basa))));
 }
 
 void Jewel::make_necklace(int turn_number)
 {
+    if (turn_number < 1)
+    {
+        throw std::exception("номер хода не может быть меньше 1");
+    }
+
     int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
     item_id = base*100 + spec*10 + utility + 630;
     equipment_class = "украшение";
     type = "ожерелье";
     is_equiped = 0;
-    if(turn_number < 20)
+
+    std::string tier = "";
+
+    if (turn_number < 20) // определяет тир ожерелья
     {
+        tier = "T1";
         name = "Малое ожерелье ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("PIERCE",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("STR"))));
-            name += "пронзания ";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("CRIT_CH"))));
-            name+= "шанса крит. удара ";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("CRIT_DMG",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("CRIT_DMG"))));
-            name += "критческого удара ";
-        }
-
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("HP",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("HP"))));
-            name += "и здоровья";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("ATK"))));
-            name+= "и атаки";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("ARM",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("ARM"))));
-            name += "и защиты";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
-    else if(turn_number > 50)
+    else if (turn_number > 50)
     {
+        tier = "T3";
         name = "Великое ожерелье ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("PIERCE",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("STR"))));
-            name += "пронзания ";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("CRIT_CH"))));
-            name+= "шанса крит. удара ";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("CRIT_DMG",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("CRIT_DMG"))));
-            name += "критческого удара ";
-        }
-
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("HP",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("HP"))));
-            name += "и здоровья";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("ATK"))));
-            name+= "и атаки";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("ARM",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("ARM"))));
-            name += "и защиты";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
     else
     {
+        tier = "T2";
         name = "Ожерелье ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("PIERCE",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("STR"))));
-            name += "пронзания ";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("CRIT_CH"))));
-            name+= "шанса крит. удара ";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("CRIT_DMG",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("CRIT_DMG"))));
-            name += "критческого удара ";
-        }
-
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("HP",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("HP"))));
-            name += "и здоровья";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("ATK"))));
-            name+= "и атаки";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("ARM",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("ARM"))));
-            name += "и защиты";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
 
+    std::string special = "";
+
+    switch (spec) // определяет атакующее свойство ожерелья
+    {
+    case 1: name  += "пронзания ";
+        special = "PIERCE";
+        break;
+    case 2: name += "шанса крит. удара ";
+        special = "CRIT_CH";
+        break;
+    case 3: name += "крит. удара ";
+        special = "CRIT_DMG";
+        break;
+    }
+
+    std::string util = "";
+
+    switch (utility) // определяет полезное свойство ожерелья
+    {
+    case 1: name += "и здоровья";
+        util = "HP";
+        break;
+    case 2: name += "и атаки";
+        util = "ATK";
+        break;
+    case 3: name += "и защиты";
+        util = "ARM";
+        break;
+    }
+
+    std::string basa ="";
+
+    switch (base) // определяет атрибут ожерелья
+    {
+    case 1: name += "(STR)";
+        basa = "STR";
+        break;
+    case 2: name += "(AGIL)";
+        basa = "AGIL";
+        break;
+    case 3: name += "(INT)";
+        basa = "INT";
+        break;
+    }
+
+    // заполнение характеристик
+    item_characteristics.insert(std::make_pair(special ,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(special))));
+    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(basa))));
+    item_characteristics.insert(std::make_pair(util,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(util))));
 }
 
 void Jewel::make_belt(int turn_number)
 {
+    if (turn_number < 1)
+    {
+        throw std::exception("номер хода не может быть меньше 1");
+    }
+
     int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
     item_id = base*100 + spec*10 + utility + 660;
     equipment_class = "украшение";
     type = "пояс";
     is_equiped = 0;
-    if(turn_number < 20)
+
+    std::string tier;
+
+    if (turn_number < 20) // определяет тир пояса
     {
+        tier = "T1";
         name = "Простой пояс ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("HP",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("HP"))));
-            name += "здоровья";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("ATK"))));
-            name+= "атаки";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("ARM",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("ARM"))));
-            name += "защиты";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T1")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
-    else if(turn_number > 50)
+    else if (turn_number > 50)
     {
+        tier = "T3";
         name = "Великий пояс ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("HP",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("HP"))));
-            name += "здоровья";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("ATK"))));
-            name+= "атаки";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("ARM",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("ARM"))));
-            name += "защиты";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T3")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
     else
     {
+        tier = "T2";
         name = "Пояс ";
-        if(spec == 1)
-        {
-            item_characteristics.insert(std::make_pair("HP",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("HP"))));
-            name += "здоровья";
-        }
-        else if(spec == 2)
-        {
-            item_characteristics.insert(std::make_pair("CRIT_CH",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("ATK"))));
-            name+= "атаки";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("ARM",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("ARM"))));
-            name += "защиты";
-        }
-
-        if(base == 1)
-        {
-            item_characteristics.insert(std::make_pair("STR",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("STR"))));
-            name += "(STR)";
-        }
-        else if(base == 2)
-        {
-            item_characteristics.insert(std::make_pair("AGIL",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("AGIL"))));
-            name+="(AGIL)";
-        }
-        else
-        {
-            item_characteristics.insert(std::make_pair("INT",std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object("T2")->get_value("INT"))));
-            name += "(INT)";
-        }
     }
+
+    std::string util = "";
+
+    switch (utility) // определяет полезное свойство пояса
+    {
+    case 1: name += "здоровья";
+        util = "HP";
+        break;
+    case 2: name += "атаки";
+        util = "ATK";
+        break;
+    case 3: name += "защиты";
+        util = "ARM";
+        break;
+    }
+
+    std::string basa ="";
+
+    switch (base) // определяет атрибут пояса
+    {
+    case 1: name += "(STR)";
+        basa = "STR";
+        break;
+    case 2: name += "(AGIL)";
+        basa = "AGIL";
+        break;
+    case 3: name += "(INT)";
+        basa = "INT";
+        break;
+    }
+
+    // заполнение характеристик
+    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(basa))));
+    item_characteristics.insert(std::make_pair(util,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(util))));
 }
 
 Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)

@@ -198,20 +198,25 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     characteristics["ATK"] = 10;
     characteristics["ARM"] =  0;
 
-    // рейндж
+    // рэндж
 	characteristics["RNG"] = 1;
 
     // регенерация
 	characteristics["RGN"] = 0;
+
+    // здоровье армора, это баг, надо фиксить
     characteristics["ARM_VIT"] = 1;
 
     // количество кубиков
     characteristics["DQNT"] = 1;
 
-    // блокирования прорубающего урона
+    // модификатор ролла, + к итоговому броску при движении
+    characteristics["ROLL_MOD"] = 0;
+
+    // процент блокировки итогового урона
     characteristics["PIERCE_ARM"] = 0;
 
-    // прорубающий урон
+    // урон, идущий в итоговое число урона, игнорируя броню (но уменьшающийся PIERCE_ARM в проц. соотношении)
     characteristics["PIERCE"] = 0;
 
     // криты
@@ -401,16 +406,28 @@ void Player::use_potion(Potion* potion)
 {
     if (potion->get_type() == "мгновенное")
     {
-		for (const auto& i : *potion->get_item_characteristics())
-            characteristics[i.first] += i.second;
-        if(potion->get_effect_name() != "нет")
+        for (const auto& i : *potion->get_item_characteristics()) // увеличение хар-к навсегда
+        {
+            std::string ch = i.first;
+            int value = i.second;
+            if (ch == "HP" && characteristics["HP"] + value >= characteristics["MAX_HP"]) // проверка на избыток здоровья
+            {
+                characteristics["HP"] = characteristics["MAX_HP"];
+                continue;
+            }
+
+            characteristics[ch] += value;
+        }
+
+        if(potion->get_effect_name() != "нет") // если мгновенное зелье по-совместительству имеет эффект
             All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
     }
-	else
+    else // наложение соотв. эффекта на игрока
     {
         All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
 	}
-	potions.erase(potion);
+
+    potions.erase(potion);
 	delete potion;
 }
 
@@ -529,18 +546,23 @@ void Player::load(std::ifstream &in)
     load_equiped_items(in);
 }
 
-void Player::process_active_effects()
+void Player::process_active_effects() // производит исполнение эффектов, уменьшение их времени действия и увеличения кол-ва стаков
 {
-	for (auto i = active_effects.begin(); i!=active_effects.end(); i++)
+    for (auto i = active_effects.begin(); i!=active_effects.end();)
 	{
 		if (!(*i)->get_effect_duration())
 		{
 			(*i)->reverse_effect(*this);
             delete* i;
-            active_effects.erase(i);
+            i = active_effects.erase(i);
         }
-		else
+        else
+        {
 			(*i)->execute_effect(*this);
+            (*i)->dec_duration();
+            (*i)->inc_counter();
+            i++;
+        }
 	}
 		
 }
@@ -687,18 +709,22 @@ Equipment* Player::add_item(const std::string& equipment_id)
     if(equipment_id == "Загадочное кольцо")
     {
         Jewel* ring = new Jewel("кольцо", Turn::get_Turn()->get_turn_number());
+        jewellery.insert(ring);
         return ring;
     }
     else if(equipment_id == "Загадочное ожерелье")
     {
         Jewel* necklace = new Jewel("ожерелье", Turn::get_Turn()->get_turn_number());
+        jewellery.insert(necklace);
         return necklace;
     }
     else if(equipment_id == "Загадочный пояс")
     {
         Jewel* belt = new Jewel("пояс", Turn::get_Turn()->get_turn_number());
+        jewellery.insert(belt);
         return belt;
     }
+
 
     std::map<std::string, int> item_characteristics;
     for (const auto& i : *DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_object("chars")->get_name_to_value())

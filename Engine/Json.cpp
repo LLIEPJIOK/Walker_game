@@ -1,7 +1,7 @@
 
 #include "Json.h"
 
-JSONObject::JSONObject()
+JSONObject::JSONObject() //инициализация пустого JSON (useless)
 {
     name_to_values = new std::unordered_map <std::string, std::vector<std::string>* >;
     name_to_object = new std::unordered_map <std::string, JSONObject*>;
@@ -30,6 +30,9 @@ JSONObject::~JSONObject()
     delete name_to_value;
 }
 
+// парсит текст в JSON-объект
+// может парсить вложенные JSON-объекты, массивы объектов, массивы значений НО! не может парсить вложенные массивы
+// замечание: нет обработки вложенных кавычек ("на двери была надпись "Закрыто" ")
 JSONObject::JSONObject(std::string text)
 {
     name_to_values = new std::unordered_map <std::string, std::vector<std::string>* >;
@@ -89,7 +92,7 @@ JSONObject::JSONObject(std::string text)
     }
 }
 
-JSONObject::JSONObject(const JSONObject& other)
+JSONObject::JSONObject(const JSONObject& other) // конструктор копирования
 {
     name_to_values = new std::unordered_map <std::string, std::vector<std::string>* >;
     for (const auto& i : *other.name_to_values)
@@ -164,35 +167,35 @@ std::unordered_map<std::string, std::string>* JSONObject::get_name_to_value()
     return name_to_value;
 }
 
-bool JSONObject::is_in_values(std::string key)
+bool JSONObject::is_in_values(std::string key) // если такой ключ хранится в простых значениях, возвращает true, иначе - false
 {
     if (name_to_value->find(key) == name_to_value->end())
         return false;
     return true;
 }
 
-bool JSONObject::is_in_objects(std::string key)
+bool JSONObject::is_in_objects(std::string key) // если такой ключ хранится в простых JSON-объектах, возвращает true, иначе - false
 {
     if (name_to_object->find(key) == name_to_object->end())
         return false;
     return true;
 }
 
-bool JSONObject::is_in_arrays(std::string key)
+bool JSONObject::is_in_arrays(std::string key) // если такой ключ хранится в массивах значений, возвращает true, иначе - false
 {
     if (name_to_values->find(key) == name_to_values->end())
         return false;
     return true;
 }
 
-bool JSONObject::is_in_object_arrays(std::string key)
+bool JSONObject::is_in_object_arrays(std::string key) // если такой ключ хранится в массивах JSON-объектов, возвращает true, иначе - false
 {
     if (name_to_objects->find(key) == name_to_objects->end())
         return false;
     return true;
 }
 
-int JSONObject::find_block_end_1(std::string& text, int curpos)
+int JSONObject::find_block_end_1(std::string& text, int curpos) // вспомогательная функция для нахождения позиции конца блока ОБЪЕКТА
 {
     int pos1 = curpos;
     int block_c = 1;
@@ -208,7 +211,7 @@ int JSONObject::find_block_end_1(std::string& text, int curpos)
     return pos1;
 }
 
-int JSONObject::find_block_end_2(std::string& text, int curpos)
+int JSONObject::find_block_end_2(std::string& text, int curpos)// вспомогательная функция для нахождения позиции конца блока МАССИВА
 {
     int pos1 = curpos;
     int block_c = 1;
@@ -224,7 +227,7 @@ int JSONObject::find_block_end_2(std::string& text, int curpos)
     return pos1;
 }
 
-void JSONObject::operator=(const JSONObject& other)
+void JSONObject::operator=(const JSONObject& other) // присваивание/копирование
 {
     name_to_values = new std::unordered_map <std::string, std::vector<std::string>* >;
     for (const auto& i : *other.name_to_values)

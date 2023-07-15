@@ -119,7 +119,7 @@ void Effect::load(std::ifstream& in)
     in.read((char*)& dispellable, sizeof(dispellable));
 }
 
-Small_healing_effect::Small_healing_effect()
+Regeneration_effect::Regeneration_effect()
 {
     effect_name = "регенерация";
     effect_type = "положительный";
@@ -129,7 +129,7 @@ Small_healing_effect::Small_healing_effect()
 	chars.emplace(std::make_pair("HP", 2));
 }
 
-void Small_healing_effect::apply_effect(Player& target, int duration)
+void Regeneration_effect::apply_effect(Player& target, int duration)
 {
 	for (const auto& i : *target.get_active_effects())
 		if (i->get_effect_name() == effect_name)
@@ -137,13 +137,13 @@ void Small_healing_effect::apply_effect(Player& target, int duration)
 			i->set_effect_duration(duration);
 			i->inc_counter();
 			return;
-		}
-	Small_healing_effect* tmp = new Small_healing_effect();
+        }
+    Regeneration_effect* tmp = new Regeneration_effect();
 	tmp->set_effect_duration(duration);
 	target.get_active_effects()->push_back(tmp);
 }
 
-void Small_healing_effect::apply_effect(Player& target, int duration, int counter)
+void Regeneration_effect::apply_effect(Player& target, int duration, int counter)
 {
 	for (const auto& i : *target.get_active_effects())
 		if (i->get_effect_name() == effect_name)
@@ -151,14 +151,14 @@ void Small_healing_effect::apply_effect(Player& target, int duration, int counte
 			i->set_effect_duration(duration);
 			i->inc_counter();
 			return;
-		}
-	Small_healing_effect* tmp = new Small_healing_effect();
+        }
+    Regeneration_effect* tmp = new Regeneration_effect();
 	tmp->set_effect_duration(duration);
 	tmp->set_effect_counter(counter);
 	target.get_active_effects()->push_back(tmp);
 }
 
-void Small_healing_effect::execute_effect(Player& target)
+void Regeneration_effect::execute_effect(Player& target)
 {
 	int Max_HP = target.get_characteristics().at("MAX_HP");
 	int HP = target.get_characteristics().at("HP");
@@ -174,7 +174,7 @@ void Small_healing_effect::execute_effect(Player& target)
 	effect_duration--;
 }
 
-void Small_healing_effect::reverse_effect(Player&)
+void Regeneration_effect::reverse_effect(Player&)
 {
 	return;
 }
@@ -354,7 +354,7 @@ void Frostbite_effect::apply_effect(Player& target, int duration)
 	Frostbite_effect* tmp = new Frostbite_effect();
 	tmp->set_effect_duration(duration);
 	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ROLL") -= 1;
+    target.get_characteristics().at("ROLL_MOD") -= 1;
 	target.get_characteristics().at("ARM") -= 5;
 }
 
@@ -371,7 +371,7 @@ void Frostbite_effect::apply_effect(Player& target, int duration, int counter)
 	tmp->set_effect_duration(duration);
 	tmp->set_effect_counter(counter);
 	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ROLL") -= 1;
+    target.get_characteristics().at("ROLL_MOD") -= 1;
 	target.get_characteristics().at("ARM") -= 5;
 }
 
@@ -384,7 +384,7 @@ void Frostbite_effect::execute_effect(Player& target)
 
 void Frostbite_effect::reverse_effect(Player& target)
 {
-	target.get_characteristics().at("ROLL") += 1;
+    target.get_characteristics().at("ROLL_MOD") += 1;
 	target.get_characteristics().at("ARM") += 5;
 }
 
@@ -479,7 +479,7 @@ void Slowdown_effect::apply_effect(Player &target, int duration, int counter)
     tmp->set_effect_duration(duration);
     tmp->set_effect_counter(counter);
     target.get_characteristics().at("AGIL") -= 2;
-    target.get_characteristics().at("ROLL") -= 2;
+    target.get_characteristics().at("ROLL_MOD") -= 2;
     target.get_active_effects()->push_back(tmp);
 }
 
@@ -491,7 +491,7 @@ void Slowdown_effect::execute_effect(Player &)
 void Slowdown_effect::reverse_effect(Player & target)
 {
     target.get_characteristics().at("AGIL") += 2;
-    target.get_characteristics().at("ROLL") += 2;
+    target.get_characteristics().at("ROLL_MOD") += 2;
 }
 
 Haste_effect::Haste_effect()
@@ -511,13 +511,13 @@ void Haste_effect::apply_effect(Player &target, int duration)
             i->set_effect_duration(duration);
             i->inc_counter();
             target.get_characteristics().at("AGIL") += 2;
-            target.get_characteristics().at("ROLL") += 2;
+            target.get_characteristics().at("ROLL_MOD") += 2;
             return;
         }
-    Slowdown_effect* tmp = new Slowdown_effect();
+    Haste_effect* tmp = new Haste_effect();
     tmp->set_effect_duration(duration);
     target.get_characteristics().at("AGIL") += 2;
-    target.get_characteristics().at("ROLL") += 2;
+    target.get_characteristics().at("ROLL_MOD") += 2;
     target.get_active_effects()->push_back(tmp);
 }
 
@@ -529,10 +529,10 @@ void Haste_effect::apply_effect(Player &target, int duration, int counter)
             i->set_effect_duration(duration);
             i->inc_counter();
             target.get_characteristics().at("AGIL") += 2;
-            target.get_characteristics().at("ROLL") += 2;
+            target.get_characteristics().at("ROLL_MOD") += 2;
             return;
         }
-    Slowdown_effect* tmp = new Slowdown_effect();
+    Haste_effect* tmp = new Haste_effect();
     tmp->set_effect_duration(duration);
     tmp->set_effect_counter(counter);
     target.get_characteristics().at("AGIL") += 2;
@@ -548,7 +548,7 @@ void Haste_effect::execute_effect(Player &)
 void Haste_effect::reverse_effect(Player & target)
 {
     target.get_characteristics().at("AGIL") -= 2 * effect_counter;
-    target.get_characteristics().at("ROLL") -= 2 * effect_counter;
+    target.get_characteristics().at("ROLL_MOD") -= 2 * effect_counter;
 }
 
 Endurance_effect::Endurance_effect(int armour, int pierce)
@@ -576,7 +576,7 @@ void Endurance_effect::apply_effect(Player &target, int duration)
     target.get_characteristics().at("PIERCE_ARM") += pierce;
     target.get_characteristics().at("ARM") += arm;
     target.get_characteristics().at("HP") += 20;
-    Endurance_effect* tmp = new Endurance_effect(arm, pierce);
+    Endurance_effect* tmp = new Endurance_effect(arm, pierce); // в конструкторе эффекта сохраняется бафф армора и бафф снижения урона
     tmp->set_effect_duration(duration);
     target.get_active_effects()->push_back(tmp);
 }
@@ -595,7 +595,7 @@ void Endurance_effect::apply_effect(Player &target, int duration, int counter)
     target.get_characteristics().at("PIERCE_ARM") += pierce;
     target.get_characteristics().at("ARM") += arm;
     target.get_characteristics().at("HP") += 20;
-    Endurance_effect* tmp = new Endurance_effect(arm, pierce);
+    Endurance_effect* tmp = new Endurance_effect(arm, pierce); // в конструкторе эффекта сохраняется бафф армора и бафф снижения урона
     tmp->set_effect_duration(duration);
     tmp->set_effect_counter(counter);
     target.get_active_effects()->push_back(tmp);
@@ -738,7 +738,7 @@ All_effects::~All_effects()
 
 All_effects::All_effects()
 {
-    effects.emplace(std::make_pair("регенерация", new Small_healing_effect()));
+    effects.emplace(std::make_pair("регенерация", new Regeneration_effect()));
     effects.emplace(std::make_pair("горение", new Burning_effect()));
     effects.emplace(std::make_pair("шок", new Shock_effect()));
     effects.emplace(std::make_pair("отравление", new Intoxication_effect()));

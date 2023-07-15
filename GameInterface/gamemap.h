@@ -54,6 +54,7 @@ private:
     void end_movement();
 
 signals:
+    void event_triggered();
     void win_by_killing();
     void update_roll();
     void can_finish_turn();
