@@ -24,7 +24,12 @@ int Effect::get_effect_duration()
 
 int Effect::get_effect_counter()
 {
-	return effect_counter;
+    return effect_counter;
+}
+
+std::map<std::string, int> &Effect::get_sp_chs()
+{
+    return special_chs;
 }
 
 bool Effect::is_dispellable()
@@ -39,7 +44,12 @@ void Effect::set_effect_counter(int value)
 
 void Effect::set_effect_duration(int value)
 {
-	effect_duration = value;
+    effect_duration = value;
+}
+
+void Effect::set_special_chs(std::map<std::string, int> &chs)
+{
+    special_chs = chs;
 }
 
 void Effect::dec_duration()
@@ -119,14 +129,16 @@ void Effect::load(std::ifstream& in)
     in.read((char*)& dispellable, sizeof(dispellable));
 }
 
+// ВНИМАНИЕ! ДАЛЬШЕ НАСРАНО
+
 Regeneration_effect::Regeneration_effect()
 {
     effect_name = "регенерация";
     effect_type = "положительный";
 	effect_duration = 3;
 	effect_counter = 1;
-	dispellable = 1;
-	chars.emplace(std::make_pair("HP", 2));
+    dispellable = 1;
+    special_chs = std::map<std::string, int>();
 }
 
 void Regeneration_effect::apply_effect(Player& target, int duration)
@@ -167,11 +179,12 @@ void Regeneration_effect::execute_effect(Player& target)
 	if (dif > 0)
 	{
 		if (dif > 0.2 * Max_HP)
-			target.get_characteristics().at("HP") += dif * 0.2;
-		else
+            target.get_characteristics().at("HP") += dif * 0.2;
+        else if (dif > 1)
 			target.get_characteristics().at("HP") += 2;
-	}
-	effect_duration--;
+        else
+            target.get_characteristics().at("HP") = Max_HP;
+    }
 }
 
 void Regeneration_effect::reverse_effect(Player&)
@@ -185,8 +198,8 @@ Burning_effect::Burning_effect()
     effect_type = "отрицательный";
 	effect_duration = 3;
 	effect_counter = 1;
-	dispellable = 1;
-	chars.emplace(std::make_pair("HP", -2));
+    dispellable = 1;
+    special_chs = std::map<std::string, int>();
 }
 
 void Burning_effect::apply_effect(Player& target, int duration)
@@ -198,8 +211,9 @@ void Burning_effect::apply_effect(Player& target, int duration)
 			i->inc_counter();
 			return;
 		}
-	Burning_effect* tmp = new Burning_effect();
-	tmp->set_effect_duration(duration);
+
+    Burning_effect* tmp = new Burning_effect();
+    tmp->set_effect_duration(duration);
 	target.get_active_effects()->push_back(tmp);
 }
 
@@ -212,6 +226,7 @@ void Burning_effect::apply_effect(Player& target, int duration, int counter)
 			i->inc_counter();
 			return;
 		}
+
 	Burning_effect* tmp = new Burning_effect();
 	tmp->set_effect_duration(duration);
 	tmp->set_effect_counter(counter);
@@ -220,11 +235,12 @@ void Burning_effect::apply_effect(Player& target, int duration, int counter)
 
 void Burning_effect::execute_effect(Player& target)
 {
-	target.get_characteristics().at("HP") += chars["HP"] - effect_counter;
+    int HP = target.get_characteristics().at("HP");
+    int dmg = HP * (double)(0.02 * (double)effect_counter); // надо проверить как работает формулка...
 	if (effect_counter > 2)
-		target.get_characteristics().at("HP") -= target.get_characteristics().at("ARM") * 0.2;
-	effect_counter++;
-	effect_duration--;
+        dmg += target.get_characteristics().at("ARM") * 0.2;
+
+    target.get_characteristics().at("HP") -= dmg;
 }
 
 void Burning_effect::reverse_effect(Player&)
@@ -238,8 +254,8 @@ Shock_effect::Shock_effect()
     effect_type = "отрицательный";
 	effect_duration = 2;
 	effect_counter = 1;
-	dispellable = 1;
-	chars.emplace(std::make_pair("HP", -1));
+    dispellable = 1;
+    special_chs = std::map<std::string, int>();
 }
 
 void Shock_effect::apply_effect(Player& target, int duration)
@@ -250,11 +266,14 @@ void Shock_effect::apply_effect(Player& target, int duration)
 			i->set_effect_duration(duration);
 			i->inc_counter(); 
 			return;
-		}
-	Shock_effect* tmp = new Shock_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ATK") -= 4;
+        }
+
+    Shock_effect* tmp = new Shock_effect();
+    tmp->set_effect_duration(duration);
+    int decr_atk = target.get_characteristics().at("CRIT_CH") * 0.5;
+    tmp->get_sp_chs().emplace("CRIT_CH", -1 * decr_atk);
+    target.get_characteristics().at("CRIT_CH") -= decr_atk;
+    target.get_active_effects()->push_back(tmp);
 }
 
 void Shock_effect::apply_effect(Player& target, int duration, int counter)
@@ -265,19 +284,19 @@ void Shock_effect::apply_effect(Player& target, int duration, int counter)
 			i->set_effect_duration(duration);
 			i->inc_counter();
 			return;
-		}
-	Shock_effect* tmp = new Shock_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ATK") -= 4;
+        }
+
+    Shock_effect* tmp = new Shock_effect();
+    tmp->set_effect_duration(duration);
+    int decr_ch = target.get_characteristics().at("CRIT_CH") * 0.5;
+    tmp->get_sp_chs().emplace("CRIT_CH", -1 * decr_ch);
+    target.get_characteristics().at("CRIT_CH") -= decr_ch;
+    target.get_active_effects()->push_back(tmp);
 }
 
 void Shock_effect::execute_effect(Player& target)
 {
-	target.get_characteristics().at("HP") += chars["HP"];
-	effect_counter++;
-	effect_duration--;
+    target.get_characteristics().at("HP") -= 2;
 }
 
 void Shock_effect::reverse_effect(Player& target)
@@ -292,6 +311,7 @@ Intoxication_effect::Intoxication_effect()
 	effect_duration = 3;
 	effect_counter = 1;
 	dispellable = 1;
+    special_chs = std::map<std::string, int>();
 }
 
 void Intoxication_effect::apply_effect(Player& target, int duration)
@@ -303,9 +323,13 @@ void Intoxication_effect::apply_effect(Player& target, int duration)
 			i->inc_counter();
 			return;
 		}
-	Intoxication_effect* tmp = new Intoxication_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
+
+    Intoxication_effect* tmp = new Intoxication_effect();
+    tmp->set_effect_duration(duration);
+    int decr_atk = target.get_characteristics().at("ATK") * 0.25;
+    tmp->get_sp_chs().emplace("ATK", -1 * decr_atk);
+    target.get_characteristics().at("ATK") -= decr_atk;
+    target.get_active_effects()->push_back(tmp);
 }
 
 void Intoxication_effect::apply_effect(Player& target, int duration, int counter)
@@ -317,10 +341,13 @@ void Intoxication_effect::apply_effect(Player& target, int duration, int counter
 			i->inc_counter();
 			return;
 		}
-	Intoxication_effect* tmp = new Intoxication_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
+
+    Intoxication_effect* tmp = new Intoxication_effect();
+    tmp->set_effect_duration(duration);
+    int decr_atk = target.get_characteristics().at("ATK") * 0.25;
+    tmp->get_sp_chs().emplace("ATK", -1 * decr_atk);
+    target.get_characteristics().at("ATK") -= decr_atk;
+    target.get_active_effects()->push_back(tmp);
 }
 
 void Intoxication_effect::execute_effect(Player& target)
@@ -328,9 +355,9 @@ void Intoxication_effect::execute_effect(Player& target)
 	target.get_characteristics().at("HP") -= 0.08 * target.get_characteristics().at("HP");
 }
 
-void Intoxication_effect::reverse_effect(Player&)
+void Intoxication_effect::reverse_effect(Player& target)
 {
-	return;
+    target.get_characteristics().at("ATK") -= special_chs.at("ATK");
 }
 
 Frostbite_effect::Frostbite_effect()
@@ -340,6 +367,7 @@ Frostbite_effect::Frostbite_effect()
 	effect_duration = 3;
 	effect_counter = 1;
 	dispellable = 1;
+    special_chs = std::map<std::string, int>();
 }
 
 void Frostbite_effect::apply_effect(Player& target, int duration)
@@ -388,10 +416,10 @@ void Frostbite_effect::reverse_effect(Player& target)
 	target.get_characteristics().at("ARM") += 5;
 }
 
+// BLEEDING ТРЕБУЕТ РЕВОРКА
+
 Bleeding_effect::Bleeding_effect()
 {
-	latest_x = 0;
-	latest_y = 0;
     effect_name = "кровотечение";
     effect_type = "негативный";
 	effect_duration = 3;
@@ -407,9 +435,7 @@ void Bleeding_effect::apply_effect(Player& target, int duration)
 			i->set_effect_duration(duration);
 			i->inc_counter();
 			return;
-		}
-	latest_x = target.get_x();
-	latest_y = target.get_y();
+        }
 	Bleeding_effect* tmp = new Bleeding_effect();
 	tmp->set_effect_duration(duration);
 	target.get_active_effects()->push_back(tmp);
@@ -423,9 +449,7 @@ void Bleeding_effect::apply_effect(Player& target, int duration, int counter)
 			i->set_effect_duration(duration);
 			i->inc_counter();
 			return;
-		}
-	latest_x = target.get_x();
-	latest_y = target.get_y();
+        }
 	Bleeding_effect* tmp = new Bleeding_effect();
 	tmp->set_effect_duration(duration);
 	tmp->set_effect_counter(counter);
@@ -434,8 +458,8 @@ void Bleeding_effect::apply_effect(Player& target, int duration, int counter)
 
 void Bleeding_effect::execute_effect(Player& target)
 {
-    int dif = sqrt((latest_x - target.get_x()) * (latest_x - target.get_x()) + (latest_y - target.get_y()) * (latest_y - target.get_y())) * sqrt(effect_counter);
-    target.get_characteristics().at("HP") -= dif;
+    //int dif = sqrt((latest_x - target.get_x()) * (latest_x - target.get_x()) + (latest_y - target.get_y()) * (latest_y - target.get_y())) * sqrt(effect_counter);
+    //target.get_characteristics().at("HP") -= dif;
 }
 
 void Bleeding_effect::reverse_effect(Player&)
@@ -558,8 +582,8 @@ Endurance_effect::Endurance_effect(int armour, int pierce)
     effect_duration = 3;
     effect_counter = 1;
     dispellable = 0;
-    extra_armour = armour;
-    extra_pierce_armour = pierce;
+    special_chs.emplace("ARM", armour);
+    special_chs.emplace("PIERCE_ARM", pierce);
 }
 
 void Endurance_effect::apply_effect(Player &target, int duration)
@@ -608,8 +632,8 @@ void Endurance_effect::execute_effect(Player &)
 
 void Endurance_effect::reverse_effect(Player & target)
 {
-    target.get_characteristics().at("PIERCE_ARM") -= extra_pierce_armour;
-    target.get_characteristics().at("ARM") -= extra_armour;
+    target.get_characteristics().at("PIERCE_ARM") -= special_chs["PIERCE_ARM"];
+    target.get_characteristics().at("ARM") -= special_chs["ARM"];
     if(target.get_characteristics().at("HP") <= 20)
         target.get_characteristics().at("HP") = 1;
     else
@@ -623,10 +647,10 @@ Empower_effect::Empower_effect(int atk, int pierce, int crit_ch, int crit)
     effect_duration = 3;
     effect_counter = 1;
     dispellable = 0;
-    extra_atk = atk;
-    extra_pierce = pierce;
-    extra_crit = crit;
-    extra_ctir_ch = crit_ch;
+    special_chs.emplace("ATK", atk);
+    special_chs.emplace("PIERCE", pierce);
+    special_chs.emplace("CRIT_CH", crit_ch);
+    special_chs.emplace("CRIT_DMG", crit);
 }
 
 void Empower_effect::apply_effect(Player &target, int duration)
@@ -681,12 +705,11 @@ void Empower_effect::execute_effect(Player &)
 
 void Empower_effect::reverse_effect(Player & target)
 {
-    target.get_characteristics().at("PIERCE") -= extra_pierce;
-    target.get_characteristics().at("ATK") -= extra_atk;
-    target.get_characteristics().at("CRIT_CH") -= extra_ctir_ch;
-    target.get_characteristics().at("CRIT_DMG") -= extra_crit;
+    target.get_characteristics().at("PIERCE") -= special_chs["PIERCE"];
+    target.get_characteristics().at("ATK") -= special_chs["ATK"];
+    target.get_characteristics().at("CRIT_CH") -= special_chs["CRIT_CH"];
+    target.get_characteristics().at("CRIT_DMG") -= special_chs["CRIT_DMG"];
 }
-
 
 Dispell_effect::Dispell_effect()
 {
