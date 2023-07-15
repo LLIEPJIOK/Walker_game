@@ -734,6 +734,7 @@ All_effects::~All_effects()
 {
     for (const auto& i : effects)
         delete i.second;
+
 }
 
 All_effects::All_effects()
