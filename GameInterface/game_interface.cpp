@@ -23,6 +23,10 @@ GameInterface::GameInterface(QWidget *parent)
     showFullScreen();
     menu = new Menu();
     setCentralWidget(menu);
+
+    //создание нового объекта класса SaveAndLoadManager
+    save_load_manager = new SaveAndLoadManager("SAVE_FILE");
+
     connect(General::get_general(), &General::start_game, this, &GameInterface::start);
     connect(menu, &Menu::load_the_game, this, &GameInterface::load);
 }
@@ -150,9 +154,13 @@ void GameInterface::end_game()
     foreach(Inventory* inv, inventories)
         delete inv;
     inventories.clear();
+    //inventories.shrink_to_fit();
+
     foreach(EquipedItems* ei, equipment_slots)
         delete ei;
     equipment_slots.clear();
+    //equipment_slots.shrink_to_fit();
+
     delete current_map;
     current_map = nullptr;
     delete mini_map;
@@ -172,6 +180,8 @@ void GameInterface::paintEvent(QPaintEvent *event)
 void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
 {
     data_base->generate_players(data);
+    data_base->generate_map();
+    data_base->generate_items();
     turn->next_player();
     initialize();
 
@@ -181,7 +191,8 @@ void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
 
 void GameInterface::load()
 {
-    turn->load("../Game/Saves/SAVE_FILE.txt");
+    //вызов метода загрузки
+    save_load_manager->load_all();
     is_load = true;
     initialize();
 
@@ -210,6 +221,11 @@ void GameInterface::next_turn_button_clicked()
 
     current_equipment_slot->setVisible(false);
     current_equipment_slot = equipment_slots[(turn->get_turn_number()-1) % equipment_slots.size()];
+
+    action->set_text(""); // делает окно действий пустым
+
+    //вызов метода сохранения
+    save_load_manager->save_all();
 
     update_labels();
 }
@@ -253,6 +269,7 @@ void GameInterface::to_main()
 {
     pause->setVisible(false);
     menu = new Menu();
+    connect(menu, &Menu::load_the_game, this, &GameInterface::load);
     end_game();
     setCentralWidget(menu);
 }

@@ -54,7 +54,69 @@ void Effect::inc_counter()
 
 void Effect::dec_counter()
 {
-	effect_counter--;
+    effect_counter--;
+}
+
+//метод для чтения имени, т.к. эффект явялется абстрактным классом
+std::string Effect::read_name(std::ifstream &in)
+{
+    //переменная для размера строк
+    size_t size;
+    //чтение размера name
+    in.read((char*)& size, sizeof(size));
+    //присваивание namr строки из пробелов длиной size-1, без /0
+    std::string name = std::string(size - 1, ' ');
+    //чтение namr\e
+    in.read(name.data(), size);
+
+    return name;
+}
+
+void Effect::save(std::ofstream& out)
+{
+    //размер effect_name с /0
+    size_t size = effect_name.size() + 1;
+    //запись размера effect_name
+    out.write((char*)& size, sizeof(size));
+    //запись effect_name
+    out.write(effect_name.c_str(), size);
+
+    //размер effect_type c /0
+    size = effect_type.size() + 1;
+    //запись размера effect_type
+    out.write((char*)& size, sizeof(size));
+    //запись effect_type
+    out.write(effect_type.c_str(), size);
+
+    //запись effect_counter
+    out.write((char*)& effect_counter, sizeof(effect_counter));
+
+    //запись effect_duration
+    out.write((char*)& effect_duration, sizeof(effect_duration));
+
+    //запись dispallable
+    out.write((char*)& dispellable, sizeof(dispellable));
+}
+
+void Effect::load(std::ifstream& in)
+{
+    //переменная для рамзера строк
+    size_t size;
+    //чтение размера effect_type
+    in.read((char*)& size, sizeof(size));
+    //присваивание effect_type строки из пробелов длиной size-1, без /0
+    effect_type = std::string(size - 1, ' ');
+    //чтение effect_type данных размера size
+    in.read(effect_type.data(), size);
+
+    //чтение effect_counter
+    in.read((char*)& effect_counter, sizeof(effect_counter));
+
+    //чтение effect_duration
+    in.read((char*)& effect_duration, sizeof(effect_duration));
+
+    //чтение dispallable
+    in.read((char*)& dispellable, sizeof(dispellable));
 }
 
 Regeneration_effect::Regeneration_effect()

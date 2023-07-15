@@ -6,7 +6,6 @@
 #include <string>
 #include <fstream>
 
-
 class Equipment
 {
 protected:
@@ -16,9 +15,12 @@ protected:
     std::string equipment_class;
     std::string type;
     bool is_equiped;
+
+
+
 public:
-    Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string _type);
-    Equipment();
+    Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
+    Equipment() = default;
     std::string get_name() const;
     std::string get_type() const;
     std::string get_class() const;
@@ -26,6 +28,10 @@ public:
     int get_id() const;
     bool get_equiped() const;
     void change_equiped();
+
+    virtual void save(std::ofstream& out);
+    virtual void load(std::ifstream& in);
+
     virtual ~Equipment(){}
 };
 
@@ -39,27 +45,38 @@ private:
 public:
     Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
     Jewel(std::string type, int turn_number);
+    Jewel() = default;
 };
 
 class Weapon : public Equipment {
 public:
     Weapon(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
+    Weapon() = default;
 };
 
 class Armour : public Equipment {
 public:
     Armour(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
+    Armour() = default;
 };
 
 class Potion : public Equipment {
 private:
     int duration;
     std::string effect_name;
+
+
+
 public:
     Potion(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type, int duration, std::string effect_name);
+    Potion() = default;
+
     void dec_duration();
     int get_duration() const;
     std::string get_effect_name() const;
+
+    void save(std::ofstream& out) override;
+    void load(std::ifstream& in) override;
 };
 
 class Equipment_Comparator {
