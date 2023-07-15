@@ -146,7 +146,7 @@ void Player::load_all_items(std::ifstream &in)
     }
 }
 
-void Player::load_equiped_items(std::ifstream &in)
+void Player::load_equiped_items()
 {
     //цикл для заполнения контейнера equiped_weaponary
     for(auto & i : weaponary)
@@ -253,8 +253,6 @@ Player::~Player()
 		delete i;
     for (auto& i : jewellery)
 		delete i;
-    for(auto& i : active_effects)
-        delete i;
 
     CURRENT_ID--;
 }
@@ -543,7 +541,7 @@ void Player::load(std::ifstream &in)
     //вызов метода чтения всех предметов
     load_all_items(in);
     //вызов метода заполнения всех экипированныех предметов
-    load_equiped_items(in);
+    load_equiped_items();
 }
 
 void Player::process_active_effects() // производит исполнение эффектов, уменьшение их времени действия и увеличения кол-ва стаков

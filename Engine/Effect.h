@@ -7,6 +7,7 @@ protected:
 	std::string effect_type;
     int effect_counter; // у некоторых эффектов изменяется execute_effect в зависимости от количества "стаков" - counter
 	int effect_duration;
+    std::map<std::string, int> special_chs;
     bool dispellable = 1; // можно ли развеять эффект
 
 public:
@@ -16,9 +17,11 @@ public:
 	std::string get_effect_type();
 	int get_effect_duration();
 	int get_effect_counter();
+    std::map<std::string, int>& get_sp_chs();
 	bool is_dispellable();
 	void set_effect_counter(int);
 	void set_effect_duration(int);
+    void set_special_chs(std::map<std::string, int>& chs);
 	void dec_duration();
 	void inc_counter();
     void dec_counter();
@@ -35,12 +38,12 @@ public:
     void load(std::ifstream& in);
 };
 
-class Regeneration_effect : public Effect // регенерирует очки здоровья в процентном соотношении
+class Regeneration_effect : public Effect // восстанавливает 20% отсутствующего здоровья в ход
 {
-	std::map<std::string, int> chars;
 public:
     Regeneration_effect();
     ~Regeneration_effect() = default;
+
 	void apply_effect(Player&, int);
 	void apply_effect(Player&, int, int);
 	void execute_effect(Player&);
@@ -49,7 +52,6 @@ public:
 
 class Burning_effect : public Effect // горение, потеря очков здоровья, зависит от текущей брони
 {
-	std::map<std::string, int> chars;
 public:
 	Burning_effect();
     ~Burning_effect() = default;
@@ -61,7 +63,6 @@ public:
 
 class Shock_effect : public Effect // шок, потеря очков здоровья, временное уменьшение атаки на 4
 {
-	std::map<std::string, int> chars;
 public:
 	Shock_effect();
     ~Shock_effect() = default;
@@ -95,7 +96,6 @@ public:
 
 class Bleeding_effect : public Effect // кровотечение, наносит урон каждый ход, зависящий от пройденного расстояния
 {
-	int latest_x, latest_y;
 public:
 	Bleeding_effect();
     ~Bleeding_effect() = default;
@@ -129,8 +129,6 @@ public:
 
 class Endurance_effect : public Effect // стойкость, временно повышает броню на 30%, текущее снижение урона на 20%, увеличение здоровья на 20 (процент от значений во время наложения эффекта)
 {
-private:
-    int extra_armour, extra_pierce_armour;
 public:
     Endurance_effect(int, int);
     ~Endurance_effect() = default;
@@ -142,8 +140,6 @@ public:
 
 class Empower_effect : public Effect // усиление, временно повышает атаку на 20%, прорубающий урон на 10%, шанс крита на 10%, крит. удар на 10% (процент от значений во время наложения эффекта)
 {
-private:
-    int extra_atk, extra_pierce, extra_ctir_ch, extra_crit;
 public:
     Empower_effect(int, int, int, int);
     ~Empower_effect() = default;
@@ -172,7 +168,6 @@ private:
 	std::map<std::string, Effect*> effects;
 	static All_effects* effects_data;
 public:
-
 	~All_effects();
 	All_effects();
 	All_effects(const All_effects&) = delete;

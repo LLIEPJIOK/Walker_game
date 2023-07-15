@@ -36,7 +36,7 @@ private:
 
     void save_all_items(std::ofstream& out);
     void load_all_items(std::ifstream& in);
-    void load_equiped_items(std::ifstream& in);
+    void load_equiped_items();
 
 public:
     Player(const std::string& _name);
