@@ -15,9 +15,7 @@ GameInterface::GameInterface(QWidget *parent)
     mini_map = nullptr;
     is_load = false;
 
-    data_base =  DataBase::get_DataBase();
     screen_size = QApplication::screens().at(0)->size();
-    turn = Turn::get_Turn();
 
     setFixedSize(screen_size);
     showFullScreen();
@@ -179,6 +177,9 @@ void GameInterface::paintEvent(QPaintEvent *event)
 
 void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
 {
+    data_base =  DataBase::get_DataBase();
+    turn = Turn::get_Turn();
+
     data_base->generate_players(data);
     data_base->generate_map();
     data_base->generate_items();
@@ -191,6 +192,9 @@ void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
 
 void GameInterface::load()
 {
+    data_base =  DataBase::get_DataBase();
+    turn = Turn::get_Turn();
+
     //вызов метода загрузки
     save_load_manager->load_all();
     is_load = true;

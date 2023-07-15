@@ -245,14 +245,18 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 
 Player::~Player()
 {
-	for (const auto& i : weaponary)
+    for (auto& i : weaponary)
 		delete i;
-	for (const auto& i : armourment)
+    for (auto& i : armourment)
 		delete i;
-	for (const auto& i : potions)
+    for (auto& i : potions)
 		delete i;
-	for (const auto& i : jewellery)
+    for (auto& i : jewellery)
 		delete i;
+    for(auto& i : active_effects)
+        delete i;
+
+    CURRENT_ID--;
 }
 
 int Player::get_id() const
