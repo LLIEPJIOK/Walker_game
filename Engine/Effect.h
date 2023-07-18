@@ -29,7 +29,7 @@ public:
     virtual void apply_effect(Player&, int) = 0; // наложение эффекта на выбранного игрока на выбранное количество ходов
     virtual void apply_effect(Player&, int, int) = 0; // наложение эффекта на выбранного игрока на выбранное количество ходов с выбранным количеством стаков
     virtual void execute_effect(Player&) = 0; // исполнение эффекта
-    virtual void reverse_effect(Player&) = 0; // обращение временного эффекта, если тот временно изменял какой-то стат на стадии наложение эффекта
+    virtual void reverse_effect(Player&); // обращение временного эффекта, если тот временно изменял какой-то стат на стадии наложение эффекта
 
     // подправить сохранение для контейнера
 
@@ -173,6 +173,6 @@ public:
 	All_effects(const All_effects&) = delete;
 	const All_effects& operator = (const All_effects&) = delete;
 	std::map<std::string, Effect* >* get_effects();
-	static All_effects* get_effects_data();
+    static All_effects* get_effects_data();
 
 };

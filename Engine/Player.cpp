@@ -187,41 +187,63 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 	name = _name;
     x = y = 0;
     previous_direction = std::make_pair(0, 0);
-	// Characteristics
-    characteristics["HP"] = 100;
-	characteristics["MAX_HP"] = 100;
+    // Итоговые хар-ки, используемые в рассчетах при атаке, ивентах и получении урона:
 
+    // Здоровье, оно же ОЗ и макс. ОЗ
+    characteristics["HP"] = 100;
+    characteristics["MAX_HP"] = 100;
+
+    // Атрибуты, влияют на прохождение ивентов, а также на ваши ОЗ, криты
     characteristics["AGIL"] = 1;
     characteristics["STR"] = 1;
     characteristics["INT"] = 1;
 
+    // хар-ки атаки: атк, крит шанс, крит урон, расстояние атаки и прорубающий урон (сквозь ARM)
     characteristics["ATK"] = 10;
+    characteristics["CRIT_CH"] = 5;
+    characteristics["CRIT_DMG"] = 100;
+    characteristics["RNG"] = 1;
+    characteristics["PIERCE"] = 0;
+
+
+    // Хар-ки, влияющие на получаемый урон: броня, физ. сопротивление
     characteristics["ARM"] =  0;
+    characteristics["PIERCE_ARM"] = 0;
 
-    // рэндж
-	characteristics["RNG"] = 1;
+    // хар-ки кубиков
+    characteristics["DQNT"] = 1; // кол-во кубиков (влияет только на передвижение)
+    characteristics["ROLL_MOD"] = 0; // модификатор ролла при передвижении
+    characteristics["EVENT_ROLL_MOD"] = 0; // модификатор ролла в ивенте
 
-    // регенерация
+    // я не знаю что это...
 	characteristics["RGN"] = 0;
 
     // здоровье армора, это баг, надо фиксить
     characteristics["ARM_VIT"] = 1;
 
-    // количество кубиков
-    characteristics["DQNT"] = 1;
+    // хар-ки, участвующие в рассчете итоговых:
 
-    // модификатор ролла, + к итоговому броску при движении
-    characteristics["ROLL_MOD"] = 0;
+    // ATK:
+    characteristics["ATK_FLAT"] = 10; // плоское значение атаки
+    characteristics["ATK_MULTI"] = 100; // процентный модификатор атаки
 
-    // процент блокировки итогового урона
-    characteristics["PIERCE_ARM"] = 0;
+    // CRIT_CH:
+    characteristics["CRIT_CH_FLAT"] = 5; // обычный крит. шанс
+    characteristics["CRIT_CH_AGIL"] = characteristics["AGIL"] / 5; // шанс крита, полученный за счет ловкости
 
-    // урон, идущий в итоговое число урона, игнорируя броню (но уменьшающийся PIERCE_ARM в проц. соотношении)
-    characteristics["PIERCE"] = 0;
+    // CRIT_DMG:
+    characteristics["CRIT_DMG_FLAT"] = 100; // обычный мультипликатор АТК при крит. ударе
+    characteristics["CRIT_DMG_INT"] = characteristics["INT"] / 5; // крит урон, полученный за счет интеллекта
 
-    // криты
-    characteristics["CRIT_CH"] = 5;
-    characteristics["CRIT_DMG"] = 100;
+    // ARM:
+    characteristics["ARM_FLAT"] = 0; // плоская броня
+    characteristics["ARM_MULTI"] = 100; // мультипликатор брони
+
+    // HP
+    //characteristics["HP_FLAT"] = 5; // плоское ОЗ
+    //characteristics["HP_MULTI"] = 100; // мультипликатор ОЗ
+    characteristics["HP_MAX_STR"] = characteristics["STR"] * 2; // ОЗ, полученные за счет силы
+    characteristics["HP_MAX_FLAT"] = 100;
 
 	//equiped_Armourment
     equiped_armourment["нагрудник"] = nullptr;
@@ -327,6 +349,37 @@ void Player::change_y(const bool& is_up)
     ++y;
 }
 
+void Player::update_chars()
+{
+    // обновляем макс. хп
+    int hp_str = characteristics["STR"] * 2;
+    characteristics["HP_MAX_STR"] = hp_str;
+    characteristics["MAX_HP"] = characteristics["HP_MAX_FLAT"] + hp_str;
+    if (characteristics["HP"] > characteristics["MAX_HP"])
+        characteristics["HP"] = characteristics["MAX_HP"];
+
+    // обновляем АТК
+    characteristics["ATK"] = (characteristics["ATK_FLAT"] * characteristics["ATK_MULTI"]) / 100;
+
+    // обновляем криты
+    int cr_ch_agil = characteristics["AGIL"];
+    int cr_dmg_int = characteristics["INT"] * 2;
+
+    characteristics["CRIT_CH_AGIL"] = cr_ch_agil;
+    characteristics["CRIT_DMG_INT"] = cr_dmg_int;
+
+    characteristics["CRIT_CH"] = cr_ch_agil + characteristics["CRIT_CH_FLAT"];
+    characteristics["CRIT_DMG"] = cr_dmg_int + characteristics["CRIT_DMG_FLAT"];
+
+    // обновляем защиту
+    int arm = (characteristics["ARM_FLAT"] * characteristics["ARM_MULTI"]) / 100;
+    int pierce_arm= sqrt(sqrt(arm * arm * arm)); // perfect formula, no way
+    if (pierce_arm > 75)
+        pierce_arm = 75;
+    characteristics["PIERCE_ARM"] = pierce_arm;
+    characteristics["ARM"] = arm;
+}
+
 void Player::set_current_id(int id)
 {
     CURRENT_ID = id;
@@ -425,6 +478,7 @@ void Player::use_potion(Potion* potion)
         All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
 	}
 
+    update_chars();
     potions.erase(potion);
 	delete potion;
 }
@@ -561,8 +615,9 @@ void Player::process_active_effects() // производит исполнени
             (*i)->inc_counter();
             i++;
         }
-	}
-		
+    }
+
+    update_chars();
 }
 
 void Player::equip_armour(Armour* armour, std::string place)
@@ -573,6 +628,8 @@ void Player::equip_armour(Armour* armour, std::string place)
 	armour->change_equiped();
 	for (const auto& i : *armour->get_item_characteristics())
 		characteristics[i.first] += i.second;
+
+    update_chars();
 }
 
 void Player::equip_weapon(Weapon* weapon, std::string place)
@@ -626,6 +683,8 @@ void Player::equip_weapon(Weapon* weapon, std::string place)
 	weapon->change_equiped();
 	for (const auto& i : *weapon->get_item_characteristics())
 		characteristics[i.first] += i.second;
+
+    update_chars();
 }
 
 void Player::equip_jewel(Jewel* jewel, std::string place)
@@ -660,6 +719,8 @@ void Player::equip_jewel(Jewel* jewel, std::string place)
 	jewel->change_equiped();
 	for (const auto& i : *jewel->get_item_characteristics())
 		characteristics[i.first] += i.second;
+
+    update_chars();
 }
 
 void Player::unequip_item(Equipment* equipment, std::string place)
@@ -700,6 +761,8 @@ void Player::unequip_item(Equipment* equipment, std::string place)
     equipment->change_equiped();
     for (auto& i : *equipment->get_item_characteristics())
         characteristics[i.first] -= i.second;
+
+    update_chars();
 }
 
 Equipment* Player::add_item(const std::string& equipment_id)

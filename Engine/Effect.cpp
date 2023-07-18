@@ -199,7 +199,6 @@ Burning_effect::Burning_effect()
 	effect_duration = 3;
 	effect_counter = 1;
     dispellable = 1;
-    special_chs = std::map<std::string, int>();
 }
 
 void Burning_effect::apply_effect(Player& target, int duration)
@@ -270,9 +269,9 @@ void Shock_effect::apply_effect(Player& target, int duration)
 
     Shock_effect* tmp = new Shock_effect();
     tmp->set_effect_duration(duration);
-    int decr_atk = target.get_characteristics().at("CRIT_CH") * 0.5;
-    tmp->get_sp_chs().emplace("CRIT_CH", -1 * decr_atk);
-    target.get_characteristics().at("CRIT_CH") -= decr_atk;
+    int decr_ch = 25;
+    tmp->get_sp_chs().emplace("CRIT_CH_FLAT", -1 * decr_ch);
+    target.get_characteristics().at("CRIT_CH_FLAT") -= decr_ch;
     target.get_active_effects()->push_back(tmp);
 }
 
@@ -288,15 +287,15 @@ void Shock_effect::apply_effect(Player& target, int duration, int counter)
 
     Shock_effect* tmp = new Shock_effect();
     tmp->set_effect_duration(duration);
-    int decr_ch = target.get_characteristics().at("CRIT_CH") * 0.5;
-    tmp->get_sp_chs().emplace("CRIT_CH", -1 * decr_ch);
-    target.get_characteristics().at("CRIT_CH") -= decr_ch;
+    int decr_ch = 25;
+    tmp->get_sp_chs().emplace("CRIT_CH_FLAT", -1 * decr_ch);
+    target.get_characteristics().at("CRIT_CH_FLAT") -= decr_ch;
     target.get_active_effects()->push_back(tmp);
 }
 
 void Shock_effect::execute_effect(Player& target)
 {
-    target.get_characteristics().at("HP") -= 2;
+    target.get_characteristics().at("HP") -= 5;
 }
 
 void Shock_effect::reverse_effect(Player& target)
