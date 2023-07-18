@@ -104,6 +104,24 @@ void Effect::save(std::ofstream& out)
     //запись effect_duration
     out.write((char*)& effect_duration, sizeof(effect_duration));
 
+    //размер контейнера special_chs
+    size = special_chs.size();
+    //запись рамзера item_characteristics
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи всего контейнера
+    for(const auto &i : special_chs)
+    {
+        //размер ключа
+        size_t string_size = i.first.size() + 1;
+        //запись размера ключ
+        out.write((char*)& string_size, sizeof(string_size));
+        //запись ключа
+        out.write(i.first.c_str(), string_size);
+
+        //запись значения
+        out.write((char*)& i.second, sizeof(i.second));
+    }
+
     //запись dispallable
     out.write((char*)& dispellable, sizeof(dispellable));
 }
@@ -124,6 +142,32 @@ void Effect::load(std::ifstream& in)
 
     //чтение effect_duration
     in.read((char*)& effect_duration, sizeof(effect_duration));
+
+    //чтение размера контейнера special_chs
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера special_chs
+    special_chs.clear();
+
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //переменная для размера ключа
+        size_t string_size;
+        //чтение размера ключа
+        in.read((char*)& string_size, sizeof(string_size));
+        //присваивание ключу строки из пробелов длиной size-1, без /0
+        std::string key(string_size - 1, ' ');
+        //чтение ключа
+        in.read(key.data(), string_size);
+
+        //переменная для значения
+        int value;
+        //чтение занчения
+        in.read((char*)& value, sizeof(value));
+
+        //добавление или изменение пары ключ-значение
+        special_chs[key] = value;
+    }
 
     //чтение dispallable
     in.read((char*)& dispellable, sizeof(dispellable));
