@@ -138,6 +138,7 @@ void Inventory::add_new_item(Equipment *item)
 
     connect(inventory_item, &DragItem::item_was_equiped, this, &Inventory::item_was_equiped);
     connect(inventory_item, &DragItem::item_was_unequiped, this, &Inventory::item_was_unequiped);
+    connect(inventory_item, &DragItem::potion_was_used, this, &Inventory::potion_was_used);
 }
 
 // обновляет конкретный контейнер предметов игрока

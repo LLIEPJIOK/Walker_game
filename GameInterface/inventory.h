@@ -51,6 +51,7 @@ private:
 signals:
     void item_was_equiped(Equipment* item, QString place);
     void item_was_unequiped(Equipment* item, QString place);
+    void potion_was_used();
 
 protected:
     void paintEvent(QPaintEvent* event);
