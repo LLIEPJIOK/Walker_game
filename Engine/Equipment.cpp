@@ -403,7 +403,7 @@ void Potion::save(std::ofstream& out)
 
     size_t size_of_effect_name = effect_name.size() + 1;
     out.write((char*)& size_of_effect_name, sizeof(size_of_effect_name));
-    out.write((char*)& effect_name, size_of_effect_name);
+    out.write(effect_name.c_str(), size_of_effect_name);
 }
 
 void Potion::load(std::ifstream& in)
@@ -413,7 +413,7 @@ void Potion::load(std::ifstream& in)
 
     size_t size;
     in.read((char*)& size, sizeof(size));
-    effect_name = std::string(size, ' ');
+    effect_name = std::string(size - 1, ' ');
     in.read(effect_name.data(), size);
 }
 
