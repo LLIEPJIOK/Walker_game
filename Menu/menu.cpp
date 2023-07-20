@@ -1,6 +1,8 @@
 #include "menu.h"
+
 #include <QPixmap>
 #include <QStyle>
+
 Menu::Menu(QWidget *parent) : QMainWindow(parent)
 {
     Q_UNUSED(parent);
@@ -48,16 +50,18 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(widget);
 
     new_game = new NewGame();
-    titers = new Titers();
+    titers = new Credits();
     exit_window = new ExitWindow();
+    load = new Load("load");
 
     connect(btn_new_game, SIGNAL(clicked()), this, SLOT(open_new_game()));
-    connect(btn_load, SIGNAL(clicked()), this, SIGNAL(load_the_game()));
+    connect(btn_load, SIGNAL(clicked()), this, SLOT(open_load()));
     connect(btn_titers, SIGNAL(clicked()), this, SLOT(open_titers()));
     connect(btn_exit, SIGNAL(clicked()), this, SLOT(open_exit_window()));
 
+    connect(load, &Load::open_menu_signal, this, &Menu::menu_enable);
     connect(new_game, &NewGame::open_menu_signal, this, &Menu::menu_enable);
-    connect(titers, &Titers::open_menu_signal, this, &Menu::menu_enable);
+    connect(titers, &Credits::open_menu_signal, this, &Menu::menu_enable);
     connect(exit_window, &ExitWindow::signal_open_menu, this, &Menu::menu_enable);
 }
 
@@ -66,6 +70,7 @@ Menu::~Menu()
     delete new_game;
     delete titers;
     delete exit_window;
+    delete load;
 }
 
 void Menu::open_exit_window()
@@ -85,6 +90,12 @@ void Menu::open_new_game()
 {
     centralWidget()->setParent(0);
     setCentralWidget(new_game);
+}
+
+void Menu::open_load()
+{
+    centralWidget()->setParent(0);
+    setCentralWidget(load);
 }
 
 void Menu::menu_enable()

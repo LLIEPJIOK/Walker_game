@@ -36,7 +36,7 @@ GameMap::GameMap(QWidget *parent)
     setScene(battle_map);
 
     delta = QPoint(0, 0);
-    timer->start(2500);
+    timer->start(50);
     chosen_way = QPoint(-1, -1);
 
     continue_moving = false;

@@ -8,6 +8,7 @@
 #include <QString>
 #include <QApplication>
 #include <QScreen>
+#include <QPainter>
 
 class Accept : public QFrame
 {
@@ -18,6 +19,8 @@ private:
     QLabel *label;
     QPushButton *btn_no;
     QPushButton *btn_yes;
+protected:
+    void paintEvent(QPaintEvent* event) override;
 private slots:
     void return_slot();
 signals:

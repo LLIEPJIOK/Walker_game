@@ -1,27 +1,27 @@
-#ifndef TITERS_H
-#define TITERS_H
+#ifndef CREDITS_H
+#define CREDITS_H
 
-#include "titerstext.h"
+#include "creditstext.h"
 
 #include <QLabel>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 
-class Titers : public QGraphicsView
+class Credits : public QGraphicsView
 {
     Q_OBJECT
 public:
-    Titers(QWidget *parent = nullptr);
+    Credits(QWidget *parent = nullptr);
     void reset();
-    ~Titers();
+    ~Credits();
 private:
     int my_timer;
     qreal y;
     QLabel *label;
     QPainter *painter;
     QSize size;
-    TitersText *tt;
+    CreditsText *tt;
     QGraphicsScene * gs;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -31,4 +31,4 @@ public slots:
     void sdvig();
 };
 
-#endif // TITERS_H
+#endif // CREDITS_H

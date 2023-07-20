@@ -1,6 +1,6 @@
-#include "titers.h"
+#include "credits.h"
 
-Titers::Titers(QWidget *parent)
+Credits::Credits(QWidget *parent)
     : QGraphicsView(parent)
 {
     painter = new QPainter();
@@ -13,7 +13,7 @@ Titers::Titers(QWidget *parent)
     size = QApplication::screens().at(0)->size();
     y = size.height();
 
-    tt = new TitersText();
+    tt = new CreditsText();
 
     gs = new QGraphicsScene(this);
     gs->setBackgroundBrush(Qt::black);
@@ -26,28 +26,28 @@ Titers::Titers(QWidget *parent)
     setScene(gs);
     setSceneRect(QRect(QPoint(0, 0), size));
     QTimer *timer = new QTimer();
-    connect(timer, &QTimer::timeout, this, &Titers::sdvig);
-    connect(tt, &TitersText::open_menu_signal, this, &Titers::open_menu_signal);
+    connect(timer, &QTimer::timeout, this, &Credits::sdvig);
+    connect(tt, &CreditsText::open_menu_signal, this, &Credits::open_menu_signal);
     timer->start(10);
 }
 
-void Titers::reset()
+void Credits::reset()
 {
     tt->reset();
 }
 
-Titers::~Titers()
+Credits::~Credits()
 {
     delete tt;
 }
 
-void Titers::mousePressEvent(QMouseEvent *event)
+void Credits::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
     emit open_menu_signal();
 }
 
-void Titers::sdvig()
+void Credits::sdvig()
 {
     tt->moveBy(0, -1);
 }

@@ -1,22 +1,22 @@
-#include "titerstext.h"
+#include "creditstext.h"
 
-TitersText::TitersText(QObject *parent) : QObject(parent), QGraphicsItem()
+CreditsText::CreditsText(QObject *parent) : QObject(parent), QGraphicsItem()
 {
     size = QApplication::screens().at(0)->size();
     reset();
 }
 
-void TitersText::reset()
+void CreditsText::reset()
 {
     setY (size.height() + 100);
 }
 
-QRectF TitersText::boundingRect() const
+QRectF CreditsText::boundingRect() const
 {
     return QRectF(QPointF(0, 0), size + QSize(0, 1100));
 }
 
-void TitersText::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void CreditsText::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);

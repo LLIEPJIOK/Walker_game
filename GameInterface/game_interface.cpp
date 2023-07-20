@@ -148,6 +148,8 @@ void GameInterface::end_game()
     turn = nullptr;
     delete data_base;
     data_base = nullptr;
+    delete pause;
+    pause = nullptr;
 
     foreach(Inventory* inv, inventories)
         delete inv;

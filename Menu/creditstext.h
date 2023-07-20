@@ -1,5 +1,5 @@
-#ifndef TITERSTEXT_H
-#define TITERSTEXT_H
+#ifndef CREDITSTEXT_H
+#define CREDITSTEXT_H
 
 #include <QWidget>
 #include <QObject>
@@ -9,11 +9,11 @@
 #include <QGraphicsItem>
 #include <QTimer>
 
-class TitersText : public QObject, public QGraphicsItem
+class CreditsText : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    TitersText(QObject *parent = nullptr);
+    CreditsText(QObject *parent = nullptr);
     void reset();
 private:
     QPainter *painter;
@@ -28,4 +28,4 @@ signals:
     void open_menu_signal();
 };
 
-#endif // TITERSTEXT_H
+#endif // CREDITSTEXT_H
