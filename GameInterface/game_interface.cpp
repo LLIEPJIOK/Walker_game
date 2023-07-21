@@ -387,10 +387,12 @@ void GameInterface::update_all()
 // обновляет инвентарь, слоты экипировки, лэйблы текщуго игрока
 void GameInterface::update_player_status()
 {
-    update_inventory_and_slots(turn->get_player()->get_id() - 1); // айдишники начинаются с 1
-    turn->get_player()->update_chars();
+    Player* tmp = turn->get_player();
+    update_inventory_and_slots(tmp->get_id() - 1); // айдишники начинаются с 1
+    tmp->update_chars();
     update_labels();
     update_buttons();
+    tmp->die();
 }
 
 void GameInterface::process_event_start()

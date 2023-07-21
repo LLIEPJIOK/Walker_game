@@ -138,12 +138,17 @@ void Player::load_all_items(std::ifstream &in)
         //чтение поля name объекта класса Effect для инициализации указателя
         std::string s = Effect::read_name(in);
         //инициализация указателя новым объектом наследника класса Effect
-        Effect* item = All_effects::get_effects_data()->get_effects()->at(s);
+
+
+        Effect* item = new Effect(s, this); // Никита, чекни
+
+
         //вызов метода чтения объекта класса Effect или его наследника
         item->load(in);
         //добавление в контейнер указателя на объект наследника класса Effect
         active_effects.push_back(item);
     }
+
 }
 
 void Player::load_equiped_items()
@@ -187,6 +192,7 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 	name = _name;
     x = y = 0;
     previous_direction = std::make_pair(0, 0);
+
     // Итоговые хар-ки, используемые в рассчетах при атаке, ивентах и получении урона:
 
     // Здоровье, оно же ОЗ и макс. ОЗ
@@ -230,10 +236,12 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     // CRIT_CH:
     characteristics["CRIT_CH_FLAT"] = 5; // обычный крит. шанс
     characteristics["CRIT_CH_AGIL"] = characteristics["AGIL"] / 5; // шанс крита, полученный за счет ловкости
+    characteristics["CRIT_CH_MULTI"] = 100; // множитель крита
 
     // CRIT_DMG:
     characteristics["CRIT_DMG_FLAT"] = 100; // обычный мультипликатор АТК при крит. ударе
     characteristics["CRIT_DMG_INT"] = characteristics["INT"] / 5; // крит урон, полученный за счет интеллекта
+    characteristics["CRIT_DMG_MULTI"] = 100; // множитель крита
 
     // ARM:
     characteristics["ARM_FLAT"] = 0; // плоская броня
@@ -244,6 +252,8 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     //characteristics["HP_MULTI"] = 100; // мультипликатор ОЗ
     characteristics["HP_MAX_STR"] = characteristics["STR"] * 2; // ОЗ, полученные за счет силы
     characteristics["HP_MAX_FLAT"] = 100;
+
+    // Экипированые предметы
 
 	//equiped_Armourment
     equiped_armourment["нагрудник"] = nullptr;
@@ -368,8 +378,11 @@ void Player::update_chars()
     characteristics["CRIT_CH_AGIL"] = cr_ch_agil;
     characteristics["CRIT_DMG_INT"] = cr_dmg_int;
 
-    characteristics["CRIT_CH"] = cr_ch_agil + characteristics["CRIT_CH_FLAT"];
-    characteristics["CRIT_DMG"] = cr_dmg_int + characteristics["CRIT_DMG_FLAT"];
+    int total_ch = ((cr_ch_agil + characteristics["CRIT_CH_FLAT"]) * characteristics["CRIT_CH_MULTI"]) / 100;
+    if (total_ch > 85)
+        total_ch = 85;
+    characteristics["CRIT_CH"] = total_ch;
+    characteristics["CRIT_DMG"] = ((cr_dmg_int + characteristics["CRIT_DMG_FLAT"]) * characteristics["CRIT_DMG_MULTI"]) / 100;
 
     // обновляем защиту
     int arm = (characteristics["ARM_FLAT"] * characteristics["ARM_MULTI"]) / 100;
@@ -471,11 +484,15 @@ void Player::use_potion(Potion* potion)
         }
 
         if(potion->get_effect_name() != "нет") // если мгновенное зелье по-совместительству имеет эффект
-            All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
+        {
+            Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
+            eff->apply_effect();
+        }
     }
     else // наложение соотв. эффекта на игрока
     {
-        All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
+        Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
+        eff->apply_effect();
 	}
 
     update_chars();
@@ -610,7 +627,7 @@ void Player::process_active_effects() // производит исполнени
         }
         else
         {
-			(*i)->execute_effect(*this);
+            (*i)->execute_effect();
             (*i)->dec_duration();
             (*i)->inc_counter();
             i++;

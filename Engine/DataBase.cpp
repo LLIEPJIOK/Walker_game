@@ -3,33 +3,81 @@ DataBase* DataBase::data = 0;
 
 DataBase::DataBase()
 {
-    std::ifstream fin;
-    fin.open("../Game/Resources/Files/all_equipment_data.txt");
-	if (!fin.is_open())
-        throw;
-	fin.peek();
-	if (!fin.good())
-        throw;
+    initialize_equipment();
+    initialize_jewellery_stats();
+    initialize_effects();
 
-	std::string line;
-	std::string all_equip;
-	while (fin.good())
-	{
-		getline(fin, line);
-		all_equip += line + '\n';
-    }
-    fin.close();
-    all_equipment = new JSONObject(all_equip);
+    // equipment_list.txt нужно будет переделать под JSON, когда будем реализовывать тиры предметов
+    std::ifstream fin;
     fin.open("../Game/Resources/Files/equipment_list.txt");
+    if (!fin.is_open())
+        throw std::exception("equipment_list.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("equipment_list.txt is empty");
+
+    std::string line = "";
     while(fin.good())
     {
         getline(fin, line);
         equipment_list.push_back(line);
     }
     fin.close();
+}
 
+void DataBase::initialize_equipment()
+{
+    std::ifstream fin;
+    fin.open("../Game/Resources/Files/all_equipment_data.txt");
+    if (!fin.is_open())
+        throw std::exception("all_equipment_data.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("all_equipment_data.txt is empty");
 
+    std::string line;
+    std::string all_equip;
+    while (fin.good())
+    {
+        getline(fin, line);
+        all_equip += line + '\n';
+    }
+    fin.close();
+    all_equipment = new JSONObject(all_equip);
+}
+
+void DataBase::initialize_effects()
+{
+    std::ifstream fin;
+    fin.open("../Game/Resources/Files/all_effects_data.txt");
+    if (!fin.is_open())
+        throw std::exception("all_effects_data.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("all_effects_data.txt is empty");
+
+    std::string line;
+    std::string all_eff;
+    while (fin.good())
+    {
+        getline(fin, line);
+        all_eff += line + '\n';
+    }
+    fin.close();
+    all_effects = new JSONObject(all_eff);
+}
+
+void DataBase::initialize_jewellery_stats()
+{
+    std::ifstream fin;
     fin.open("../Game/Resources/Files/jewellery_stats.txt");
+    if (!fin.is_open())
+        throw std::exception("jewellery_stats.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("jewellery_stats.txt is empty");
+
+    std::string line = "";
     std::string text = "";
     while(fin.good())
     {
@@ -42,7 +90,7 @@ DataBase::DataBase()
 
 void DataBase::generate_items()
 {
-    std::srand(time(NULL));
+    std::srand((unsigned int)time(NULL));
     int x, y;
     for(int i = 0; i < 200; i++)
     {
@@ -126,14 +174,19 @@ void DataBase::load(std::ifstream &in)
     }
 }
 
-JSONObject* DataBase::get_all_equipment_data()
+JSONObject* DataBase::get_all_equipment_data() const
 {
     return all_equipment;
 }
 
-JSONObject *DataBase::get_jewellery_stats()
+JSONObject *DataBase::get_jewellery_stats() const
 {
     return  jewellery_stats;
+}
+
+JSONObject *DataBase::get_all_effects_data() const
+{
+    return all_effects;
 }
 
 std::vector<Player*>* DataBase::get_sequence()

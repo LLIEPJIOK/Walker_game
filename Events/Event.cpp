@@ -2,7 +2,6 @@
 #include "Event.h"
 #include "Engine/Effect.h"
 #include <sys/stat.h> // для проверки валидности пути файла
-#include "event_window.h"
 
 Events* Events::Events_data = 0;
 
@@ -133,18 +132,18 @@ std::string Event::get_type()
     return type;
 }
 
-int Event::get_requirement(Player *pl)
+int Event::get_requirement(Player*)
 {
     return requirement;
 }
 
 
-void experiment_event::execute_success(Player* pl)
+void experiment_event::execute_success(Player*)
 {
 
 }
 
-void experiment_event::execute_failure(Player* pl)
+void experiment_event::execute_failure(Player*)
 {
 
 }
@@ -205,13 +204,8 @@ void empty_house_event::execute_success(Player *pl)
 
 void empty_house_event::execute_failure(Player *pl)
 {
-    std::string ev = "отравление";
-    if (All_effects::get_effects_data()->get_effects()->find(ev) == All_effects::get_effects_data()->get_effects()->end())
-    {
-        throw std::invalid_argument("All_effects does not contain \"" + ev + "\" class instance");
-    }
-
-    All_effects::get_effects_data()->get_effects()->at(ev)->apply_effect(*pl, 2);
+    Effect* eff = new Effect("слабость", pl);
+    eff->apply_effect();
 }
 
 int mushrooms_event::get_requirement(Player *pl)
@@ -262,13 +256,8 @@ void mushrooms_event::execute_success(Player *pl)
 
 void mushrooms_event::execute_failure(Player *pl)
 {
-    std::string ev = "отравление";
-    if (All_effects::get_effects_data()->get_effects()->find(ev) == All_effects::get_effects_data()->get_effects()->end())
-    {
-        throw std::invalid_argument("All_effects does not contain \"" + ev + "\" class instance");
-    }
-
-    All_effects::get_effects_data()->get_effects()->at(ev)->apply_effect(*pl, 3);
+    Effect* eff = new Effect("слабость", pl);
+    eff->apply_effect();
 }
 
 Events::Events()

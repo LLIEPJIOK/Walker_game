@@ -1,2 +1,6 @@
-*.user
+*.o
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
 Saves/*

@@ -1,6 +1,5 @@
 #include "Turn.h"
 #include "DataBase.h"
-#include "Effect.h"
 
 #define seq DataBase::get_DataBase()->get_sequence()
 #define db DataBase::get_DataBase()
@@ -35,6 +34,7 @@ void Turn::dice_roll()
     srand(time(NULL));
     int DQNT = player->get_characteristics()["DQNT"];
     roll =  rand() % (5 * DQNT + 1) + DQNT;
+    rolled = roll;
 }
 
 Player* Turn::get_player()
@@ -50,6 +50,11 @@ void Turn::set_player(Player *_player)
 int Turn::get_roll()
 {
     return roll;
+}
+
+int Turn::get_rolled()
+{
+    return rolled;
 }
 
 bool Turn::get_moving()
@@ -200,6 +205,9 @@ void Turn::save(std::ofstream &out)
     //запись roll
     out.write((char*)& roll, sizeof(roll));
 
+    // запись rolled
+    out.write((char*)& rolled, sizeof(is_moving));
+
     //запись is_moving
     out.write((char*)& is_moving, sizeof(is_moving));
 
@@ -220,6 +228,7 @@ void Turn::save(std::ofstream &out)
 
     //запись первого значения chosen_direction
     out.write((char*)& chosen_direction.first, sizeof(chosen_direction.first));
+
     //запись второго значения chosen_direction
     out.write((char*)& chosen_direction.second, sizeof(chosen_direction.second));
 }
@@ -234,6 +243,9 @@ void Turn::load(std::ifstream& in)
 
     //чтение roll
     in.read((char*)&roll, sizeof(roll));
+
+    // чтение rolled
+    in.read((char*)&rolled, sizeof(roll));
 
     //чтение is_moving
     in.read((char*)&is_moving, sizeof(is_moving));
@@ -255,6 +267,7 @@ void Turn::load(std::ifstream& in)
 
     //чтение первого значения chosen_direction
     in.read((char*)&chosen_direction.first, sizeof(chosen_direction.first));
+
     //чтение второго значения chosen_direction
     in.read((char*)&chosen_direction.second, sizeof(chosen_direction.second));
 
