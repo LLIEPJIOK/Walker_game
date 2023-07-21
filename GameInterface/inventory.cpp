@@ -157,7 +157,7 @@ void Inventory::update_equiped_container(std::map<std::string, T> *equipment)
 {
     foreach (auto equip, *equipment)
     {
-        if (equip.second != nullptr && !equip.second->get_equiped())
+        if (equip.second != nullptr)
         {
             items[find_equip(equip.second)]->set_equiped();
         }

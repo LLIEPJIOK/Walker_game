@@ -101,7 +101,7 @@ protected:
 
 private slots:
     void start(std::vector<std::pair<std::string, std::string>> data);
-    void load();
+    void load(QString file_name);
     void inventory_button_clicked();
     void next_turn_button_clicked();
     void roll_button_clicked();
@@ -115,6 +115,8 @@ private slots:
     void process_unequip(Equipment* item, QString place);
 
     void congratulate_the_winner();
+
+    void save_game(QString file_name);
 };
 
 #endif // GAME_INTERFACE_H

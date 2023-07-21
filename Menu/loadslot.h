@@ -13,7 +13,7 @@ class LoadSlot : public QWidget
 {
     Q_OBJECT
 public:
-    LoadSlot(QString _file_name, QString name, QString date, QWidget *parent = nullptr);
+    LoadSlot(QString _file_name, QWidget *parent = nullptr);
     void unpress();
     void delete_save();
     QString get_name();

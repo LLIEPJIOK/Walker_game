@@ -41,7 +41,6 @@ protected:
     void paintEvent(QPaintEvent* event);
 
 signals:
-    void load_the_game();
     void hide_main_window();
 };
 

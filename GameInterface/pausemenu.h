@@ -28,6 +28,7 @@ private:
 signals:
     void continue_button_clicked();
     void main_menu_clicked();
+    void save_game(QString file_name);
 
 protected:
     void paintEvent(QPaintEvent* event);

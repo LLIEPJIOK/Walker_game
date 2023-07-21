@@ -6,10 +6,13 @@ Load::Load(QString _type, QWidget *parent)
 {
     type = _type;
 
-    is_available = 0;
+    is_available = false;
+
+    state = State::CHANGE_NAME;
 
     accept_changes_window = nullptr;
     change_name_window = nullptr;
+    enter_save_name_window = nullptr;
 
     label = new QLabel("<U>Сохранения:</U>");
     label->setFont(QFont("Arial", 20));
@@ -161,10 +164,11 @@ void Load::delete_window_slot()
     if (accept_changes_window == nullptr)
     {
         accept_changes_window = new Accept("Вы точно хотите удалить сохранение?", this);
+        connect(accept_changes_window, &Accept::accept_signal, this, &Load::delete_slot);
     }
-    accept_changes_window->show();
-    connect(accept_changes_window, &Accept::accept_signal, this, &Load::delete_slot);
+
     turn(0);
+    accept_changes_window->show();
 }
 
 void Load::load_slot()
@@ -178,23 +182,38 @@ void Load::open_change_slot()
     if (change_name_window == nullptr)
     {
         change_name_window = new EnterName("Измените название", qobject_cast<LoadSlot*>(chosen)->get_name(), this);
+        connect(change_name_window, &EnterName::return_name, this, &Load::get_name_slot);
     }
     else
     {
         change_name_window->set_name_and_open(qobject_cast<LoadSlot*>(chosen)->get_name());
     }
-    change_name_window->show();
+
+    state = State::CHANGE_NAME;
     turn(0);
-    connect(change_name_window, &EnterName::return_name, this, &Load::change_name_slot);
+    change_name_window->show();
 }
 
-void Load::change_name_slot(QString name)
+void Load::get_name_slot(QString name)
 {
-    change_name_window->hide();
     turn(1);
     if (name != "")
     {
-        qobject_cast<LoadSlot*>(chosen)->change_name(name);
+        switch (state)
+        {
+        case State::CHANGE_NAME :
+            change_name_window->hide();
+            qobject_cast<LoadSlot*>(chosen)->change_name(name);
+            break;
+        case State::ADD_NEW :
+            enter_save_name_window->hide();
+            emit save_game(lf->add_slot(name));
+            break;
+        case State::REWRITE :
+            break;
+        default:
+            throw std::exception("unknown state");
+        }
     }
 }
 
@@ -212,7 +231,14 @@ void Load::delete_slot(bool is_delete)
 
 void Load::add_slot()
 {
+    if (enter_save_name_window == nullptr)
+    {
+        enter_save_name_window = new EnterName("Введите название сохранения", "", this);
+        connect(enter_save_name_window, &EnterName::return_name, this, &Load::get_name_slot);
+    }
 
+    state = State::ADD_NEW;
+    enter_save_name_window->set_name_and_open("");
 }
 
 void Load::paintEvent(QPaintEvent *event)

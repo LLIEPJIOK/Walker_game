@@ -26,7 +26,7 @@ GameInterface::GameInterface(QWidget *parent)
     save_load_manager = new SaveAndLoadManager("SAVE_FILE");
 
     connect(General::get_general(), &General::start_game, this, &GameInterface::start);
-    connect(menu, &Menu::load_the_game, this, &GameInterface::load);
+    connect(General::get_general(), &General::load_game, this, &GameInterface::load);
 }
 
 GameInterface::~GameInterface()
@@ -138,6 +138,7 @@ void GameInterface::initialize()
     pause->setVisible(false);
     connect(pause, &PauseMenu::continue_button_clicked, this, &GameInterface::continue_playing);
     connect(pause, &PauseMenu::main_menu_clicked, this, &GameInterface::to_main);
+    connect(pause, &PauseMenu::save_game, this, &GameInterface::save_game);
 
     update_all();
 }
@@ -192,12 +193,13 @@ void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
     menu = nullptr;
 }
 
-void GameInterface::load()
+void GameInterface::load(QString file_name)
 {
     data_base =  DataBase::get_DataBase();
     turn = Turn::get_Turn();
 
     //вызов метода загрузки
+    save_load_manager->set_file_name(file_name.toStdString());
     save_load_manager->load_all();
     is_load = true;
     initialize();
@@ -229,9 +231,6 @@ void GameInterface::next_turn_button_clicked()
     current_equipment_slot = equipment_slots[(turn->get_turn_number()-1) % equipment_slots.size()];
 
     action->set_text(""); // делает окно действий пустым
-
-    //вызов метода сохранения
-    save_load_manager->save_all();
 
     update_labels();
 }
@@ -275,7 +274,6 @@ void GameInterface::to_main()
 {
     pause->setVisible(false);
     menu = new Menu();
-    connect(menu, &Menu::load_the_game, this, &GameInterface::load);
     end_game();
     setCentralWidget(menu);
 }
@@ -304,6 +302,12 @@ void GameInterface::congratulate_the_winner()
     CongratulationWindow* clw = new CongratulationWindow(this, QString::fromStdString(turn->get_player()->get_name()));
     setCentralWidget(clw);
     connect(clw, &CongratulationWindow::exit_the_game, this, &QCoreApplication::quit);
+}
+
+void GameInterface::save_game(QString file_name)
+{
+    save_load_manager->set_file_name(file_name.toStdString());
+    save_load_manager->save_all();
 }
 
 // восстановление состояния кнопок

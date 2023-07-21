@@ -96,15 +96,17 @@ void EnterName::check_text(const QString& text)
 void EnterName::return_slot()
 {
     if (sender() == btn_cansel)
+    {
         emit return_name("");
+    }
     else
     {
         if (ac == nullptr)
         {
             ac = new Accept("Вы точно хотите изменить название?", qobject_cast<QWidget*>(parent()));
+            connect(ac, &Accept::accept_signal, this, &EnterName::check_slot);
         }
         ac->show();
-        connect(ac, &Accept::accept_signal, this, &EnterName::check_slot);
         turn(0);
     }
 }

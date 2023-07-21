@@ -17,6 +17,17 @@ public:
     ~Load();
 
 private:
+    enum class State
+    {
+        CHANGE_NAME,
+        ADD_NEW,
+        REWRITE,
+    };
+
+    State state;
+
+    bool is_available;
+
     QString type;
 
     QLabel *label;
@@ -26,7 +37,6 @@ private:
     QHBoxLayout *btn_hblay;
     QHBoxLayout *ld_hblay;
     QPainter *painter;
-    bool is_available;
     QObject* chosen;
     QPushButton *btn_prev;
     QPushButton *btn_delete;
@@ -37,7 +47,10 @@ private:
     QPushButton *btn_load;
 
     EnterName *change_name_window;
+    EnterName *enter_save_name_window;
+
     Accept *accept_changes_window;
+
     void set_available();
     void turn(bool is_turn_on);
 
@@ -48,13 +61,14 @@ signals:
     void open_menu_signal();
     void delete_load(QObject *ls);
     void load_game(QString file_name);
+    void save_game(QString file_name);
 
 private slots:
     void check_pressed(bool is_pressed, QObject* ls);
     void delete_window_slot();
     void load_slot();
     void open_change_slot();
-    void change_name_slot(QString name);
+    void get_name_slot(QString name);
     void delete_slot(bool is_delete);
     void add_slot();
 };

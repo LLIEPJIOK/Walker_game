@@ -1,6 +1,8 @@
 #include "loadslot.h"
 
-LoadSlot::LoadSlot(QString _file_name, QString name, QString date, QWidget *parent)
+// file name pattern: time (in reverse order) + date (in reverse order) + name
+
+LoadSlot::LoadSlot(QString _file_name, QWidget *parent)
     : QWidget(parent)
 {
     QPalette pal = palette();
@@ -11,10 +13,13 @@ LoadSlot::LoadSlot(QString _file_name, QString name, QString date, QWidget *pare
 
     painter = new QPainter;
 
-    label_name = new QLabel(name, this); //из файла
+    label_name = new QLabel(file_name.mid(20), this);
     label_name->setFont(QFont("Arial", 12));
 
-    label_date = new QLabel(date, this); //из файла
+    auto time = file_name.mid(6, 2) + file_name.mid(2, 4) + file_name.mid(0, 2);
+    auto date = file_name.mid(17, 2) + file_name.mid(13, 4) + file_name.mid(9, 4);
+
+    label_date = new QLabel(date + "\t" + time, this);
     label_date->setFont(QFont("Arial", 12));
 
     is_hover = 0;

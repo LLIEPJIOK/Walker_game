@@ -42,6 +42,7 @@ PauseMenu::PauseMenu(QMainWindow *parent)
     connect(continue_button, &QPushButton::clicked, this, &PauseMenu::continue_button_clicked);
     connect(main_menu, &QPushButton::clicked, this, &PauseMenu::main_menu_clicked);
     connect(save_menu, SIGNAL(clicked()), this, SLOT(open_save()));
+    connect(load, &Load::save_game, this, &PauseMenu::save_game);
 }
 
 void PauseMenu::paintEvent(QPaintEvent *event)
