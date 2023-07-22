@@ -2,7 +2,6 @@
 #include "Event.h"
 #include "Engine/Effect.h"
 #include <sys/stat.h> // для проверки валидности пути файла
-#include "event_window.h"
 
 Events* Events::Events_data = 0;
 
@@ -133,32 +132,33 @@ std::string Event::get_type()
     return type;
 }
 
-int Event::get_requirement(Player *pl)
+int Event::get_requirement(Player*)
 {
     return requirement;
 }
 
 
-void experiment_event::execute_success(Player* pl)
+void experiment_event::execute_success(Player*)
 {
 
 }
 
-void experiment_event::execute_failure(Player* pl)
+void experiment_event::execute_failure(Player*)
 {
 
 }
 
 int loggers_event::get_requirement(Player *pl)
 {
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
     int stat = pl->get_characteristics().at("STR");
     if (stat < 12)
     {
-        return stat + 3;
+        return stat + 3 + luck_reduction;
     }
     else
     {
-        return stat + 5;
+        return stat + 5 + luck_reduction;
     }
 }
 
@@ -177,18 +177,19 @@ void loggers_event::execute_failure(Player* pl)
 
 int empty_house_event::get_requirement(Player *pl)
 {
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
     int stat = pl->get_characteristics().at("AGIL");
     if (stat < 10)
     {
-        return stat + 4;
+        return stat + 4 + luck_reduction;
     }
     else if (stat < 16)
     {
-        return stat + 3;
+        return stat + 3 + luck_reduction;
     }
     else
     {
-        return stat + 2;
+        return stat + 2 + luck_reduction;
     }
 }
 
@@ -198,32 +199,31 @@ void empty_house_event::execute_success(Player *pl)
     switch (type)
     {
     case 0: pl->add_item("Загадочное кольцо");
+        break;
     case 1: pl->add_item("Загадочное ожерелье");
+        break;
     case 2: pl->add_item("Загадочный пояс");
+        break;
     }
 }
 
 void empty_house_event::execute_failure(Player *pl)
 {
-    std::string ev = "отравление";
-    if (All_effects::get_effects_data()->get_effects()->find(ev) == All_effects::get_effects_data()->get_effects()->end())
-    {
-        throw std::invalid_argument("All_effects does not contain \"" + ev + "\" class instance");
-    }
-
-    All_effects::get_effects_data()->get_effects()->at(ev)->apply_effect(*pl, 2);
+    Effect* eff = new Effect("слабость", pl);
+    eff->apply_effect();
 }
 
 int mushrooms_event::get_requirement(Player *pl)
 {
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
     int stat = pl->get_characteristics().at("INT");
     if (stat < 8)
     {
-        return stat + 3;
+        return stat + 3 + luck_reduction;
     }
     else
     {
-        return stat + 2;
+        return stat + 2 + luck_reduction;
     }
 }
 
@@ -262,13 +262,8 @@ void mushrooms_event::execute_success(Player *pl)
 
 void mushrooms_event::execute_failure(Player *pl)
 {
-    std::string ev = "отравление";
-    if (All_effects::get_effects_data()->get_effects()->find(ev) == All_effects::get_effects_data()->get_effects()->end())
-    {
-        throw std::invalid_argument("All_effects does not contain \"" + ev + "\" class instance");
-    }
-
-    All_effects::get_effects_data()->get_effects()->at(ev)->apply_effect(*pl, 3);
+    Effect* eff = new Effect("отравление", pl);
+    eff->apply_effect();
 }
 
 Events::Events()
@@ -284,7 +279,7 @@ Events::Events()
     JSONObject events_info(info);
 
     // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
-    events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
+    // events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
     events.emplace(std::make_pair("loggers", new loggers_event(events_info.get_object("loggers"))));
     events.emplace(std::make_pair("empty house", new empty_house_event(events_info.get_object("empty house"))));
     events.emplace(std::make_pair("mushrooms", new mushrooms_event(events_info.get_object("mushrooms"))));

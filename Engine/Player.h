@@ -57,7 +57,7 @@ public:
     void set_previous_direction(const std::pair<int, int>& dir);
     void change_x(const bool& is_right);
     void change_y(const bool& is_up);
-
+    void update_chars();
     static void set_current_id(int id);
 
 

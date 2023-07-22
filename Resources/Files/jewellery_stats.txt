@@ -2,11 +2,11 @@
 "T1" : 
 {
 "HP" : "5"
-"ARM" : "5"
-"ATK" : "5" 
+"ARM_MULTI" : "10"
+"ATK_MULTI" : "10" 
 "PIERCE" : "4"
-"CRIT_CH" : "5"
-"CRIT_DMG" : "10" 
+"CRIT_CH_FLAT" : "5"
+"CRIT_DMG_FLAT" : "10" 
 "AGIL" : "1"
 "INT" : "1"
 "STR" : "1"
@@ -15,11 +15,11 @@
 "T2" :
 { 
 "HP" : "10"
-"ARM" : "10"
-"ATK" : "10"
+"ARM_MULTI" : "20"
+"ATK_MULTI" : "20"
 "PIERCE" : "8"
-"CRIT_CH" : "7"
-"CRIT_DMG" : "15" 
+"CRIT_CH_FLAT" : "7"
+"CRIT_DMG_FLAT" : "15" 
 "AGIL" : "2"
 "INT" : "2"
 "STR" : "2"
@@ -28,11 +28,11 @@
 "T3" : 
 {
 "HP" : "20"
-"ARM" : "20"
-"ATK" : "20" 
+"ARM_MULTI" : "30"
+"ATK_MULTI" : "30" 
 "PIERCE" : "12"
-"CRIT_CH" : "10"
-"CRIT_DMG" : "20" 
+"CRIT_CH_FLAT" : "10"
+"CRIT_DMG_FLAT" : "20" 
 "AGIL" : "3"
 "INT" : "3"
 "STR" : 3"

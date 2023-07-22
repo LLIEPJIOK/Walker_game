@@ -1,178 +1,57 @@
 #pragma once
 #include "Player.h"
+
+using V = void(Player* target, int counter);
+
 class Effect
 {
 protected:
+    Player* target; // не уверен, стоит ли вообще это хранить здесь...
 	std::string effect_name;
 	std::string effect_type;
-    int effect_counter; // у некоторых эффектов изменяется execute_effect в зависимости от количества "стаков" - counter
-	int effect_duration;
     std::map<std::string, int> special_chs;
-    bool dispellable = 1; // можно ли развеять эффект
+    int effect_counter; // у некоторых эффектов изменяется execute_effect в зависимости от количества "стаков" - counter
+    int effect_duration;
+    bool dispellable; // можно ли развеять эффект
+    V* execute_effect_ptr; // указатель на функцию, которая будет какждый ход выполнять опр. действия
 
 public:
-	Effect();
-    virtual ~Effect() = default;
-	std::string get_effect_name();
-	std::string get_effect_type();
-	int get_effect_duration();
-	int get_effect_counter();
+    // constructors and destructor
+    Effect();
+    Effect(std::string _effect_name, Player* _target); // дефолтик
+    Effect(std::string _effect_name, Player* _target, int dur); // с опр. длительностью
+    Effect(std::string effect_name, Player* _target, int dur, int counter); // с опр. кол-вом стаков и длительностью
+    ~Effect() = default;
+
+    // getters
     std::map<std::string, int>& get_sp_chs();
-	bool is_dispellable();
+    std::string get_effect_name() const;
+    std::string get_effect_type() const;
+    int get_effect_duration() const;
+    int get_effect_counter() const;
+    bool is_dispellable() const;
+
+    // setters
 	void set_effect_counter(int);
 	void set_effect_duration(int);
     void set_special_chs(std::map<std::string, int>& chs);
+
+    // incr & decr
 	void dec_duration();
+    void inc_duration();
 	void inc_counter();
     void dec_counter();
 
-    virtual void apply_effect(Player&, int) = 0; // наложение эффекта на выбранного игрока на выбранное количество ходов
-    virtual void apply_effect(Player&, int, int) = 0; // наложение эффекта на выбранного игрока на выбранное количество ходов с выбранным количеством стаков
-    virtual void execute_effect(Player&) = 0; // исполнение эффекта
-    virtual void reverse_effect(Player&) = 0; // обращение временного эффекта, если тот временно изменял какой-то стат на стадии наложение эффекта
+    // наложение эффекта
+    void apply_effect();
 
-    // подправить сохранение для контейнера
+    // исполнение эффекта
+    void execute_effect();
 
-    static std::string read_name(std::ifstream& in);
+    // обращение эффекта
+    void reverse_effect(Player& target);
+
+    // методы сохранения и загрузки
     void save(std::ofstream& out);
     void load(std::ifstream& in);
-};
-
-class Regeneration_effect : public Effect // восстанавливает 20% отсутствующего здоровья в ход
-{
-public:
-    Regeneration_effect();
-    ~Regeneration_effect() = default;
-
-	void apply_effect(Player&, int);
-	void apply_effect(Player&, int, int);
-	void execute_effect(Player&);
-	void reverse_effect(Player&);
-};
-
-class Burning_effect : public Effect // горение, потеря очков здоровья, зависит от текущей брони
-{
-public:
-	Burning_effect();
-    ~Burning_effect() = default;
-	void apply_effect(Player&, int);
-	void apply_effect(Player&, int, int);
-	void execute_effect(Player&);
-	void reverse_effect(Player&);
-};
-
-class Shock_effect : public Effect // шок, потеря очков здоровья, временное уменьшение атаки на 4
-{
-public:
-	Shock_effect();
-    ~Shock_effect() = default;
-	void apply_effect(Player&, int);
-	void apply_effect(Player&, int, int);
-	void execute_effect(Player&);
-	void reverse_effect(Player&);
-};
-
-class Intoxication_effect : public Effect // отравление, каждый ход наносит урон в 8% от текущего здоровья
-{
-public:
-	Intoxication_effect();
-    ~Intoxication_effect() = default;
-	void apply_effect(Player&, int);
-	void apply_effect(Player&, int, int);
-	void execute_effect(Player&);
-	void reverse_effect(Player&);
-};
-
-class Frostbite_effect : public Effect // обморожение, уменьшает броню на 5, модификатор броска на 1, каждый ход наносит урон, равный количеству стаков (<3)
-{
-public:
-	Frostbite_effect();
-    ~Frostbite_effect() = default;
-	void apply_effect(Player&, int);
-	void apply_effect(Player&, int, int);
-	void execute_effect(Player&);
-	void reverse_effect(Player&);
-};
-
-class Bleeding_effect : public Effect // кровотечение, наносит урон каждый ход, зависящий от пройденного расстояния
-{
-public:
-	Bleeding_effect();
-    ~Bleeding_effect() = default;
-	void apply_effect(Player&, int);
-	void apply_effect(Player&, int, int);
-	void execute_effect(Player&);
-	void reverse_effect(Player&);
-};
-
-class Slowdown_effect : public Effect // замедление, понижает ловкость на 2, понижает модификатор броска на 2
-{
-public:
-    Slowdown_effect();
-    ~Slowdown_effect() = default;
-    void apply_effect(Player&, int);
-    void apply_effect(Player&, int, int);
-    void execute_effect(Player&);
-    void reverse_effect(Player&);
-};
-
-class Haste_effect : public Effect // ускорение, повышает ловкость на 2, увеличивает модификатор броска на 2
-{
-public:
-    Haste_effect();
-    ~Haste_effect() = default;
-    void apply_effect(Player&, int);
-    void apply_effect(Player&, int, int);
-    void execute_effect(Player&);
-    void reverse_effect(Player&);
-};
-
-class Endurance_effect : public Effect // стойкость, временно повышает броню на 30%, текущее снижение урона на 20%, увеличение здоровья на 20 (процент от значений во время наложения эффекта)
-{
-public:
-    Endurance_effect(int, int);
-    ~Endurance_effect() = default;
-    void apply_effect(Player&, int);
-    void apply_effect(Player&, int, int);
-    void execute_effect(Player&);
-    void reverse_effect(Player&);
-};
-
-class Empower_effect : public Effect // усиление, временно повышает атаку на 20%, прорубающий урон на 10%, шанс крита на 10%, крит. удар на 10% (процент от значений во время наложения эффекта)
-{
-public:
-    Empower_effect(int, int, int, int);
-    ~Empower_effect() = default;
-    void apply_effect(Player&, int);
-    void apply_effect(Player&, int, int);
-    void execute_effect(Player&);
-    void reverse_effect(Player&);
-};
-
-class Dispell_effect : public Effect // развеивает все активные эффекты, которые можно развеять
-{
-public:
-    Dispell_effect();
-    ~Dispell_effect() = default;
-    void apply_effect(Player&, int);
-    void apply_effect(Player&, int, int);
-    void execute_effect(Player&);
-    void reverse_effect(Player&);
-};
-
-
-class All_effects
-{
-	
-private:
-	std::map<std::string, Effect*> effects;
-	static All_effects* effects_data;
-public:
-	~All_effects();
-	All_effects();
-	All_effects(const All_effects&) = delete;
-	const All_effects& operator = (const All_effects&) = delete;
-	std::map<std::string, Effect* >* get_effects();
-	static All_effects* get_effects_data();
-
 };

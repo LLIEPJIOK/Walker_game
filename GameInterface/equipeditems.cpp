@@ -133,14 +133,17 @@ void EquipedItems::paintEvent(QPaintEvent *event)
 }
 
 // обновляет конкретный контейнер экиперованных предметов
+// обновляет конкретный контейнер экиперованных предметов
 template<typename T>
 void EquipedItems::update_equiped_container(std::map<std::string, T> *equipment)
 {
     foreach (auto equip, *equipment)
     {
-        if (equip.second != nullptr)
+        if (equip.second == nullptr || equip.second->get_equiped())
         {
-            find_place(equip.second);
+            continue;
         }
+
+        find_place(equip.second);
     }
 }

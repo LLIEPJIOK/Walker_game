@@ -214,6 +214,7 @@ void GameInterface::next_turn_button_clicked()
 {
     turn->next_player();
     next_turn_button->setEnabled(false);
+    //inventory_button->setEnabled(true);
 
     std::string name = turn->get_player()->get_name();
     players_name->setText("Имя: " + QString::fromStdString(name));
@@ -309,6 +310,7 @@ void GameInterface::update_buttons()
 {
     roll_button->setEnabled(!turn->was_roll());
     next_turn_button->setEnabled(turn->get_already_moved());
+    // inventory_button->setEnabled(!turn->get_already_moved()); // надо подумать...
     inventory_button->setEnabled(true);
     menu_button->setEnabled(true);
 }
@@ -385,9 +387,12 @@ void GameInterface::update_all()
 // обновляет инвентарь, слоты экипировки, лэйблы текщуго игрока
 void GameInterface::update_player_status()
 {
-    update_inventory_and_slots(turn->get_player()->get_id() - 1); // айдишники начинаются с 1
+    Player* tmp = turn->get_player();
+    update_inventory_and_slots(tmp->get_id() - 1); // айдишники начинаются с 1
+    tmp->update_chars();
     update_labels();
     update_buttons();
+    tmp->die();
 }
 
 void GameInterface::process_event_start()
