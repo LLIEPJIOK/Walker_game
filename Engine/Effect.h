@@ -18,8 +18,8 @@ protected:
 public:
     // constructors and destructor
     Effect();
-    Effect(std::string effect_name, Player* _target); // дефолтик
-    Effect(std::string effect_name, Player* _target, int dur); // с опр. длительностью
+    Effect(std::string _effect_name, Player* _target); // дефолтик
+    Effect(std::string _effect_name, Player* _target, int dur); // с опр. длительностью
     Effect(std::string effect_name, Player* _target, int dur, int counter); // с опр. кол-вом стаков и длительностью
     ~Effect() = default;
 
@@ -52,7 +52,6 @@ public:
     void reverse_effect(Player& target);
 
     // методы сохранения и загрузки
-    static std::string read_name(std::ifstream& in);
     void save(std::ofstream& out);
     void load(std::ifstream& in);
 };

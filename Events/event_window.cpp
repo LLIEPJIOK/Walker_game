@@ -96,11 +96,11 @@ void Event_window::challenge_button_was_clicked()
 {
     Event* event = Events::get_Events()->get_events()->at(event_name);
 
-    int need = event->get_requirement(target) - target->get_characteristics().at(event->get_type());
+    int need = event->get_requirement(target) - target->get_characteristics().at(event->get_type()) - target->get_characteristics().at("EVENT_ROLL_MOD");
 
     srand(time(NULL));
     int DQNT = target->get_characteristics()["DQNT"];
-    int roll =  rand() % (5 * DQNT + 1) + DQNT;
+    int roll =  rand() % (5 * DQNT + 1) + DQNT + target->get_characteristics().at("EVENT_ROLL_MOD");
     QString img_path;
     QString label;
 

@@ -33,7 +33,7 @@ void Turn::dice_roll()
 {
     srand(time(NULL));
     int DQNT = player->get_characteristics()["DQNT"];
-    roll =  rand() % (5 * DQNT + 1) + DQNT;
+    roll =  rand() % (5 * DQNT + 1) + DQNT + player->get_characteristics().at("ROLL_MOD");
     rolled = roll;
 }
 

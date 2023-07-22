@@ -143,7 +143,6 @@ std::vector<std::string>* JSONObject::get_values(std::string key)
 
 std::string JSONObject::get_value(std::string key)
 {
-    auto tmp = name_to_value->at(key);
     return name_to_value->at(key);
 }
 

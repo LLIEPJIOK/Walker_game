@@ -71,7 +71,7 @@ void bleeding_exe (Player* target, int counter)
     target->get_characteristics().at("HP") -= Turn::get_Turn()->get_rolled() * counter;
 }
 
-// обморожение
+// обморожение, -2 к модификатору броска во время движения, понижает крит. шанс, наносит 5 урона ежеходно
 void frostbite_exe (Player* target, int counter)
 {
     if (target == nullptr)
@@ -80,7 +80,7 @@ void frostbite_exe (Player* target, int counter)
     target->get_characteristics().at("HP") -= counter + 5;
 }
 
-// шок
+// шок, значительно понижает хар-ки критов, наносит 5 урона ежеходно
 void shock_exe (Player* target, int counter)
 {
     if (target == nullptr)
@@ -89,39 +89,46 @@ void shock_exe (Player* target, int counter)
     target->get_characteristics().at("HP") -= counter + 5;
 }
 
-// слабость
+// слабость, понижает атакующие хар-ки
 void weakness_exe (Player* target, int) // слабость не имеет ежеходного действия
 {
     if (target == nullptr)
         throw std::invalid_argument("weakness_exe -- target = nullptr!");
 }
 
-// усиление
+// усиление, повышает атакующие хар-ки
 void empower_exe (Player* target, int) // усиление не имеет ежеходного действия
 {
     if (target == nullptr)
         throw std::invalid_argument("empower_exe -- target = nullptr!");
 }
 
-// стойкость
+// стойкость, повышает броню и макс. ОЗ
 void endurance_exe (Player* target, int) // стойкость не имеет ежеходного действия
 {
     if (target == nullptr)
         throw std::invalid_argument("endurance_exe -- target = nullptr!");
 }
 
-// ускорение
+// ускорение, +2 к мод. броска движения
 void haste_exe (Player* target, int) // ускорение не имеет ежеходного действия
 {
     if (target == nullptr)
         throw std::invalid_argument("haste_exe -- target = nullptr!");
 }
 
-//замедление
+// замедление, -2 к мод. броска движения
 void slowdown_exe (Player* target, int) // замедление не имеет ежеходного действия
 {
     if (target == nullptr)
         throw std::invalid_argument("slowdown_exe -- target = nullptr!");
+}
+
+// удача, +2 к броску во время ивента
+void luck_exe (Player* target, int) // удача не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("luck_exe -- target = nullptr!");
 }
 
 // развеивание всех развеиваемых
@@ -190,6 +197,7 @@ std::map<std::string, V*> effects_exe =
         {"стойкость", &endurance_exe},
         {"ускорение", &haste_exe},
         {"замедление", &slowdown_exe},
+        {"удача", &luck_exe},
         {"развеивание", &dispell_all_exe},
         {"развеивание отрицательных эффектов", &dispell_negative_exe},
         {"развеивание положительных эффектов", &dispell_positive_exe}
@@ -206,18 +214,18 @@ Effect::Effect()
     execute_effect_ptr = nullptr;
 }
 
-Effect::Effect(std::string effect_name, Player *_target)
+Effect::Effect(std::string _effect_name, Player *_target)
 {
-    if (!eff_data->is_in_objects(effect_name))
-        throw std::invalid_argument(effect_name + " is not contained in all_effects JSON object");
+    if (!eff_data->is_in_objects(_effect_name))
+        throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
 
-    if (!eff_data->get_object(effect_name)->is_in_objects("special_chs"))
-        throw std::invalid_argument(effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
+    if (!eff_data->get_object(_effect_name)->is_in_objects("special_chs"))
+        throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
 
-    if (effects_exe.find(effect_name) == effects_exe.end())
-        throw std::invalid_argument(effect_name + " is not contained in effects_exe func. ptr map");
+    if (effects_exe.find(_effect_name) == effects_exe.end())
+        throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
 
-    JSONObject* tmp = eff_data->get_object("effect_name");
+    JSONObject* tmp = eff_data->get_object(_effect_name);
     effect_counter = std::stoi(tmp->get_value("effect_counter"));
     effect_duration = std::stoi(tmp->get_value("effect_duration"));
     effect_name = tmp->get_value("effect_name");
@@ -233,18 +241,18 @@ Effect::Effect(std::string effect_name, Player *_target)
     }
 }
 
-Effect::Effect(std::string effect_name, Player *_target, int dur)
+Effect::Effect(std::string _effect_name, Player *_target, int dur)
 {
-    if (!eff_data->is_in_objects(effect_name))
-        throw std::invalid_argument(effect_name + " is not contained in all_effects JSON object");
+    if (!eff_data->is_in_objects(_effect_name))
+        throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
 
-    if (!eff_data->get_object(effect_name)->is_in_objects("special_chs"))
-        throw std::invalid_argument(effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
+    if (!eff_data->get_object(_effect_name)->is_in_objects("special_chs"))
+        throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
 
-    if (effects_exe.find(effect_name) == effects_exe.end())
-        throw std::invalid_argument(effect_name + " is not contained in effects_exe func. ptr map");
+    if (effects_exe.find(_effect_name) == effects_exe.end())
+        throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
 
-    JSONObject* tmp = eff_data->get_object("effect_name");
+    JSONObject* tmp = eff_data->get_object(_effect_name);
     effect_counter = std::stoi(tmp->get_value("effect_counter"));
     effect_duration = dur;
     effect_name = tmp->get_value("effect_name");
@@ -260,18 +268,18 @@ Effect::Effect(std::string effect_name, Player *_target, int dur)
     }
 }
 
-Effect::Effect(std::string effect_name, Player *_target, int dur, int counter)
+Effect::Effect(std::string _effect_name, Player *_target, int dur, int counter)
 {
-    if (!eff_data->is_in_objects(effect_name))
-        throw std::invalid_argument(effect_name + " is not contained in all_effects JSON object");
+    if (!eff_data->is_in_objects(_effect_name))
+        throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
 
-    if (!eff_data->get_object(effect_name)->is_in_objects("special_chs"))
-        throw std::invalid_argument(effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
+    if (!eff_data->get_object(_effect_name)->is_in_objects("special_chs"))
+        throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
 
-    if (effects_exe.find(effect_name) == effects_exe.end())
-        throw std::invalid_argument(effect_name + " is not contained in effects_exe func. ptr map");
+    if (effects_exe.find(_effect_name) == effects_exe.end())
+        throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
 
-    JSONObject* tmp = eff_data->get_object("effect_name");
+    JSONObject* tmp = eff_data->get_object(_effect_name);
     effect_counter = counter;
     effect_duration = dur;
     effect_name = tmp->get_value("effect_name");
@@ -373,7 +381,7 @@ void Effect::apply_effect()
         }
     }
 
-    // изменение существующих хар-к цели, несуществующие нужны для выполнения ежеходных эффектов
+    // изменение существующих хар-к цели
     for (const auto& i : special_chs)
     {
         if (target->get_characteristics().find(i.first) != target->get_characteristics().end())
@@ -398,21 +406,7 @@ void Effect::reverse_effect(Player& target)
         if (target.get_characteristics().find(ch) != target.get_characteristics().end())
             target.get_characteristics().at(ch) -= val;
     }
-}
 
-//метод для чтения имени, т.к. эффект явялется абстрактным классом
-std::string Effect::read_name(std::ifstream &in)
-{
-    //переменная для размера строк
-    size_t size;
-    //чтение размера name
-    in.read((char*)& size, sizeof(size));
-    //присваивание namr строки из пробелов длиной size-1, без /0
-    std::string name = std::string(size - 1, ' ');
-    //чтение namr\e
-    in.read(name.data(), size);
-
-    return name;
 }
 
 void Effect::save(std::ofstream& out)

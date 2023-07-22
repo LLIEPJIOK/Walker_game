@@ -150,14 +150,15 @@ void experiment_event::execute_failure(Player*)
 
 int loggers_event::get_requirement(Player *pl)
 {
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
     int stat = pl->get_characteristics().at("STR");
     if (stat < 12)
     {
-        return stat + 3;
+        return stat + 3 + luck_reduction;
     }
     else
     {
-        return stat + 5;
+        return stat + 5 + luck_reduction;
     }
 }
 
@@ -176,18 +177,19 @@ void loggers_event::execute_failure(Player* pl)
 
 int empty_house_event::get_requirement(Player *pl)
 {
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
     int stat = pl->get_characteristics().at("AGIL");
     if (stat < 10)
     {
-        return stat + 4;
+        return stat + 4 + luck_reduction;
     }
     else if (stat < 16)
     {
-        return stat + 3;
+        return stat + 3 + luck_reduction;
     }
     else
     {
-        return stat + 2;
+        return stat + 2 + luck_reduction;
     }
 }
 
@@ -197,8 +199,11 @@ void empty_house_event::execute_success(Player *pl)
     switch (type)
     {
     case 0: pl->add_item("Загадочное кольцо");
+        break;
     case 1: pl->add_item("Загадочное ожерелье");
+        break;
     case 2: pl->add_item("Загадочный пояс");
+        break;
     }
 }
 
@@ -210,14 +215,15 @@ void empty_house_event::execute_failure(Player *pl)
 
 int mushrooms_event::get_requirement(Player *pl)
 {
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
     int stat = pl->get_characteristics().at("INT");
     if (stat < 8)
     {
-        return stat + 3;
+        return stat + 3 + luck_reduction;
     }
     else
     {
-        return stat + 2;
+        return stat + 2 + luck_reduction;
     }
 }
 
@@ -256,7 +262,7 @@ void mushrooms_event::execute_success(Player *pl)
 
 void mushrooms_event::execute_failure(Player *pl)
 {
-    Effect* eff = new Effect("слабость", pl);
+    Effect* eff = new Effect("отравление", pl);
     eff->apply_effect();
 }
 
@@ -273,7 +279,7 @@ Events::Events()
     JSONObject events_info(info);
 
     // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
-    events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
+    // events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
     events.emplace(std::make_pair("loggers", new loggers_event(events_info.get_object("loggers"))));
     events.emplace(std::make_pair("empty house", new empty_house_event(events_info.get_object("empty house"))));
     events.emplace(std::make_pair("mushrooms", new mushrooms_event(events_info.get_object("mushrooms"))));
