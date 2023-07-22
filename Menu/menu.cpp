@@ -59,7 +59,7 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     connect(btn_titers, SIGNAL(clicked()), this, SLOT(open_titers()));
     connect(btn_exit, SIGNAL(clicked()), this, SLOT(open_exit_window()));
 
-    connect(load, &Load::open_menu_signal, this, &Menu::menu_enable);
+    connect(load, &Load::return_back_signal, this, &Menu::menu_enable);
     connect(new_game, &NewGame::open_menu_signal, this, &Menu::menu_enable);
     connect(titers, &Credits::open_menu_signal, this, &Menu::menu_enable);
     connect(exit_window, &ExitWindow::signal_open_menu, this, &Menu::menu_enable);

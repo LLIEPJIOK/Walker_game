@@ -58,7 +58,7 @@ protected:
     void paintEvent(QPaintEvent* event) override;
 
 signals:
-    void open_menu_signal();
+    void return_back_signal();
     void delete_load(QObject *ls);
     void load_game(QString file_name);
     void save_game(QString file_name);
@@ -71,6 +71,7 @@ private slots:
     void get_name_slot(QString name);
     void delete_slot(bool is_delete);
     void add_slot();
+    void rewrite_slot();
 };
 
 #endif // LOAD_H

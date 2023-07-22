@@ -1,6 +1,6 @@
 #include "loadslot.h"
 
-// file name pattern: time (in reverse order) + date (in reverse order) + name
+// file name pattern: date (yyyy-mm-dd) + "_" + time (hh-mm-ss) + "_" + name
 
 LoadSlot::LoadSlot(QString _file_name, QWidget *parent)
     : QWidget(parent)
@@ -13,11 +13,13 @@ LoadSlot::LoadSlot(QString _file_name, QWidget *parent)
 
     painter = new QPainter;
 
-    label_name = new QLabel(file_name.mid(20), this);
+    label_name = new QLabel(fontMetrics().elidedText(file_name.mid(20), Qt::ElideRight, width() / 2. - 30), this);
     label_name->setFont(QFont("Arial", 12));
 
-    auto time = file_name.mid(6, 2) + file_name.mid(2, 4) + file_name.mid(0, 2);
-    auto date = file_name.mid(17, 2) + file_name.mid(13, 4) + file_name.mid(9, 4);
+    auto time = file_name.mid(11, 8);
+    time.replace("-", ":");
+
+    auto date = file_name.mid(8, 2) + "." + file_name.mid(5, 2) + "." + file_name.mid(0, 4);
 
     label_date = new QLabel(date + "\t" + time, this);
     label_date->setFont(QFont("Arial", 12));
@@ -34,7 +36,7 @@ void LoadSlot::unpress()
 
 void LoadSlot::delete_save()
 {
-    //QFile::remove(file_name);
+    QFile::remove("../Game/Saves/" + file_name + ".bin");
     delete this;
 }
 
@@ -51,7 +53,11 @@ QString LoadSlot::get_file_name()
 void LoadSlot::change_name(QString name)
 {
     label_name->setText(fontMetrics().elidedText(name, Qt::ElideRight, width() / 2. - 30));
-    //перезапись файла
+    auto tmp = file_name;
+    tmp.erase(tmp.cbegin() + 20, tmp.cend());
+    tmp += name;
+    QFile::rename("../Game/Saves/" + file_name + ".bin", "../Game/Saves/" + tmp + ".bin");
+    file_name = tmp;
 }
 
 void LoadSlot::paintEvent(QPaintEvent *event)

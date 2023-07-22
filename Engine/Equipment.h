@@ -16,7 +16,8 @@ protected:
     std::string type;
     bool is_equiped;
 
-
+    // нужно для фронта, сохранять и загружать не надо!
+    bool is_front_equiped;
 
 public:
     Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
@@ -27,7 +28,9 @@ public:
     const std::map<std::string, int>* get_item_characteristics() const;
     int get_id() const;
     bool get_equiped() const;
+    bool get_front_equiped() const;
     void change_equiped();
+    void change_front_equiped();
 
     virtual void save(std::ofstream& out);
     virtual void load(std::ifstream& in);

@@ -28,13 +28,15 @@ private:
 signals:
     void continue_button_clicked();
     void main_menu_clicked();
-    void save_game(QString file_name);
+    void save_game_signal(QString file_name);
 
 protected:
     void paintEvent(QPaintEvent* event);
 
 private slots:
     void open_save();
+    void show_pause();
+    void save_game_slot(QString file_name);
 };
 
 #endif // PAUSEMENU_H

@@ -42,7 +42,9 @@ PauseMenu::PauseMenu(QMainWindow *parent)
     connect(continue_button, &QPushButton::clicked, this, &PauseMenu::continue_button_clicked);
     connect(main_menu, &QPushButton::clicked, this, &PauseMenu::main_menu_clicked);
     connect(save_menu, SIGNAL(clicked()), this, SLOT(open_save()));
-    connect(load, &Load::save_game, this, &PauseMenu::save_game);
+    connect(load, &Load::save_game, this, &PauseMenu::save_game_slot);
+    connect(load, &Load::return_back_signal, this, &PauseMenu::show_pause);
+
 }
 
 void PauseMenu::paintEvent(QPaintEvent *event)
@@ -54,9 +56,23 @@ void PauseMenu::paintEvent(QPaintEvent *event)
     QWidget::paintEvent(event);
 }
 
+void PauseMenu::save_game_slot(QString file_name)
+{
+    centralWidget()->setParent(nullptr);
+    setCentralWidget(pause_menu);
+    hide();
+    emit save_game_signal(file_name);
+}
+
 void PauseMenu::open_save()
 {
     centralWidget()->setParent(nullptr);
     setCentralWidget(load);
+}
+
+void PauseMenu::show_pause()
+{
+    centralWidget()->setParent(nullptr);
+    setCentralWidget(pause_menu);
 }
 

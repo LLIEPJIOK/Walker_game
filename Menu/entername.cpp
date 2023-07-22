@@ -23,20 +23,28 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     btn_cansel = new QPushButton("Отмена", this);
     btn_cansel->setFlat(1);
     btn_cansel->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_cansel->resize(80, 30);
+    btn_cansel->resize(90, 30);
     btn_cansel->move(25, 150);
     btn_cansel->setStyleSheet("QPushButton        {color: white;}"
                               "QPushButton:hover  {color: rgb(255, 178, 102);}");
 
-    btn_save = new QPushButton("Изменить", this);
+    btn_save = new QPushButton(this);
     btn_save->setFlat(1);
     btn_save->setFont(QFont("Arial", 14, QFont::Normal, 1));
     btn_save->setPalette(pal);
-    btn_save->resize(100, 30);
-    btn_save->move(width() - 125, 150);
+    btn_save->resize(120, 30);
+    btn_save->move(width() - 145, 150);
     btn_save->setStyleSheet("QPushButton:active   {color: white;}"
                             "QPushButton:disabled {color: gray;}"
                             "QPushButton:hover    {color: rgb(255, 178, 102);}");
+    if (str == "Введите название сохранения")
+    {
+        btn_save->setText("Сохранить");
+    }
+    else
+    {
+        btn_save->setText("Изменить");
+    }
 
     edit = new QLineEdit(this);
     edit->setText(old_name);
@@ -95,25 +103,36 @@ void EnterName::check_text(const QString& text)
 
 void EnterName::return_slot()
 {
+    turn(0);
     if (sender() == btn_cansel)
     {
         emit return_name("");
     }
     else
     {
+        if (str == "Введите название сохранения")
+        {
+            check_slot(true);
+            return;
+        }
+
         if (ac == nullptr)
         {
             ac = new Accept("Вы точно хотите изменить название?", qobject_cast<QWidget*>(parent()));
             connect(ac, &Accept::accept_signal, this, &EnterName::check_slot);
         }
+
         ac->show();
-        turn(0);
     }
 }
 
 void EnterName::check_slot(bool is_yes)
 {
-    ac->hide();
+    if (ac != nullptr)
+    {
+        ac->hide();
+    }
+
     if (is_yes)
     {
         emit return_name(edit->text());

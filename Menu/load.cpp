@@ -110,7 +110,7 @@ Load::Load(QString _type, QWidget *parent)
 
     connect(lf, &LoadFrame::pressed, this, &Load::check_pressed);
 
-    connect(btn_prev, SIGNAL(clicked()), this, SIGNAL(open_menu_signal()));
+    connect(btn_prev, SIGNAL(clicked()), this, SIGNAL(return_back_signal()));
     connect(btn_delete, SIGNAL(clicked()), this, SLOT(delete_window_slot()));
     connect(this, &Load::delete_load, lf, &LoadFrame::delete_load);
     connect(btn_load, SIGNAL(clicked()), this, SLOT(load_slot()));
@@ -118,6 +118,7 @@ Load::Load(QString _type, QWidget *parent)
     connect(btn_change, SIGNAL(clicked()), this, SLOT(open_change_slot()));
 
     connect(btn_add, SIGNAL(clicked()), this, SLOT(add_slot()));
+    connect(btn_rewrite, &QPushButton::clicked, this, &Load::rewrite_slot);
 }
 
 Load::~Load()
@@ -210,6 +211,9 @@ void Load::get_name_slot(QString name)
             emit save_game(lf->add_slot(name));
             break;
         case State::REWRITE :
+            enter_save_name_window->hide();
+            delete_slot(true);
+            emit save_game(lf->add_slot(name));
             break;
         default:
             throw std::exception("unknown state");
@@ -219,7 +223,11 @@ void Load::get_name_slot(QString name)
 
 void Load::delete_slot(bool is_delete)
 {
-    accept_changes_window->hide();
+    if (accept_changes_window != nullptr)
+    {
+        accept_changes_window->hide();
+    }
+
     turn(1);
     if (is_delete)
     {
@@ -239,6 +247,13 @@ void Load::add_slot()
 
     state = State::ADD_NEW;
     enter_save_name_window->set_name_and_open("");
+}
+
+void Load::rewrite_slot()
+{
+    delete_slot(true);
+    add_slot();
+    state = State::REWRITE;
 }
 
 void Load::paintEvent(QPaintEvent *event)

@@ -138,7 +138,7 @@ void GameInterface::initialize()
     pause->setVisible(false);
     connect(pause, &PauseMenu::continue_button_clicked, this, &GameInterface::continue_playing);
     connect(pause, &PauseMenu::main_menu_clicked, this, &GameInterface::to_main);
-    connect(pause, &PauseMenu::save_game, this, &GameInterface::save_game);
+    connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
     update_all();
 }
@@ -199,7 +199,7 @@ void GameInterface::load(QString file_name)
     turn = Turn::get_Turn();
 
     //вызов метода загрузки
-    save_load_manager->set_file_name(file_name.toStdString());
+    save_load_manager->set_file_name(file_name.toUtf8().constData());
     save_load_manager->load_all();
     is_load = true;
     initialize();
@@ -306,6 +306,10 @@ void GameInterface::congratulate_the_winner()
 
 void GameInterface::save_game(QString file_name)
 {
+    qDebug() << file_name.toUtf8().data();
+    std::string str = file_name.toUtf8().data();
+    qDebug() << str;
+
     save_load_manager->set_file_name(file_name.toStdString());
     save_load_manager->save_all();
 }

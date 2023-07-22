@@ -138,11 +138,10 @@ void EquipedItems::update_equiped_container(std::map<std::string, T> *equipment)
 {
     foreach (auto equip, *equipment)
     {
-        if (equip.second == nullptr)
+        if (equip.second != nullptr && !equip.second->get_front_equiped())
         {
-            continue;
+            equip.second->change_front_equiped();
+            find_place(equip.second);
         }
-
-        find_place(equip.second);
     }
 }

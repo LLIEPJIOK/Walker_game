@@ -114,7 +114,8 @@ Equipment::Equipment(int ID, std::string _name, std::string _equipment_class, st
     item_characteristics = characteristics;
     type = _type;
     equipment_class = _equipment_class;
-    is_equiped = 0;
+    is_equiped = false;
+    is_front_equiped = false;
 }
 
 std::string Equipment::get_name() const
@@ -137,6 +138,11 @@ bool Equipment::get_equiped() const
     return is_equiped;
 }
 
+bool Equipment::get_front_equiped() const
+{
+    return is_front_equiped;
+}
+
 std::string Equipment::get_type() const
 {
     return type;
@@ -147,6 +153,11 @@ std::string Equipment::get_class() const { return equipment_class; }
 void Equipment::change_equiped()
 {
     is_equiped = !is_equiped;
+}
+
+void Equipment::change_front_equiped()
+{
+    is_front_equiped = !is_front_equiped;
 }
 
 

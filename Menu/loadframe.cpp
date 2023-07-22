@@ -58,11 +58,12 @@ LoadFrame::~LoadFrame()
 QString LoadFrame::add_slot(QString name)
 {
     // reverse order of date and time to save it in order from latest to newest
-    auto date = QDate::currentDate().toString("yyyy_MM_dd");
-    auto time = QTime::currentTime().toString("ss_mm_hh");
-    auto file_name = time + "_" + date + "_" + name;
+    auto date = QDate::currentDate().toString("yyyy-MM-dd");
+    auto time = QTime::currentTime().toString("hh-mm-ss");
+    auto file_name = date + "_" + time + "_" + name;
     loads.push_front(new LoadSlot(file_name));
     loads[0]->setFixedSize(3 * screen_size.width() / 5., screen_size.height() / 10.);
+    connect(loads[0], &LoadSlot::pressed, this, &LoadFrame::unpress);
     vblay->insertWidget(0, loads[0]);
     return file_name;
 }
