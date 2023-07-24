@@ -2,12 +2,13 @@
 
 NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
 {
-    Q_UNUSED(parent);
-    QFont font ("Arial", 16, QFont::Normal, 1);
-    QString style("color: rgb(255, 255, 255)");
+    QFont btn_font ("Arial", 14, QFont::Normal, 1);
+    setStyleSheet("QPushButton:active   {color: white;}"
+                  "QPushButton:hover    {color: rgb(255, 178, 102);}"
+                  "QLabel               {color: white;}");
+
     label_choose = new QLabel("Выберите количество игроков");
-    label_choose->setFont(font);
-    label_choose->setStyleSheet(style);
+    label_choose->setFont(QFont("Arial", 16, QFont::Normal, 1));
 
     slider = new QSlider(Qt::Horizontal);
     slider->setMinimum(2);
@@ -18,13 +19,12 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
 
     label_2 = new QLabel("2");
     label_2->setAlignment(Qt::AlignTop);
-    label_2->setStyleSheet(style);
+
     label_3 = new QLabel("3");
     label_3->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    label_3->setStyleSheet(style);
+
     label_4 = new QLabel("4");
     label_4->setAlignment(Qt::AlignRight | Qt::AlignTop);
-    label_4->setStyleSheet(style);
 
     label_hblay = new QHBoxLayout();
     label_hblay->addWidget(label_2);
@@ -38,14 +38,12 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
     btn_next = new QPushButton();
     btn_next->setFlat(1);
     btn_next->setText("Дальше");
-    btn_next->setFont(font);
-    btn_next->setStyleSheet(style);
+    btn_next->setFont(btn_font);
 
     btn_prev = new QPushButton();
     btn_prev->setFlat(1);
     btn_prev->setText("Назад");
-    btn_prev->setFont(font);
-    btn_prev->setStyleSheet(style);
+    btn_prev->setFont(btn_font);
 
     btn_hblay = new QHBoxLayout();
     btn_hblay->addWidget(btn_prev);

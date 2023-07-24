@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <thread>
 #include <chrono>
+#include <QFile>
 
 class Turn
 {
@@ -94,8 +95,8 @@ public:
 
     std::set<Player*> check_players_in_range() const;
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
+    void save(QFile &out);
+    void load(QFile& in);
 
     // был ли бросок кубика в это ходу
     bool was_roll();

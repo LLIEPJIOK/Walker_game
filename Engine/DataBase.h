@@ -1,12 +1,14 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include <fstream>
+#include "Json.h"
+#include "mapcell.h"
+
 #include <exception>
 #include <map>
 #include <iostream>
-#include "Json.h"
-#include "mapcell.h"
+#include <fstream>
+#include <QFile>
 
 const std::string map_file = "../Game/Resources/Files/in.txt";
 
@@ -45,8 +47,8 @@ public:
     void generate_players(std::vector<std::pair<std::string, std::string>> data);
     void generate_items();
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
+    void save(QFile &out);
+    void load(QFile &in);
 };
 
 #endif //DATABASE_H

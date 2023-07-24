@@ -5,33 +5,29 @@
 
 Menu::Menu(QWidget *parent) : QMainWindow(parent)
 {
-    Q_UNUSED(parent);
+    QFont btn_font ("Arial", 14, QFont::Normal, 1);
+    setStyleSheet("QPushButton        {color: white;}"
+                  "QPushButton:hover  {color: rgb(255, 178, 102);}");
 
-    QFont font ("Arial", 14, QFont::Normal, 1);
-    QString style("color: rgb(255, 255, 255)");
     btn_new_game = new QPushButton("Новая игра");
     btn_new_game->setMinimumSize(300, 50);
     btn_new_game->setFlat(1);
-    btn_new_game->setFont(font);
-    btn_new_game->setStyleSheet(style);
+    btn_new_game->setFont(btn_font);
 
     btn_load = new QPushButton("Загрузить");
     btn_load->setMinimumSize(300, 50);
     btn_load->setFlat(1);
-    btn_load->setFont(font);
-    btn_load->setStyleSheet(style);
+    btn_load->setFont(btn_font);
 
     btn_titers = new QPushButton("Об игре");
     btn_titers->setMinimumSize(300, 50);
     btn_titers->setFlat(1);
-    btn_titers->setFont(font);
-    btn_titers->setStyleSheet(style);
+    btn_titers->setFont(btn_font);
 
     btn_exit = new QPushButton("Выход");
     btn_exit->setMinimumSize(300, 50);
     btn_exit->setFlat(1);
-    btn_exit->setFont(font);
-    btn_exit->setStyleSheet(style);
+    btn_exit->setFont(btn_font);
 
     vblay = new QVBoxLayout();
     vblay->setAlignment(Qt::AlignCenter);
@@ -41,12 +37,8 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     vblay->addWidget(btn_titers);
     vblay->addWidget(btn_exit);
 
-    hblay = new QHBoxLayout();
-    hblay->setAlignment(Qt::AlignCenter);
-    hblay->addLayout(vblay);
-
     widget = new QWidget();
-    widget->setLayout(hblay);
+    widget->setLayout(vblay);
     setCentralWidget(widget);
 
     new_game = new NewGame();

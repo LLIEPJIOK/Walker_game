@@ -58,7 +58,7 @@ void MapCell::set_tile_name(std::string tile_name)
     this->tile_name = tile_name;
 }
 
-void MapCell::save(std::ofstream &out)
+void MapCell::save(QFile &out)
 {
     //размер type_of_terrain c /0
     size_t size = type_of_terrain.length() + 1;
@@ -89,7 +89,7 @@ void MapCell::save(std::ofstream &out)
     out.write(tile_name.c_str(), size);
 }
 
-void MapCell::load(std::ifstream &in)
+void MapCell::load(QFile &in)
 {
     //переменная для размера строк
     size_t size;

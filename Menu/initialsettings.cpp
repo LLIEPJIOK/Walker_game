@@ -5,12 +5,19 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
 {
     id = _id;
     kol = 4;
-    QFont font ("Arial", 14, QFont::Normal, 1);
-    QString style("color: rgb(255, 255, 255)");
+
+    QFont font("Arial", 14, QFont::Normal, 1);
+    setStyleSheet("QPushButton:active   {color: white;}"
+                  "QPushButton:disabled {color: gray;}"
+                  "QPushButton:hover    {color: rgb(255, 178, 102);}"
+                  "QLabel               {color: white;}"
+                  "QCheckBox            {color: white;}"
+                  "QCheckBox:disabled   {color: gray;}"
+                  "QCheckBox:hover      {color: rgb(255, 178, 102);}");
+
     label_id = new QLabel("Игрок " + QString::number(id + 1));
     label_id->setAlignment(Qt::AlignCenter);
     label_id->setFont(font);
-    label_id->setStyleSheet(style);
 
     label_pic = new QLabel();
     label_pic->setStyleSheet("border: 2px solid grey;");
@@ -19,20 +26,10 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
     btn_left = new QPushButton("L");
     btn_left->setFlat(1);
     btn_left->setFixedSize(30, 30);
-    btn_left->setStyleSheet(style);
 
     btn_right = new QPushButton("R");
     btn_right->setFlat(1);
     btn_right->setFixedSize(30, 30);
-    btn_right->setStyleSheet(style);
-
-    QPalette pal = btn_right->palette();
-    pal.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::gray);
-    pal.setColor(QPalette::Disabled, QPalette::WindowText, Qt::gray);
-    pal.setColor(QPalette::Active, QPalette::WindowText, Qt::white);
-
-    btn_left->setPalette(pal);
-    btn_right->setPalette(pal);
 
     pic_hblay = new QHBoxLayout();
     pic_hblay->setSpacing(0);
@@ -52,7 +49,6 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
     is_ready = new QCheckBox("Готов");
     is_ready->setFont(font);
     is_ready->setEnabled(0);
-    is_ready->setPalette(pal);
 
 
     check_hblay = new QHBoxLayout();
@@ -61,7 +57,6 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
 
     label_choose_stats = new QLabel("Распределите очки (" + QString::number(kol) + ") по характеристикам:");
     label_choose_stats->setFont(QFont("Arial", 10));
-    label_choose_stats->setStyleSheet(style);
 
     label_stats_hblay = new QHBoxLayout();
     label_stats_hblay->setAlignment(Qt::AlignCenter);
@@ -72,27 +67,21 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
     label_force = new QLabel("Сила:");
     label_force->setFont(QFont("Arial", 10));
     label_force->setContentsMargins(10, 0, 0, 0);
-    label_force->setStyleSheet(style);
 
     btn_minus_force = new QPushButton("-");
     btn_minus_force->setFixedSize(22, 22);
     btn_minus_force->setFont(QFont("Arial", 11, QFont::Bold));
     btn_minus_force->setFlat(1);
     btn_minus_force->setEnabled(0);
-    btn_minus_force->setPalette(pal);
-    btn_minus_force->setStyleSheet(style);
 
     btn_plus_force = new QPushButton("+");
     btn_plus_force->setFont(QFont("Arial", 11, QFont::Bold));
     btn_plus_force->setFlat(1);
     btn_plus_force->setFixedSize(22, 22);
-    btn_plus_force->setPalette(pal);
-    btn_plus_force->setStyleSheet(style);
 
     cur_force = new QLabel("0");
     cur_force->setFixedSize(40, 20);
-    cur_force->setStyleSheet("border: 1px solid grey;"
-                             "color: rgb(255, 255, 255)");
+    cur_force->setStyleSheet("border: 1px solid grey;");
     cur_force->setAlignment(Qt::AlignCenter);
 
     force_hblay = new QHBoxLayout();
@@ -114,27 +103,21 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
     label_agility = new QLabel("Ловкость:");
     label_agility->setFont(QFont("Arial", 10));
     label_agility->setContentsMargins(10, 0, 0, 0);
-    label_agility->setStyleSheet(style);
 
     btn_minus_agility = new QPushButton("-");
     btn_minus_agility->setFixedSize(22, 22);
     btn_minus_agility->setFont(QFont("Arial", 11, QFont::Bold));
     btn_minus_agility->setFlat(1);
     btn_minus_agility->setEnabled(0);
-    btn_minus_agility->setPalette(pal);
-    btn_minus_agility->setStyleSheet(style);
 
     btn_plus_agility = new QPushButton("+");
     btn_plus_agility->setFont(QFont("Arial", 11, QFont::Bold));
     btn_plus_agility->setFlat(1);
     btn_plus_agility->setFixedSize(22, 22);
-    btn_plus_agility->setPalette(pal);
-    btn_plus_agility->setStyleSheet(style);
 
     cur_agility = new QLabel("0");
     cur_agility->setFixedSize(40, 20);
-    cur_agility->setStyleSheet("color: rgb(255, 255, 255);"
-                               "border: 1px solid grey;");
+    cur_agility->setStyleSheet("border: 1px solid grey;");
     cur_agility->setAlignment(Qt::AlignCenter);
 
     agility_hblay = new QHBoxLayout();
@@ -156,28 +139,22 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
     label_intelligence = new QLabel("Интеллект:");
     label_intelligence->setFont(QFont("Arial", 10));
     label_intelligence->setContentsMargins(10, 0, 0, 0);
-    label_intelligence->setStyleSheet(style);
 
     btn_minus_intelligence = new QPushButton("-");
     btn_minus_intelligence->setFixedSize(22, 22);
     btn_minus_intelligence->setFont(QFont("Arial", 11, QFont::Bold));
     btn_minus_intelligence->setFlat(1);
     btn_minus_intelligence->setEnabled(0);
-    btn_minus_intelligence->setPalette(pal);
-    btn_minus_intelligence->setStyleSheet(style);
 
     btn_plus_intelligence = new QPushButton("+");
     btn_plus_intelligence->setFont(QFont("Arial", 11, QFont::Bold));
     btn_plus_intelligence->setFlat(1);
     btn_plus_intelligence->setFixedSize(22, 22);
-    btn_plus_intelligence->setPalette(pal);
-    btn_plus_intelligence->setStyleSheet(style);
 
     cur_intelligence = new QLabel("0");
     cur_intelligence->setAlignment(Qt::AlignCenter);
     cur_intelligence->setFixedSize(40, 20);
-    cur_intelligence->setStyleSheet("border: 1px solid grey;"
-                                    "color: rgb(255, 255, 255);");
+    cur_intelligence->setStyleSheet("border: 1px solid grey;");
 
     intelligence_hblay = new QHBoxLayout();
     intelligence_hblay->setAlignment(Qt::AlignCenter);

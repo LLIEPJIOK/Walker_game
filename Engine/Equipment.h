@@ -1,10 +1,9 @@
-
 #ifndef EQUIPMENT_H
 #define EQUIPMENT_H
 
 #include <map>
 #include <string>
-#include <fstream>
+#include <QFile>
 
 class Equipment
 {
@@ -32,8 +31,8 @@ public:
     void change_equiped();
     void change_front_equiped();
 
-    virtual void save(std::ofstream& out);
-    virtual void load(std::ifstream& in);
+    virtual void save(QFile& out);
+    virtual void load(QFile& in);
 
     virtual ~Equipment(){}
 };
@@ -78,8 +77,8 @@ public:
     int get_duration() const;
     std::string get_effect_name() const;
 
-    void save(std::ofstream& out) override;
-    void load(std::ifstream& in) override;
+    void save(QFile& out) override;
+    void load(QFile &in) override;
 };
 
 class Equipment_Comparator {

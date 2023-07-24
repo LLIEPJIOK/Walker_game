@@ -1,5 +1,8 @@
 #include "entername.h"
 
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
+
 EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     : QFrame(parent)
 {
@@ -10,33 +13,30 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     auto size = QApplication::screens().at(0)->size();
     setGeometry(size.width() / 2 - 250, size.height() / 2 - 105, 500, 210);
 
-    QPalette pal = palette();
-    pal.setColor(QPalette::Disabled, QPalette::ButtonText, QColor(100, 100, 100));
+    auto btn_font = QFont("Arial", 14, QFont::Normal, 1);
+    setStyleSheet("QPushButton:active   {color: white;}"
+                  "QPushButton:disabled {color: gray;}"
+                  "QPushButton:hover    {color: rgb(255, 178, 102);}"
+                  "QLabel               {color: white;}");
 
     label = new QLabel(str, this);
     label->setFont(QFont("Arial", 16));
     label->setAlignment(Qt::AlignCenter);
     label->resize(width(), 50);
     label->move(0, 15);
-    label->setStyleSheet("QLabel {color: white;}");
 
     btn_cansel = new QPushButton("Отмена", this);
     btn_cansel->setFlat(1);
-    btn_cansel->setFont(QFont("Arial", 14, QFont::Normal, 1));
+    btn_cansel->setFont(btn_font);
     btn_cansel->resize(90, 30);
     btn_cansel->move(25, 150);
-    btn_cansel->setStyleSheet("QPushButton        {color: white;}"
-                              "QPushButton:hover  {color: rgb(255, 178, 102);}");
 
     btn_save = new QPushButton(this);
     btn_save->setFlat(1);
-    btn_save->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_save->setPalette(pal);
+    btn_save->setFont(btn_font);
     btn_save->resize(120, 30);
     btn_save->move(width() - 145, 150);
-    btn_save->setStyleSheet("QPushButton:active   {color: white;}"
-                            "QPushButton:disabled {color: gray;}"
-                            "QPushButton:hover    {color: rgb(255, 178, 102);}");
+
     if (str == "Введите название сохранения")
     {
         btn_save->setText("Сохранить");
@@ -46,7 +46,11 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
         btn_save->setText("Изменить");
     }
 
+    // разрешённые символы
+    QRegularExpression expression("[a-zA-Zа-яА-яўі'ё 0-9]+");
+
     edit = new QLineEdit(this);
+    edit->setValidator(new QRegularExpressionValidator(expression));
     edit->setText(old_name);
     edit->setFont(QFont("Arial", 14));
     edit->resize(width() - 100, 30);

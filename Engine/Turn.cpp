@@ -189,7 +189,7 @@ std::set<Player *> Turn::check_players_in_range() const
     return s;
 }
 
-void Turn::save(std::ofstream &out)
+void Turn::save(QFile &out)
 {
     //запись turn_number
     out.write((char*)& turn_number, sizeof(turn_number));
@@ -224,7 +224,7 @@ void Turn::save(std::ofstream &out)
     out.write((char*)& chosen_direction.second, sizeof(chosen_direction.second));
 }
 
-void Turn::load(std::ifstream& in)
+void Turn::load(QFile &in)
 {
     //чтение turn_number
     in.read((char*)&turn_number, sizeof(turn_number));

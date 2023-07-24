@@ -1,6 +1,7 @@
 #ifndef GAME_INTERFACE_H
 #define GAME_INTERFACE_H
 
+#include "informationwindow.h"
 #include "gamemap.h"
 #include "minimap.h"
 #include "inventory.h"
@@ -44,6 +45,8 @@ private:
     QSize screen_size;
 
     Menu* menu;
+
+    InformationWindow* information_window;
 
     QPushButton *menu_button;
     QPushButton *roll_button;

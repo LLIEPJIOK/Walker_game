@@ -4,8 +4,12 @@
 PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *parent)
     : QWidget(parent)
 {
-    QFont font ("Arial", 14, QFont::Normal, 1);
-    QString style("color: rgb(255, 255, 255)");
+    QFont btn_font ("Arial", 14, QFont::Normal, 1);
+    setStyleSheet("QPushButton:active   {color: white;}"
+                  "QPushButton:disabled {color: gray;}"
+                  "QPushButton:hover    {color: rgb(255, 178, 102);}"
+                  "QLabel               {color: white;}");
+
     players_number = _players_number;
 
     settings = new QHBoxLayout;
@@ -23,8 +27,7 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     start_the_game = new QPushButton("Начать");
     start_the_game->setFlat(1);
     start_the_game->setEnabled(0);
-    start_the_game->setFont(font);
-    start_the_game->setStyleSheet(style);
+    start_the_game->setFont(btn_font);
 
     QPalette pal = start_the_game->palette();
     pal.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::gray);
@@ -32,8 +35,7 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
 
     back = new QPushButton("Назад");
     back->setFlat(1);
-    back->setFont(font);
-    back->setStyleSheet(style);
+    back->setFont(btn_font);
 
     buttons = new QHBoxLayout;
     buttons->addWidget(back);

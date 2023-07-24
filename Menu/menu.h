@@ -23,7 +23,6 @@ private:
     QPushButton *btn_titers;
     QPushButton *btn_exit;
     QVBoxLayout *vblay;
-    QHBoxLayout *hblay;
     ExitWindow *exit_window;
     NewGame *new_game;
     QWidget *widget;

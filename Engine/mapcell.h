@@ -1,7 +1,5 @@
-
 #ifndef MAPCELL_H
 #define MAPCELL_H
-
 
 #include "Player.h"
 
@@ -29,8 +27,8 @@ public:
 
     void initiate_event();
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
+    void save(QFile& out);
+    void load(QFile& in);
 };
 
 #endif // MAPCELL_H

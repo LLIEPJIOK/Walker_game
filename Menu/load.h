@@ -16,7 +16,12 @@ public:
     Load(QString _type, QWidget *parent = nullptr);
     ~Load();
 
+    // сбрасывает выделение на слоте
+    void reset();
+
 private:
+
+    // что сейчас делаем
     enum class State
     {
         CHANGE_NAME,

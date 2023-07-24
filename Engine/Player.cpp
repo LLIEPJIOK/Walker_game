@@ -6,7 +6,7 @@
 #define seq DataBase::get_DataBase()->get_sequence()
 int Player::CURRENT_ID = 0;
 
-void Player::save_all_items(std::ofstream &out)
+void Player::save_all_items(QFile &out)
 {
     //размер контейнера weaponary
     size_t size = weaponary.size();
@@ -64,7 +64,7 @@ void Player::save_all_items(std::ofstream &out)
     }
 }
 
-void Player::load_all_items(std::ifstream &in)
+void Player::load_all_items(QFile &in)
 {
     //переменная для размеров контейнеров
     size_t size;
@@ -451,7 +451,7 @@ int Player::die()
     return -1;
 }
 
-void Player::save(std::ofstream& out)
+void Player::save(QFile& out)
 {
     //размер name
     size_t size = name.size() + 1;
@@ -492,7 +492,7 @@ void Player::save(std::ofstream& out)
     save_all_items(out);
 }
 
-void Player::load(std::ifstream &in)
+void Player::load(QFile &in)
 {
     //переменная для размера строки и контейнера
     size_t size;

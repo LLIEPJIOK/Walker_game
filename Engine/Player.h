@@ -8,6 +8,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+
 #include "Equipment.h"
 
 class Effect;
@@ -34,8 +35,8 @@ private:
     std::map<std::string, Armour*> equiped_armourment;
     std::map<std::string, Jewel*> equiped_jewellery;
 
-    void save_all_items(std::ofstream& out);
-    void load_all_items(std::ifstream& in);
+    void save_all_items(QFile& out);
+    void load_all_items(QFile& in);
     void load_equiped_items();
 
 public:
@@ -88,8 +89,8 @@ public:
 
     int die();
 
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
+    void save(QFile& out);
+    void load(QFile& in);
 };
 
 #endif //PLAYER_H

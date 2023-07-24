@@ -1,4 +1,5 @@
 #include "DataBase.h"
+
 DataBase* DataBase::data = 0;
 
 DataBase::DataBase()
@@ -56,7 +57,7 @@ void DataBase::generate_items()
     }
 }
 
-void DataBase::save(std::ofstream &out)
+void DataBase::save(QFile &out)
 {
     //запись height
     out.write((char*)& height, sizeof(height));
@@ -85,7 +86,7 @@ void DataBase::save(std::ofstream &out)
     }
 }
 
-void DataBase::load(std::ifstream &in)
+void DataBase::load(QFile &in)
 {
     //чтение height
     in.read((char*)& height, sizeof(height));

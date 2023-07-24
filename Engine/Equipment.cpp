@@ -1,6 +1,6 @@
 #include "DataBase.h"
 
-void Equipment::save(std::ofstream& out)
+void Equipment::save(QFile& out)
 {
     //запись item_id
     out.write((char*)& item_id, sizeof(item_id));
@@ -48,7 +48,7 @@ void Equipment::save(std::ofstream& out)
     out.write((char*)& is_equiped, sizeof(is_equiped));
 }
 
-void Equipment::load(std::ifstream& in)
+void Equipment::load(QFile &in)
 {
     //чтение item_id
     in.read((char*)&item_id, sizeof(item_id));
@@ -407,7 +407,7 @@ Armour::Armour(int ID, std::string name, std::string equipment_class, std::map<s
 }
 
 //Potion
-void Potion::save(std::ofstream& out)
+void Potion::save(QFile &out)
 {
     Equipment::save(out);
     out.write((char*)& duration, sizeof(duration));
@@ -417,7 +417,7 @@ void Potion::save(std::ofstream& out)
     out.write(effect_name.c_str(), size_of_effect_name);
 }
 
-void Potion::load(std::ifstream& in)
+void Potion::load(QFile& in)
 {
     Equipment::load(in);
     in.read((char*)&duration, sizeof(duration));

@@ -1,13 +1,16 @@
 #include "saveandloadmanager.h"
 #include "Turn.h"
 #include "DataBase.h"
-SaveAndLoadManager::SaveAndLoadManager(std::string file_name_)
+
+#include <QDebug>
+
+SaveAndLoadManager::SaveAndLoadManager(QString file_name_)
 {
     //присваивание значения переменной file_name
     file_name = file_name_;
 }
 
-void SaveAndLoadManager::set_file_name(std::string file_name_)
+void SaveAndLoadManager::set_file_name(QString file_name_)
 {
     //присваивание значения переменной file_name
     file_name = file_name_;
@@ -16,23 +19,35 @@ void SaveAndLoadManager::set_file_name(std::string file_name_)
 void SaveAndLoadManager::save_all()
 {
     //открытие файлового потока для записи
-    std::ofstream out("../Game/Saves/" + file_name + ".bin", std::ios::binary);
+    QFile in("../Game/Saves/" + file_name + ".bin");
+    if (!in.open(QIODevice::WriteOnly))
+    {
+        qDebug() << "file \"../Game/Saves/" + file_name + ".bin\" did't open";
+        return;
+    }
+
     //вызов метода записи у объекта класса DataBase
-    DataBase::get_DataBase()->save(out);
+    DataBase::get_DataBase()->save(in);
     //вызов метода записи у объекта класса Turn
-    Turn::get_Turn()->save(out);
+    Turn::get_Turn()->save(in);
     //закрытие потока для записи
-    out.close();
+    in.close();
 }
 
 void SaveAndLoadManager::load_all()
 {
     //открытие файлового потока для чтения
-    std::ifstream in("../Game/Saves/" + file_name + ".bin", std::ios::binary);
+    QFile out("../Game/Saves/" + file_name + ".bin");
+    if (!out.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "file \"../Game/Saves/" + file_name + ".bin\" did't open";
+        return;
+    }
+
     //вызов метода чтения у объекта класса DataBase
-    DataBase::get_DataBase()->load(in);
+    DataBase::get_DataBase()->load(out);
     //вызов метода чтения у объекта класса Turn
-    Turn::get_Turn()->load(in);
+    Turn::get_Turn()->load(out);
     //закрытие потока для чтения
-    in.close();
+    out.close();
 }

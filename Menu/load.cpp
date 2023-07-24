@@ -22,51 +22,39 @@ Load::Load(QString _type, QWidget *parent)
     lf = new LoadFrame();
     auto size = QApplication::screens().at(0)->size();
     lf->setFixedSize(3 * size.width() / 4., 3 * size.height() / 4.);
-    lf->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     hblay = new QHBoxLayout();
     hblay->addWidget(lf);
 
+    QFont btn_font = QFont("Arial", 14, QFont::Normal, 1);
+    setStyleSheet("QPushButton:active   {color: white;}"
+                  "QPushButton:disabled {color: gray;}"
+                  "QPushButton:hover    {color: rgb(255, 178, 102);}");
+
     btn_prev = new QPushButton("Назад");
     btn_prev->setFlat(1);
-    btn_prev->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_prev->setStyleSheet("QPushButton        {color: white;}"
-                            "QPushButton:hover  {color: rgb(255, 178, 102);}");
+    btn_prev->setFont(btn_font);
 
     btn_delete = new QPushButton("Удалить");
     btn_delete->setFlat(1);
-    btn_delete->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_delete->setStyleSheet("QPushButton:active   {color: white;}"
-                              "QPushButton:disabled {color: gray;}"
-                              "QPushButton:hover    {color: rgb(255, 178, 102);}");
+    btn_delete->setFont(btn_font);
 
     btn_load = new QPushButton("Загрузить");
     btn_load->setFlat(1);
-    btn_load->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_load->setStyleSheet("QPushButton:active   {color: white;}"
-                            "QPushButton:disabled {color: gray;}"
-                            "QPushButton:hover    {color: rgb(255, 178, 102);}");
+    btn_load->setFont(btn_font);
 
     btn_change = new QPushButton("Изменить");
     btn_change->setFlat(1);
-    btn_change->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_change->setStyleSheet("QPushButton:active   {color: white;}"
-                              "QPushButton:disabled {color: gray;}"
-                              "QPushButton:hover    {color: rgb(255, 178, 102);}");
+    btn_change->setFont(btn_font);
 
 
     btn_add = new QPushButton("Добавить");
     btn_add->setFlat(1);
-    btn_add->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_add->setStyleSheet("QPushButton:active  {color: white;}"
-                           "QPushButton:hover   {color: rgb(255, 178, 102);}");
+    btn_add->setFont(btn_font);
 
     btn_rewrite = new QPushButton("Перезаписать");
     btn_rewrite->setFlat(1);
-    btn_rewrite->setFont(QFont("Arial", 14, QFont::Normal, 1));
-    btn_rewrite->setStyleSheet("QPushButton:active   {color: white;}"
-                               "QPushButton:disabled {color: gray;}"
-                               "QPushButton:hover    {color: rgb(255, 178, 102);}");
+    btn_rewrite->setFont(btn_font);
 
     set_available();
 
@@ -126,6 +114,17 @@ Load::~Load()
     delete lf;
     delete accept_changes_window;
     delete change_name_window;
+}
+
+// сбрасывает выделение на слот
+void Load::reset()
+{
+    if (is_available)
+    {
+        qobject_cast<LoadSlot*>(chosen)->unpress();
+        is_available = 0;
+        set_available();
+    }
 }
 
 void Load::set_available()
@@ -251,9 +250,14 @@ void Load::add_slot()
 
 void Load::rewrite_slot()
 {
-    delete_slot(true);
-    add_slot();
+    if (enter_save_name_window == nullptr)
+    {
+        enter_save_name_window = new EnterName("Введите название сохранения", qobject_cast<LoadSlot*>(chosen)->get_name(), this);
+        connect(enter_save_name_window, &EnterName::return_name, this, &Load::get_name_slot);
+    }
+
     state = State::REWRITE;
+    enter_save_name_window->set_name_and_open(qobject_cast<LoadSlot*>(chosen)->get_name());
 }
 
 void Load::paintEvent(QPaintEvent *event)

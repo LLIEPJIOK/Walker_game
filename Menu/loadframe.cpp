@@ -8,8 +8,7 @@
 LoadFrame::LoadFrame(QWidget *parent)
     : QMainWindow(parent)
 {
-    //открыть поток в файл с названиями сейвов и в цикле создать объекты
-    //закрыть поток
+    setStyleSheet("background: transparent;");
 
     QDir dir("../Game/Saves");
     auto saves =  dir.entryList();
@@ -19,7 +18,7 @@ LoadFrame::LoadFrame(QWidget *parent)
     vblay->setSpacing(10);
     for (int i = 2; i < static_cast<int>(saves.size()); ++i)
     {
-        loads.push_front(new LoadSlot(saves[i].mid(0, saves[i].indexOf("."))));
+        loads.push_front(new LoadSlot(saves[i].mid(0, saves[i].lastIndexOf("."))));
         loads[0]->setFixedSize(3 * screen_size.width() / 5., screen_size.height() / 10.);
         vblay->insertWidget(0, loads[0]);
         connect(loads[0], &LoadSlot::pressed, this, &LoadFrame::unpress);
@@ -34,15 +33,8 @@ LoadFrame::LoadFrame(QWidget *parent)
     scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scroll->setWidget(widget);
+    scroll->setFrameStyle(0);
     scroll->setWidgetResizable(1);
-    scroll->setFrameStyle(QFrame::Panel);
-    scroll->setLineWidth(3);
-
-    QPalette p = palette();
-    p.setBrush(QPalette::Window, QBrush(QColor(0, 0, 0, 0)));
-    p.setBrush(QPalette::WindowText, QBrush(QColor(0, 0, 0, 0)));
-    setPalette(p);
-    scroll->setPalette(p);
 
     setCentralWidget(scroll);
 }
@@ -57,14 +49,16 @@ LoadFrame::~LoadFrame()
 
 QString LoadFrame::add_slot(QString name)
 {
-    // reverse order of date and time to save it in order from latest to newest
-    auto date = QDate::currentDate().toString("yyyy-MM-dd");
-    auto time = QTime::currentTime().toString("hh-mm-ss");
+    // reverse order of date to save it in order from latest to newest
+    auto date = QDate::currentDate().toString("yyyy.MM.dd");
+    auto time = QTime::currentTime().toString("hh.mm.ss");
     auto file_name = date + "_" + time + "_" + name;
+
     loads.push_front(new LoadSlot(file_name));
     loads[0]->setFixedSize(3 * screen_size.width() / 5., screen_size.height() / 10.);
     connect(loads[0], &LoadSlot::pressed, this, &LoadFrame::unpress);
     vblay->insertWidget(0, loads[0]);
+
     return file_name;
 }
 
@@ -73,8 +67,12 @@ void LoadFrame::unpress(bool is_pressed)
     if (is_pressed)
     {
         foreach(const auto i, loads)
+        {
             if (i != sender())
+            {
                 i->unpress();
+            }
+        }
     }
     emit pressed(is_pressed, sender());
 }

@@ -22,6 +22,8 @@ GameInterface::GameInterface(QWidget *parent)
     menu = new Menu();
     setCentralWidget(menu);
 
+    information_window = new InformationWindow(this);
+
     //создание нового объекта класса SaveAndLoadManager
     save_load_manager = new SaveAndLoadManager("SAVE_FILE");
 
@@ -31,6 +33,7 @@ GameInterface::GameInterface(QWidget *parent)
 
 GameInterface::~GameInterface()
 {
+    delete information_window;
     delete turn;
     delete data_base;
     delete current_map;
@@ -136,7 +139,7 @@ void GameInterface::initialize()
 
     pause = new PauseMenu(this);
     pause->setVisible(false);
-    connect(pause, &PauseMenu::continue_button_clicked, this, &GameInterface::continue_playing);
+    connect(pause, &PauseMenu::continue_button_clicked_signal, this, &GameInterface::continue_playing);
     connect(pause, &PauseMenu::main_menu_clicked, this, &GameInterface::to_main);
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
@@ -199,7 +202,7 @@ void GameInterface::load(QString file_name)
     turn = Turn::get_Turn();
 
     //вызов метода загрузки
-    save_load_manager->set_file_name(file_name.toUtf8().constData());
+    save_load_manager->set_file_name(file_name);
     save_load_manager->load_all();
     is_load = true;
     initialize();
@@ -306,12 +309,10 @@ void GameInterface::congratulate_the_winner()
 
 void GameInterface::save_game(QString file_name)
 {
-    qDebug() << file_name.toUtf8().data();
-    std::string str = file_name.toUtf8().data();
-    qDebug() << str;
-
-    save_load_manager->set_file_name(file_name.toStdString());
+    save_load_manager->set_file_name(file_name);
     save_load_manager->save_all();
+    information_window->raise();
+    information_window->inform("Игра сохранилась");
 }
 
 // восстановление состояния кнопок

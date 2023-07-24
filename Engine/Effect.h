@@ -33,9 +33,9 @@ public:
 
     // подправить сохранение для контейнера
 
-    static std::string read_name(std::ifstream& in);
-    void save(std::ofstream& out);
-    void load(std::ifstream& in);
+    static std::string read_name(QFile &in);
+    void save(QFile& out);
+    void load(QFile &in);
 };
 
 class Regeneration_effect : public Effect // восстанавливает 20% отсутствующего здоровья в ход

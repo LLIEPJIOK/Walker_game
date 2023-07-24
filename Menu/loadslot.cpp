@@ -1,25 +1,23 @@
 #include "loadslot.h"
 
-// file name pattern: date (yyyy-mm-dd) + "_" + time (hh-mm-ss) + "_" + name
+// file name pattern: date (yyyy.mm.dd) + "_" + time (hh.mm.ss) + "_" + name
 
 LoadSlot::LoadSlot(QString _file_name, QWidget *parent)
     : QWidget(parent)
 {
-    QPalette pal = palette();
-    pal.setColor(QPalette::WindowText, Qt::white);
-    setPalette(pal);
+    setStyleSheet("QLabel {color: white;}");
 
     file_name = _file_name;
 
     painter = new QPainter;
 
-    label_name = new QLabel(fontMetrics().elidedText(file_name.mid(20), Qt::ElideRight, width() / 2. - 30), this);
+    label_name = new QLabel(fontMetrics().elidedText(file_name.mid(20), Qt::ElideRight, 300), this);
     label_name->setFont(QFont("Arial", 12));
 
     auto time = file_name.mid(11, 8);
-    time.replace("-", ":");
+    time.replace(".", ":");
 
-    auto date = file_name.mid(8, 2) + "." + file_name.mid(5, 2) + "." + file_name.mid(0, 4);
+    auto date = file_name.mid(8, 2) + file_name.mid(4, 4) + file_name.mid(0, 4);
 
     label_date = new QLabel(date + "\t" + time, this);
     label_date->setFont(QFont("Arial", 12));
@@ -52,7 +50,7 @@ QString LoadSlot::get_file_name()
 
 void LoadSlot::change_name(QString name)
 {
-    label_name->setText(fontMetrics().elidedText(name, Qt::ElideRight, width() / 2. - 30));
+    label_name->setText(fontMetrics().elidedText(name, Qt::ElideRight, 300));
     auto tmp = file_name;
     tmp.erase(tmp.cbegin() + 20, tmp.cend());
     tmp += name;

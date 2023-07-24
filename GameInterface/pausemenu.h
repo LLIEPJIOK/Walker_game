@@ -26,7 +26,7 @@ private:
     Load* load;
 
 signals:
-    void continue_button_clicked();
+    void continue_button_clicked_signal();
     void main_menu_clicked();
     void save_game_signal(QString file_name);
 
@@ -37,6 +37,7 @@ private slots:
     void open_save();
     void show_pause();
     void save_game_slot(QString file_name);
+    void continue_button_clicked_slot();
 };
 
 #endif // PAUSEMENU_H

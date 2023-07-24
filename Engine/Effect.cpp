@@ -68,7 +68,7 @@ void Effect::dec_counter()
 }
 
 //метод для чтения имени, т.к. эффект явялется абстрактным классом
-std::string Effect::read_name(std::ifstream &in)
+std::string Effect::read_name(QFile &in)
 {
     //переменная для размера строк
     size_t size;
@@ -82,7 +82,7 @@ std::string Effect::read_name(std::ifstream &in)
     return name;
 }
 
-void Effect::save(std::ofstream& out)
+void Effect::save(QFile &out)
 {
     //размер effect_name с /0
     size_t size = effect_name.size() + 1;
@@ -126,7 +126,7 @@ void Effect::save(std::ofstream& out)
     out.write((char*)& dispellable, sizeof(dispellable));
 }
 
-void Effect::load(std::ifstream& in)
+void Effect::load(QFile& in)
 {
     //переменная для рамзера строк
     size_t size;
