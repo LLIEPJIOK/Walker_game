@@ -22,7 +22,7 @@ void DropItem::change_icon(QPixmap pix, bool _is_standart)
 
 void DropItem::equip(DragItem *item, bool connect_back)
 {
-    if (equiped_item)
+    if (equiped_item != nullptr)
     {
         equiped_item->unequip(place);
     }
@@ -33,6 +33,7 @@ void DropItem::equip(DragItem *item, bool connect_back)
         equiped_item->equip(place);
     }
 
+    equiped_item->get_connected_item()->change_front_equiped();
     equiped_item->set_equiped();
     change_icon(equiped_item->get_icon());
 }

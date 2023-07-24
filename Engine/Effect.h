@@ -48,7 +48,6 @@ public:
     // исполнение эффекта
     void execute_effect();
 
-    // методы сохранения и загрузки
     void save(QFile& out);
     void load(QFile &in);
 

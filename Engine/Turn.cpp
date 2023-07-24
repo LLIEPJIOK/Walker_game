@@ -206,7 +206,7 @@ void Turn::save(QFile &out)
     out.write((char*)& roll, sizeof(roll));
 
     // запись rolled
-    out.write((char*)& rolled, sizeof(is_moving));
+    out.write((char*)& rolled, sizeof(rolled));
 
     //запись is_moving
     out.write((char*)& is_moving, sizeof(is_moving));
@@ -245,7 +245,7 @@ void Turn::load(QFile &in)
     in.read((char*)&roll, sizeof(roll));
 
     // чтение rolled
-    in.read((char*)&rolled, sizeof(roll));
+    in.read((char*)&rolled, sizeof(rolled));
 
     //чтение is_moving
     in.read((char*)&is_moving, sizeof(is_moving));

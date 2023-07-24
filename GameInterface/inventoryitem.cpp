@@ -31,7 +31,7 @@ void InventoryItem::switch_equiped()
     is_equiped = false;
 }
 
-Equipment* InventoryItem::get_connected_item() const
+Equipment* InventoryItem::get_connected_item()
 {
     return connected_item;
 }

@@ -64,6 +64,7 @@ void DragItem::unequip(QString place)
     if(is_equiped)
     {
         connected_item->change_equiped();
+        connected_item->change_front_equiped();
         is_equiped = false;
         emit item_was_unequiped(connected_item, place);
         switch_text();

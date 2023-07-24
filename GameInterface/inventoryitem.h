@@ -23,7 +23,7 @@ public:
     void switch_equiped();
 
     // возвращает соответствующий предмет
-    Equipment* get_connected_item() const;
+    Equipment* get_connected_item();
 
     // возвращает экиперован ли предмет
     bool get_is_equiped() const;
