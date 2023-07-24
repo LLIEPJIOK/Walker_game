@@ -201,10 +201,10 @@ void Jewel::make_ring(int turn_number)
         special = "PIERCE";
         break;
     case 2: name += "шанса крит. удара ";
-        special = "CRIT_CH";
+        special = "CRIT_CH_FLAT";
         break;
     case 3: name += "крит. удара ";
-        special = "CRIT_DMG";
+        special = "CRIT_DMG_FLAT";
         break;
     }
 
@@ -267,10 +267,10 @@ void Jewel::make_necklace(int turn_number)
         special = "PIERCE";
         break;
     case 2: name += "шанса крит. удара ";
-        special = "CRIT_CH";
+        special = "CRIT_CH_FLAT";
         break;
     case 3: name += "крит. удара ";
-        special = "CRIT_DMG";
+        special = "CRIT_DMG_FLAT";
         break;
     }
 
@@ -282,10 +282,10 @@ void Jewel::make_necklace(int turn_number)
         util = "HP";
         break;
     case 2: name += "и атаки";
-        util = "ATK";
+        util = "ATK_MULTI";
         break;
     case 3: name += "и защиты";
-        util = "ARM";
+        util = "ARM_MULTI";
         break;
     }
 
@@ -349,10 +349,10 @@ void Jewel::make_belt(int turn_number)
         util = "HP";
         break;
     case 2: name += "атаки";
-        util = "ATK";
+        util = "ATK_MULTI";
         break;
     case 3: name += "защиты";
-        util = "ARM";
+        util = "ARM_MULTI";
         break;
     }
 

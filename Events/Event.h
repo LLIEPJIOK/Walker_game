@@ -48,8 +48,8 @@ class experiment_event : public Event
 {
 public:
     experiment_event(JSONObject* tmp) : Event(tmp){}
-    void execute_success(Player* pl);
-    void execute_failure(Player* pl);
+    void execute_success(Player*);
+    void execute_failure(Player*);
 };
 
 class loggers_event : public Event

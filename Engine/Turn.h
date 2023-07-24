@@ -2,7 +2,6 @@
 #define TURN_H
 
 #include "Player.h"
-#include "Json.h"
 #include "Events/Event.h"
 
 #include <iostream>
@@ -24,6 +23,7 @@ private:
     bool game_over;
 
     int roll;
+    int rolled; // Никита, сохрани это поле!
 
     bool is_moving;
     bool has_already_moved;
@@ -51,6 +51,7 @@ public:
 
     void dice_roll();
     int get_roll();
+    int get_rolled();
 
     //Состояние текущего игрока во время хода
     bool get_moving();

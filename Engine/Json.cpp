@@ -43,7 +43,7 @@ JSONObject::JSONObject(std::string text)
     int block_counter = (int)std::min(count(text.begin(), text.end(), '{'), count(text.begin(), text.end(), '}'));
 
 
-    int pos1 = text.find_first_of("{"), pos2 = 0;
+    size_t pos1 = text.find_first_of("{"), pos2 = 0;
     while (block_counter > 0)
     {
         pos1 = text.find_first_of("\"", pos1);
@@ -56,7 +56,7 @@ JSONObject::JSONObject(std::string text)
         std::string key = text.substr(pos1, pos2 - pos1);
         std::string value = "";
         pos1 = pos2 + 1;
-        int check_pos = text.find_first_of("{[", pos1);
+        size_t check_pos = text.find_first_of("{[", pos1);
 
         if (check_pos > text.find_first_of("\"", pos1)) // if it is a default name to value data
         {
@@ -74,14 +74,14 @@ JSONObject::JSONObject(std::string text)
 
         else if (text[check_pos] == '{') // if it is a beginning of a JSONObject
         {
-            int end_pos = find_block_end_1(text, check_pos);
+            size_t end_pos = find_block_end_1(text, (int)check_pos);
             JSONObject* tmp = new JSONObject(text.substr(check_pos, end_pos - check_pos + 1));
             name_to_object->emplace(std::make_pair(key, tmp));
             pos1 = end_pos + 1;
         }
         else if (text[check_pos] == '[') // if it is a beginning of an array
         {
-            int end_pos = find_block_end_2(text, check_pos);
+            size_t end_pos = find_block_end_2(text, (int)check_pos);
             std::string array = text.substr(check_pos, end_pos - check_pos + 1);
             if(array.find_first_of("{}", 0) == -1)
                 insert_array(key, array);
@@ -143,7 +143,6 @@ std::vector<std::string>* JSONObject::get_values(std::string key)
 
 std::string JSONObject::get_value(std::string key)
 {
-    auto tmp = name_to_value->at(key);
     return name_to_value->at(key);
 }
 
@@ -197,7 +196,7 @@ bool JSONObject::is_in_object_arrays(std::string key) // если такой к�
 
 int JSONObject::find_block_end_1(std::string& text, int curpos) // вспомогательная функция для нахождения позиции конца блока ОБЪЕКТА
 {
-    int pos1 = curpos;
+    size_t pos1 = curpos;
     int block_c = 1;
     while (block_c > 0)
     {
@@ -208,12 +207,12 @@ int JSONObject::find_block_end_1(std::string& text, int curpos) // вспомо�
         else
             block_c--;
     }
-    return pos1;
+    return (int)pos1;
 }
 
 int JSONObject::find_block_end_2(std::string& text, int curpos)// вспомогательная функция для нахождения позиции конца блока МАССИВА
 {
-    int pos1 = curpos;
+    size_t pos1 = curpos;
     int block_c = 1;
     while (block_c > 0)
     {
@@ -224,7 +223,7 @@ int JSONObject::find_block_end_2(std::string& text, int curpos)// вспомог
         else
             block_c--;
     }
-    return pos1;
+    return (int)pos1;
 }
 
 void JSONObject::operator=(const JSONObject& other) // присваивание/копирование
@@ -263,11 +262,11 @@ void JSONObject::operator=(const JSONObject& other) // присваивание/
 
 void JSONObject::insert_object_array(std::string key, std::string array)
 {
-    int pos1 = array.find_first_of("{",0), pos2;
+    size_t pos1 = array.find_first_of("{",0), pos2;
     std::vector<JSONObject*>* objects = new std::vector<JSONObject*>;
     while(pos1 != -1)
     {
-        pos2 = find_block_end_1(array, pos1);
+        pos2 = find_block_end_1(array, (int)pos1);
         std::string text = array.substr(pos1, pos2 - pos1 + 1);
         JSONObject* object = new JSONObject(text);
         objects->push_back(object);
@@ -279,7 +278,7 @@ void JSONObject::insert_object_array(std::string key, std::string array)
 
 void JSONObject::insert_array(std::string key, std::string array)
 {
-    int pos2, pos1 = 0;
+    size_t pos2, pos1 = 0;
     pos1 = array.find_first_of("\"", pos1);
     std::vector<std::string>* values = new std::vector<std::string>;
     while(pos1 != -1)

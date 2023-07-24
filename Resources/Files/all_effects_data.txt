@@ -1,0 +1,204 @@
+{
+
+"экспериментальный эффект" : 
+{
+"effect_name" : "экспериментальный эффект"
+"effect_type" : "нейтральный"
+"effect_duration" : "-1"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" :
+{
+"HP" : "100"
+"ARM" : "100"
+"CRIT_CH_MULTI" : "1000"
+"CRIT_DMG_FLAT" : "200"
+"CRIT_DMG_MULTI" : "1000"
+}
+}
+
+"регенерация" : 
+{
+"effect_name" : "регенерация"
+"effect_type" : "положительный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : {}
+}
+
+"горение" : 
+{
+"effect_name" : "горение"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : {}
+}
+
+"отравление" : 
+{
+"effect_name" : "отравление"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : {}
+}
+
+"кровотечение" : 
+{
+"effect_name" : "кровотечение"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : {}
+}
+
+"обморожение" : 
+{
+"effect_name" : "обморожение"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : 
+{
+	"ROLL_MOD" = "-2"
+	"CRIT_CH_MULTI" = "-20"
+}
+}
+
+"шок" : 
+{
+"effect_name" : "шок"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" :
+{
+	"CRIT_CH_MULTI" = "-30"
+	"CRIT_DMG_MULTI" = "-40"
+}
+}
+
+"слабость" : 
+{
+"effect_name" : "слабость"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" : 
+{
+	"ATK_MULTI" = "-50"
+	"CRIT_CH_MULTI" = "-10"
+	"CRIT_DMG_MULTI" "-20"
+}
+}
+
+"усиление" : 
+{
+"effect_name" : "усиление"
+"effect_type" : "положительный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" : 
+{
+	"ATK_MULTI" = "20"
+	"CRIT_CH_MULTI" = "20"
+	"CRIT_DMG_MULTI" "40"
+}
+}
+
+"стойкость" : 
+{
+"effect_name" : "стойкость"
+"effect_type" : "положительный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" : 
+{
+	"MAX_HP" : "20"
+	"ARM_MULTI" : "30"
+}
+}
+
+"ускорение" : 
+{
+"effect_name" : "ускорение"
+"effect_type" : "положительный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : 
+{
+	"ROLL_MOD" = "2"
+	"AGIL" = "3"
+}
+}
+
+"замедление" : 
+{
+"effect_name" : "замедление"
+"effect_type" : "отрицательный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : 
+{
+	"ROLL_MOD" = "-2"
+	"AGIL" = "-3"
+}
+}
+
+"удача" : 
+{
+"effect_name" : "удача"
+"effect_type" : "положительный"
+"effect_duration" : "3"
+"effect_counter" : "1"
+"dispellable" : "1"
+"special_chs" : 
+{
+	"EVENT_ROLL_MOD" : "1"
+}
+}
+
+"развеивание" : 
+{
+"effect_name" : "развеивание"
+"effect_type" : "нейтральный"
+"effect_duration" : "1"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" : {}
+}
+
+"развеивание отрицательных эффектов" : 
+{
+"effect_name" : "развеивание"
+"effect_type" : "положительный"
+"effect_duration" : "1"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" : {}
+}
+
+"развеивание положительных эффектов" : 
+{
+"effect_name" : "развеивание положительных эффектов"
+"effect_type" : "отрицательный"
+"effect_duration" : "1"
+"effect_counter" : "1"
+"dispellable" : "0"
+"special_chs" : {}
+}
+
+}
+

@@ -1,0 +1,9 @@
+.gitignore
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+Game.pro
+msvc_make.bat
+Saves/
+Resources

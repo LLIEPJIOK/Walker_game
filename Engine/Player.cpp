@@ -135,10 +135,19 @@ void Player::load_all_items(QFile &in)
     //цикл для заполения контейнера данными
     for(int i = 0; i < size; i++)
     {
-        //чтение поля name объекта класса Effect для инициализации указателя
-        std::string s = Effect::read_name(in);
-        //инициализация указателя новым объектом наследника класса Effect
-        Effect* item = All_effects::get_effects_data()->get_effects()->at(s);
+        size_t eff_size;
+        //чтение размера name
+        in.read((char*)& eff_size, sizeof(eff_size));
+        //присваивание name строки из пробелов длиной size-1, без /0
+        std::string eff_name = std::string(eff_size - 1, ' ');
+        //чтение name\e
+        in.read(eff_name.data(), eff_size);
+        //инициализация указателя новым объектом класса Effect
+
+
+        Effect* item = new Effect(eff_name, this);
+
+
         //вызов метода чтения объекта класса Effect или его наследника
         item->load(in);
         //добавление в контейнер указателя на объект наследника класса Effect
@@ -182,46 +191,168 @@ void Player::load_equiped_items()
     }
 }
 
+void Player::save(std::ofstream& out)
+{
+    //размер name
+    size_t size = name.size() + 1;
+    //запись размера name
+    out.write((char*)& size, sizeof(size));
+    //запись name
+    out.write(name.c_str(), size);
+
+    //запись первого значения previous_direction
+    out.write((char*)& previous_direction.first, sizeof(previous_direction.first));
+    //запись второго значения previous_direction
+    out.write((char*)& previous_direction.second, sizeof(previous_direction.second));
+
+    //запись x
+    out.write((char*)& x, sizeof(x));
+    //запись y
+    out.write((char*)& y, sizeof(y));
+
+    //размер контейнера characteristics
+    size = characteristics.size();
+    //запись размера characteristics
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи контейнера
+    for(const auto &i : characteristics)
+    {
+        //размер ключа
+        size_t string_size = i.first.size() + 1;
+        //запись размера ключа
+        out.write((char*)& string_size, sizeof(string_size));
+        //запись ключа
+        out.write(i.first.c_str(), string_size);
+
+        //запись значения
+        out.write((char*)& i.second, sizeof(i.second));
+    }
+
+    //вызов метода записи всех предметов
+    save_all_items(out);
+}
+
+void Player::load(std::ifstream &in)
+{
+    //переменная для размера строки и контейнера
+    size_t size;
+    //чтение размера строки
+    in.read((char*) & size, sizeof(size));
+    //присваивание name строки из пробелов длиной size-1, без /0
+    name = std::string(size - 1, ' ');
+    //чтение name
+    in.read(name.data(), size);
+
+    //чтение первого значния previous_direction
+    in.read((char*)& previous_direction.first, sizeof(previous_direction.first));
+    //чтение второго значения previous_direction
+    in.read((char*)& previous_direction.second, sizeof(previous_direction.second));
+
+    //чтение x
+    in.read((char*)& x, sizeof(x));
+    //чтение y
+    in.read((char*)& y, sizeof(y));
+
+    //чтение размера контейнера characteristics
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера characteristics
+    characteristics.clear();
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //переменная для размера ключа
+        size_t string_size;
+        //чтение размера ключа
+        in.read((char*)& string_size, sizeof(string_size));
+        //присваивание ключу строки из пробелов длиной size-1, без /0
+        std::string key(string_size - 1, ' ');
+        //чтение ключа
+        in.read(key.data(), string_size);
+
+        //переменная для значения
+        int value;
+        //чтение значения
+        in.read((char*)& value, sizeof(value));
+
+        //добавление или изменение пары ключ-значение
+        characteristics[key] = value;
+    }
+
+    //вызов метода чтения всех предметов
+    load_all_items(in);
+    //вызов метода заполнения всех экипированныех предметов
+    load_equiped_items();
+}
+
 Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 {
 	name = _name;
     x = y = 0;
     previous_direction = std::make_pair(0, 0);
-	// Characteristics
-    characteristics["HP"] = 100;
-	characteristics["MAX_HP"] = 100;
 
+    // Итоговые хар-ки, используемые в рассчетах при атаке, ивентах и получении урона:
+
+    // Здоровье, оно же ОЗ и макс. ОЗ
+    characteristics["HP"] = 100;
+    characteristics["MAX_HP"] = 100;
+
+    // Атрибуты, влияют на прохождение ивентов, а также на ваши ОЗ, криты
     characteristics["AGIL"] = 1;
     characteristics["STR"] = 1;
     characteristics["INT"] = 1;
 
+    // хар-ки атаки: атк, крит шанс, крит урон, расстояние атаки и прорубающий урон (сквозь ARM)
     characteristics["ATK"] = 10;
-    characteristics["ARM"] =  0;
-
-    // рэндж
-	characteristics["RNG"] = 1;
-
-    // регенерация
-	characteristics["RGN"] = 0;
-
-    // здоровье армора, это баг, надо фиксить
-    characteristics["ARM_VIT"] = 1;
-
-    // количество кубиков
-    characteristics["DQNT"] = 1;
-
-    // модификатор ролла, + к итоговому броску при движении
-    characteristics["ROLL_MOD"] = 0;
-
-    // процент блокировки итогового урона
-    characteristics["PIERCE_ARM"] = 0;
-
-    // урон, идущий в итоговое число урона, игнорируя броню (но уменьшающийся PIERCE_ARM в проц. соотношении)
-    characteristics["PIERCE"] = 0;
-
-    // криты
     characteristics["CRIT_CH"] = 5;
     characteristics["CRIT_DMG"] = 100;
+    characteristics["RNG"] = 1;
+    characteristics["PIERCE"] = 0;
+
+
+    // Хар-ки, влияющие на получаемый урон: броня, физ. сопротивление
+    characteristics["ARM"] =  0;
+    characteristics["PIERCE_ARM"] = 0;
+
+    // хар-ки кубиков
+    characteristics["DQNT"] = 1; // кол-во кубиков (влияет только на передвижение)
+    characteristics["ROLL_MOD"] = 0; // модификатор ролла при передвижении
+    characteristics["EVENT_ROLL_MOD"] = 0; // модификатор ролла в ивенте
+
+    // я не знаю что это...
+	characteristics["RGN"] = 0;
+
+    // здоровье армора, это баг, надо фиксить, а может и все равно...
+    characteristics["ARM_VIT"] = 1;
+
+    // хар-ки, участвующие в рассчете итоговых:
+
+    // ATK:
+    characteristics["ATK_FLAT"] = 10; // плоское значение атаки
+    characteristics["ATK_MULTI"] = 100; // процентный модификатор атаки
+
+    // CRIT_CH:
+    characteristics["CRIT_CH_FLAT"] = 5; // обычный крит. шанс
+    characteristics["CRIT_CH_AGIL"] = characteristics["AGIL"] / 5; // шанс крита, полученный за счет ловкости
+    characteristics["CRIT_CH_MULTI"] = 100; // множитель крита
+
+    // CRIT_DMG:
+    characteristics["CRIT_DMG_FLAT"] = 100; // обычный мультипликатор АТК при крит. ударе
+    characteristics["CRIT_DMG_INT"] = characteristics["INT"] / 5; // крит урон, полученный за счет интеллекта
+    characteristics["CRIT_DMG_MULTI"] = 100; // множитель крита
+
+    // ARM:
+    characteristics["ARM_FLAT"] = 0; // плоская броня
+    characteristics["ARM_MULTI"] = 100; // мультипликатор брони
+
+    // HP
+    //characteristics["HP_FLAT"] = 5; // плоское ОЗ
+    //characteristics["HP_MULTI"] = 100; // мультипликатор ОЗ
+    characteristics["HP_MAX_STR"] = characteristics["STR"] * 2; // макс. ОЗ, полученные за счет силы
+    characteristics["HP_MAX_FLAT"] = 100;
+
+    characteristics["HP"] = characteristics["MAX_HP"];
+
+    // Экипированые предметы
 
 	//equiped_Armourment
     equiped_armourment["нагрудник"] = nullptr;
@@ -241,6 +372,62 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     equiped_jewellery["пояс"] = nullptr;
 
     killed_player = -1;
+}
+
+void Player::update_chars()
+{
+    // обновляем макс. ОЗ, учитывая сопутствующие изменения ОЗ
+    int cur_max_hp = characteristics["MAX_HP"];
+    int hp_str = characteristics["STR"] * 2;
+    characteristics["HP_MAX_STR"] = hp_str;
+    int new_max_hp = characteristics["HP_MAX_FLAT"] + hp_str;
+    int diff = new_max_hp - cur_max_hp;
+
+    // если макс. ОЗ увеличилось, то мы увеличиваем ОЗ на разницу
+    if (diff > 0)
+        characteristics["HP"] += diff;
+
+    characteristics["MAX_HP"] = new_max_hp;
+
+    // если макс. здоровье уменьшилось, при этом ОЗ стало больше макс., мы опускаем ОЗ до макс
+    if (characteristics["HP"] > characteristics["MAX_HP"])
+        characteristics["HP"] = characteristics["MAX_HP"];
+
+    // обновляем АТК
+    characteristics["ATK"] = (characteristics["ATK_FLAT"] * characteristics["ATK_MULTI"]) / 100;
+
+    // обновляем криты (верхнее зн. шанса = 85, крит урона - нет; нижнее зн. шанса = 0, урона = 100)
+    int cr_ch_agil = characteristics["AGIL"];
+    int cr_dmg_int = characteristics["INT"] * 2;
+
+    characteristics["CRIT_CH_AGIL"] = cr_ch_agil;
+    characteristics["CRIT_DMG_INT"] = cr_dmg_int;
+
+    int total_ch = ((cr_ch_agil + characteristics["CRIT_CH_FLAT"]) * characteristics["CRIT_CH_MULTI"]) / 100;
+    if (total_ch > 85)
+        total_ch = 85;
+    if (total_ch < 0)
+        total_ch = 0;
+
+    int total_dmg = ((cr_dmg_int + characteristics["CRIT_DMG_FLAT"]) * characteristics["CRIT_DMG_MULTI"]) / 100;
+    if (total_dmg < 100)
+        total_dmg = 100;
+
+    characteristics["CRIT_CH"] = total_ch;
+    characteristics["CRIT_DMG"] = total_dmg;
+
+    // обновляем защиту (верхнее зн. физ. сопротивления = 75, брони - нет)
+    int arm = (characteristics["ARM_FLAT"] * characteristics["ARM_MULTI"]) / 100;
+    int pierce_arm;
+    if (arm < 0)
+        pierce_arm= -1 * sqrt(sqrt(-1 * (arm * arm * arm))); // perfect formula, no way maaaan
+    else
+        pierce_arm = sqrt(sqrt(arm * arm * arm));
+
+    if (pierce_arm > 75)
+        pierce_arm = 75;
+    characteristics["PIERCE_ARM"] = pierce_arm;
+    characteristics["ARM"] = arm;
 }
 
 Player::~Player()
@@ -417,14 +604,19 @@ void Player::use_potion(Potion* potion)
             characteristics[ch] += value;
         }
 
-        if(potion->get_effect_name() != "нет") // если мгновенное зелье по-совместительству имеет эффект
-            All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
+        if(potion->get_effect_name() != "нет") // если зелье имеет эффект
+        {
+            Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
+            eff->apply_effect();
+        }
     }
     else // наложение соотв. эффекта на игрока
     {
-        All_effects::get_effects_data()->get_effects()->at(potion->get_effect_name())->apply_effect(*this, potion->get_duration());
+        Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
+        eff->apply_effect();
 	}
 
+    update_chars();
     potions.erase(potion);
 	delete potion;
 }
@@ -546,23 +738,24 @@ void Player::load(QFile &in)
 
 void Player::process_active_effects() // производит исполнение эффектов, уменьшение их времени действия и увеличения кол-ва стаков
 {
+
     for (auto i = active_effects.begin(); i!=active_effects.end();)
-	{
+    {
+        (*i)->execute_effect();
+        (*i)->dec_duration();
+        (*i)->inc_counter();
 		if (!(*i)->get_effect_duration())
 		{
 			(*i)->reverse_effect(*this);
             delete* i;
             i = active_effects.erase(i);
+            continue;
         }
-        else
-        {
-			(*i)->execute_effect(*this);
-            (*i)->dec_duration();
-            (*i)->inc_counter();
-            i++;
-        }
-	}
-		
+
+        i++;
+    }
+
+    update_chars();
 }
 
 void Player::equip_armour(Armour* armour, std::string place)
@@ -573,93 +766,32 @@ void Player::equip_armour(Armour* armour, std::string place)
 	armour->change_equiped();
 	for (const auto& i : *armour->get_item_characteristics())
 		characteristics[i.first] += i.second;
+
+    update_chars();
 }
 
 void Player::equip_weapon(Weapon* weapon, std::string place)
 {
-    /*if (weapon->get_type() == "one_handed")
-	{
-		if (equiped_weaponary["two_handed"] != nullptr)
-		{
-			unequip_item(equiped_weaponary["two_handed"]);
-			equiped_weaponary["main_hand"] = weapon;
-		}
-		else if (equiped_weaponary["main_hand"] != nullptr)
-		{
-			if (equiped_weaponary["non_dominant_hand"] != nullptr)
-			{
-                std::string choice;
-				if (choice == "exit")
-					return;
-				unequip_item(equiped_weaponary[choice]);
-				equiped_weaponary[choice] = weapon;
-			}
-			else
-				equiped_weaponary["non_dominant_hand"] = weapon;
-		}
-		else
-			equiped_weaponary["main_hand"] = weapon;
-	}
-	else
-	{
-		if (equiped_weaponary["two_handed"] != nullptr)
-		{
-			unequip_item(equiped_weaponary["two_handed"]);
-		}
-		else
-		{
-			if (equiped_weaponary["main_hand"] != nullptr && equiped_weaponary["non_dominant_hand"] != nullptr)
-			{
-				unequip_item(equiped_weaponary["main_hand"]);
-				unequip_item(equiped_weaponary["non_dominant_hand"]);
-			}
-			else if (equiped_weaponary["main_hand"] != nullptr)
-				unequip_item(equiped_weaponary["main_hand"]);
-			else
-				unequip_item(equiped_weaponary["non_dominant_hand"]);
-		}
-		equiped_weaponary["two_handed"] = weapon;
-    }*/
     if (equiped_weaponary[place] != nullptr)
         unequip_item(equiped_weaponary[place], place);
     equiped_weaponary[place] = weapon;
 	weapon->change_equiped();
 	for (const auto& i : *weapon->get_item_characteristics())
 		characteristics[i.first] += i.second;
+
+    update_chars();
 }
 
 void Player::equip_jewel(Jewel* jewel, std::string place)
 {
-
-    /*if (jewel->get_type() == "ring")
-	{
-		if (equiped_jewellery["first_ring"] != nullptr)
-		{
-			if (equiped_jewellery["second_ring"] != nullptr)
-			{
-                std::string choice;
-				if (choice == "exit")
-					return;
-				unequip_item(equiped_jewellery[choice]);
-				equiped_jewellery[choice] = jewel;
-			}
-			else
-				equiped_jewellery["second_ring"] = jewel;
-		}
-		else
-			equiped_jewellery["first_ring"] = jewel;
-	}
-	else if (equiped_jewellery[jewel->get_type()] != nullptr)
-	{
-		unequip_item(equiped_jewellery[jewel->get_type()]);
-		equiped_jewellery[jewel->get_type()] = jewel;
-    }*/
     if (equiped_jewellery[place] != nullptr)
         unequip_item(equiped_jewellery[place], place);
     equiped_jewellery[place] = jewel;
 	jewel->change_equiped();
 	for (const auto& i : *jewel->get_item_characteristics())
 		characteristics[i.first] += i.second;
+
+    update_chars();
 }
 
 void Player::unequip_item(Equipment* equipment, std::string place)
@@ -667,39 +799,17 @@ void Player::unequip_item(Equipment* equipment, std::string place)
 	std::string type = equipment->get_type();
 	std::string equipment_class = equipment->get_class();
     if (equipment_class == "оружие")
-	{
-        /*if (equipment->get_type() == "one_handed")
-		{
-			if (equiped_weaponary["main_hand"] == equipment)
-				equiped_weaponary["main_hand"] = nullptr;
-			else
-				equiped_weaponary["non_dominant_hand"] = nullptr;
-		}
-		else
-            equiped_weaponary[equipment->get_type()] = nullptr;*/
         equiped_weaponary[place] = nullptr;
-	}
     else if (equipment_class == "броня")
-    {
         equiped_armourment[place] = nullptr;
-	}
     else if (equipment_class == "украшение")
-	{
-        /*if(type == "ring")
-		{
-			if (equiped_jewellery["first_ring"] == equipment)
-				equiped_jewellery["first_ring"] = nullptr;
-			else
-				equiped_jewellery["second_ring"] = nullptr;
-		}
-		else
-            equiped_jewellery[type] = nullptr;*/
         equiped_jewellery[place] = nullptr;
-    }
 
     equipment->change_equiped();
     for (auto& i : *equipment->get_item_characteristics())
         characteristics[i.first] -= i.second;
+
+    update_chars();
 }
 
 Equipment* Player::add_item(const std::string& equipment_id)
@@ -722,7 +832,6 @@ Equipment* Player::add_item(const std::string& equipment_id)
         jewellery.insert(belt);
         return belt;
     }
-
 
     std::map<std::string, int> item_characteristics;
     for (const auto& i : *DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_object("chars")->get_name_to_value())

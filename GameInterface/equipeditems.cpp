@@ -133,6 +133,7 @@ void EquipedItems::paintEvent(QPaintEvent *event)
 }
 
 // обновляет конкретный контейнер экиперованных предметов
+// обновляет конкретный контейнер экиперованных предметов
 template<typename T>
 void EquipedItems::update_equiped_container(std::map<std::string, T> *equipment)
 {
