@@ -52,6 +52,7 @@ private:
     QPushButton *roll_button;
     QPushButton *next_turn_button;
     QPushButton *inventory_button;
+    QVector<QPushButton*> buttons;
 
     ActionWindow *action;
 
@@ -70,11 +71,13 @@ private:
     GameMap *current_map;
     MiniMap *mini_map;
 
+
     QLabel *players_name;
     QLabel *players_attack;
     QLabel *players_roll;
     QLabel *players_health_points;
     QLabel *players_armour;
+    QVector<QLabel*> labels;
 
     SaveAndLoadManager* save_load_manager;
 

@@ -144,6 +144,17 @@ void GameInterface::initialize()
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
     update_all();
+
+    labels.push_back(players_name);
+    labels.push_back(players_armour);
+    labels.push_back(players_roll);
+    labels.push_back(players_health_points);
+    labels.push_back(players_attack);
+
+    buttons.push_back(menu_button);
+    buttons.push_back(roll_button);
+    buttons.push_back(inventory_button);
+    buttons.push_back(next_turn_button);
 }
 
 void GameInterface::end_game()
@@ -169,6 +180,20 @@ void GameInterface::end_game()
     current_map = nullptr;
     delete mini_map;
     mini_map = nullptr;
+
+    for(int i = 0; i < labels.size(); i++)
+    {
+        delete labels[i];
+        labels[i] = nullptr;
+    }
+    labels.clear();
+
+    for(int i = 0; i < buttons.size(); i++)
+    {
+        delete buttons[i];
+        buttons[i] = nullptr;
+    }
+    buttons.clear();
 }
 
 void GameInterface::paintEvent(QPaintEvent *event)
