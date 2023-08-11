@@ -2,11 +2,9 @@
 #define GAME_INTERFACE_H
 
 #include "informationwindow.h"
-#include "gamemap.h"
 #include "minimap.h"
-#include "inventory.h"
 #include "Menu/menu.h"
-#include "equipeditems.h"
+#include "Inventory/equipeditems.h"
 #include "pausemenu.h"
 #include "Engine/DataBase.h"
 #include "Engine/Turn.h"

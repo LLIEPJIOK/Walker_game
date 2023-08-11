@@ -2,7 +2,7 @@
 #define EQUIPEDITEMS_H
 
 #include "Engine/Player.h"
-#include "GameInterface/inventory.h"
+#include "inventory.h"
 #include "dropitem.h"
 
 class EquipedItems : public QFrame

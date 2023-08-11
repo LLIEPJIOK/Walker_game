@@ -6,11 +6,10 @@
 
 #include <QTimer>
 #include <QPixmap>
-
-class PlayersModel :  public GameMapObject
+class PlayersModel : public QObject, public GameMapObject
 {
     Q_OBJECT
-    enum class eAnimateState
+    enum animation_status
     {
         Standing = 0,
         Attack,
@@ -19,7 +18,7 @@ class PlayersModel :  public GameMapObject
     };
 
 public:
-    explicit PlayersModel(QObject* parent = nullptr, int xrpos = 0, int yrpos = 0, QBrush brush = QBrush(Qt::NoBrush), QString icon = "knight");
+    explicit PlayersModel(QObject* parent = nullptr, int width = 0, int height = 0, QBrush brush = QBrush(Qt::NoBrush), QString icon = "knight");
     Player* get_connected_player();
     void set_connected_plaeyr(Player* player);
 
@@ -32,13 +31,13 @@ public:
 
 private:
     Player* connected_player;
-    qreal mDx{1.};
-    eAnimateState mState{eAnimateState::Standing};
+    qreal direction{1.};
+    animation_status current_animation_status{animation_status::Standing};
 
-    int mCurrentFrame{0};
-    QTimer  mTimer;
+    int current_movement_frame{0};
+    QTimer timer;
 
-    QVector<QPixmap> mvPixmaps;
+    QVector<QPixmap> movement_frames;
 
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

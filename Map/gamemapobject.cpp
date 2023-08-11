@@ -1,7 +1,7 @@
 #include "gamemapobject.h"
 
-GameMapObject::GameMapObject(QObject *parent, int width, int height, QBrush brush) :
-    QObject(parent), QGraphicsItem()
+GameMapObject::GameMapObject(int width, int height, QBrush brush) :
+   QGraphicsItem()
 {
     this->width = width;
     this->height = height;

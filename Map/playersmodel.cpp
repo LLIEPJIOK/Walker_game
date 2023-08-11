@@ -1,20 +1,20 @@
 
 #include "playersmodel.h"
 #include "QTransform"
-PlayersModel::PlayersModel(QObject *parent, int xrpos, int yrpos, QBrush brush, QString icon) :
-    GameMapObject(parent, xrpos, yrpos, brush)
+PlayersModel::PlayersModel(QObject *parent, int width, int height, QBrush brush, QString icon) :
+    QObject(parent), GameMapObject(width, height, brush)
 {
     connected_player = nullptr;
 
-    QPixmap l;
+    QPixmap pixmap_to_load;
     for (int i = 1; i < 6; i++)
     {
-        l.load("../Game/Resources/Pictures/" + icon + "/" + icon + QString::number(i) + ".png");
-        l = l.scaled(width, height);
-        mvPixmaps.push_back(l);
+        pixmap_to_load.load("../Game/Resources/Pictures/" + icon + "/" + icon + QString::number(i) + ".png");
+        pixmap_to_load = pixmap_to_load.scaled(width, height);
+        movement_frames.push_back(pixmap_to_load);
     }
-    connect(&mTimer, &QTimer::timeout, this, &PlayersModel::next_frame);
-    mTimer.start(200);
+    connect(&timer, &QTimer::timeout, this, &PlayersModel::next_frame);
+    timer.start(200);
 }
 
 Player *PlayersModel::get_connected_player()
@@ -29,7 +29,7 @@ void PlayersModel::set_connected_plaeyr(Player *player)
 
 void PlayersModel::set_left_direction()
 {
-    if(mDx < 0.)
+    if(direction < 0.)
     {
         QTransform transform(this->transform());
 
@@ -58,13 +58,13 @@ void PlayersModel::set_left_direction()
 
 
         setTransform(transform);
-        mDx = 1.;
+        direction = 1.;
     }
 }
 
 void PlayersModel::set_right_direction()
 {
-    if(mDx > 0.)
+    if(direction > 0.)
     {
         QTransform transform(this->transform());
 
@@ -95,7 +95,7 @@ void PlayersModel::set_right_direction()
 
 
         setTransform(transform);
-        mDx = -1.;
+        direction = -1.;
     }
 }
 
@@ -109,7 +109,7 @@ void PlayersModel::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
     painter->setRenderHint(QPainter::Antialiasing);
-    painter->drawPixmap(0, 0, mvPixmaps[mCurrentFrame]);
+    painter->drawPixmap(0, 0, movement_frames[current_movement_frame]);
 }
 
 void PlayersModel::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
@@ -136,8 +136,8 @@ void PlayersModel::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void PlayersModel::next_frame()
 {
-    mCurrentFrame++;
-    if(mCurrentFrame >= mvPixmaps.size())
-        mCurrentFrame = 0;
+    current_movement_frame++;
+    if(current_movement_frame >= movement_frames.size())
+        current_movement_frame = 0;
     update();
 }

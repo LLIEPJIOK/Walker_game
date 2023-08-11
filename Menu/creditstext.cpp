@@ -1,6 +1,7 @@
 #include "creditstext.h"
 
-CreditsText::CreditsText(QObject *parent) : QObject(parent), QGraphicsItem()
+CreditsText::CreditsText() :
+    QGraphicsItem()
 {
     size = QApplication::screens().at(0)->size();
     reset();

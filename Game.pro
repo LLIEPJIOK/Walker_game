@@ -19,21 +19,21 @@ SOURCES += \
     Events/event_window.cpp \
     GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
-    GameInterface/equipeditems.cpp \
-    GameInterface/gamemapobject.cpp \
     GameInterface/informationwindow.cpp \
-    GameInterface/inventory.cpp \
-    GameInterface/inventoryitem.cpp \
     GameInterface/pausemenu.cpp \
-    GameInterface/playersmodel.cpp \
-    GameInterface/cell.cpp \
     GameInterface/game_interface.cpp \
-    GameInterface/gamemap.cpp \
-    GameInterface/infocell.cpp \
-    GameInterface/dragitem.cpp \
-    GameInterface/dropitem.cpp \
     GameInterface/minimap.cpp \
     GameInterface/movingarea.cpp \
+    Inventory/dragitem.cpp \
+    Inventory/dropitem.cpp \
+    Inventory/equipeditems.cpp \
+    Inventory/inventory.cpp \
+    Inventory/inventoryitem.cpp \
+    Map/cell.cpp \
+    Map/gamemap.cpp \
+    Map/gamemapobject.cpp \
+    Map/infocell.cpp \
+    Map/playersmodel.cpp \
     Menu/accept.cpp \
     Menu/entername.cpp \
     Menu/exitwindow.cpp \
@@ -62,21 +62,21 @@ HEADERS += \
     Events/event_window.h \
     GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
-    GameInterface/equipeditems.h \
-    GameInterface/gamemapobject.h \
     GameInterface/informationwindow.h \
-    GameInterface/inventory.h \
-    GameInterface/inventoryitem.h \
     GameInterface/pausemenu.h \
-    GameInterface/playersmodel.h \
-    GameInterface/cell.h \
     GameInterface/game_interface.h \
-    GameInterface/gamemap.h \
-    GameInterface/infocell.h \
     GameInterface/minimap.h \
     GameInterface/movingarea.h \
-    GameInterface/dragitem.h \
-    GameInterface/dropitem.h \
+    Inventory/dragitem.h \
+    Inventory/dropitem.h \
+    Inventory/equipeditems.h \
+    Inventory/inventory.h \
+    Inventory/inventoryitem.h \
+    Map/cell.h \
+    Map/gamemap.h \
+    Map/gamemapobject.h \
+    Map/infocell.h \
+    Map/playersmodel.h \
     Menu/accept.h \
     Menu/entername.h \
     Menu/exitwindow.h \

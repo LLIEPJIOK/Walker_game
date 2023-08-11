@@ -9,11 +9,10 @@
 #include <QPainter>
 #include <QRectF>
 #include <QGraphicsSceneMouseEvent>
-class GameMapObject :  public QObject, public QGraphicsItem
+class GameMapObject : public QGraphicsItem
 {
-    Q_OBJECT
 public:
-    explicit GameMapObject(QObject* parent = nullptr, int width = 0, int height = 0, QBrush brush = QBrush(Qt::NoBrush));
+    explicit GameMapObject(int width = 0, int height = 0, QBrush brush = QBrush(Qt::NoBrush));
     bool get_hovered() const;
     QRect get_position() const;
     QRectF boundingRect() const;

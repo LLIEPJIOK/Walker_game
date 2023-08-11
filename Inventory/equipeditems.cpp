@@ -105,7 +105,7 @@ void EquipedItems::find_place(Equipment *equip)
         belt->eqp(equip);
     }
     else if (type == "поножи")
-        {
+    {
         leggings->eqp(equip);
     }
     else if (type == "перчатки")
