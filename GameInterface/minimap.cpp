@@ -8,7 +8,7 @@ MiniMap::MiniMap(QWidget *parent, GameMap* battle_map)
     QSize s = QApplication::screens().at(0)->size();
     moving_area = new MovingArea(this, battle_map);
     moving_area->setFrameStyle(QFrame::Panel | QFrame::Plain);
-    moving_area->setFixedSize(0.079 * s.width(), 0.094 * s.height());
+    moving_area->setFixedSize(0.079 * s.width(), 0.12 * s.height());
     moving_area->setLineWidth(2);
     setFrameStyle(QFrame::Panel | QFrame ::Plain);
     setLineWidth(3);
