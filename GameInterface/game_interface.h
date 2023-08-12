@@ -121,6 +121,8 @@ private slots:
     void congratulate_the_winner();
 
     void save_game(QString file_name);
+
+    void all_is_ready();
 };
 
 #endif // GAME_INTERFACE_H

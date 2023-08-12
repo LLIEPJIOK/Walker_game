@@ -34,7 +34,7 @@ public:
     void update_coords();
 
 private:
-    QVector<QString> icons;
+    QVector<QString> icons = {"knight", "wizzard", "dwarf", "elf"};
     Cell*** cells;
     std::set<Cell*> way_cells;
     std::vector<PlayersModel*> players_on_map;
@@ -43,16 +43,18 @@ private:
     QTimer *timer;
     InfoCell *info;
 
+
     QSize screen_size;
-    int scalex;
-    int scaley;
+    int cell_size;
+    QPoint distance;
+    QPoint direction;
     QPoint positions[4] = {QPoint(0,0), QPoint(1, 0), QPoint(0,1), QPoint(1, 1)};
     QPoint chosen_way;
     std::vector<std::pair<int, int>> ways;
     bool continue_moving;
 
     void end_movement();
-
+    void make_distance_and_direction();
 signals:
     void event_triggered();
     void win_by_killing();
@@ -60,6 +62,7 @@ signals:
     void can_finish_turn();
     void item_was_picked(Equipment* item);
     void action(QString text);
+    void was_initialized();
 
 private slots:
 

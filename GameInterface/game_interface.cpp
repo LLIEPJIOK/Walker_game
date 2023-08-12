@@ -216,9 +216,6 @@ void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
     data_base->generate_items();
     turn->next_player();
     initialize();
-
-    delete menu;
-    menu = nullptr;
 }
 
 void GameInterface::load(QString file_name)
@@ -231,9 +228,6 @@ void GameInterface::load(QString file_name)
     save_load_manager->load_all();
     is_load = true;
     initialize();
-
-    delete menu;
-    menu = nullptr;
 }
 
 void GameInterface::inventory_button_clicked()
@@ -341,6 +335,15 @@ void GameInterface::save_game(QString file_name)
     information_window->inform("Игра сохранилась");
 }
 
+void GameInterface::all_is_ready()
+{
+    if(is_load)
+        current_map->want_to_move();
+    menu->setVisible(false);
+    delete menu;
+    menu = nullptr;
+}
+
 // восстановление состояния кнопок
 void GameInterface::update_buttons()
 {
@@ -404,6 +407,7 @@ void GameInterface::update_map()
     connect(current_map, &GameMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
     connect(current_map, &GameMap::action, action, &ActionWindow::set_text);
     connect(current_map, &GameMap::event_triggered, this, &GameInterface::process_event_start);
+    connect(current_map, &GameMap::was_initialized, this, &GameInterface::all_is_ready);
 
     mini_map = new MiniMap(this, current_map);
     mini_map->setGeometry(0.8 * screen_size.width(), 0.6 * screen_size.height(), 0.195 * screen_size.width(), 0.347 * screen_size.height());
@@ -434,7 +438,7 @@ void GameInterface::update_player_status()
 void GameInterface::process_event_start()
 {
     Event_window *event_window = new Event_window(this, turn->get_player(), turn->get_activated_event());
-
+    event_window->setGeometry(screen_size.width() / 2 - event_window->width() / 2, screen_size.height() / 2 - event_window->height() / 2, 0, 0);
     // здесь можно было приконектить к методу, который бы отдельно обработал конец ивента и затем отправлял сигнал,
     // связанный с обработкой подбора предмета (условно не вывод в action, а отдельное окно с изображением полученного предмета)
     // однако пока что такого окна нету, поэтому можно скипнуть, сразу привязав конец ивента к подбору предмета
