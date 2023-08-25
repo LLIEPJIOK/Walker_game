@@ -23,10 +23,9 @@ void MovingArea::mouseMoveEvent(QMouseEvent *event)
     if(pos().y() + delta.y() < 0)
         to_move.setY(0);
     if (pos().x() + delta.x() > p->width() - width())
-        to_move.setX(p->width() - width()-1);
+        to_move.setX(p->width() - width() - 1);
     if (pos().y() + delta.y() > p->height() - height())
-        to_move.setY(p->height() - height()-1);
+        to_move.setY(p->height() - height() - 1);
     move(to_move);
-    battle_map->update_current_area(10*to_move);
-    battle_map->set_delta(10*to_move - QPoint(0,0));
+    battle_map->update_current_area(10 * to_move);
 }

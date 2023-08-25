@@ -32,7 +32,6 @@ SOURCES += \
     Map/cell.cpp \
     Map/gamemap.cpp \
     Map/gamemapobject.cpp \
-    Map/infocell.cpp \
     Map/playersmodel.cpp \
     Menu/accept.cpp \
     Menu/entername.cpp \
@@ -75,7 +74,6 @@ HEADERS += \
     Map/cell.h \
     Map/gamemap.h \
     Map/gamemapobject.h \
-    Map/infocell.h \
     Map/playersmodel.h \
     Menu/accept.h \
     Menu/entername.h \

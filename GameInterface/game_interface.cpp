@@ -13,12 +13,21 @@ GameInterface::GameInterface(QWidget *parent)
 {
     current_map = nullptr;
     mini_map = nullptr;
+    turn = nullptr;
+    data_base = nullptr;
+
     is_load = false;
+    game_is_played = false;
+    game_is_paused = false;
 
     screen_size = QApplication::screens().at(0)->size();
 
     setFixedSize(screen_size);
     showFullScreen();
+
+    key_to_action[Qt::Key_I] = &GameInterface::inventory_button_clicked;
+    key_to_action[Qt::Key_Escape] = &GameInterface::pause_button;
+
     menu = new Menu();
     setCentralWidget(menu);
 
@@ -119,10 +128,14 @@ void GameInterface::initialize()
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
     update_all();
+
+    game_is_played = true;
 }
 
 void GameInterface::end_game()
 {
+    game_is_played = false;
+
     delete turn;
     turn = nullptr;
     delete data_base;
@@ -168,6 +181,14 @@ void GameInterface::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.drawRect(0, 0 , this->width(), this->height());
     QMainWindow::paintEvent(event);
+}
+
+void GameInterface::keyPressEvent(QKeyEvent *event)
+{
+    if(key_to_action.contains(event->key()) && game_is_played)
+    {
+        (this->*key_to_action[event->key()])();
+    }
 }
 
 void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
@@ -245,6 +266,7 @@ void GameInterface::add_item(Equipment *item)
 void GameInterface::pause_button()
 {
     pause->setVisible(true);
+    game_is_played = false;
 }
 
 void GameInterface::remaining_rolls()

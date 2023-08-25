@@ -1,7 +1,7 @@
 #include "cell.h"
 #include <QKeyEvent>
-Cell::Cell(QObject *parent, int width, int height, QBrush brush, QString tile_name) :
-    QObject(parent), GameMapObject(width, height, brush)
+Cell::Cell(QObject *parent, int width, int height, QString tile_name) :
+    QObject(parent), GameMapObject(width, height)
 {
     tile.load("../Game/Resources/Pictures/Tiles/" + tile_name+ "8.png");
     tile = tile.copy(64, 16, 32, 32);

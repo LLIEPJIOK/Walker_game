@@ -7,7 +7,7 @@ class Cell : public QObject, public GameMapObject
 {
     Q_OBJECT
 public:
-    explicit Cell(QObject* parent = nullptr, int width = 0, int height = 0, QBrush brush = QBrush(Qt::NoBrush), QString tile_name = "forest");
+    explicit Cell(QObject* parent = nullptr, int width = 0, int height = 0, QString tile_name = "forest");
     void highlight();
     void normalize();
 private:

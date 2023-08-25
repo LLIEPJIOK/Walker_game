@@ -18,8 +18,6 @@ GameMap::GameMap(QWidget *parent)
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameMap::initialize);
-    info = new InfoCell(this);
-    info->setVisible(false);
     battle_map = new QGraphicsScene(this);
 
     setRenderHint(QPainter::Antialiasing, true);
@@ -27,7 +25,6 @@ GameMap::GameMap(QWidget *parent)
     battle_map->setSceneRect(0, 0, this->width(), this->height());
     setScene(battle_map);
 
-    delta = QPoint(0, 0);
     timer->start(50);
     chosen_way = QPoint(-1, -1);
 
@@ -35,23 +32,21 @@ GameMap::GameMap(QWidget *parent)
     direction = QPoint(0, 0);
 
     continue_moving = false;
+    is_pressed_for_moving = false;
 }
 
 GameMap::~GameMap()
 {
     delete battle_map;
     delete timer;
-    delete info;
 }
 
 void GameMap::update_current_area(QPoint point)
 {
+    int battle_map_width = DataBase::get_DataBase()->get_width();
+    int battle_map_height = DataBase::get_DataBase()->get_height();
+    point.setY(battle_map_height * point.y() / battle_map_width);
     setSceneRect(QRect(point, QSize(this->width(), this->height())));
-}
-
-void GameMap::set_delta(QPoint point)
-{
-    delta = point;
 }
 
 void GameMap::highlight_possible_ways(std::vector<std::pair<int, int>> ways)
@@ -97,8 +92,8 @@ void GameMap::clear_chosen_way()
 void GameMap::update_player_coords(Player *player)
 {
     auto i = player->get_id() - 1;
-    players_on_map[i]->setPos(player->get_x() * cell_size + positions[i].x() * 0.6 * cell_size,
-                              player->get_y() * cell_size + positions[i].y() * 0.6 * cell_size);
+    players_on_map[i]->setPos(player->get_x() * cell_size + player_movement_positions[i].x() * 0.6 * cell_size,
+                              player->get_y() * cell_size + player_movement_positions[i].y() * 0.6 * cell_size);
 }
 
 // обновляет координаты игрока
@@ -136,30 +131,6 @@ void GameMap::make_distance_and_direction()
         map_player->set_left_direction();
 }
 
-void GameMap::show_cell_info()
-{
-    Cell* cell = qobject_cast<Cell*>(sender());
-    MapCell ** map = DataBase::get_DataBase()->get_map();
-    if(cell->get_hovered())
-    {
-        QPointF pos = cell->pos();
-        int info_x = pos.x() - delta.x() + cell_size;
-        int info_y = pos.y() - delta.y();
-        if(info_x + info->width() > width())
-           info_x -= 320;
-        if(info_y + info->height() > height())
-           info_y -= 90;
-        else if(info_y < 0)
-           info_y = info_y + cell->boundingRect().height() + 10;
-        info->setGeometry(info_x, info_y, info->width() , info->height());
-        info->set_terrain_type(QString::fromStdString(map[(int)pos.y()/cell_size][(int)pos.x()/cell_size].get_type_of_terrain()));
-        info->set_item_name(QString::fromStdString(map[(int)pos.y()/cell_size][(int)pos.x()/cell_size].get_item()));
-        info->set_event_name(QString::fromStdString(map[(int)pos.y()/cell_size][(int)pos.x()/cell_size].get_event_name()));
-        info->setVisible(true);
-    }
-    else
-        info->setVisible(false);
-}
 
 void GameMap::player_move()
 {
@@ -247,7 +218,6 @@ void GameMap::initialize()
 
     auto s = seq;
 
-    QBrush brush(Qt::darkGreen);
     setSceneRect(0, 0, this->width(), this->height());
     cells = new Cell**[battle_map_height];
     for(int i = 0; i < battle_map_height; i++)
@@ -255,28 +225,27 @@ void GameMap::initialize()
         cells[i] = new Cell*[battle_map_width];
         for(int j = 0; j < battle_map_width; j++)
         {
-            Cell* cell = new Cell(battle_map, cell_size, cell_size, brush, QString::fromStdString(field[i][j].get_tile_name()));
+            Cell* cell = new Cell(battle_map, cell_size, cell_size, QString::fromStdString(field[i][j].get_tile_name()));
 
-           connect(cell, &Cell::cell_signal, this, &GameMap::show_cell_info);
-           connect(cell, &Cell::way_to_go, this, &GameMap::clear_ways);
+            connect(cell, &Cell::way_to_go, this, &GameMap::clear_ways);
 
-           battle_map->addItem(cell);
-           cell->setPos(j * cell_size, i * cell_size);
-           cells[i][j] = cell;
+            battle_map->addItem(cell);
+            cell->setPos(j * cell_size, i * cell_size);
+            cells[i][j] = cell;
         }
     }
 
     for(int i = 0; i < s->size(); i++)
     {
-        PlayersModel *players_model = new PlayersModel(battle_map, 0.3 * cell_size, 0.3 * cell_size, QBrush(Qt::white), icons[i]);
+        PlayersModel *players_model = new PlayersModel(battle_map, 0.3 * cell_size, 0.3 * cell_size, icons[i]);
 
         connect(players_model, &PlayersModel::target_to_attack, this, &GameMap::process_attack);
 
         players_on_map.push_back(players_model);
         players_model->set_connected_plaeyr(s->at(i));
         battle_map->addItem(players_model);
-        players_model->setPos(s->at(i)->get_x() * cell_size + positions[i].x() * 0.6 * cell_size,
-                              s->at(i)->get_y() * cell_size + positions[i].y() * 0.6 * cell_size);
+        players_model->setPos(s->at(i)->get_x() * cell_size + player_movement_positions[i].x() * 0.6 * cell_size,
+                              s->at(i)->get_y() * cell_size + player_movement_positions[i].y() * 0.6 * cell_size);
     }
 
     emit was_initialized();

@@ -3,8 +3,9 @@
 
 #include "cell.h"
 #include "playersmodel.h"
-#include "infocell.h"
 
+#include <QMouseEvent>
+#include <QWheelEvent>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>
@@ -21,7 +22,6 @@ public:
     explicit GameMap(QWidget *parent = nullptr);
     ~GameMap();
     void update_current_area(QPoint point);
-    void set_delta(QPoint point);
     void highlight_possible_ways(const std::vector<std::pair<int, int>> ways);
     void want_to_move();
     QPoint get_chosen_way();
@@ -35,26 +35,29 @@ public:
 
 private:
     QVector<QString> icons = {"knight", "wizzard", "dwarf", "elf"};
+    QPoint player_movement_positions[4] = {QPoint(0, 0), QPoint(1, 0), QPoint(0, 1), QPoint(1, 1)};
+
+
     Cell*** cells;
     std::set<Cell*> way_cells;
     std::vector<PlayersModel*> players_on_map;
-    QPoint delta;
     QGraphicsScene *battle_map;
     QTimer *timer;
-    InfoCell *info;
-
 
     QSize screen_size;
     int cell_size;
     QPoint distance;
     QPoint direction;
-    QPoint positions[4] = {QPoint(0,0), QPoint(1, 0), QPoint(0,1), QPoint(1, 1)};
     QPoint chosen_way;
     std::vector<std::pair<int, int>> ways;
     bool continue_moving;
+    bool is_pressed_for_moving;
 
     void end_movement();
     void make_distance_and_direction();
+
+protected:
+
 signals:
     void event_triggered();
     void win_by_killing();
@@ -65,16 +68,12 @@ signals:
     void was_initialized();
 
 private slots:
-
     void initialize();
-    void show_cell_info();
 
     void player_move();
     void process_attack();
     void process_killed_player(int place);
     void clear_ways();
-
-
 };
 
 #endif // GAMEMAP_H

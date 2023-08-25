@@ -16,7 +16,7 @@
 #include <QFrame>
 #include <QLabel>
 #include <QPushButton>
-
+#include <QKeyEvent>
 
 class GameInterface : public QMainWindow
 {
@@ -37,37 +37,30 @@ public slots:
     void process_item_pick();
 
 private:
-
+    bool game_is_played;
+    bool game_is_paused;
     bool is_load;
-
     QSize screen_size;
-
-    Menu* menu;
-
-    InformationWindow* information_window;
-
-    QVector<QPushButton*> buttons;
-
-    ActionWindow *action;
 
     Turn*  turn;
     DataBase* data_base;
+    SaveAndLoadManager* save_load_manager;
 
-    QVector<Inventory*> inventories;
-    Inventory *current_inventory;
-
+    Menu* menu;
+    InformationWindow* information_window;
+    ActionWindow *action;
     PauseMenu* pause;
-
-    QVector<EquipedItems*> equipment_slots;
-    EquipedItems* current_equipment_slot;
-
     GameMap *current_map;
     MiniMap *mini_map;
 
+    QVector<QPushButton*> buttons;
     QVector<QLabel*> labels;
+    QVector<Inventory*> inventories;
+    Inventory *current_inventory;
+    QVector<EquipedItems*> equipment_slots;
+    EquipedItems* current_equipment_slot;
 
-    SaveAndLoadManager* save_load_manager;
-
+    QMap<int, void(GameInterface::*)()> key_to_action;
     void initialize();
     void end_game();
 
@@ -91,6 +84,7 @@ private:
 
 protected:
     void paintEvent(QPaintEvent* event);
+    void keyPressEvent(QKeyEvent* event);
 
 private slots:
     void start(std::vector<std::pair<std::string, std::string>> data);

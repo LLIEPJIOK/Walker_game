@@ -1,11 +1,10 @@
 #include "gamemapobject.h"
 
-GameMapObject::GameMapObject(int width, int height, QBrush brush) :
+GameMapObject::GameMapObject(int width, int height) :
    QGraphicsItem()
 {
     this->width = width;
     this->height = height;
-    this->brush = brush;
     is_hovered = false;
     setAcceptHoverEvents(true);
 }

@@ -18,7 +18,7 @@ class PlayersModel : public QObject, public GameMapObject
     };
 
 public:
-    explicit PlayersModel(QObject* parent = nullptr, int width = 0, int height = 0, QBrush brush = QBrush(Qt::NoBrush), QString icon = "knight");
+    explicit PlayersModel(QObject* parent = nullptr, int width = 0, int height = 0, QString icon = "knight");
     Player* get_connected_player();
     void set_connected_plaeyr(Player* player);
 
@@ -38,7 +38,6 @@ private:
     QTimer timer;
 
     QVector<QPixmap> movement_frames;
-
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 signals:

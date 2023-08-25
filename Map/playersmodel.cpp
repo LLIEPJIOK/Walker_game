@@ -1,8 +1,8 @@
 
 #include "playersmodel.h"
 #include "QTransform"
-PlayersModel::PlayersModel(QObject *parent, int width, int height, QBrush brush, QString icon) :
-    QObject(parent), GameMapObject(width, height, brush)
+PlayersModel::PlayersModel(QObject *parent, int width, int height, QString icon) :
+    QObject(parent), GameMapObject(width, height)
 {
     connected_player = nullptr;
 
