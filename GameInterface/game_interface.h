@@ -62,6 +62,7 @@ private:
 
     QMap<int, void(GameInterface::*)()> key_to_action;
     void initialize();
+    void show_player();
     void end_game();
 
     // восстановление состояния кнопок
@@ -96,7 +97,6 @@ private slots:
     void add_item(Equipment* item);
     void pause_button();
     void remaining_rolls();
-    void continue_playing();
     void to_main();
     void process_equip(Equipment* item, QString place);
     void process_unequip(Equipment* item, QString place);

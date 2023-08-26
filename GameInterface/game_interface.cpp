@@ -27,6 +27,7 @@ GameInterface::GameInterface(QWidget *parent)
 
     key_to_action[Qt::Key_I] = &GameInterface::inventory_button_clicked;
     key_to_action[Qt::Key_Escape] = &GameInterface::pause_button;
+    key_to_action[Qt::Key_Q] = &GameInterface::show_player;
 
     menu = new Menu();
     setCentralWidget(menu);
@@ -123,13 +124,18 @@ void GameInterface::initialize()
 
     pause = new PauseMenu(this);
     pause->setVisible(false);
-    connect(pause, &PauseMenu::continue_button_clicked_signal, this, &GameInterface::continue_playing);
+    connect(pause, &PauseMenu::continue_button_clicked_signal, this, &GameInterface::pause_button);
     connect(pause, &PauseMenu::main_menu_clicked, this, &GameInterface::to_main);
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
     update_all();
 
     game_is_played = true;
+}
+
+void GameInterface::show_player()
+{
+    current_map->move_to_player();
 }
 
 void GameInterface::end_game()
@@ -265,18 +271,12 @@ void GameInterface::add_item(Equipment *item)
 
 void GameInterface::pause_button()
 {
-    pause->setVisible(true);
-    game_is_played = false;
+    pause->setVisible(!pause->isVisible());
 }
 
 void GameInterface::remaining_rolls()
 {
     labels[1]->setText("Шагов: " + QString::number(turn->get_roll()));
-}
-
-void GameInterface::continue_playing()
-{
-    pause->setVisible(false);
 }
 
 void GameInterface::to_main()

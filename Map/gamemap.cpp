@@ -46,7 +46,16 @@ void GameMap::update_current_area(QPoint point)
     int battle_map_width = DataBase::get_DataBase()->get_width();
     int battle_map_height = DataBase::get_DataBase()->get_height();
     point.setY(battle_map_height * point.y() / battle_map_width);
+    current_map_position = point;
     setSceneRect(QRect(point, QSize(this->width(), this->height())));
+}
+
+void GameMap::move_to_player()
+{
+    int turn_number = Turn::get_Turn()->get_turn_number() - 1;
+    auto players_pos = players_on_map[turn_number % players_on_map.size()]->pos();
+    setSceneRect(QRect(players_pos.x(), players_pos.y(), this->width(), this->height()));
+    emit area_was_changed(players_pos.toPoint());
 }
 
 void GameMap::highlight_possible_ways(std::vector<std::pair<int, int>> ways)
@@ -131,6 +140,38 @@ void GameMap::make_distance_and_direction()
         map_player->set_left_direction();
 }
 
+void GameMap::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::MiddleButton)
+    {
+        old_position = event->pos();
+        is_pressed_for_moving = true;
+    }
+    else
+        QGraphicsView::mousePressEvent(event);
+}
+
+void GameMap::mouseMoveEvent(QMouseEvent *event)
+{
+    if(is_pressed_for_moving)
+    {
+        QPoint delta = event->pos() - old_position;
+        current_map_position -= delta;
+        setSceneRect(QRect(current_map_position.x(), current_map_position.y(), this->width(), this->height()));
+        emit area_was_changed(current_map_position);
+    }
+    else
+        QGraphicsView::mouseMoveEvent(event);
+}
+
+void GameMap::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::MiddleButton && is_pressed_for_moving)
+        is_pressed_for_moving = false;
+    else
+        QGraphicsView::mouseReleaseEvent(event);
+}
+
 
 void GameMap::player_move()
 {
@@ -168,7 +209,7 @@ void GameMap::process_attack()
         if(s.find(player)!=s.end())
         {
             turn->get_player()->attack(player);
-            if(turn->get_player()->get_killed_player()!= -1)
+            if(turn->get_player()->get_killed_player() != -1)
             {
                 process_killed_player(turn->get_player()->get_killed_player());
                 turn->set_has_attacked(true);
