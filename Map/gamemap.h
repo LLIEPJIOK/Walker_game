@@ -4,7 +4,7 @@
 #include "cell.h"
 #include "playersmodel.h"
 
-#include <QMouseEvent>
+#include <QKeyEvent>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QTimer>
@@ -38,29 +38,25 @@ private:
     QPoint player_movement_positions[4] = {QPoint(0, 0), QPoint(1, 0), QPoint(0, 1), QPoint(1, 1)};
 
     Cell*** cells;
+    QPair<int, int> battle_map_size;
     std::set<Cell*> way_cells;
     std::vector<PlayersModel*> players_on_map;
     QGraphicsScene *battle_map;
     QTimer *timer;
 
     QSize screen_size;
-    QPoint old_position;
-    QPoint current_map_position;
     int cell_size;
     QPoint distance;
     QPoint direction;
     QPoint chosen_way;
     std::vector<std::pair<int, int>> ways;
     bool continue_moving;
-    bool is_pressed_for_moving;
 
     void end_movement();
     void make_distance_and_direction();
 
 protected:
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
+    void keyPressEvent(QKeyEvent* event) override;
 signals:
     void event_triggered();
     void win_by_killing();

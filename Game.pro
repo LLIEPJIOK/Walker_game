@@ -20,6 +20,7 @@ SOURCES += \
     GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
     GameInterface/informationwindow.cpp \
+    GameInterface/nextturnwindow.cpp \
     GameInterface/pausemenu.cpp \
     GameInterface/game_interface.cpp \
     GameInterface/minimap.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
     GameInterface/informationwindow.h \
+    GameInterface/nextturnwindow.h \
     GameInterface/pausemenu.h \
     GameInterface/game_interface.h \
     GameInterface/minimap.h \

@@ -247,6 +247,8 @@ void GameInterface::next_turn_button_clicked()
     action->set_text(""); // делает окно действий пустым
 
     update_labels();
+
+    current_map->move_to_player();
 }
 
 void GameInterface::roll_button_clicked()

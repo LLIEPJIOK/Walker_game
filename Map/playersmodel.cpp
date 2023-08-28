@@ -22,7 +22,7 @@ Player *PlayersModel::get_connected_player()
     return connected_player;
 }
 
-void PlayersModel::set_connected_plaeyr(Player *player)
+void PlayersModel::set_connected_player(Player *player)
 {
     connected_player = player;
 }

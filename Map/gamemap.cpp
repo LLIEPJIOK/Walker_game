@@ -10,11 +10,13 @@
 GameMap::GameMap(QWidget *parent)
     : QGraphicsView{parent}
 {
-    screen_size = QApplication::screens().at(0)->size();
-    int w = DataBase::get_DataBase()->get_width();
-    cell_size = 1.95 * screen_size.width() / w;
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    screen_size = QApplication::screens().at(0)->size();
+    battle_map_size.first = DataBase::get_DataBase()->get_width();
+    battle_map_size.second = DataBase::get_DataBase()->get_height();
+    cell_size = 1.95 * screen_size.width() / battle_map_size.first;
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameMap::initialize);
@@ -31,8 +33,7 @@ GameMap::GameMap(QWidget *parent)
     distance = QPoint(0, 0);
     direction = QPoint(0, 0);
 
-    continue_moving = false;
-    is_pressed_for_moving = false;
+    continue_moving = false;;
 }
 
 GameMap::~GameMap()
@@ -46,7 +47,6 @@ void GameMap::update_current_area(QPoint point)
     int battle_map_width = DataBase::get_DataBase()->get_width();
     int battle_map_height = DataBase::get_DataBase()->get_height();
     point.setY(battle_map_height * point.y() / battle_map_width);
-    current_map_position = point;
     setSceneRect(QRect(point, QSize(this->width(), this->height())));
 }
 
@@ -54,6 +54,19 @@ void GameMap::move_to_player()
 {
     int turn_number = Turn::get_Turn()->get_turn_number() - 1;
     auto players_pos = players_on_map[turn_number % players_on_map.size()]->pos();
+    players_pos.setX(players_pos.x() - this->width() / 2);
+    players_pos.setY(players_pos.y() - this->height() / 2);
+
+    if (players_pos.x() < 0)
+        players_pos.setX(0);
+    else if (players_pos.x() > cell_size * battle_map_size.first - this->width())
+        players_pos.setX(cell_size * battle_map_size.first - this->width());
+
+    if (players_pos.y() < 0)
+        players_pos.setY(0);
+    else if (players_pos.y() > cell_size * battle_map_size.second - this->height())
+        players_pos.setY(cell_size * battle_map_size.second - this->height());
+
     setSceneRect(QRect(players_pos.x(), players_pos.y(), this->width(), this->height()));
     emit area_was_changed(players_pos.toPoint());
 }
@@ -140,38 +153,17 @@ void GameMap::make_distance_and_direction()
         map_player->set_left_direction();
 }
 
-void GameMap::mousePressEvent(QMouseEvent *event)
+void GameMap::keyPressEvent(QKeyEvent *event)
 {
-    if(event->button() == Qt::MiddleButton)
+    if(event->key() == Qt::Key_S)
     {
-        old_position = event->pos();
-        is_pressed_for_moving = true;
+        scale(2, 2);
     }
-    else
-        QGraphicsView::mousePressEvent(event);
-}
-
-void GameMap::mouseMoveEvent(QMouseEvent *event)
-{
-    if(is_pressed_for_moving)
+    else if(event->key() == Qt::Key_D)
     {
-        QPoint delta = event->pos() - old_position;
-        current_map_position -= delta;
-        setSceneRect(QRect(current_map_position.x(), current_map_position.y(), this->width(), this->height()));
-        emit area_was_changed(current_map_position);
+        scale(0.5, 0.5);
     }
-    else
-        QGraphicsView::mouseMoveEvent(event);
 }
-
-void GameMap::mouseReleaseEvent(QMouseEvent *event)
-{
-    if(event->button() == Qt::MiddleButton && is_pressed_for_moving)
-        is_pressed_for_moving = false;
-    else
-        QGraphicsView::mouseReleaseEvent(event);
-}
-
 
 void GameMap::player_move()
 {
@@ -182,6 +174,7 @@ void GameMap::player_move()
     {
         distance -= direction;
         map_player->move(direction);
+        move_to_player();
     }
     else
     {
@@ -206,7 +199,7 @@ void GameMap::process_attack()
         emit action("Вы уже атаковали на этом ходу!");
     else
     {
-        if(s.find(player)!=s.end())
+        if(s.find(player) != s.end())
         {
             turn->get_player()->attack(player);
             if(turn->get_player()->get_killed_player() != -1)
@@ -254,17 +247,14 @@ void GameMap::initialize()
     connect(timer, &QTimer::timeout, this, &GameMap::player_move);
 
     MapCell **field = DataBase::get_DataBase()->get_map();
-    int battle_map_height = DataBase::get_DataBase()->get_height();
-    int battle_map_width = DataBase::get_DataBase()->get_width();
-
     auto s = seq;
 
     setSceneRect(0, 0, this->width(), this->height());
-    cells = new Cell**[battle_map_height];
-    for(int i = 0; i < battle_map_height; i++)
+    cells = new Cell**[battle_map_size.second];
+    for(int i = 0; i < battle_map_size.second; i++)
     {
-        cells[i] = new Cell*[battle_map_width];
-        for(int j = 0; j < battle_map_width; j++)
+        cells[i] = new Cell*[battle_map_size.first];
+        for(int j = 0; j < battle_map_size.first; j++)
         {
             Cell* cell = new Cell(battle_map, cell_size, cell_size, QString::fromStdString(field[i][j].get_tile_name()));
 
@@ -283,7 +273,7 @@ void GameMap::initialize()
         connect(players_model, &PlayersModel::target_to_attack, this, &GameMap::process_attack);
 
         players_on_map.push_back(players_model);
-        players_model->set_connected_plaeyr(s->at(i));
+        players_model->set_connected_player(s->at(i));
         battle_map->addItem(players_model);
         players_model->setPos(s->at(i)->get_x() * cell_size + player_movement_positions[i].x() * 0.6 * cell_size,
                               s->at(i)->get_y() * cell_size + player_movement_positions[i].y() * 0.6 * cell_size);

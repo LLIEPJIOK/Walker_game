@@ -20,7 +20,7 @@ class PlayersModel : public QObject, public GameMapObject
 public:
     explicit PlayersModel(QObject* parent = nullptr, int width = 0, int height = 0, QString icon = "knight");
     Player* get_connected_player();
-    void set_connected_plaeyr(Player* player);
+    void set_connected_player(Player* player);
 
 
     void set_left_direction();
