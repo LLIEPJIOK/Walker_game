@@ -20,7 +20,7 @@ private:
 
     std::unordered_map <std::string, std::list<std::string> > key_to_value_list;
 
-    static int find_block_end_array(const std::string&, int); // this guy is almost useless...
+    static size_t find_block_end_array(const std::string&, size_t); // this guy is almost useless...
 public:
 
     ~JSONObject() = default;

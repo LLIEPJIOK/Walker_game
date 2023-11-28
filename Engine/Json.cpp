@@ -168,9 +168,9 @@ JSONObject::JSONObject(std::string& source, size_t &begin) // ???
     }
 }
 
-int JSONObject::find_block_end_array(const std::string& source, int curpos)
+size_t JSONObject::find_block_end_array(const std::string& source, size_t curpos)
 {
-    int pos = curpos + 1;
+    size_t pos = curpos + 1;
     bool counts = true;
     while (pos < source.size()) {
         if (source[pos] == '\"') {

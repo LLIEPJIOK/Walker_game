@@ -3,5 +3,6 @@
 *.pro.user.*
 *.qbs.user
 *.qbs.user.*
+msvc_make.bat
 Saves/
 Resources
