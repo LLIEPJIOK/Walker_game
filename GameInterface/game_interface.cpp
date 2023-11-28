@@ -236,7 +236,7 @@ void GameInterface::next_turn_button_clicked()
 
     action->set_text(""); // делает окно действий пустым
 
-    update_labels();
+    update_player_status();
 }
 
 void GameInterface::roll_button_clicked()

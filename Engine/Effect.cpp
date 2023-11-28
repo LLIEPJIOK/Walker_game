@@ -219,23 +219,23 @@ Effect::Effect(std::string _effect_name, Player *_target)
     if (!eff_data->is_in_objects(_effect_name))
         throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
 
-    if (!eff_data->get_object(_effect_name)->is_in_objects("special_chs"))
+    if (!eff_data->get_object(_effect_name).is_in_objects("special_chs"))
         throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
 
     if (effects_exe.find(_effect_name) == effects_exe.end())
         throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
 
-    JSONObject* tmp = eff_data->get_object(_effect_name);
-    effect_counter = std::stoi(tmp->get_value("effect_counter"));
-    effect_duration = std::stoi(tmp->get_value("effect_duration"));
-    effect_name = tmp->get_value("effect_name");
-    effect_type = tmp->get_value("effect_type");
-    dispellable = std::stoi(tmp->get_value("dispellable"));;
+    JSONObject tmp = eff_data->get_object(_effect_name);
+    effect_counter = std::stoi(tmp.get_value("effect_counter"));
+    effect_duration = std::stoi(tmp.get_value("effect_duration"));
+    effect_name = tmp.get_value("effect_name");
+    effect_type = tmp.get_value("effect_type");
+    dispellable = std::stoi(tmp.get_value("dispellable"));
     target = _target;
     execute_effect_ptr = effects_exe.at(effect_name);
 
-    JSONObject* chars = tmp->get_object("special_chs");
-    for (const auto& i : *chars->get_name_to_value())
+    JSONObject chars = tmp.get_object("special_chs");
+    for (const auto& i : chars.get_name_to_value())
     {
         special_chs.emplace(i.first, std::stoi(i.second));
     }
@@ -246,23 +246,23 @@ Effect::Effect(std::string _effect_name, Player *_target, int dur)
     if (!eff_data->is_in_objects(_effect_name))
         throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
 
-    if (!eff_data->get_object(_effect_name)->is_in_objects("special_chs"))
+    if (!eff_data->get_object(_effect_name).is_in_objects("special_chs"))
         throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
 
     if (effects_exe.find(_effect_name) == effects_exe.end())
         throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
 
-    JSONObject* tmp = eff_data->get_object(_effect_name);
-    effect_counter = std::stoi(tmp->get_value("effect_counter"));
+    JSONObject tmp = eff_data->get_object(_effect_name);
+    effect_counter = std::stoi(tmp.get_value("effect_counter"));
     effect_duration = dur;
-    effect_name = tmp->get_value("effect_name");
-    effect_type = tmp->get_value("effect_type");
-    dispellable = std::stoi(tmp->get_value("dispellable"));;
+    effect_name = tmp.get_value("effect_name");
+    effect_type = tmp.get_value("effect_type");
+    dispellable = std::stoi(tmp.get_value("dispellable"));;
     target = _target;
     execute_effect_ptr = effects_exe.at(effect_name);
 
-    JSONObject* chars = tmp->get_object("special_chs");
-    for (const auto& i : *chars->get_name_to_value())
+    JSONObject chars = tmp.get_object("special_chs");
+    for (const auto& i : chars.get_name_to_value())
     {
         special_chs.emplace(i.first, std::stoi(i.second));
     }
@@ -273,23 +273,23 @@ Effect::Effect(std::string _effect_name, Player *_target, int dur, int counter)
     if (!eff_data->is_in_objects(_effect_name))
         throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
 
-    if (!eff_data->get_object(_effect_name)->is_in_objects("special_chs"))
+    if (!eff_data->get_object(_effect_name).is_in_objects("special_chs"))
         throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
 
     if (effects_exe.find(_effect_name) == effects_exe.end())
         throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
 
-    JSONObject* tmp = eff_data->get_object(_effect_name);
+    JSONObject tmp = eff_data->get_object(_effect_name);
     effect_counter = counter;
     effect_duration = dur;
-    effect_name = tmp->get_value("effect_name");
-    effect_type = tmp->get_value("effect_type");
-    dispellable = std::stoi(tmp->get_value("dispellable"));;
+    effect_name = tmp.get_value("effect_name");
+    effect_type = tmp.get_value("effect_type");
+    dispellable = std::stoi(tmp.get_value("dispellable"));;
     target = _target;
     execute_effect_ptr = effects_exe.at(effect_name);
 
-    JSONObject* chars = tmp->get_object("special_chs");
-    for (const auto& i : *chars->get_name_to_value())
+    JSONObject chars = tmp.get_object("special_chs");
+    for (const auto& i : chars.get_name_to_value())
     {
         special_chs.emplace(i.first, std::stoi(i.second));
     }
