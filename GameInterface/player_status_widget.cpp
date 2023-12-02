@@ -2,29 +2,36 @@
 #include "player_status_widget.h"
 #include <QPainter>
 
+#include "Engine/Effect.h"
 #include "advanced_chars_tab.h"
 
 void Player_status_widget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
-    /*QPixmap back("C:/proga/Game/Game/Resources/Pictures/inventory.png");
+    QPixmap back("D:/Game/Game/Resources/Pictures/status.png");
     back = back.scaled(width(), height());
 
     QPainter painter;
     painter.begin(this);
-    painter.drawPixmap(0, 0, back);
-    painter.end();*/
+    painter.drawPixmap(0, 0, this->width(), this->height(), back);
+    QWidget::paintEvent(event);
 
 }
+
+
+
 
 Player_status_widget::Player_status_widget(QWidget *parent)
     : QWidget(parent)
 {
 }
 
-Player_status_widget::Player_status_widget(QWidget *parent, Player *pl)
+Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidget(parent)
 {
+    this->setGeometry(parent->width() / 2 - 350, parent->height() / 2 - 450, 350, 450);
+    this->setFixedSize(350, 450);
+
     assigned_player = pl;
 
     main_layout = new QVBoxLayout(this);
@@ -87,6 +94,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl)
                               "color: black;"
                               "border-width: 2px;"
                               "border-color: black;"
+                              "border: 1px solid red;"
                               "border-radius: 0px;"
                               "text-align: center; }"
 
@@ -115,31 +123,46 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl)
 
     // advanced chars
     advanced = new QTabWidget(this);
-    std::map<QString, int> vital;
-    vital["Current Health"] = assigned_player->get_characteristics().at("HP") / 3;
-    vital["Maximum Health"] = assigned_player->get_characteristics().at("MAX_HP");
-    vital["Current Armour"] = assigned_player->get_characteristics().at("ARM");
-    vital["Current Damage Prevention Percentage"] = assigned_player->get_characteristics().at("PIERCE_ARM");
-    advanced->addTab(new Advanced_chars_tab(this, vital), "Vitality");
+    std::map<QString, QString> vital;
+    vital["HP"] = "Current Health";
+    vital["MAX_HP"] = "Maximum Health";
+    vital["ARM"] = "Current Armour";
+    vital["PIERCE_ARM"] = "Current Damage Prevention Percentage";
+    advanced->addTab(new Advanced_chars_tab(this, vital, assigned_player), "Vitality");
 
-    std::map<QString, int> offence;
-    offence["Current Attack"] = assigned_player->get_characteristics().at("ATK");
-    offence["Crit Chance"] = assigned_player->get_characteristics().at("CRIT_CH");
-    offence["Crit Damage Addative"] = assigned_player->get_characteristics().at("CRIT_DMG");
-    offence["Piercing Damage"] = assigned_player->get_characteristics().at("PIERCE");
-    advanced->addTab(new Advanced_chars_tab(this, offence), "Offence");
+    std::map<QString, QString> offence;
+    offence["ATK"] = "Current Attack";
+    offence["CRIT_CH"] = "Crit Chance";
+    offence["CRIT_DMG"] = "Crit Damage Addative";
+     offence["PIERCE"] = "Piercing Damage (through armour)";
+    advanced->addTab(new Advanced_chars_tab(this, offence, assigned_player), "Offence");
 
-    std::map<QString, int> attributes;
-    attributes["Intelligence"] = assigned_player->get_characteristics().at("INT");
-    attributes["Strength"] = assigned_player->get_characteristics().at("STR");
-    attributes["Agility"] = assigned_player->get_characteristics().at("AGIL");
-    advanced->addTab(new Advanced_chars_tab(this, attributes), "Attributes");
+    std::map<QString, QString> attributes;
+    attributes["INT"] = "Intelligence";
+    attributes["STR"] = "Strength";
+    attributes["AGIL"] = "Agility";
+    advanced->addTab(new Advanced_chars_tab(this, attributes, assigned_player), "Attributes");
 
-    std::map<QString, int> rolls;
-    rolls["Movement Roll Modifier"] = assigned_player->get_characteristics().at("ROLL_MOD");
-    rolls["Number of Dice"] = assigned_player->get_characteristics().at("DQNT");
-    rolls["Event Roll Modifier"] = assigned_player->get_characteristics().at("EVENT_ROLL_MOD");
-    advanced->addTab(new Advanced_chars_tab(this, rolls), "Rolls");
+    std::map<QString, QString> rolls;
+    rolls["ROLL_MOD"] = "Movement Roll Modifier";
+    rolls["DQNT"] = "Number of Dice";
+    rolls["EVENT_ROLL_MOD"] = "Event Roll Modifier";
+    advanced->addTab(new Advanced_chars_tab(this, rolls, assigned_player), "Rolls");
+
+    advanced->setStyleSheet("QTabWidget::pane {"
+        "border: 1px solid black;"
+        "top:-1px; "
+        "background-image: url(D:/Game/Game/Resources/Pictures/status.png);"
+        "}"
+    "QTabBar::tab {"
+        "border: 1px solid lightblack; "
+        " background-image: url(D:/Game/Game/Resources/Pictures/status.png)"
+        "} "
+    "QTabBar::tab:selected { "
+        "border: 1px solid black; "
+        "margin-bottom: -1px; "
+        "background-image: url(D:/Game/Game/Resources/Pictures/status.png)"
+        "}");
 
     main_layout->addWidget(advanced);
 
@@ -152,6 +175,8 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl)
     main_layout->addWidget(effects_label);
 
     effects = new QListWidget();
+    effects->setStyleSheet("background-image: url(D:/Game/Game/Resources/Pictures/status.png);"
+                           "border: 1px solid black;");
     effects->addItem("Burning");
     effects->addItem("Intoxication");
     effects->addItem("Weakness");
@@ -162,11 +187,43 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl)
 
 Player_status_widget::~Player_status_widget()
 {
+    delete pl_img;
+    delete name_label;
+    delete ov_health_label;
+    delete ov_atk_label;
+
+    delete name_val;
+    delete health_bar;
+    delete ov_atk_value;
+
+    for (auto t : advanced->children())
+        delete t;
+
+    delete advanced;
+
+    delete effects;
 }
 
 void Player_status_widget::update_all()
 {
-    //here goes update;
+    // updates bar and atk label
+    health_bar->setValue(assigned_player->get_characteristics().at("HP"));
+    health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
+    ov_atk_value->setText(QString::number(assigned_player->get_characteristics().at("ATK")));
+
+    // updates tabs
+    for (int i = 0; i < 4; i++){
+        advanced->setCurrentIndex(i);
+        dynamic_cast<Advanced_chars_tab*>(advanced->currentWidget())->update_chars(assigned_player);
+    }
+
+    //updates all applied effects in qwlist
+    effects->clear();
+    for (Effect* eff : *assigned_player->get_active_effects()){
+        effects->addItem(QString::fromStdString(eff->get_effect_name()));
+    }
+
+    advanced->setCurrentIndex(0);
 }
 
 

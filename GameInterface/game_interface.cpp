@@ -49,6 +49,11 @@ GameInterface::~GameInterface()
         delete ei;
 
     equipment_slots.clear();
+
+    foreach (Player_status_widget* st, player_statuses)
+        delete st;
+
+    player_statuses.clear();
 }
 
 void GameInterface::initialize()
@@ -88,8 +93,17 @@ void GameInterface::initialize()
     inventory_button->setVisible(true);
     connect(inventory_button, &QPushButton::clicked, this, &GameInterface::inventory_button_clicked);
 
+    status_button = new QPushButton("Status", this);
+    status_button->setGeometry(0.8 * screen_size.width(), 10 + 0.276 * screen_size.height(), 0.195 * screen_size.width(), 0.069 * screen_size.height());
+    status_button->setFlat(1);
+    status_button->setFont(font);
+    status_button->setStyleSheet(style);
+    status_button->setVisible(true);
+    connect(status_button, &QPushButton::clicked, this, &GameInterface::status_button_clicked);
+
+
     action = new ActionWindow(this);
-    action->setGeometry(0.8 * screen_size.width(), 10 + 0.276 * screen_size.height(), 0.195 * screen_size.width(), 0.324 * screen_size.height() - 10);
+    action->setGeometry(0.8 * screen_size.width(), 10 + 0.345 * screen_size.height(), 0.195 * screen_size.width(), 0.255 * screen_size.height() - 10);
     action->setVisible(true);
 
     for(auto& i: *data_base->get_sequence())
@@ -108,6 +122,13 @@ void GameInterface::initialize()
         win->setVisible(false);
         win->setGeometry(0.335 * screen_size.width(), 20, 0, 0);
         equipment_slots.push_back(win);
+    }
+
+    for(auto& i: *data_base->get_sequence())
+    {
+        Player_status_widget* status = new Player_status_widget(this, i);
+        status->setVisible(false);
+        player_statuses.push_back(status);
     }
 
     players_name = new QLabel(this);
@@ -231,6 +252,9 @@ void GameInterface::next_turn_button_clicked()
     current_inventory->setVisible(false);
     current_inventory = inventories[(turn->get_turn_number()-1) % inventories.size()];
 
+    current_player_status->setVisible(false);
+    current_player_status = player_statuses[(turn->get_turn_number()-1) % player_statuses.size()];
+
     current_equipment_slot->setVisible(false);
     current_equipment_slot = equipment_slots[(turn->get_turn_number()-1) % equipment_slots.size()];
 
@@ -247,6 +271,12 @@ void GameInterface::roll_button_clicked()
     roll_button->setEnabled(false);
     action->set_text("Вы бросили кубики и выкинули: " + QString::number(roll));
     current_map->want_to_move();
+}
+
+void GameInterface::status_button_clicked()
+{
+    current_player_status->update_all();
+    current_player_status->setVisible(!current_player_status->isVisible());
 }
 
 void GameInterface::enable_next_button()
@@ -293,12 +323,14 @@ void GameInterface::process_equip(Equipment *item, QString place)
         player->equip_jewel(dynamic_cast<Jewel*>(item), place.toStdString());
 
     update_labels();
+    update_player_status();
 }
 
 void GameInterface::process_unequip(Equipment *item, QString place)
 {
     turn->get_player()->unequip_item(item, place.toStdString());
     update_labels();
+    update_player_status();
 }
 
 void GameInterface::congratulate_the_winner()
@@ -348,6 +380,7 @@ void GameInterface::update_all_inventories_and_slots()
         {
             current_inventory = inventories[i];
             current_equipment_slot = equipment_slots[i];
+            current_player_status = player_statuses[i];
         }
     }
 }
@@ -403,6 +436,7 @@ void GameInterface::update_player_status()
     tmp->update_chars();
     update_labels();
     update_buttons();
+    current_player_status->update_all();
     tmp->die();
 }
 

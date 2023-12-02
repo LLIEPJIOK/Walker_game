@@ -1,6 +1,7 @@
 #ifndef GAME_INTERFACE_H
 #define GAME_INTERFACE_H
 
+#include "GameInterface/player_status_widget.h"
 #include "informationwindow.h"
 #include "gamemap.h"
 #include "minimap.h"
@@ -52,6 +53,7 @@ private:
     QPushButton *roll_button;
     QPushButton *next_turn_button;
     QPushButton *inventory_button;
+    QPushButton *status_button;
 
     ActionWindow *action;
 
@@ -60,6 +62,9 @@ private:
 
     QVector<Inventory*> inventories;
     Inventory *current_inventory;
+
+    QVector<Player_status_widget *> player_statuses;
+    Player_status_widget* current_player_status;
 
     PauseMenu* pause;
 
@@ -108,6 +113,7 @@ private slots:
     void inventory_button_clicked();
     void next_turn_button_clicked();
     void roll_button_clicked();
+    void status_button_clicked();
     void enable_next_button();
     void add_item(Equipment* item);
     void pause_button();
