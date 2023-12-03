@@ -1,5 +1,4 @@
 #include "gamemap.h"
-#include "Events/event_window.h"
 #include "Engine/DataBase.h"
 #include "Engine/Turn.h"
 
@@ -11,23 +10,16 @@
 GameMap::GameMap(QWidget *parent)
     : QGraphicsView{parent}
 {
-    icons.push_back("knight");
-    icons.push_back("wizzard");
-    icons.push_back("dwarf");
-    icons.push_back("elf");
-
-    screen_size = QApplication::screens().at(0)->size();
-    int h = DataBase::get_DataBase()->get_height();
-    int w = DataBase::get_DataBase()->get_width();
-    scalex = 1.95 * screen_size.width() / w;
-    scaley  = 3.47 * screen_size.height() / h;
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    screen_size = QApplication::screens().at(0)->size();
+    battle_map_size.first = DataBase::get_DataBase()->get_width();
+    battle_map_size.second = DataBase::get_DataBase()->get_height();
+    cell_size = 1.95 * screen_size.width() / battle_map_size.first;
+
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &GameMap::initialize);
-    info = new InfoCell(this);
-    info->setVisible(false);
     battle_map = new QGraphicsScene(this);
 
     setRenderHint(QPainter::Antialiasing, true);
@@ -35,28 +27,48 @@ GameMap::GameMap(QWidget *parent)
     battle_map->setSceneRect(0, 0, this->width(), this->height());
     setScene(battle_map);
 
-    delta = QPoint(0, 0);
     timer->start(50);
     chosen_way = QPoint(-1, -1);
 
-    continue_moving = false;
+    distance = QPoint(0, 0);
+    direction = QPoint(0, 0);
+
+    continue_moving = false;;
 }
 
 GameMap::~GameMap()
 {
     delete battle_map;
     delete timer;
-    delete info;
 }
 
 void GameMap::update_current_area(QPoint point)
 {
+    int battle_map_width = DataBase::get_DataBase()->get_width();
+    int battle_map_height = DataBase::get_DataBase()->get_height();
+    point.setY(battle_map_height * point.y() / battle_map_width);
     setSceneRect(QRect(point, QSize(this->width(), this->height())));
 }
 
-void GameMap::set_delta(QPoint point)
+void GameMap::move_to_player()
 {
-    delta = point;
+    int turn_number = Turn::get_Turn()->get_turn_number() - 1;
+    auto players_pos = players_on_map[turn_number % players_on_map.size()]->pos();
+    players_pos.setX(players_pos.x() - this->width() / 2);
+    players_pos.setY(players_pos.y() - this->height() / 2);
+
+    if (players_pos.x() < 0)
+        players_pos.setX(0);
+    else if (players_pos.x() > cell_size * battle_map_size.first - this->width())
+        players_pos.setX(cell_size * battle_map_size.first - this->width());
+
+    if (players_pos.y() < 0)
+        players_pos.setY(0);
+    else if (players_pos.y() > cell_size * battle_map_size.second - this->height())
+        players_pos.setY(cell_size * battle_map_size.second - this->height());
+
+    setSceneRect(QRect(players_pos.x(), players_pos.y(), this->width(), this->height()));
+    emit area_was_changed(players_pos.toPoint());
 }
 
 void GameMap::highlight_possible_ways(std::vector<std::pair<int, int>> ways)
@@ -64,6 +76,9 @@ void GameMap::highlight_possible_ways(std::vector<std::pair<int, int>> ways)
     if(ways.size() == 1 && chosen_way != QPoint(-1, -1))
     {
         chosen_way = QPoint(ways[0].first, ways[0].second);
+
+        make_distance_and_direction();
+
         want_to_move();
         return;
     }
@@ -99,8 +114,8 @@ void GameMap::clear_chosen_way()
 void GameMap::update_player_coords(Player *player)
 {
     auto i = player->get_id() - 1;
-    players_on_map[i]->setPos(player->get_x() * scalex + positions[i].x() * 0.6 * scalex,
-                              player->get_y() * scaley + positions[i].y() * 0.6 * scaley);
+    players_on_map[i]->setPos(player->get_x() * cell_size + player_movement_positions[i].x() * 0.6 * cell_size,
+                              player->get_y() * cell_size + player_movement_positions[i].y() * 0.6 * cell_size);
 }
 
 // обновляет координаты игрока
@@ -119,68 +134,53 @@ void GameMap::end_movement()
 
     if (turn->get_already_moved())
     {
+        direction = QPoint(0, 0);
         emit event_triggered(); // запуск цепочки обработок всех действий, происходящих после конца движения
     }
 }
 
-void GameMap::show_cell_info()
+void GameMap::make_distance_and_direction()
 {
-    Cell* cell = qobject_cast<Cell*>(sender());
-    MapCell ** map = DataBase::get_DataBase()->get_map();
-    if(cell->get_hovered())
+    auto turn = Turn::get_Turn();
+    direction = QPoint(chosen_way.x() - turn->get_player()->get_x(), chosen_way.y() - turn->get_player()->get_y());
+    distance = direction * cell_size;
+
+    auto map_player = players_on_map[(turn->get_turn_number() - 1) % players_on_map.size()];
+
+    if(direction.x() < 0)
+        map_player->set_right_direction();
+    else if(direction.x() > 0)
+        map_player->set_left_direction();
+}
+
+void GameMap::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_S)
     {
-        QPointF pos = cell->pos();
-        int info_x = pos.x() - delta.x() + scalex;
-        int info_y = pos.y() - delta.y();
-        if(info_x + info->width() > width())
-           info_x -= 320;
-        if(info_y + info->height() > height())
-           info_y -= 90;
-        else if(info_y < 0)
-           info_y = info_y + cell->boundingRect().height() + 10;
-        info->setGeometry(info_x, info_y, info->width() , info->height());
-        info->set_terrain_type(QString::fromStdString(map[(int)pos.y()/scaley][(int)pos.x()/scalex].get_type_of_terrain()));
-        info->set_item_name(QString::fromStdString(map[(int)pos.y()/scaley][(int)pos.x()/scalex].get_item()));
-        info->set_event_name(QString::fromStdString(map[(int)pos.y()/scaley][(int)pos.x()/scalex].get_event_name()));
-        info->setVisible(true);
+        scale(2, 2);
     }
-    else
-        info->setVisible(false);
+    else if(event->key() == Qt::Key_D)
+    {
+        scale(0.5, 0.5);
+    }
 }
 
 void GameMap::player_move()
 {
     Turn* turn = Turn::get_Turn();
-    auto map_player = players_on_map[(turn->get_turn_number()-1) % players_on_map.size()];
-    QPoint pos = QPoint(map_player->pos().x(),map_player->pos().y()) ;
-    Player* pl = turn->get_player();
-    QPoint to_move;
-    int shx = positions[(turn->get_turn_number()-1) % players_on_map.size()].x() * 0.6 * scalex;
-    int shy = positions[(turn->get_turn_number()-1) % players_on_map.size()].y() * 0.6 * scaley;
+    auto map_player = players_on_map[(turn->get_turn_number() - 1) % players_on_map.size()];
 
-    if(pos.x() - shx != pl->get_x() * scalex || pos.y() - shy != pl->get_y() * scaley)
+    if(distance != QPoint(0, 0))
     {
-        if(pl->get_x() * scalex < pos.x() - shx)
-        {
-           to_move.setX(-1);
-           map_player->set_right_direction();
-        }
-        else if(pl->get_y()* scaley < pos.y() - shy )
-           to_move.setY(-1);
-        else if (pl->get_x() * scalex > pos.x() - shx)
-        {
-           to_move.setX(1);
-           map_player->set_left_direction();
-        }
-        else if (pl->get_y() * scaley > pos.y() - shy)
-           to_move.setY(1);
-        map_player->move(to_move);
+        distance -= direction;
+        map_player->move(direction);
+        move_to_player();
     }
     else
     {
         timer->stop();
         end_movement();
-        highlight_possible_ways(ways);   
+        highlight_possible_ways(ways);
     }
 }
 
@@ -199,10 +199,10 @@ void GameMap::process_attack()
         emit action("Вы уже атаковали на этом ходу!");
     else
     {
-        if(s.find(player)!=s.end())
+        if(s.find(player) != s.end())
         {
             turn->get_player()->attack(player);
-            if(turn->get_player()->get_killed_player()!= -1)
+            if(turn->get_player()->get_killed_player() != -1)
             {
                 process_killed_player(turn->get_player()->get_killed_player());
                 turn->set_has_attacked(true);
@@ -233,7 +233,10 @@ void GameMap::clear_ways()
         (*i)->normalize();
     }
     QPointF pos = qobject_cast<Cell*>(sender())->pos();
-    chosen_way = QPoint(pos.x() / scalex, pos.y() / scaley);
+    chosen_way = QPoint(pos.x() / cell_size, pos.y() / cell_size);
+
+    make_distance_and_direction();
+
     want_to_move();
 }
 
@@ -244,41 +247,37 @@ void GameMap::initialize()
     connect(timer, &QTimer::timeout, this, &GameMap::player_move);
 
     MapCell **field = DataBase::get_DataBase()->get_map();
-    int battle_map_height = DataBase::get_DataBase()->get_height();
-    int battle_map_width = DataBase::get_DataBase()->get_width();
-
     auto s = seq;
 
-    QBrush brush(Qt::darkGreen);
     setSceneRect(0, 0, this->width(), this->height());
-    cells = new Cell**[battle_map_height];
-    for(int i = 0; i < battle_map_height; i++)
+    cells = new Cell**[battle_map_size.second];
+    for(int i = 0; i < battle_map_size.second; i++)
     {
-        cells[i] = new Cell*[battle_map_width];
-        for(int j = 0; j < battle_map_width; j++)
+        cells[i] = new Cell*[battle_map_size.first];
+        for(int j = 0; j < battle_map_size.first; j++)
         {
-           Cell* cell = new Cell(battle_map, scalex, scaley, brush, QString::fromStdString(field[i][j].get_tile_name()));
+            Cell* cell = new Cell(battle_map, cell_size, cell_size, QString::fromStdString(field[i][j].get_tile_name()));
 
-           connect(cell, &Cell::cell_signal, this, &GameMap::show_cell_info);
-           connect(cell, &Cell::way_to_go, this, &GameMap::clear_ways);
+            connect(cell, &Cell::way_to_go, this, &GameMap::clear_ways);
 
-           battle_map->addItem(cell);
-           cell->setPos(j * scalex, i * scaley);
-           cells[i][j] = cell;
+            battle_map->addItem(cell);
+            cell->setPos(j * cell_size, i * cell_size);
+            cells[i][j] = cell;
         }
     }
 
     for(int i = 0; i < s->size(); i++)
     {
-        PlayersModel *players_model = new PlayersModel(battle_map, 0.3 * scalex, 0.3 * scaley, QBrush(Qt::white), icons[i]);
+        PlayersModel *players_model = new PlayersModel(battle_map, 0.3 * cell_size, 0.3 * cell_size, icons[i]);
 
         connect(players_model, &PlayersModel::target_to_attack, this, &GameMap::process_attack);
 
         players_on_map.push_back(players_model);
-        players_model->set_connected_plaeyr(s->at(i));
+        players_model->set_connected_player(s->at(i));
         battle_map->addItem(players_model);
-        players_model->setPos(s->at(i)->get_x() * scalex + positions[i].x() * 0.6 * scalex,
-                              s->at(i)->get_y() * scaley + positions[i].y() * 0.6 * scaley);
+        players_model->setPos(s->at(i)->get_x() * cell_size + player_movement_positions[i].x() * 0.6 * cell_size,
+                              s->at(i)->get_y() * cell_size + player_movement_positions[i].y() * 0.6 * cell_size);
     }
 
+    emit was_initialized();
 }

@@ -41,7 +41,7 @@ void DataBase::initialize_equipment()
     while (fin.good())
     {
         getline(fin, line);
-        all_equip += line + '\n';
+        all_equip += line;
     }
     fin.close();
     all_equipment = new JSONObject(all_equip);
@@ -62,7 +62,7 @@ void DataBase::initialize_effects()
     while (fin.good())
     {
         getline(fin, line);
-        all_eff += line + '\n';
+        all_eff += line;
     }
     fin.close();
     all_effects = new JSONObject(all_eff);

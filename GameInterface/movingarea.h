@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QFrame>
 #include <QMouseEvent>
-#include "gamemap.h"
+#include "Map/gamemap.h"
 class MovingArea : public QFrame
 {
     Q_OBJECT

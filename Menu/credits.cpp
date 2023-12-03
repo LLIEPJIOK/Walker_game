@@ -27,7 +27,6 @@ Credits::Credits(QWidget *parent)
     setSceneRect(QRect(QPoint(0, 0), size));
     QTimer *timer = new QTimer();
     connect(timer, &QTimer::timeout, this, &Credits::sdvig);
-    connect(tt, &CreditsText::open_menu_signal, this, &Credits::open_menu_signal);
     timer->start(10);
 }
 

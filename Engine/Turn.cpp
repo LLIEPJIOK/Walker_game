@@ -271,6 +271,9 @@ void Turn::load(QFile &in)
     //чтение второго значения chosen_direction
     in.read((char*)&chosen_direction.second, sizeof(chosen_direction.second));
 
+    chosen_direction.first = -1;
+    chosen_direction.second = -1;
+
     //присваивание указателя на объект класса Player в зависимости от переменной turn_number
     player = seq->at((turn_number - 1) % seq->size());
 }
@@ -289,7 +292,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
     if(roll > 0)
     {
         roll--;
-        player->set_previous_direction(std::make_pair(player->get_x()-chosen_direction.first, player->get_y() - chosen_direction.second));
+        player->set_previous_direction(std::make_pair(player->get_x() - chosen_direction.first, player->get_y() - chosen_direction.second));
         player->set_x(chosen_direction.first);
         player->set_y(chosen_direction.second);
         ways = find_possible_ways();
@@ -309,7 +312,7 @@ std::vector<std::pair<int, int>> Turn::move_player()
         picked_item = player->add_item(map[player->get_y()][player->get_x()].get_item());
         map[player->get_y()][player->get_x()].set_item("Нет");
     }
-    if(map[player->get_y()][player->get_x()].get_event_name()!="???")
+    if(map[player->get_y()][player->get_x()].get_event_name() != "???")
         activated_event = Events::get_Events()->get_events()->at(map[player->get_y()][player->get_x()].get_event_name());
     is_moving = false;
     return std::vector<std::pair<int, int>>();

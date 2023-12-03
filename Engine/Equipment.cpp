@@ -224,8 +224,8 @@ void Jewel::make_ring(int turn_number)
     }
 
     // заполнение характеристик
-    item_characteristics.insert(std::make_pair(special ,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(special))));
-    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(basa))));
+    item_characteristics.insert(std::make_pair(special ,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(special))));
+    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(basa))));
 }
 
 void Jewel::make_necklace(int turn_number)
@@ -305,9 +305,9 @@ void Jewel::make_necklace(int turn_number)
     }
 
     // заполнение характеристик
-    item_characteristics.insert(std::make_pair(special ,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(special))));
-    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(basa))));
-    item_characteristics.insert(std::make_pair(util,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(util))));
+    item_characteristics.insert(std::make_pair(special ,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(special))));
+    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(basa))));
+    item_characteristics.insert(std::make_pair(util,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(util))));
 }
 
 void Jewel::make_belt(int turn_number)
@@ -372,8 +372,8 @@ void Jewel::make_belt(int turn_number)
     }
 
     // заполнение характеристик
-    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(basa))));
-    item_characteristics.insert(std::make_pair(util,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier)->get_value(util))));
+    item_characteristics.insert(std::make_pair(basa,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(basa))));
+    item_characteristics.insert(std::make_pair(util,std::stoi(DataBase::get_DataBase()->get_jewellery_stats()->get_object(tier).get_value(util))));
 }
 
 Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)

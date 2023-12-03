@@ -9,11 +9,10 @@
 #include <QGraphicsItem>
 #include <QTimer>
 
-class CreditsText : public QObject, public QGraphicsItem
+class CreditsText : public QGraphicsItem
 {
-    Q_OBJECT
 public:
-    CreditsText(QObject *parent = nullptr);
+    CreditsText();
     void reset();
 private:
     QPainter *painter;
@@ -22,10 +21,6 @@ private:
 protected:
     QRectF boundingRect() const override;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-private slots:
-
-signals:
-    void open_menu_signal();
 };
 
 #endif // CREDITSTEXT_H

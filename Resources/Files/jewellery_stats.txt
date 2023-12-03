@@ -35,7 +35,7 @@
 "CRIT_DMG_FLAT" : "20" 
 "AGIL" : "3"
 "INT" : "3"
-"STR" : 3"
+"STR" : "3"
 }
 }
 

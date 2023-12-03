@@ -280,9 +280,9 @@ Events::Events()
 
     // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
     // events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
-    events.emplace(std::make_pair("loggers", new loggers_event(events_info.get_object("loggers"))));
-    events.emplace(std::make_pair("empty house", new empty_house_event(events_info.get_object("empty house"))));
-    events.emplace(std::make_pair("mushrooms", new mushrooms_event(events_info.get_object("mushrooms"))));
+    events.emplace(std::make_pair("loggers", new loggers_event(&events_info.get_object("loggers"))));
+    events.emplace(std::make_pair("empty house", new empty_house_event(&events_info.get_object("empty house"))));
+    events.emplace(std::make_pair("mushrooms", new mushrooms_event(&events_info.get_object("mushrooms"))));
 
 }
 

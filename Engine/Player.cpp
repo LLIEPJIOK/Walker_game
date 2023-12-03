@@ -741,12 +741,12 @@ Equipment* Player::add_item(const std::string& equipment_id)
     }
 
     std::map<std::string, int> item_characteristics;
-    for (const auto& i : *DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_object("chars")->get_name_to_value())
+    for (const auto& i : DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_object("chars").get_name_to_value())
         item_characteristics.emplace(std::make_pair(i.first, stoi(i.second)));
-    std::string name = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_value("name");
-    int item_id = stoi(DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_value("ID"));
-    std::string type = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_value("type");
-    std::string equipment_class = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_value("class");
+    std::string name = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("name");
+    int item_id = stoi(DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("ID"));
+    std::string type = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("type");
+    std::string equipment_class = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("class");
 
     if (equipment_class == "оружие")
     {
@@ -761,8 +761,8 @@ Equipment* Player::add_item(const std::string& equipment_id)
         return item;
     }
 
-    int dur = stoi(DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_value("duration"));
-    std::string effect_name = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id)->get_value("effect_name");;
+    int dur = stoi(DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("duration"));
+    std::string effect_name = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("effect_name");
     Potion* item = new Potion(item_id, name, equipment_class, item_characteristics, type, dur, effect_name);
     potions.insert(item);
     return item;

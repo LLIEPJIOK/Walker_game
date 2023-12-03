@@ -1,12 +1,11 @@
-
 #include "cell.h"
 #include <QKeyEvent>
-Cell::Cell(QObject *parent, int xrpos, int yrpos, QBrush brush, QString tile_name) :
-    GameMapObject(parent, xrpos, yrpos, brush)
+Cell::Cell(QObject *parent, int width, int height, QString tile_name) :
+    QObject(parent), GameMapObject(width, height)
 {
     tile.load("../Game/Resources/Pictures/Tiles/" + tile_name+ "8.png");
     tile = tile.copy(64, 16, 32, 32);
-    tile = tile.scaled(xrpos, yrpos);
+    tile = tile.scaled(width, height);
     is_way = false;
 }
 
