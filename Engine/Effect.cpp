@@ -1,50 +1,353 @@
 #include "Effect.h"
+#include "Turn.h"
+#include "DataBase.h"
 #include <vector>
-All_effects* All_effects::effects_data = 0;
+
+#define eff_data DataBase::get_DataBase()->get_all_effects_data()
+
+void experiment_exe (Player* target, int counter)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("experiment_exe -- target = nullptr!");
+    target ->get_characteristics().at("HP") -= 99 - counter;
+}
+
+// регенерация, восстанавливает 20% от недостающих ОЗ
+void regeneration_exe (Player* target, int)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("regen_exe -- target = nullptr!");
+
+    int max_hp = target->get_characteristics().at("MAX_HP");
+    int cur_hp = target->get_characteristics().at("HP");
+    int potential_heal = (int)((max_hp - cur_hp) * 0.2);
+    if (potential_heal == 0 && (max_hp - cur_hp) != 0)
+        target->get_characteristics().at("HP") += 1;
+    else
+        target->get_characteristics().at("HP") += potential_heal;
+}
+
+// горение, сначала наносит 8 урона в ход, псоле 2-х стаков наносит урон, зависимый от брони
+void burning_exe (Player* target, int counter)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("burning_exe -- target = nullptr!");
+
+    int base_dmg = 8;
+    int dmg_multi = target->get_characteristics().at("ARM_FLAT") + 100;
+    int heat_dmg = (int)((base_dmg * dmg_multi) / 100);
+    if (counter > 2)
+    {
+        target->get_characteristics().at("HP") -= heat_dmg;
+        return;
+    }
+
+    target->get_characteristics().at("HP") -= base_dmg;
+}
+
+// отравление, отнимает 10% текущих ОЗ за ход, немного зависит от числа стаков
+void intoxication_exe (Player* target, int counter)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("intoxication_exe -- target = nullptr!");
+
+    int cur_hp = target->get_characteristics().at("HP");
+    int dmg = (int)((cur_hp + counter * 5) * 0.1);
+    if (dmg == 0)
+        dmg = 1;
+
+    target->get_characteristics().at("HP") -= dmg;
+}
+
+// кровотечение, урон зависит от пройденного расстояния
+void bleeding_exe (Player* target, int counter)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("bleeding_exe -- target = nullptr!");
+
+    if (counter == 1)
+        return;
+
+    target->get_characteristics().at("HP") -= Turn::get_Turn()->get_rolled() * counter;
+}
+
+// обморожение, -2 к модификатору броска во время движения, понижает крит. шанс, наносит 5 урона ежеходно
+void frostbite_exe (Player* target, int counter)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("frostbite_exe -- target = nullptr!");
+
+    target->get_characteristics().at("HP") -= counter + 5;
+}
+
+// шок, значительно понижает хар-ки критов, наносит 5 урона ежеходно
+void shock_exe (Player* target, int counter)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("shock_exe -- target = nullptr!");
+
+    target->get_characteristics().at("HP") -= counter + 5;
+}
+
+// слабость, понижает атакующие хар-ки
+void weakness_exe (Player* target, int) // слабость не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("weakness_exe -- target = nullptr!");
+}
+
+// усиление, повышает атакующие хар-ки
+void empower_exe (Player* target, int) // усиление не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("empower_exe -- target = nullptr!");
+}
+
+// стойкость, повышает броню и макс. ОЗ
+void endurance_exe (Player* target, int) // стойкость не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("endurance_exe -- target = nullptr!");
+}
+
+// ускорение, +2 к мод. броска движения
+void haste_exe (Player* target, int) // ускорение не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("haste_exe -- target = nullptr!");
+}
+
+// замедление, -2 к мод. броска движения
+void slowdown_exe (Player* target, int) // замедление не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("slowdown_exe -- target = nullptr!");
+}
+
+// удача, +2 к броску во время ивента
+void luck_exe (Player* target, int) // удача не имеет ежеходного действия
+{
+    if (target == nullptr)
+        throw std::invalid_argument("luck_exe -- target = nullptr!");
+}
+
+// развеивание всех развеиваемых
+void dispell_all_exe (Player* target, int)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("dispell_all_exe -- target = nullptr!");
+
+    for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end(); it++)
+    {
+        if ((*it)->is_dispellable())
+        {
+            delete *it;
+            it = target->get_active_effects()->erase(it);
+        }
+    }
+}
+
+// развеивание положительных развеиваемых
+void dispell_positive_exe (Player* target, int)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("dispell_positive_exe -- target = nullptr!");
+
+    for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end(); it++)
+    {
+        if ((*it)->get_effect_type() != "положительный" && (*it)->get_effect_type() != "отрицательный" && (*it)->get_effect_type() != "нейтральный")
+            throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
+        if ((*it)->is_dispellable() && (*it)->get_effect_type() == "положительный")
+        {
+            delete *it;
+            it = target->get_active_effects()->erase(it);
+        }
+    }
+}
+
+// развеивание отрицательных развеиваемых
+void dispell_negative_exe (Player* target, int)
+{
+    if (target == nullptr)
+        throw std::invalid_argument("dispell_negative_exe -- target = nullptr!");
+
+    for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end(); it++)
+    {
+        if ((*it)->get_effect_type() != "положительный" && (*it)->get_effect_type() != "отрицательный" && (*it)->get_effect_type() != "нейтральный")
+            throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
+        if ((*it)->is_dispellable() && (*it)->get_effect_type() == "отрицательный")
+        {
+            delete *it;
+            it = target->get_active_effects()->erase(it);
+        }
+    }
+}
+
+std::map<std::string, V*> effects_exe =
+    {
+        {"экспериментальный эффект", &experiment_exe},
+        {"регенерация", &regeneration_exe},
+        {"горение", &burning_exe},
+        {"отравление", &intoxication_exe},
+        {"кровотечение", &bleeding_exe},
+        {"обморожение", &frostbite_exe},
+        {"шок", &shock_exe},
+        {"слабость", &weakness_exe},
+        {"усиление", &empower_exe},
+        {"стойкость", &endurance_exe},
+        {"ускорение", &haste_exe},
+        {"замедление", &slowdown_exe},
+        {"удача", &luck_exe},
+        {"развеивание", &dispell_all_exe},
+        {"развеивание отрицательных эффектов", &dispell_negative_exe},
+        {"развеивание положительных эффектов", &dispell_positive_exe}
+    };
 
 Effect::Effect()
 {
-	return;
+    effect_counter = 0;
+    effect_duration = -1;
+    effect_name = "безымянный";
+    effect_type = "неизвестно";
+    dispellable = 0;
+    target = nullptr;
+    execute_effect_ptr = nullptr;
 }
 
-std::string Effect::get_effect_name()
+Effect::Effect(std::string _effect_name, Player *_target)
+{
+    if (!eff_data->is_in_objects(_effect_name))
+        throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
+
+    if (!eff_data->get_object(_effect_name).is_in_objects("special_chs"))
+        throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
+
+    if (effects_exe.find(_effect_name) == effects_exe.end())
+        throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
+
+    JSONObject tmp = eff_data->get_object(_effect_name);
+    effect_counter = std::stoi(tmp.get_value("effect_counter"));
+    effect_duration = std::stoi(tmp.get_value("effect_duration"));
+    effect_name = tmp.get_value("effect_name");
+    effect_type = tmp.get_value("effect_type");
+    dispellable = std::stoi(tmp.get_value("dispellable"));
+    target = _target;
+    execute_effect_ptr = effects_exe.at(effect_name);
+
+    JSONObject chars = tmp.get_object("special_chs");
+    for (const auto& i : chars.get_name_to_value())
+    {
+        special_chs.emplace(i.first, std::stoi(i.second));
+    }
+}
+
+Effect::Effect(std::string _effect_name, Player *_target, int dur)
+{
+    if (!eff_data->is_in_objects(_effect_name))
+        throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
+
+    if (!eff_data->get_object(_effect_name).is_in_objects("special_chs"))
+        throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
+
+    if (effects_exe.find(_effect_name) == effects_exe.end())
+        throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
+
+    JSONObject tmp = eff_data->get_object(_effect_name);
+    effect_counter = std::stoi(tmp.get_value("effect_counter"));
+    effect_duration = dur;
+    effect_name = tmp.get_value("effect_name");
+    effect_type = tmp.get_value("effect_type");
+    dispellable = std::stoi(tmp.get_value("dispellable"));
+    target = _target;
+    execute_effect_ptr = effects_exe.at(effect_name);
+
+    JSONObject chars = tmp.get_object("special_chs");
+    for (const auto& i : chars.get_name_to_value())
+    {
+        special_chs.emplace(i.first, std::stoi(i.second));
+    }
+}
+
+Effect::Effect(std::string _effect_name, Player *_target, int dur, int counter)
+{
+    if (!eff_data->is_in_objects(_effect_name))
+        throw std::invalid_argument(_effect_name + " is not contained in all_effects JSON object");
+
+    if (!eff_data->get_object(_effect_name).is_in_objects("special_chs"))
+        throw std::invalid_argument(_effect_name + " JSONObject does not contain \"special_chs\" key-to-object");
+
+    if (effects_exe.find(_effect_name) == effects_exe.end())
+        throw std::invalid_argument(_effect_name + " is not contained in effects_exe func. ptr map");
+
+    JSONObject tmp = eff_data->get_object(_effect_name);
+    effect_counter = counter;
+    effect_duration = dur;
+    effect_name = tmp.get_value("effect_name");
+    effect_type = tmp.get_value("effect_type");
+    dispellable = std::stoi(tmp.get_value("dispellable"));
+    target = _target;
+    execute_effect_ptr = effects_exe.at(effect_name);
+
+    JSONObject chars = tmp.get_object("special_chs");
+    for (const auto& i : chars.get_name_to_value())
+    {
+        special_chs.emplace(i.first, std::stoi(i.second));
+    }
+}
+
+std::string Effect::get_effect_name() const
 {
 	return effect_name;
 }
 
-std::string Effect::get_effect_type()
+std::string Effect::get_effect_type() const
 {
 	return effect_type;
 }
 
-int Effect::get_effect_duration()
+int Effect::get_effect_duration() const
 {
 	return effect_duration;
 }
 
-int Effect::get_effect_counter()
+int Effect::get_effect_counter() const
 {
-	return effect_counter;
+    return effect_counter;
 }
 
-bool Effect::is_dispellable()
+std::map<std::string, int>& Effect::get_sp_chs()
 {
-	return dispellable;
+    return special_chs;
+}
+
+bool Effect::is_dispellable() const
+{
+    return dispellable;
 }
 
 void Effect::set_effect_counter(int value)
 {
-	effect_counter = value;
+    effect_counter = value;
 }
 
 void Effect::set_effect_duration(int value)
 {
-	effect_duration = value;
+    effect_duration = value;
+}
+
+void Effect::set_special_chs(std::map<std::string, int> &chs)
+{
+    special_chs = chs;
 }
 
 void Effect::dec_duration()
 {
-	effect_duration--;
+    effect_duration--;
+}
+
+void Effect::inc_duration()
+{
+    effect_duration++;
 }
 
 void Effect::inc_counter()
@@ -54,649 +357,145 @@ void Effect::inc_counter()
 
 void Effect::dec_counter()
 {
-	effect_counter--;
+    effect_counter--;
 }
 
-Small_healing_effect::Small_healing_effect()
+void Effect::apply_effect()
 {
-    effect_name = "регенерация";
-    effect_type = "положительный";
-	effect_duration = 3;
-	effect_counter = 1;
-	dispellable = 1;
-	chars.emplace(std::make_pair("HP", 2));
-}
-
-void Small_healing_effect::apply_effect(Player& target, int duration)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Small_healing_effect* tmp = new Small_healing_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Small_healing_effect::apply_effect(Player& target, int duration, int counter)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Small_healing_effect* tmp = new Small_healing_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Small_healing_effect::execute_effect(Player& target)
-{
-	int Max_HP = target.get_characteristics().at("MAX_HP");
-	int HP = target.get_characteristics().at("HP");
-	int dif = Max_HP - HP;
-	
-	if (dif > 0)
-	{
-		if (dif > 0.2 * Max_HP)
-			target.get_characteristics().at("HP") += dif * 0.2;
-		else
-			target.get_characteristics().at("HP") += 2;
-	}
-	effect_duration--;
-}
-
-void Small_healing_effect::reverse_effect(Player&)
-{
-	return;
-}
-
-Burning_effect::Burning_effect()
-{
-    effect_name = "горение";
-    effect_type = "отрицательный";
-	effect_duration = 3;
-	effect_counter = 1;
-	dispellable = 1;
-	chars.emplace(std::make_pair("HP", -2));
-}
-
-void Burning_effect::apply_effect(Player& target, int duration)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Burning_effect* tmp = new Burning_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Burning_effect::apply_effect(Player& target, int duration, int counter)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Burning_effect* tmp = new Burning_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Burning_effect::execute_effect(Player& target)
-{
-	target.get_characteristics().at("HP") += chars["HP"] - effect_counter;
-	if (effect_counter > 2)
-		target.get_characteristics().at("HP") -= target.get_characteristics().at("ARM") * 0.2;
-	effect_counter++;
-	effect_duration--;
-}
-
-void Burning_effect::reverse_effect(Player&)
-{
-	return;
-}
-
-Shock_effect::Shock_effect()
-{
-    effect_name = "шок";
-    effect_type = "отрицательный";
-	effect_duration = 2;
-	effect_counter = 1;
-	dispellable = 1;
-	chars.emplace(std::make_pair("HP", -1));
-}
-
-void Shock_effect::apply_effect(Player& target, int duration)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter(); 
-			return;
-		}
-	Shock_effect* tmp = new Shock_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ATK") -= 4;
-}
-
-void Shock_effect::apply_effect(Player& target, int duration, int counter)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Shock_effect* tmp = new Shock_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ATK") -= 4;
-}
-
-void Shock_effect::execute_effect(Player& target)
-{
-	target.get_characteristics().at("HP") += chars["HP"];
-	effect_counter++;
-	effect_duration--;
-}
-
-void Shock_effect::reverse_effect(Player& target)
-{
-	target.get_characteristics().at("ATK") += 4;
-}
-
-Intoxication_effect::Intoxication_effect()
-{
-    effect_name = "отравление";
-    effect_type = "отрицательный";
-	effect_duration = 3;
-	effect_counter = 1;
-	dispellable = 1;
-}
-
-void Intoxication_effect::apply_effect(Player& target, int duration)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Intoxication_effect* tmp = new Intoxication_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Intoxication_effect::apply_effect(Player& target, int duration, int counter)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Intoxication_effect* tmp = new Intoxication_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Intoxication_effect::execute_effect(Player& target)
-{
-	target.get_characteristics().at("HP") -= 0.08 * target.get_characteristics().at("HP");
-}
-
-void Intoxication_effect::reverse_effect(Player&)
-{
-	return;
-}
-
-Frostbite_effect::Frostbite_effect()
-{
-    effect_name = "обморожение";
-    effect_type = "отрицательный";
-	effect_duration = 3;
-	effect_counter = 1;
-	dispellable = 1;
-}
-
-void Frostbite_effect::apply_effect(Player& target, int duration)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Frostbite_effect* tmp = new Frostbite_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ROLL") -= 1;
-	target.get_characteristics().at("ARM") -= 5;
-}
-
-void Frostbite_effect::apply_effect(Player& target, int duration, int counter)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	Frostbite_effect* tmp = new Frostbite_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-	target.get_characteristics().at("ROLL") -= 1;
-	target.get_characteristics().at("ARM") -= 5;
-}
-
-void Frostbite_effect::execute_effect(Player& target)
-{
-	target.get_characteristics().at("HP") -= effect_counter;
-	if (effect_counter < 3)
-		effect_counter++;
-}
-
-void Frostbite_effect::reverse_effect(Player& target)
-{
-	target.get_characteristics().at("ROLL") += 1;
-	target.get_characteristics().at("ARM") += 5;
-}
-
-Bleeding_effect::Bleeding_effect()
-{
-	latest_x = 0;
-	latest_y = 0;
-    effect_name = "кровотечение";
-    effect_type = "негативный";
-	effect_duration = 3;
-	effect_counter = 1;
-	dispellable = 0;
-}
-
-void Bleeding_effect::apply_effect(Player& target, int duration)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	latest_x = target.get_x();
-	latest_y = target.get_y();
-	Bleeding_effect* tmp = new Bleeding_effect();
-	tmp->set_effect_duration(duration);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Bleeding_effect::apply_effect(Player& target, int duration, int counter)
-{
-	for (const auto& i : *target.get_active_effects())
-		if (i->get_effect_name() == effect_name)
-		{
-			i->set_effect_duration(duration);
-			i->inc_counter();
-			return;
-		}
-	latest_x = target.get_x();
-	latest_y = target.get_y();
-	Bleeding_effect* tmp = new Bleeding_effect();
-	tmp->set_effect_duration(duration);
-	tmp->set_effect_counter(counter);
-	target.get_active_effects()->push_back(tmp);
-}
-
-void Bleeding_effect::execute_effect(Player& target)
-{
-    int dif = sqrt((latest_x - target.get_x()) * (latest_x - target.get_x()) + (latest_y - target.get_y()) * (latest_y - target.get_y())) * sqrt(effect_counter);
-    target.get_characteristics().at("HP") -= dif;
-}
-
-void Bleeding_effect::reverse_effect(Player&)
-{
-	return;
-}
-
-Slowdown_effect::Slowdown_effect()
-{
-    effect_name = "замедление";
-    effect_type = "отрицательный";
-    effect_duration = 3;
-    effect_counter = 1;
-    dispellable = 0;
-}
-
-void Slowdown_effect::apply_effect(Player &target, int duration)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
+    // проверка на наличие аналогичного эффекта у цели
+    for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end(); it++)
+    {
+        if ((*it)->get_effect_name() == effect_name)
         {
-            i->set_effect_duration(duration);
-            i->inc_counter();
+            effect_counter = (*it)->get_effect_counter();
+
+            // далее перед удалением необходимо передать уникальные для эффекта хар-ки
+            for (const auto& i : (*it)->get_sp_chs())
+                if (target->get_characteristics().find(i.first) == target->get_characteristics().end())
+                    special_chs[i.first] = i.second;
+
+            delete *it;
+            target->get_active_effects()->erase(it);
+            target->get_active_effects()->push_back(this);
             return;
         }
-    Slowdown_effect* tmp = new Slowdown_effect();
-    tmp->set_effect_duration(duration);
-    target.get_active_effects()->push_back(tmp);
+    }
+
+    // изменение существующих хар-к цели
+    for (const auto& i : special_chs)
+    {
+        if (target->get_characteristics().find(i.first) != target->get_characteristics().end())
+            target->get_characteristics().at(i.first) += i.second;
+    }
+
+    target->get_active_effects()->push_back(this);
 }
 
-void Slowdown_effect::apply_effect(Player &target, int duration, int counter)
+void Effect::execute_effect()
 {
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            return;
-        }
-    Slowdown_effect* tmp = new Slowdown_effect();
-    tmp->set_effect_duration(duration);
-    tmp->set_effect_counter(counter);
-    target.get_characteristics().at("AGIL") -= 2;
-    target.get_characteristics().at("ROLL") -= 2;
-    target.get_active_effects()->push_back(tmp);
+    if (execute_effect_ptr != nullptr)
+        execute_effect_ptr(target, effect_counter);
 }
 
-void Slowdown_effect::execute_effect(Player &)
+void Effect::reverse_effect(Player& target)
 {
-    return;
-}
-
-void Slowdown_effect::reverse_effect(Player & target)
-{
-    target.get_characteristics().at("AGIL") += 2;
-    target.get_characteristics().at("ROLL") += 2;
-}
-
-Haste_effect::Haste_effect()
-{
-    effect_name = "ускорение";
-    effect_type = "положительный";
-    effect_duration = 3;
-    effect_counter = 1;
-    dispellable = 0;
-}
-
-void Haste_effect::apply_effect(Player &target, int duration)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            target.get_characteristics().at("AGIL") += 2;
-            target.get_characteristics().at("ROLL") += 2;
-            return;
-        }
-    Slowdown_effect* tmp = new Slowdown_effect();
-    tmp->set_effect_duration(duration);
-    target.get_characteristics().at("AGIL") += 2;
-    target.get_characteristics().at("ROLL") += 2;
-    target.get_active_effects()->push_back(tmp);
-}
-
-void Haste_effect::apply_effect(Player &target, int duration, int counter)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            target.get_characteristics().at("AGIL") += 2;
-            target.get_characteristics().at("ROLL") += 2;
-            return;
-        }
-    Slowdown_effect* tmp = new Slowdown_effect();
-    tmp->set_effect_duration(duration);
-    tmp->set_effect_counter(counter);
-    target.get_characteristics().at("AGIL") += 2;
-    target.get_characteristics().at("ROLL") += 2;
-    target.get_active_effects()->push_back(tmp);
-}
-
-void Haste_effect::execute_effect(Player &)
-{
-    return;
-}
-
-void Haste_effect::reverse_effect(Player & target)
-{
-    target.get_characteristics().at("AGIL") -= 2 * effect_counter;
-    target.get_characteristics().at("ROLL") -= 2 * effect_counter;
-}
-
-Endurance_effect::Endurance_effect(int armour, int pierce)
-{
-    effect_name = "стойкость";
-    effect_type = "положительный";
-    effect_duration = 3;
-    effect_counter = 1;
-    dispellable = 0;
-    extra_armour = armour;
-    extra_pierce_armour = pierce;
-}
-
-void Endurance_effect::apply_effect(Player &target, int duration)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            return;
-        }
-    int arm = target.get_characteristics().at("ARM") * 0.3;
-    int pierce = target.get_characteristics().at("PIERCE_ARM") * 0.2;
-    target.get_characteristics().at("PIERCE_ARM") += pierce;
-    target.get_characteristics().at("ARM") += arm;
-    target.get_characteristics().at("HP") += 20;
-    Endurance_effect* tmp = new Endurance_effect(arm, pierce);
-    tmp->set_effect_duration(duration);
-    target.get_active_effects()->push_back(tmp);
-}
-
-void Endurance_effect::apply_effect(Player &target, int duration, int counter)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            return;
-        }
-    int arm = target.get_characteristics().at("ARM") * 0.3;
-    int pierce = target.get_characteristics().at("PIERCE_ARM") * 0.2;
-    target.get_characteristics().at("PIERCE_ARM") += pierce;
-    target.get_characteristics().at("ARM") += arm;
-    target.get_characteristics().at("HP") += 20;
-    Endurance_effect* tmp = new Endurance_effect(arm, pierce);
-    tmp->set_effect_duration(duration);
-    tmp->set_effect_counter(counter);
-    target.get_active_effects()->push_back(tmp);
-}
-
-void Endurance_effect::execute_effect(Player &)
-{
-    return;
-}
-
-void Endurance_effect::reverse_effect(Player & target)
-{
-    target.get_characteristics().at("PIERCE_ARM") -= extra_pierce_armour;
-    target.get_characteristics().at("ARM") -= extra_armour;
-    if(target.get_characteristics().at("HP") <= 20)
-        target.get_characteristics().at("HP") = 1;
-    else
-        target.get_characteristics().at("HP") -= 20;
-}
-
-Empower_effect::Empower_effect(int atk, int pierce, int crit_ch, int crit)
-{
-    effect_name = "усиление";
-    effect_type = "положительный";
-    effect_duration = 3;
-    effect_counter = 1;
-    dispellable = 0;
-    extra_atk = atk;
-    extra_pierce = pierce;
-    extra_crit = crit;
-    extra_ctir_ch = crit_ch;
-}
-
-void Empower_effect::apply_effect(Player &target, int duration)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            return;
-        }
-    int atk = target.get_characteristics().at("ATK") * 0.2;
-    int pierce = target.get_characteristics().at("PIERCE") * 0.1;
-    int ch = target.get_characteristics().at("CRIT_CH") * 0.1;
-    int dmg = target.get_characteristics().at("CRIT_DMG") * 0.1;
-    target.get_characteristics().at("PIERCE") += pierce;
-    target.get_characteristics().at("ATK") += atk;
-    target.get_characteristics().at("CRIT_CH") += ch;
-    target.get_characteristics().at("CRIT_DMG") += dmg;
-    Empower_effect* tmp = new Empower_effect(atk, pierce, ch, dmg);
-    tmp->set_effect_duration(duration);
-    target.get_active_effects()->push_back(tmp);
-}
-
-void Empower_effect::apply_effect(Player &target, int duration, int counter)
-{
-    for (const auto& i : *target.get_active_effects())
-        if (i->get_effect_name() == effect_name)
-        {
-            i->set_effect_duration(duration);
-            i->inc_counter();
-            return;
-        }
-    int atk = target.get_characteristics().at("ATK") * 0.2;
-    int pierce = target.get_characteristics().at("PIERCE") * 0.1;
-    int ch = target.get_characteristics().at("CRIT_CH") * 0.1;
-    int dmg = target.get_characteristics().at("CRIT_DMG") * 0.1;
-    target.get_characteristics().at("PIERCE") += pierce;
-    target.get_characteristics().at("ATK") += atk;
-    target.get_characteristics().at("CRIT_CH") += ch;
-    target.get_characteristics().at("CRIT_DMG") += dmg;
-    Empower_effect* tmp = new Empower_effect(atk, pierce, ch, dmg);
-    tmp->set_effect_duration(duration);
-    tmp->set_effect_counter(counter);
-    target.get_active_effects()->push_back(tmp);
-}
-
-void Empower_effect::execute_effect(Player &)
-{
-    return;
-}
-
-void Empower_effect::reverse_effect(Player & target)
-{
-    target.get_characteristics().at("PIERCE") -= extra_pierce;
-    target.get_characteristics().at("ATK") -= extra_atk;
-    target.get_characteristics().at("CRIT_CH") -= extra_ctir_ch;
-    target.get_characteristics().at("CRIT_DMG") -= extra_crit;
-}
-
-
-Dispell_effect::Dispell_effect()
-{
-    effect_name = "развеивание";
-    effect_type = "нейтральный";
-    effect_duration = 1;
-    effect_counter = 0;
-    dispellable = 0;
-}
-
-void Dispell_effect::apply_effect(Player & target, int)
-{
-
-    for (auto i = target.get_active_effects()->begin(); i!=target.get_active_effects()->end(); i++)
-        if ((*i)->is_dispellable())
-        {
-            (*i)->reverse_effect(target);
-            delete* i;
-            target.get_active_effects()->erase(i);
-        }
-}
-
-void Dispell_effect::apply_effect(Player &target, int, int)
-{
-    for (auto i = target.get_active_effects()->begin(); i!=target.get_active_effects()->end(); i++)
-        if ((*i)->is_dispellable())
-        {
-            (*i)->reverse_effect(target);
-            delete* i;
-            target.get_active_effects()->erase(i);
-        }
-}
-
-void Dispell_effect::execute_effect(Player &)
-{
+    for (const auto& i : special_chs)
+    {
+        std::string ch = i.first;
+        int val = i.second;
+        if (target.get_characteristics().find(ch) != target.get_characteristics().end())
+            target.get_characteristics().at(ch) -= val;
+    }
 
 }
 
-void Dispell_effect::reverse_effect(Player &)
+void Effect::save(QFile &out)
 {
+    //размер effect_name с /0
+    size_t size = effect_name.size() + 1;
+    //запись размера effect_name
+    out.write((char*)& size, sizeof(size));
+    //запись effect_name
+    out.write(effect_name.c_str(), size);
 
+    //размер effect_type c /0
+    size = effect_type.size() + 1;
+    //запись размера effect_type
+    out.write((char*)& size, sizeof(size));
+    //запись effect_type
+    out.write(effect_type.c_str(), size);
+
+    //запись effect_counter
+    out.write((char*)& effect_counter, sizeof(effect_counter));
+
+    //запись effect_duration
+    out.write((char*)& effect_duration, sizeof(effect_duration));
+
+    //размер контейнера special_chs
+    size = special_chs.size();
+    //запись рамзера item_characteristics
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи всего контейнера
+    for(const auto &i : special_chs)
+    {
+        //размер ключа
+        size_t string_size = i.first.size() + 1;
+        //запись размера ключ
+        out.write((char*)& string_size, sizeof(string_size));
+        //запись ключа
+        out.write(i.first.c_str(), string_size);
+
+        //запись значения
+        out.write((char*)& i.second, sizeof(i.second));
+    }
+
+    //запись dispallable
+    out.write((char*)& dispellable, sizeof(dispellable));
 }
 
-All_effects::~All_effects()
+void Effect::load(QFile& in)
 {
-    for (const auto& i : effects)
-        delete i.second;
-}
+    //переменная для рамзера строк
+    size_t size;
+    //чтение размера effect_type
+    in.read((char*)& size, sizeof(size));
+    //присваивание effect_type строки из пробелов длиной size-1, без /0
+    effect_type = std::string(size - 1, ' ');
+    //чтение effect_type данных размера size
+    in.read(effect_type.data(), size);
 
-All_effects::All_effects()
-{
-    effects.emplace(std::make_pair("регенерация", new Small_healing_effect()));
-    effects.emplace(std::make_pair("горение", new Burning_effect()));
-    effects.emplace(std::make_pair("шок", new Shock_effect()));
-    effects.emplace(std::make_pair("отравление", new Intoxication_effect()));
-    effects.emplace(std::make_pair("обморожение", new Frostbite_effect()));
-    effects.emplace(std::make_pair("кровотечение", new Bleeding_effect()));
-    effects.emplace(std::make_pair("замедление", new Slowdown_effect()));
-    effects.emplace(std::make_pair("ускорение", new Haste_effect()));
-    effects.emplace(std::make_pair("стойкость", new Endurance_effect(0, 0)));
-    effects.emplace(std::make_pair("усиление", new Empower_effect(0,0,0,0)));
-    effects.emplace(std::make_pair("развеивание", new Dispell_effect()));
-}
+    //чтение effect_counter
+    in.read((char*)& effect_counter, sizeof(effect_counter));
 
-std::map<std::string, Effect*>* All_effects::get_effects()
-{
-    return &effects;
-}
+    //чтение effect_duration
+    in.read((char*)& effect_duration, sizeof(effect_duration));
 
-All_effects* All_effects::get_effects_data()
-{
-    if (!effects_data)
-        effects_data = new All_effects;
-    return effects_data;
+    //чтение размера контейнера special_chs
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера special_chs
+    special_chs.clear();
+
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //переменная для размера ключа
+        size_t string_size;
+        //чтение размера ключа
+        in.read((char*)& string_size, sizeof(string_size));
+        //присваивание ключу строки из пробелов длиной size-1, без /0
+        std::string key(string_size - 1, ' ');
+        //чтение ключа
+        in.read(key.data(), string_size);
+
+        //переменная для значения
+        int value;
+        //чтение занчения
+        in.read((char*)& value, sizeof(value));
+
+        //добавление или изменение пары ключ-значение
+        special_chs[key] = value;
+    }
+
+    //чтение dispallable
+    in.read((char*)& dispellable, sizeof(dispellable));
 }

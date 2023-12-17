@@ -39,53 +39,45 @@ public:
     std::string get_success_image();
     std::string get_failure_image();
 
-    int get_requirement();
-
-    virtual void execute_success() = 0;
-    virtual void execute_failure() = 0;
+    virtual int get_requirement(Player* pl); // в зависимости от статов игрока возвращает необходимое значение (ролл + стат) для успеха
+    virtual void execute_success(Player* pl) = 0; // выполняет задуманную разработчиком функцию, связанную с успехом события
+    virtual void execute_failure(Player* pl) = 0; // выполняет задуманную разработчиком функцию, связанную с провалом события
 };
 
 class experiment_event : public Event
 {
 public:
     experiment_event(JSONObject* tmp) : Event(tmp){}
-    void execute_success();
-    void execute_failure();
+    void execute_success(Player*);
+    void execute_failure(Player*);
 };
 
-
-/*class Small_healing_event : public Event
+class loggers_event : public Event
 {
 public:
-    Small_healing_event();
-    void execute(Player&);
+    loggers_event(JSONObject* tmp) : Event(tmp){}
+    int get_requirement(Player* pl);
+    void execute_success(Player* pl);
+    void execute_failure(Player* pl);
 };
 
-class Slowdown_event : public Event
+class empty_house_event : public Event
 {
 public:
-    Slowdown_event();
-    void execute(Player&);
+    empty_house_event(JSONObject* tmp) : Event(tmp){}
+    int get_requirement(Player* pl);
+    void execute_success(Player* pl);
+    void execute_failure(Player* pl);
 };
 
-class Haste_event : public Event
+class mushrooms_event : public Event
 {
 public:
-    Haste_event();
-    void execute(Player&);
+    mushrooms_event(JSONObject* tmp) : Event(tmp){}
+    int get_requirement(Player* pl);
+    void execute_success(Player* pl);
+    void execute_failure(Player* pl);
 };
-
-class Intoxication_event : public Event
-{
-    Intoxication_event();
-    void execute(Player&);
-};
-
-class Die_insect_event : public Event
-{
-    Die_insect_event();
-    void execute(Player&);
-}; */
 
 class Events
 {

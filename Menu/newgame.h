@@ -19,6 +19,7 @@ private:
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
+    QHBoxLayout *label_hblay;
     QSlider *slider;
     QPushButton *btn_next;
     QPushButton *btn_prev;

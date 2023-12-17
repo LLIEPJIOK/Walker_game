@@ -100,7 +100,9 @@
 "tier" : "3"
 "duration" : "3"
 "chars" : 
-{}
+{
+	"HP" : "10"
+}
 }
 
 "Зелье ускорения" : 
@@ -127,11 +129,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "4"
+        "ATK_FLAT" : "4"
         "RNG" : "0"
 	"PIERCE" : "1"
-	"CRIT_CH" : "4"
-	"CRIT_DMG" : "10"
+	"CRIT_CH_FLAT" : "4"
+	"CRIT_DMG_FLAT" : "10"
 }
 }
 
@@ -147,11 +149,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "9"
+        "ATK_FLAT" : "9"
         "RNG" : "0"
 	"PIERCE" : "3"
-	"CRIT_CH" : "8"
-	"CRIT_DMG" : "15"
+	"CRIT_CH_FLAT" : "8"
+	"CRIT_DMG_FLAT" : "15"
 }
 }
 
@@ -165,11 +167,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "4"
+        "ATK_FLAT" : "4"
         "RNG" : "0"
 	"PIERCE" : "0"
-	"CRIT_CH" : "2"
-	"CRIT_DMG" : "3"
+	"CRIT_CH_FLAT" : "2"
+	"CRIT_DMG_FLAT" : "3"
 }
 }
 
@@ -183,12 +185,12 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "3"
+        "ATK_FLAT" : "3"
         "RNG" : "0"
 	"PIERCE" : "0"
-	"CRIT_CH" : "0"
-	"CRIT_DMG" : "0"
-	"ARM" : "5"
+	"CRIT_CH_FLAT" : "0"
+	"CRIT_DMG_FLAT" : "0"
+	"ARM_FLAT" : "5"
 }
 }
 
@@ -202,11 +204,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "10"
+        "ATK_FLAT" : "10"
         "RNG" : "0"
 	"PIERCE" : "5"
-	"CRIT_CH" : "5"
-	"CRIT_DMG" : "30"
+	"CRIT_CH_FLAT" : "5"
+	"CRIT_DMG_FLAT" : "30"
 }
 }
 
@@ -220,11 +222,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "10"
+        "ATK_FLAT" : "10"
         "RNG" : "0"
 	"PIERCE" : "6"
-	"CRIT_CH" : "10"
-	"CRIT_DMG" : "20"
+	"CRIT_CH_FLAT" : "10"
+	"CRIT_DMG_FLAT" : "20"
 }
 }
 
@@ -238,11 +240,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "10"
+        "ATK_FLAT" : "10"
         "RNG" : "0"
 	"PIERCE" : "4"
-	"CRIT_CH" : "12"
-	"CRIT_DMG" : "18"
+	"CRIT_CH_FLAT" : "12"
+	"CRIT_DMG_FLAT" : "18"
 }
 }
 
@@ -256,11 +258,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "18"
+        "ATK_FLAT" : "18"
         "RNG" : "0"
 	"PIERCE" : "13"
-	"CRIT_CH" : "10"
-	"CRIT_DMG" : "20"
+	"CRIT_CH_FLAT" : "10"
+	"CRIT_DMG_FLAT" : "20"
 }
 }
 
@@ -274,11 +276,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "20"
+        "ATK_FLAT" : "20"
         "RNG" : "0"
 	"PIERCE" : "12"
-	"CRIT_CH" : "12"
-	"CRIT_DMG" : "60"
+	"CRIT_CH_FLAT" : "12"
+	"CRIT_DMG_FLAT" : "60"
 }
 }
 
@@ -292,11 +294,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "22"
+        "ATK_FLAT" : "22"
         "RNG" : "0"
 	"PIERCE" : "10"
-	"CRIT_CH" : "12"
-	"CRIT_DMG" : "60"
+	"CRIT_CH_FLAT" : "12"
+	"CRIT_DMG_FLAT" : "60"
 }
 }
 
@@ -310,12 +312,12 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "10"
+        "ATK_FLAT" : "10"
         "RNG" : "0"
 	"PIERCE" : "1"
-	"CRIT_CH" : "5"
-	"CRIT_DMG" : "10"
-	"ARM" : "10"
+	"CRIT_CH_FLAT" : "5"
+	"CRIT_DMG_FLAT" : "10"
+	"ARM_FLAT" : "10"
 }
 }
 
@@ -329,11 +331,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "20"
+        "ATK_FLAT" : "20"
         "RNG" : "0"
 	"PIERCE" : "15"
-	"CRIT_CH" : "10"
-	"CRIT_DMG" : "60"
+	"CRIT_CH_FLAT" : "10"
+	"CRIT_DMG_FLAT" : "60"
 }
 }
 
@@ -347,11 +349,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "20"
+        "ATK_FLAT" : "20"
         "RNG" : "0"
 	"PIERCE" : "15"
-	"CRIT_CH" : "20"
-	"CRIT_DMG" : "40"
+	"CRIT_CH_FLAT" : "20"
+	"CRIT_DMG_FLAT" : "40"
 }
 }
 
@@ -365,11 +367,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "20"
+        "ATK_FLAT" : "20"
         "RNG" : "0"
 	"PIERCE" : "13"
-	"CRIT_CH" : "15"
-	"CRIT_DMG" : "50"
+	"CRIT_CH_FLAT" : "15"
+	"CRIT_DMG_FLAT" : "50"
 }
 }
 
@@ -383,11 +385,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "40"
+        "ATK_FLAT" : "40"
         "RNG" : "0"
 	"PIERCE" : "20"
-	"CRIT_CH" : "30"
-	"CRIT_DMG" : "80"
+	"CRIT_CH_FLAT" : "30"
+	"CRIT_DMG_FLAT" : "80"
 }
 }
 
@@ -401,11 +403,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "40"
+        "ATK_FLAT" : "40"
         "RNG" : "0"
 	"PIERCE" : "20"
-	"CRIT_CH" : "20"
-	"CRIT_DMG" : "75"
+	"CRIT_CH_FLAT" : "20"
+	"CRIT_DMG_FLAT" : "75"
 }
 }
 
@@ -419,11 +421,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "40"
+        "ATK_FLAT" : "40"
         "RNG" : "0"
 	"PIERCE" : "25"
-	"CRIT_CH" : "25"
-	"CRIT_DMG" : "80"
+	"CRIT_CH_FLAT" : "25"
+	"CRIT_DMG_FLAT" : "80"
 }
 }
 
@@ -437,12 +439,12 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "10"
-        "RNG" : ""
+        "ATK_FLAT" : "10"
+        "RNG" : "0"
 	"PIERCE" : "3"
-	"CRIT_CH" : "10"
-	"CRIT_DMG" : "20"
-	"ARM" : "20"
+	"CRIT_CH_FLAT" : "10"
+	"CRIT_DMG_FLAT" : "20"
+	"ARM_FLAT" : "20"
 }
 }
 
@@ -456,11 +458,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "30"
+        "ATK_FLAT" : "30"
         "RNG" : "0"
 	"PIERCE" : "30"
-	"CRIT_CH" : "25"
-	"CRIT_DMG" : "60"
+	"CRIT_CH_FLAT" : "25"
+	"CRIT_DMG_FLAT" : "60"
 }
 }
 
@@ -474,11 +476,11 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "35"
+        "ATK_FLAT" : "35"
         "RNG" : "2"
 	"PIERCE" : "30"
-	"CRIT_CH" : "35"
-	"CRIT_DMG" : "80"
+	"CRIT_CH_FLAT" : "35"
+	"CRIT_DMG_FLAT" : "80"
 }
 }
 
@@ -492,11 +494,11 @@
 "enchantment" : "шок"
 "chars" :
 {
-        "ATK" : "50"
+        "ATK_FLAT" : "50"
         "RNG" : "1"
 	"PIERCE" : "30"
-	"CRIT_CH" : "50"
-	"CRIT_DMG" : "120"
+	"CRIT_CH_FLAT" : "50"
+	"CRIT_DMG_FLAT" : "120"
 }
 }
 
@@ -510,11 +512,11 @@
 "enchantment" : "отравление"
 "chars" :
 {
-        "ATK" : "50"
+        "ATK_FLAT" : "50"
         "RNG" : "1"
 	"PIERCE" : "30"
-	"CRIT_CH" : "65"
-	"CRIT_DMG" : "100"
+	"CRIT_CH_FLAT" : "65"
+	"CRIT_DMG_FLAT" : "100"
 }
 }
 
@@ -528,11 +530,11 @@
 "enchantment" : "горение"
 "chars" :
 {
-        "ATK" : "50"
+        "ATK_FLAT" : "50"
         "RNG" : "3"
 	"PIERCE" : "25"
-	"CRIT_CH" : "50"
-	"CRIT_DMG" : "100"
+	"CRIT_CH_FLAT" : "50"
+	"CRIT_DMG_FLAT" : "100"
 }
 }
 
@@ -546,12 +548,12 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ATK" : "20"
+        "ATK_FLAT" : "20"
         "RNG" : "0"
 	"PIERCE" : "10"
-	"CRIT_CH" : "25"
-	"CRIT_DMG" : "50"
-	"ARM" : "100"
+	"CRIT_CH_FLAT" : "25"
+	"CRIT_DMG_FLAT" : "50"
+	"ARM_FLAT" : "100"
 }
 }
 
@@ -565,11 +567,11 @@
 "enchantment" : "кровотечение"
 "chars" :
 {
-        "ATK" : "45"
+        "ATK_FLAT" : "45"
         "RNG" : "0"
 	"PIERCE" : "45"
-	"CRIT_CH" : "100"
-	"CRIT_DMG" : "100"
+	"CRIT_CH_FLAT" : "100"
+	"CRIT_DMG_FLAT" : "100"
 }
 }
 
@@ -583,9 +585,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "1"
+        "ARM_FLAT" : "1"
 	"PIERCE_DEF" : "0"
-	"ARM_VIT" : "20"
+	"ARM_FLAT_VIT" : "20"
 }
 }
 
@@ -599,9 +601,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "1"
+        "ARM_FLAT" : "1"
 	"PIERCE_DEF" : "0"
-	"ARM_VIT" : "20"
+	"ARM_FLAT_VIT" : "20"
 }
 }
 
@@ -615,9 +617,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "3"
+        "ARM_FLAT" : "3"
 	"PIERCE_DEF" : "1"
-	"ARM_VIT" : "20"
+	"ARM_FLAT_VIT" : "20"
 }
 }
 
@@ -631,9 +633,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "2"
+        "ARM_FLAT" : "2"
 	"PIERCE_DEF" : "0"
-	"ARM_VIT" : "20"
+	"ARM_FLAT_VIT" : "20"
 }
 }
 
@@ -648,9 +650,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "1"
+        "ARM_FLAT" : "1"
 	"PIERCE_DEF" : "0"
-	"ARM_VIT" : "20"
+	"ARM_FLAT_VIT" : "20"
 }
 }
 
@@ -664,9 +666,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "2"
+        "ARM_FLAT" : "2"
 	"PIERCE_DEF" : "1"
-	"ARM_VIT" : "40"
+	"ARM_FLAT_VIT" : "40"
 }
 }
 
@@ -680,9 +682,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "6"
+        "ARM_FLAT" : "6"
 	"PIERCE_DEF" : "2"
-	"ARM_VIT" : "50"
+	"ARM_FLAT_VIT" : "50"
 }
 }
 
@@ -696,9 +698,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "2"
+        "ARM_FLAT" : "2"
 	"PIERCE_DEF" : "1"
-	"ARM_VIT" : "40"
+	"ARM_FLAT_VIT" : "40"
 }
 }
 
@@ -712,9 +714,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "3"
+        "ARM_FLAT" : "3"
 	"PIERCE_DEF" : "1"
-	"ARM_VIT" : "40"
+	"ARM_FLAT_VIT" : "40"
 }
 }
 
@@ -728,9 +730,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "2"
+        "ARM_FLAT" : "2"
 	"PIERCE_DEF" : "1"
-	"ARM_VIT" : "20"
+	"ARM_FLAT_VIT" : "20"
 }
 }
 
@@ -744,9 +746,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "3"
+        "ARM_FLAT" : "3"
 	"PIERCE_DEF" : "2"
-	"ARM_VIT" : "80"
+	"ARM_FLAT_VIT" : "80"
 }
 }
 
@@ -760,9 +762,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "9"
+        "ARM_FLAT" : "9"
 	"PIERCE_DEF" : "4"
-	"ARM_VIT" : "120"
+	"ARM_FLAT_VIT" : "120"
 }
 }
 
@@ -776,9 +778,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "3"
+        "ARM_FLAT" : "3"
 	"PIERCE_DEF" : "2"
-	"ARM_VIT" : "80"
+	"ARM_FLAT_VIT" : "80"
 }
 }
 
@@ -792,9 +794,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "4"
+        "ARM_FLAT" : "4"
 	"PIERCE_DEF" : "2"
-	"ARM_VIT" : "80"
+	"ARM_FLAT_VIT" : "80"
 }
 }
 
@@ -808,9 +810,9 @@
 "enchantment" : "нет"
 "chars" :
 {
-        "ARM" : "4"
+        "ARM_FLAT" : "4"
 	"PIERCE_DEF" : "2"
-	"ARM_VIT" : "80"
+	"ARM_FLAT_VIT" : "80"
 }
 }
 
@@ -824,9 +826,9 @@
 "enchantment" : "дальность"
 "chars" :
 {
-        "ARM" : "15"
+        "ARM_FLAT" : "15"
 	"PIERCE_DEF" : "6"
-	"ARM_VIT" : "200"
+	"ARM_FLAT_VIT" : "200"
 }
 }
 
@@ -840,9 +842,9 @@
 "enchantment" : "стойкость"
 "chars" :
 {
-        "ARM" : "20"
+        "ARM_FLAT" : "20"
 	"PIERCE_DEF" : "10"
-	"ARM_VIT" : "1000"
+	"ARM_FLAT_VIT" : "1000"
 }
 }
 
@@ -856,9 +858,9 @@
 "enchantment" : "ускорение"
 "chars" :
 {
-        "ARM" : "5"
+        "ARM_FLAT" : "5"
 	"PIERCE_DEF" : "5"
-	"ARM_VIT" : "200"
+	"ARM_FLAT_VIT" : "200"
 	"AGIL" : "5"
 }
 }

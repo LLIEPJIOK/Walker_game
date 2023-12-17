@@ -1,38 +1,84 @@
 #include "DataBase.h"
-DataBase* DataBase::data = 0;
 
-const int DataBase::MAX_ITEMS{ 50 };
+DataBase* DataBase::data = 0;
 
 DataBase::DataBase()
 {
+    initialize_equipment();
+    initialize_jewellery_stats();
+    initialize_effects();
 
+    // equipment_list.txt нужно будет переделать под JSON, когда будем реализовывать тиры предметов
     std::ifstream fin;
-    fin.open("../Game/Resources/Files/all_equipment_data.txt");
-	if (!fin.is_open())
-        throw;
-	fin.peek();
-	if (!fin.good())
-        throw;
-
-	std::string line;
-	std::string all_equip;
-	while (fin.good())
-	{
-		getline(fin, line);
-		all_equip += line + '\n';
-    }
-    fin.close();
-    all_equipment = new JSONObject(all_equip);
     fin.open("../Game/Resources/Files/equipment_list.txt");
+    if (!fin.is_open())
+        throw std::exception("equipment_list.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("equipment_list.txt is empty");
+
+    std::string line = "";
     while(fin.good())
     {
         getline(fin, line);
         equipment_list.push_back(line);
     }
     fin.close();
+}
 
+void DataBase::initialize_equipment()
+{
+    std::ifstream fin;
+    fin.open("../Game/Resources/Files/all_equipment_data.txt");
+    if (!fin.is_open())
+        throw std::exception("all_equipment_data.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("all_equipment_data.txt is empty");
 
+    std::string line;
+    std::string all_equip;
+    while (fin.good())
+    {
+        getline(fin, line);
+        all_equip += line;
+    }
+    fin.close();
+    all_equipment = new JSONObject(all_equip);
+}
+
+void DataBase::initialize_effects()
+{
+    std::ifstream fin;
+    fin.open("../Game/Resources/Files/all_effects_data.txt");
+    if (!fin.is_open())
+        throw std::exception("all_effects_data.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("all_effects_data.txt is empty");
+
+    std::string line;
+    std::string all_eff;
+    while (fin.good())
+    {
+        getline(fin, line);
+        all_eff += line;
+    }
+    fin.close();
+    all_effects = new JSONObject(all_eff);
+}
+
+void DataBase::initialize_jewellery_stats()
+{
+    std::ifstream fin;
     fin.open("../Game/Resources/Files/jewellery_stats.txt");
+    if (!fin.is_open())
+        throw std::exception("jewellery_stats.txt failed to open");
+    fin.peek();
+    if (!fin.good())
+        throw std::exception("jewellery_stats.txt is empty");
+
+    std::string line = "";
     std::string text = "";
     while(fin.good())
     {
@@ -41,41 +87,11 @@ DataBase::DataBase()
     }
     jewellery_stats = new JSONObject(text);
     fin.close();
-    generate_map();
-    generate_items();
-}
-
-DataBase::DataBase(int)
-{
-    std::ifstream fin;
-    fin.open("../Game/Resources/Files/all_equipment_data.txt");
-    if (!fin.is_open())
-        throw;
-    fin.peek();
-    if (!fin.good())
-        throw;
-
-    std::string line;
-    std::string all_equip;
-    while (fin.good())
-    {
-        getline(fin, line);
-        all_equip += line + '\n';
-    }
-    fin.close();
-
-    all_equipment = new JSONObject(all_equip);
-    while(fin.good())
-    {
-        getline(fin, line);
-        equipment_list.push_back(line);
-    }
-    fin.close();
 }
 
 void DataBase::generate_items()
 {
-    std::srand(time(NULL));
+    std::srand((unsigned int)time(NULL));
     int x, y;
     for(int i = 0; i < 200; i++)
     {
@@ -89,14 +105,89 @@ void DataBase::generate_items()
     }
 }
 
-JSONObject* DataBase::get_all_equipment_data()
+void DataBase::save(QFile &out)
+{
+    //запись height
+    out.write((char*)& height, sizeof(height));
+    //запись width
+    out.write((char*)& width, sizeof(width));
+    //внешний цикл для записи каждого объекта класса MapCell
+    for(int i = 0; i < height; i++)
+    {
+        //внутренний цикл для записи каждого объекта класса MapCell
+        for(int j = 0; j < width; j++)
+        {
+            //вызов метода записи объекта класса MapCell
+            map[i][j].save(out);
+        }
+    }
+
+    //размер контейнера sequence
+    size_t size = sequence.size();
+    //запись размера sequence
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Player
+    for(auto& i: sequence)
+    {
+        //вызов метода записи объекта класса Player
+        i->save(out);
+    }
+}
+
+void DataBase::load(QFile &in)
+{
+    //чтение height
+    in.read((char*)& height, sizeof(height));
+    //чтение width
+    in.read((char*)& width, sizeof(width));
+
+    //создание массива укаателей на MapCell рамзером  height
+    map = new MapCell*[height];
+    //внешний цикл для чтения каждого объекта класса MapCell
+    for(int i = 0; i < height; i++)
+    {
+        //создание массива объектов класса MapCell
+        map[i] = new MapCell[width];
+        //внутрениий цикл для чтения каждого объекта класса MapCell
+        for(int j = 0; j < width; j++)
+        {
+            //вызов метода чтения объекта класса MapCell
+            map[i][j].load(in);
+        }
+    }
+
+    //переменная для размера контейнера
+    size_t size;
+    //чтение размера контейнера sequence
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера sequence
+    sequence.clear();
+    sequence.reserve(size);
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //создание нового объекта класса Player
+        Player* pl = new Player("");
+        //вызов метода чтения объекта класса Player
+        pl->load(in);
+        //добавление в контейнер указателя на объект класса Player
+        sequence.push_back(pl);
+    }
+}
+
+JSONObject* DataBase::get_all_equipment_data() const
 {
     return all_equipment;
 }
 
-JSONObject *DataBase::get_jewellery_stats()
+JSONObject *DataBase::get_jewellery_stats() const
 {
     return  jewellery_stats;
+}
+
+JSONObject *DataBase::get_all_effects_data() const
+{
+    return all_effects;
 }
 
 std::vector<Player*>* DataBase::get_sequence()
@@ -114,7 +205,6 @@ void DataBase::generate_players(std::vector<std::pair<std::string, std::string> 
         sequence[i]->get_characteristics()["STR"] = data[i].second[0] - 48;
         sequence[i]->get_characteristics()["AGIL"] = data[i].second[1] - 48;
         sequence[i]->get_characteristics()["INT"] = data[i].second[2] - 48;
-        map[0][0].add_player(player);
     }
 }
 
@@ -125,6 +215,9 @@ DataBase::~DataBase()
     delete[]map;
 	for (auto i = sequence.begin(); i != sequence.end(); ++i)
         delete *i;
+    delete all_equipment;
+    delete jewellery_stats;
+    data = 0;
 }
 
 DataBase* DataBase::get_DataBase()
@@ -179,7 +272,6 @@ void DataBase::generate_map()
             fin >> c;
             if (c)
                 map[i][j].set_type_of_terrain("moving_area");
-            map[i][j].set_event_name("experiment");
         }
     }
     fin.close();
@@ -223,12 +315,7 @@ void DataBase::generate_map()
         }
 }
 
-void DataBase::clear_all_data()
-{
-
-}
-
-void DataBase::set_map(MapCell **map)
+void DataBase::set_map(MapCell**& map)
 {
     this->map = map;
 }

@@ -1,185 +1,89 @@
 
 #include "Event.h"
-#include "event_window.h"
+#include "Engine/Effect.h"
+#include <sys/stat.h> // для проверки валидности пути файла
 
 Events* Events::Events_data = 0;
 
-//void Event::dispell(Player& target)
-//{
-//
-//	for (auto i = target.get_active_effects()->begin(); i != target.get_active_effects()->end(); i++)
-//	{
-//		if((*i)->is_dispellable())
-//		{
-//			delete* i;
-//			i = target.get_active_effects()->erase(i);
-//		}
-//	}
-//}
+std::string from_invalid_to_missing_png(std::string path) // если путь картинки неверный, то картинка будет заменена на missingContentError.png
+{
+    // Path to the directory
+    const char* file = path.c_str();
 
+    // Structure which would store the metadata
+    struct stat sb;
 
-//void Events::charming_mermaid(Player& target)
-//{
-//	std::map<std::string, int> mermaid_charms;
-//	mermaid_charms.emplace(std::make_pair("ARM", 256));
-//	mermaid_charms.emplace(std::make_pair("QNT", -1));
-//	target.get_active_effects()->push_back(new Effect("charmed", "Temporary", "charming_mermaid", &mermaid_charms, 2, 1));
-//
-//	std::map<std::string, int> mermaid_blessing;
-//	mermaid_blessing.emplace(std::make_pair("HP", 2));
-//	mermaid_blessing.emplace(std::make_pair("MAXHP", 1));
-//	target.get_active_effects()->push_back(new Effect("charmed", "TemporaryConst", "charming_mermaid", &mermaid_blessing, 5, 1));
-//}
+    // Calls the function with path as argument
+    // If the file/directory exists at the path returns 0
+    // If block executes if path exists
+    if (stat(file, &sb) != 0 || (sb.st_mode & S_IFDIR))
+        return "../Game/Resources/Pictures/missingContentError.png";
 
-//
-//
-//
-//Events* Events::Events_data = 0;
-//
-//Event::Event()
-//{
-//	event_name = "";
-//}
-//
-//Event::Event(std::string _event_name)
-//{
-//	Event::event_name = _event_name;
-//}
-//
-//std::string Event::get_name()
-//{
-//	return event_name;
-//}
-//
-//Small_healing_event::Small_healing_event()
-//{
-//	event_name = "Small_healing_event";
-//}
-//
-//void Small_healing_event::execute(Player& target)
-//{
-//	for (const auto& i : *target.get_active_effects())
-//		if (i->get_effect_name() == "Small_healing")
-//		{
-//			i->set_effect_duration(6);
-//			return;
-//		}
-//	std::map<std::string, int> healing_chars;
-//	healing_chars.emplace(std::make_pair("HP", 1));
-//	target.get_active_effects()->push_back(new Effect("Small_healing", "TemporaryConst", &healing_chars, 6, 1));
-//}
-//
-//Slowdown_event::Slowdown_event()
-//{
-//	event_name = "Slowdown_event";
-//}
-//
-//void Slowdown_event::execute(Player& target)
-//{
-//
-//	for (const auto& i : *target.get_active_effects())
-//		if (i->get_effect_name() == "Slowddown")
-//		{
-//			i->set_effect_duration(2);
-//			return;
-//		}
-//	std::map<std::string, int> slowdown_chars;
-//	slowdown_chars.emplace(std::make_pair("ROLL", -1));
-//	target.get_active_effects()->push_back(new Effect("Slowdown", "Temporary", &slowdown_chars, 2, 1));
-//}
-//
-//Haste_event::Haste_event()
-//{
-//	event_name = "Haste_event";
-//}
-//
-//void Haste_event::execute(Player& target)
-//{
-//	for (const auto& i : *target.get_active_effects())
-//		if (i->get_effect_name() == "Haste")
-//		{
-//			i->set_effect_duration(2);
-//			return;
-//		}
-//	std::map<std::string, int> haste_chars;
-//	haste_chars.emplace(std::make_pair("QNT", 1));
-//	target.get_active_effects()->push_back(new Effect("Haste", "Temporary", &haste_chars, 2, 1));
-//}
-//
-//Events::~Events()
-//{
-//	for (const auto& i : *events)
-//		delete i;
-//
-//}
-//
-//Events::Events()
-//{
-//	events = new std::vector<Event*>;
-//
-//	events->push_back(new Small_healing_event());
-//	events->push_back(new Slowdown_event());
-//	events->push_back(new Haste_event());
-//
-//}
-//
-//Intoxication_event::Intoxication_event()
-//{
-//	event_name = "Intoxication_event";
-//}
-//
-//void Intoxication_event::execute(Player& target)
-//{
-//	for (const auto& i : *target.get_active_effects())
-//			if (i->get_effect_name() == "Intoxication")
-//			{
-//				i->set_effect_duration(3);
-//				return;
-//			}
-//		std::map<std::string, int> poison_chars;
-//		poison_chars.emplace(std::make_pair("HP", -1));
-//		target.get_active_effects()->push_back(new Effect("Intoxication", "TemporaryConst", &poison_chars, 3, 1));
-//}
-//
-//Die_insect_event::Die_insect_event()
-//{
-//	event_name = "Die_insect_event";
-//}
-//
-//void Die_insect_event::execute(Player& target)
-//{
-//	int subj = rand() % DataBase::get_DataBase("in.txt")->get_sequence()->size() + 1;
-//	std::map<std::string, Player*>::iterator it = DataBase::get_DataBase("in.txt")->get_sequence()->begin();
-//	for (int i = 0; i < subj; it++)
-//		;
-//	it->second->get_characteristics()["HP"] -= 8;
-//}
-//
-//std::vector<Event*>* Events::get_events()
-//{
-//	return events;
-//}
-//
-//Events* Events::get_Events()
-//{
-//	if (!Events_data)
-//		Events_data = new Events();
-//	return Events_data;
-//}
-
+    return path;
+}
 
 Event::Event(JSONObject* tmp)
 {
+    std::string cur = "event_name";
+    if (!tmp->is_in_values(cur)) // каждый раз проверяет, есть ли значение, соответствующее данному ключу.
+        throw std::invalid_argument(cur + " is not contained in JSON of Events");
+
     event_name = tmp->get_value("event_name");
-    img_path = "../Game/Resources/Pictures/" + tmp->get_value("img_path");
-    event_info = tmp->get_value("event_info");
+
+    cur = "img_path";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
+    img_path = from_invalid_to_missing_png("../Game/Resources/Pictures/" + tmp->get_value("img_path"));
+
+    cur = "event_info";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
+    event_info = tmp->get_value(cur);
+
+    cur = "option";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
     option = tmp->get_value("option");
+
+    cur = "success_text";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
     success_text = tmp->get_value("success_text");
+
+    cur = "failure_text";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
     failure_text = tmp->get_value("failure_text");
-    success_image = "../Game/Resources/Pictures/" + tmp->get_value("success_image");
-    failure_image = "../Game/Resources/Pictures/" + tmp->get_value("failure_image");
+
+    cur = "success_image";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
+    success_image = from_invalid_to_missing_png("../Game/Resources/Pictures/" + tmp->get_value("success_image"));
+
+    cur = "failure_image";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
+    failure_image = from_invalid_to_missing_png("../Game/Resources/Pictures/" + tmp->get_value("failure_image"));
+
+    cur = "type";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
     type = tmp->get_value("type");
+
+    cur = "requirement";
+    if (!tmp->is_in_values(cur))
+        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+
     requirement = stoi(tmp->get_value("requirement"));
+
 }
 
 std::string Event::get_event_name()
@@ -228,20 +132,138 @@ std::string Event::get_type()
     return type;
 }
 
-int Event::get_requirement()
+int Event::get_requirement(Player*)
 {
     return requirement;
 }
 
 
-void experiment_event::execute_success()
+void experiment_event::execute_success(Player*)
 {
 
 }
 
-void experiment_event::execute_failure()
+void experiment_event::execute_failure(Player*)
 {
 
+}
+
+int loggers_event::get_requirement(Player *pl)
+{
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
+    int stat = pl->get_characteristics().at("STR");
+    if (stat < 12)
+    {
+        return stat + 3 + luck_reduction;
+    }
+    else
+    {
+        return stat + 5 + luck_reduction;
+    }
+}
+
+void loggers_event::execute_success(Player* pl)
+{
+    int healed = (pl->get_characteristics().at("MAX_HP") - pl->get_characteristics().at("HP")) * 0.1; // 10% от разницы
+    pl->get_characteristics().at("HP") += healed;
+    pl->get_characteristics().at("STR") += 1;
+}
+
+void loggers_event::execute_failure(Player* pl)
+{
+    int damaged = pl->get_characteristics().at("HP") * 0.1; // 10% от текущего хп
+    pl->get_characteristics().at("HP") -= damaged;
+}
+
+int empty_house_event::get_requirement(Player *pl)
+{
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
+    int stat = pl->get_characteristics().at("AGIL");
+    if (stat < 10)
+    {
+        return stat + 4 + luck_reduction;
+    }
+    else if (stat < 16)
+    {
+        return stat + 3 + luck_reduction;
+    }
+    else
+    {
+        return stat + 2 + luck_reduction;
+    }
+}
+
+void empty_house_event::execute_success(Player *pl)
+{
+    int type = rand() % 3;
+    switch (type)
+    {
+    case 0: pl->add_item("Загадочное кольцо");
+        break;
+    case 1: pl->add_item("Загадочное ожерелье");
+        break;
+    case 2: pl->add_item("Загадочный пояс");
+        break;
+    }
+}
+
+void empty_house_event::execute_failure(Player *pl)
+{
+    Effect* eff = new Effect("слабость", pl);
+    eff->apply_effect();
+}
+
+int mushrooms_event::get_requirement(Player *pl)
+{
+    int luck_reduction = pl->get_characteristics().at("EVENT_ROLL_MOD") / 2;
+    int stat = pl->get_characteristics().at("INT");
+    if (stat < 8)
+    {
+        return stat + 3 + luck_reduction;
+    }
+    else
+    {
+        return stat + 2 + luck_reduction;
+    }
+}
+
+void mushrooms_event::execute_success(Player *pl)
+{
+    int type = rand() % 5;
+    switch (type)
+    {
+    case 0: pl->add_item("Зелье регенерации");
+        break;
+    case 1: pl->add_item("Зелье силы");
+        break;
+    case 2: pl->add_item("Зелье стойкости");
+        break;
+    case 3: pl->add_item("Зелье ускорения");
+        break;
+    case 4:
+{
+        int stat = pl->get_characteristics().at("INT");
+        if (stat < 5)
+        {
+            pl->add_item("Малое зелье лечения");
+        }
+        else if (stat < 10)
+        {
+            pl->add_item("Зелье лечения");
+        }
+        else
+        {
+            pl->add_item("Большое зелье лечения");
+        }
+        break;
+}
+    }
+}
+
+void mushrooms_event::execute_failure(Player *pl)
+{
+    Effect* eff = new Effect("отравление", pl);
+    eff->apply_effect();
 }
 
 Events::Events()
@@ -255,7 +277,12 @@ Events::Events()
     }
 
     JSONObject events_info(info);
-    events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment"))));
+
+    // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
+    // events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
+    events.emplace(std::make_pair("loggers", new loggers_event(&events_info.get_object("loggers"))));
+    events.emplace(std::make_pair("empty house", new empty_house_event(&events_info.get_object("empty house"))));
+    events.emplace(std::make_pair("mushrooms", new mushrooms_event(&events_info.get_object("mushrooms"))));
 
 }
 
@@ -270,4 +297,3 @@ Events *Events::get_Events()
         Events_data = new Events;
     return Events_data;
 }
-

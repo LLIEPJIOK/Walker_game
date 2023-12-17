@@ -1,7 +1,7 @@
-
 #ifndef MINIMAP_H
 #define MINIMAP_H
 
+#include "movingarea.h"
 
 #include <QFrame>
 #include <QPainter>
@@ -10,7 +10,6 @@
 #include <QPaintEvent>
 #include <QDragMoveEvent>
 #include <QApplication>
-#include "movingarea.h"
 
 class MiniMap : public QFrame
 {
@@ -21,8 +20,10 @@ private:
     GameMap* battle_map;
     MovingArea *moving_area;
     void paintEvent(QPaintEvent *event);
+    QPair<int, int> battle_map_size;
 
-signals:
+private slots:
+    void sync_moving_area(QPoint position);
 
 };
 

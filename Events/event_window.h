@@ -42,7 +42,9 @@ public slots:
     void challenge_button_was_clicked();
     void continue_playing();
 signals:
-    void send_event_choice(std::string _event_name, Player* _target, std::string attribute_choice);
+    void send_event_choice(std::string _event_name, Player* _target, std::string attribute_choice); // наследие или труп, как вам угодно...
+    void event_started();
+    void event_ended(); // сигнал, который указывает на конец ивента
 };
 
 #endif // EVENT_WINDOW_H

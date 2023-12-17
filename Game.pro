@@ -14,32 +14,41 @@ SOURCES += \
     Engine/Player.cpp \
     Engine/Turn.cpp \
     Engine/mapcell.cpp \
+    Engine/saveandloadmanager.cpp \
     Events/Event.cpp \
     Events/event_window.cpp \
+    GameInterface/Player_status_widget.cpp \
+    GameInterface/Advanced_chars_tab.cpp \
     GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
-    GameInterface/equipeditems.cpp \
-    GameInterface/gamemapobject.cpp \
-    GameInterface/inventory.cpp \
-    GameInterface/inventoryitem.cpp \
+    GameInterface/informationwindow.cpp \
     GameInterface/pausemenu.cpp \
-    GameInterface/playersmodel.cpp \
-    GameInterface/cell.cpp \
     GameInterface/game_interface.cpp \
-    GameInterface/gamemap.cpp \
-    GameInterface/infocell.cpp \
+    GameInterface/minimap.cpp \
+    GameInterface/movingarea.cpp \
+    Inventory/dragitem.cpp \
+    Inventory/dropitem.cpp \
+    Inventory/equipeditems.cpp \
+    Inventory/inventory.cpp \
+    Inventory/inventoryitem.cpp \
+    Map/cell.cpp \
+    Map/gamemap.cpp \
+    Map/gamemapobject.cpp \
+    Map/playersmodel.cpp \
     Menu/accept.cpp \
+    Menu/entername.cpp \
     Menu/exitwindow.cpp \
     Menu/general.cpp \
     Menu/initialsettings.cpp \
     Menu/menu.cpp \
     Menu/newgame.cpp \
     Menu/playerssettingswindow.cpp \
-    Menu/titers.cpp \
-    Menu/titerstext.cpp \
-    main.cpp \
-    GameInterface/minimap.cpp \
-    GameInterface/movingarea.cpp \
+    Menu/credits.cpp \
+    Menu/creditstext.cpp \
+    Menu/load.cpp \
+    Menu/loadframe.cpp \
+    Menu/loadslot.cpp \
+    main.cpp
 
 HEADERS += \
     Engine/DataBase.h \
@@ -48,32 +57,41 @@ HEADERS += \
     Engine/Json.h \
     Engine/Player.h \
     Engine/Turn.h \
+    Engine/saveandloadmanager.h \
     Engine/mapcell.h \
     Events/Event.h \
     Events/event_window.h \
+    GameInterface/Player_status_widget.h \
+    GameInterface/Advanced_chars_tab.h \
     GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
-    GameInterface/equipeditems.h \
-    GameInterface/gamemapobject.h \
-    GameInterface/inventory.h \
-    GameInterface/inventoryitem.h \
+    GameInterface/informationwindow.h \
     GameInterface/pausemenu.h \
-    GameInterface/playersmodel.h \
-    GameInterface/cell.h \
     GameInterface/game_interface.h \
-    GameInterface/gamemap.h \
-    GameInterface/infocell.h \
     GameInterface/minimap.h \
     GameInterface/movingarea.h \
+    Inventory/dragitem.h \
+    Inventory/dropitem.h \
+    Inventory/equipeditems.h \
+    Inventory/inventory.h \
+    Inventory/inventoryitem.h \
+    Map/cell.h \
+    Map/gamemap.h \
+    Map/gamemapobject.h \
+    Map/playersmodel.h \
     Menu/accept.h \
+    Menu/entername.h \
     Menu/exitwindow.h \
     Menu/general.h \
     Menu/initialsettings.h \
     Menu/menu.h \
     Menu/newgame.h \
     Menu/playerssettingswindow.h \
-    Menu/titers.h \
-    Menu/titerstext.h
+    Menu/credits.h \
+    Menu/creditstext.h \
+    Menu/load.h \
+    Menu/loadframe.h \
+    Menu/loadslot.h
 
 FORMS +=
 
@@ -81,23 +99,5 @@ FORMS +=
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    Engine/100.txt \
-    Engine/101.txt \
-    Engine/102.txt \
-    Engine/300.txt \
-    Engine/301.txt \
-    Engine/600.txt \
-    Engine/601.txt \
-    Engine/602.txt \
-    Engine/603.txt \
-    Engine/666.txt \
-    Engine/700.txt \
-    Engine/All_equipment_data.txt \
-    Engine/TEMPLATE.txt \
-    Engine/TestMap.txt \
-    Engine/Text.txt \
-    Engine/in.txt \
 
 RESOURCES +=

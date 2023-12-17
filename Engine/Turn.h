@@ -1,6 +1,9 @@
 #ifndef TURN_H
 #define TURN_H
 
+#include "Player.h"
+#include "Events/Event.h"
+
 #include <iostream>
 #include <ctime>
 #include <string>
@@ -8,14 +11,7 @@
 #include <iomanip>
 #include <thread>
 #include <chrono>
-#include "Player.h"
-#include "DataBase.h"
-
-#define seq DataBase::get_DataBase()->get_sequence()
-#define db DataBase::get_DataBase()
-#define sleep std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
-class Event;
+#include <QFile>
 
 class Turn
 {
@@ -27,6 +23,7 @@ private:
     bool game_over;
 
     int roll;
+    int rolled; // Никита, сохрани это поле!
 
     bool is_moving;
     bool has_already_moved;
@@ -45,7 +42,7 @@ private:
 
 public:
     static Turn* get_Turn();
-	~Turn();
+    ~Turn();
 
     Player* get_player();
     void set_player(Player* player);
@@ -54,6 +51,7 @@ public:
 
     void dice_roll();
     int get_roll();
+    int get_rolled();
 
     //Состояние текущего игрока во время хода
     bool get_moving();
@@ -62,6 +60,7 @@ public:
     void set_already_moved(bool moved);
     bool get_has_attacked();
     bool event_is_finished();
+
     void set_event_is_finished(bool finished);
     void set_has_attacked(bool atk);
     void set_game_over(bool over);
@@ -93,15 +92,15 @@ public:
     void set_chosen_direction(int x, int y);
     std::vector<std::pair<int, int>> move_player();
     std::vector<std::pair<int, int>> find_possible_ways();
-    void change_player_position(const int& x1, const int& y1, const int& x2, const int& y2) const;
+    //void change_player_position(const int& x1, const int& y1, const int& x2, const int& y2) const;
 
     std::set<Player*> check_players_in_range() const;
 
-    void save(std::string file_name);
-    void load(std::string file_name);
-    std::string load_players(std::vector<JSONObject*>* sequence);
-    std::string load_map(std::vector<JSONObject*>* map);
-    std::string load_turn(JSONObject* turn);
+    void save(QFile &out);
+    void load(QFile& in);
+
+    // был ли бросок кубика в это ходу
+    bool was_roll();
 };
 
 #endif //TURN_H

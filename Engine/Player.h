@@ -8,6 +8,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+
 #include "Equipment.h"
 
 class Effect;
@@ -18,7 +19,7 @@ private:
     static int CURRENT_ID;
     const int PLAYER_ID;
     std::string name;
-    std::pair<int, int> previos_direction;
+    std::pair<int, int> previous_direction;
     int x, y;
     int killed_player;
 
@@ -33,6 +34,10 @@ private:
     std::map<std::string, Weapon*> equiped_weaponary;
     std::map<std::string, Armour*> equiped_armourment;
     std::map<std::string, Jewel*> equiped_jewellery;
+
+    void save_all_items(QFile& out);
+    void load_all_items(QFile& in);
+    void load_equiped_items();
 
 public:
     Player(const std::string& _name);
@@ -53,7 +58,7 @@ public:
     void set_previous_direction(const std::pair<int, int>& dir);
     void change_x(const bool& is_right);
     void change_y(const bool& is_up);
-
+    void update_chars();
     static void set_current_id(int id);
 
 
@@ -83,6 +88,9 @@ public:
 
 
     int die();
+
+    void save(QFile& out);
+    void load(QFile& in);
 };
 
 #endif //PLAYER_H

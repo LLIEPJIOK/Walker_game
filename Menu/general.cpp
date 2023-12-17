@@ -1,6 +1,6 @@
 #include "general.h"
 
-General* General::general = 0;
+General* General::general = nullptr;
 
 General::~General()
 {
@@ -9,8 +9,11 @@ General::~General()
 
 General *General::get_general()
 {
-    if (!general)
+    if (general == nullptr)
+    {
         general = new General();
+    }
+
     return general;
 }
 
