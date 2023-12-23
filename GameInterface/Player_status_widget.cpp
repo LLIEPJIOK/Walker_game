@@ -9,7 +9,7 @@ void Player_status_widget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
-    QPixmap back("D:/Game/Game/Resources/Pictures/status.png");
+    QPixmap back("D:/Game/Game/Resources/Pictures/status_main.png");
     back = back.scaled(width(), height());
 
     QPainter painter;
