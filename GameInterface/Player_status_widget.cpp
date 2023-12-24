@@ -9,7 +9,7 @@ void Player_status_widget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
-    QPixmap back("D:/Game/Game/Resources/Pictures/status_main.png");
+    QPixmap back(":/backgrounds/Pictures/widget_backgrounds/status_main.png");
     back = back.scaled(width(), height());
 
     QPainter painter;
@@ -152,16 +152,16 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     advanced->setStyleSheet("QTabWidget::pane {"
         "border: 1px solid black;"
         "top:-1px; "
-        "background-image: url(D:/Game/Game/Resources/Pictures/status.png);"
+        "background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png);"
         "}"
     "QTabBar::tab {"
         "border: 1px solid lightblack; "
-        " background-image: url(D:/Game/Game/Resources/Pictures/status.png)"
+        " background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png)"
         "} "
     "QTabBar::tab:selected { "
         "border: 1px solid black; "
         "margin-bottom: -1px; "
-        "background-image: url(D:/Game/Game/Resources/Pictures/status.png)"
+        "background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png)"
         "}");
 
     main_layout->addWidget(advanced);
@@ -175,7 +175,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     main_layout->addWidget(effects_label);
 
     effects = new QListWidget();
-    effects->setStyleSheet("background-image: url(D:/Game/Game/Resources/Pictures/status.png);"
+    effects->setStyleSheet("background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png);"
                            "border: 1px solid black;");
     effects->addItem("Burning");
     effects->addItem("Intoxication");

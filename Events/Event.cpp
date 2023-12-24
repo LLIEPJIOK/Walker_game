@@ -1,6 +1,7 @@
 
 #include "Event.h"
 #include "Engine/Effect.h"
+#include <QTextStream>
 #include <sys/stat.h> // для проверки валидности пути файла
 
 Events* Events::Events_data = 0;
@@ -17,7 +18,7 @@ std::string from_invalid_to_missing_png(std::string path) // если путь �
     // If the file/directory exists at the path returns 0
     // If block executes if path exists
     if (stat(file, &sb) != 0 || (sb.st_mode & S_IFDIR))
-        return "../Game/Resources/Pictures/missingContentError.png";
+        return ":/events/Pictures/Events/missingContentError.png";
 
     return path;
 }

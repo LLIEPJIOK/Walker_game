@@ -123,7 +123,7 @@ void EquipedItems::find_place(Equipment *equip)
 void EquipedItems::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
-    QPixmap invetory_pic("../Game/Resources/Pictures/inventory.png");
+    QPixmap invetory_pic(":/backgrounds/Pictures/widget_backgrounds/inventory.png");
     invetory_pic = invetory_pic.scaled(width(), height());
 
     QPainter painter;

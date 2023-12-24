@@ -32,7 +32,7 @@ CongratulationWindow::CongratulationWindow(QWidget *parent, QString winner)
 void CongratulationWindow::paintEvent(QPaintEvent *event)
 {
 
-    QPixmap background("../Game/Resources/Pictures/Win.png");
+    QPixmap background(":/end/Pictures/End/Win.png");
     background = background.scaled(this->width(), this->height());
     QPainter painter(this);
     painter.setBrush(Qt::black);

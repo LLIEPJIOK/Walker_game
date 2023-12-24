@@ -4,7 +4,7 @@
 DragItem::DragItem(Equipment *item, QString icon, QWidget *parent) :
     InventoryItem(parent, item)
 {
-    this->icon.load("../Game/Resources/Pictures/Equipment/"+icon+".png");
+    this->icon.load(":/equipment/Pictures/Equipment/"+icon+".png");
 }
 
 void DragItem::set_equiped()

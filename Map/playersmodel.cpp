@@ -9,7 +9,7 @@ PlayersModel::PlayersModel(QObject *parent, int width, int height, QString icon)
     QPixmap pixmap_to_load;
     for (int i = 1; i < 6; i++)
     {
-        pixmap_to_load.load("../Game/Resources/Pictures/" + icon + "/" + icon + QString::number(i) + ".png");
+        pixmap_to_load.load(":/" + icon + "/Pictures/" + icon + '/' + icon + QString::number(i) + ".png");
         pixmap_to_load = pixmap_to_load.scaled(width, height);
         movement_frames.push_back(pixmap_to_load);
     }

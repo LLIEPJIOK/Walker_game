@@ -47,7 +47,7 @@ PauseMenu::PauseMenu(QMainWindow *parent)
 
 void PauseMenu::paintEvent(QPaintEvent *event)
 {
-    QPixmap background("../Game/Resources/Pictures/Background.png");
+    QPixmap background(":/backgrounds/Pictures/widget_backgrounds/Background.png");
     background = background.scaled(this->width(), this->height());
     QPainter painter(this);
     painter.drawPixmap(0, 0, background);

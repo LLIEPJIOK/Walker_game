@@ -74,7 +74,7 @@ void Inventory::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
-    QPixmap inventory("../Game/Resources/Pictures/inventory.png");
+    QPixmap inventory(":/backgrounds/Pictures/widget_backgrounds/inventory.png");
     inventory = inventory.scaled(width(), height());
 
     QPainter painter;

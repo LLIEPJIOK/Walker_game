@@ -6,7 +6,7 @@ DropItem::DropItem(QString _item_type, QString _place, QString standart_item, QW
     item_type = _item_type;
     place = _place;
     equiped_item = nullptr;
-    standart.load("../Game/Resources/Pictures/Equipment/" + standart_item + ".png");
+    standart.load(":/equipment/Pictures/Equipment/" + standart_item + ".png");
     current = standart;
     is_standart = true;
     setAcceptDrops(true);

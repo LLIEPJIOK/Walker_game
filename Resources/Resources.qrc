@@ -1,0 +1,96 @@
+<RCC>
+    <qresource prefix="/files">
+        <file>Files/all_effects_data.txt</file>
+        <file>Files/all_equipment_data.txt</file>
+        <file>Files/all_potions.txt</file>
+        <file>Files/Dice.txt</file>
+        <file>Files/equipment_list.txt</file>
+        <file>Files/Events.txt</file>
+        <file>Files/in.txt</file>
+        <file>Files/jewellery_stats.txt</file>
+        <file>Files/TEMPLATE.txt</file>
+        <file>Files/Text.txt</file>
+    </qresource>
+    <qresource prefix="/equipment">
+        <file>Pictures/Equipment/belt.png</file>
+        <file>Pictures/Equipment/boots.png</file>
+        <file>Pictures/Equipment/first_ring.png</file>
+        <file>Pictures/Equipment/gloves.png</file>
+        <file>Pictures/Equipment/helmet.png</file>
+        <file>Pictures/Equipment/necklace.png</file>
+        <file>Pictures/Equipment/pants.png</file>
+        <file>Pictures/Equipment/plate.png</file>
+        <file>Pictures/Equipment/ringAgil.png</file>
+        <file>Pictures/Equipment/ringInt.png</file>
+        <file>Pictures/Equipment/ringStr.png</file>
+        <file>Pictures/Equipment/second_ring.png</file>
+        <file>Pictures/Equipment/shield.png</file>
+        <file>Pictures/Equipment/sword.png</file>
+    </qresource>
+    <qresource prefix="/elf">
+        <file>Pictures/elf/elf1.png</file>
+        <file>Pictures/elf/elf2.png</file>
+        <file>Pictures/elf/elf3.png</file>
+        <file>Pictures/elf/elf4.png</file>
+        <file>Pictures/elf/elf5.png</file>
+    </qresource>
+    <qresource prefix="/dwarf">
+        <file>Pictures/dwarf/dwarf1.png</file>
+        <file>Pictures/dwarf/dwarf2.png</file>
+        <file>Pictures/dwarf/dwarf3.png</file>
+        <file>Pictures/dwarf/dwarf4.png</file>
+        <file>Pictures/dwarf/dwarf5.png</file>
+    </qresource>
+    <qresource prefix="/wizzard">
+        <file>Pictures/wizzard/wizzard1.png</file>
+        <file>Pictures/wizzard/wizzard2.png</file>
+        <file>Pictures/wizzard/wizzard3.png</file>
+        <file>Pictures/wizzard/wizzard4.png</file>
+        <file>Pictures/wizzard/wizzard5.png</file>
+    </qresource>
+    <qresource prefix="/knight">
+        <file>Pictures/knight/knight1.png</file>
+        <file>Pictures/knight/knight2.png</file>
+        <file>Pictures/knight/knight3.png</file>
+        <file>Pictures/knight/knight4.png</file>
+        <file>Pictures/knight/knight5.png</file>
+    </qresource>
+    <qresource prefix="/end">
+        <file>Pictures/End/Lose.png</file>
+        <file>Pictures/End/Win.png</file>
+    </qresource>
+    <qresource prefix="/events">
+        <file>Pictures/Events/Background.png</file>
+        <file>Pictures/Events/emptyHouse.png</file>
+        <file>Pictures/Events/emptyHouseLose.png</file>
+        <file>Pictures/Events/emptyHouseWin.png</file>
+        <file>Pictures/Events/event_background.jpg</file>
+        <file>Pictures/Events/Gambler.jpg</file>
+        <file>Pictures/Events/loggersLose.png</file>
+        <file>Pictures/Events/loggersWin.png</file>
+        <file>Pictures/Events/missingContentError.png</file>
+        <file>Pictures/Events/mushrooms.png</file>
+        <file>Pictures/Events/mushroomsLose.png</file>
+        <file>Pictures/Events/mushroomsWin.png</file>
+    </qresource>
+    <qresource prefix="/tiles">
+        <file>Pictures/Tiles/desert_.png</file>
+        <file>Pictures/Tiles/desert_8.png</file>
+        <file>Pictures/Tiles/desert_18.png</file>
+        <file>Pictures/Tiles/forest_.png</file>
+        <file>Pictures/Tiles/forest_8.png</file>
+        <file>Pictures/Tiles/forest_18.png</file>
+        <file>Pictures/Tiles/swamp_.png</file>
+        <file>Pictures/Tiles/swamp_8.png</file>
+        <file>Pictures/Tiles/swamp_18.png</file>
+        <file>Pictures/Tiles/tundra_.png</file>
+        <file>Pictures/Tiles/tundra_8.png</file>
+        <file>Pictures/Tiles/tundra_18.png</file>
+    </qresource>
+    <qresource prefix="/backgrounds">
+        <file>Pictures/widget_backgrounds/Background.png</file>
+        <file>Pictures/widget_backgrounds/inventory.png</file>
+        <file>Pictures/widget_backgrounds/status.png</file>
+        <file>Pictures/widget_backgrounds/status_main.png</file>
+    </qresource>
+</RCC>
