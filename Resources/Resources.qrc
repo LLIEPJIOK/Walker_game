@@ -60,18 +60,18 @@
         <file>Pictures/End/Win.png</file>
     </qresource>
     <qresource prefix="/events">
-        <file>Pictures/Events/Background.png</file>
-        <file>Pictures/Events/emptyHouse.png</file>
-        <file>Pictures/Events/emptyHouseLose.png</file>
-        <file>Pictures/Events/emptyHouseWin.png</file>
-        <file>Pictures/Events/event_background.jpg</file>
-        <file>Pictures/Events/Gambler.jpg</file>
-        <file>Pictures/Events/loggersLose.png</file>
-        <file>Pictures/Events/loggersWin.png</file>
+        <file>Pictures/Events/empty_house.png</file>
+        <file>Pictures/Events/empty_house_failure.png</file>
+        <file>Pictures/Events/empty_house_success.png</file>
+        <file>Pictures/Events/experiment.png</file>
+        <file>Pictures/Events/experiment_failure.png</file>
+        <file>Pictures/Events/loggers.png</file>
+        <file>Pictures/Events/loggers_failure.png</file>
+        <file>Pictures/Events/loggers_success.png</file>
+        <file>Pictures/Events/mushrooms_failure.png</file>
+        <file>Pictures/Events/mushrooms_success.png</file>
+        <file>Pictures/Events/event_background.png</file>
         <file>Pictures/Events/missingContentError.png</file>
-        <file>Pictures/Events/mushrooms.png</file>
-        <file>Pictures/Events/mushroomsLose.png</file>
-        <file>Pictures/Events/mushroomsWin.png</file>
     </qresource>
     <qresource prefix="/tiles">
         <file>Pictures/Tiles/desert_.png</file>

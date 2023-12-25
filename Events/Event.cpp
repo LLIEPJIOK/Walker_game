@@ -31,12 +31,6 @@ Event::Event(JSONObject* tmp)
 
     event_name = tmp->get_value("event_name");
 
-    cur = "img_path";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    img_path = from_invalid_to_missing_png("../Game/Resources/Pictures/" + tmp->get_value("img_path"));
-
     cur = "event_info";
     if (!tmp->is_in_values(cur))
         throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
@@ -61,18 +55,6 @@ Event::Event(JSONObject* tmp)
 
     failure_text = tmp->get_value("failure_text");
 
-    cur = "success_image";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    success_image = from_invalid_to_missing_png("../Game/Resources/Pictures/" + tmp->get_value("success_image"));
-
-    cur = "failure_image";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    failure_image = from_invalid_to_missing_png("../Game/Resources/Pictures/" + tmp->get_value("failure_image"));
-
     cur = "type";
     if (!tmp->is_in_values(cur))
         throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
@@ -90,11 +72,6 @@ Event::Event(JSONObject* tmp)
 std::string Event::get_event_name()
 {
     return event_name;
-}
-
-std::string Event::get_img_path()
-{
-    return img_path;
 }
 
 std::string Event::get_event_info()
@@ -116,16 +93,6 @@ std::string Event::get_success_text()
 std::string Event::get_failure_text()
 {
     return failure_text;
-}
-
-std::string Event::get_success_image()
-{
-    return success_image;
-}
-
-std::string Event::get_failure_image()
-{
-    return failure_image;
 }
 
 std::string Event::get_type()
@@ -282,7 +249,7 @@ Events::Events()
     // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
     // events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
     events.emplace(std::make_pair("loggers", new loggers_event(&events_info.get_object("loggers"))));
-    events.emplace(std::make_pair("empty house", new empty_house_event(&events_info.get_object("empty house"))));
+    events.emplace(std::make_pair("empty_house", new empty_house_event(&events_info.get_object("empty_house"))));
     events.emplace(std::make_pair("mushrooms", new mushrooms_event(&events_info.get_object("mushrooms"))));
 
 }

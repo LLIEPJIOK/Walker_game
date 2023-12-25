@@ -16,7 +16,7 @@ Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
 
     main_layout = new QVBoxLayout(this);
 
-    QPixmap img(QString::fromStdString(event->get_img_path())); // Картинки надо сделать с нормальным соотношением, потому что все пикчи - квадратные
+    QPixmap img(QString::fromStdString(":/events/Pictures/Events/" + event->get_event_name() + ".png")); // Картинки надо сделать с нормальным соотношением, потому что все пикчи - квадратные
     img.scaled(400, 400);
     img_label = new QLabel(this);
     img_label->setPixmap(img);
@@ -106,12 +106,12 @@ void Event_window::challenge_button_was_clicked()
 
     if((success = roll >= need))
     {
-        img_path = QString::fromStdString(event->get_success_image());
+        img_path = QString::fromStdString(":/events/Pictures/Events/" + event->get_event_name() + "_success.png");
         label = QString::fromStdString(event->get_success_text());
     }
     else
     {
-        img_path = QString::fromStdString(event->get_failure_image());
+        img_path = QString::fromStdString(":/events/Pictures/Events/" + event->get_event_name() + "_failure.png");
         label = QString::fromStdString(event->get_failure_text());
     }
 
