@@ -72,6 +72,7 @@
         <file>Pictures/Events/mushrooms_success.png</file>
         <file>Pictures/Events/event_background.png</file>
         <file>Pictures/Events/missingContentError.png</file>
+        <file>Pictures/Events/mushrooms.png</file>
     </qresource>
     <qresource prefix="/tiles">
         <file>Pictures/Tiles/desert_.png</file>
