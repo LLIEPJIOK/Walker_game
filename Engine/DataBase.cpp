@@ -205,6 +205,7 @@ void DataBase::generate_players(std::vector<std::pair<std::string, std::string> 
         sequence[i]->get_characteristics()["STR"] = data[i].second[0] - 48;
         sequence[i]->get_characteristics()["AGIL"] = data[i].second[1] - 48;
         sequence[i]->get_characteristics()["INT"] = data[i].second[2] - 48;
+        player->update_chars();
     }
 }
 

@@ -88,7 +88,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     health_bar = new QProgressBar(this);
     health_bar->setMinimum(0);
     health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
-    health_bar->setValue(assigned_player->get_characteristics().at("MAX_HP") / 3);
+    health_bar->setValue(assigned_player->get_characteristics().at("MAX_HP"));
     health_bar->setStyleSheet("QProgressBar {"
                               "background-color: pink;"
                               "color: black;"
@@ -206,11 +206,6 @@ Player_status_widget::~Player_status_widget()
 
 void Player_status_widget::update_all()
 {
-    // updates bar and atk label
-    health_bar->setValue(assigned_player->get_characteristics().at("HP"));
-    health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
-    ov_atk_value->setText(QString::number(assigned_player->get_characteristics().at("ATK")));
-
     // updates tabs
     for (int i = 0; i < 4; i++){
         advanced->setCurrentIndex(i);
@@ -220,10 +215,13 @@ void Player_status_widget::update_all()
     //updates all applied effects in qwlist
     effects->clear();
     for (Effect* eff : *assigned_player->get_active_effects()){
-        effects->addItem(QString::fromStdString(eff->get_effect_name()));
+        effects->addItem(QString::fromStdString(eff->get_effect_name()) + " (" + QString::number(eff->get_effect_duration()) + " х.)");
     }
 
-    advanced->setCurrentIndex(0);
+    // updates bar and atk label
+     health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
+    health_bar->setValue(assigned_player->get_characteristics().at("HP"));
+    ov_atk_value->setText(QString::number(assigned_player->get_characteristics().at("ATK")));
 }
 
 

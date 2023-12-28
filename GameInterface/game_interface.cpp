@@ -145,7 +145,7 @@ void GameInterface::initialize()
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
     update_all();
-
+    current_player_status->update_all();
     game_is_played = true;
 }
 
@@ -266,7 +266,7 @@ void GameInterface::next_turn_button_clicked()
     action->set_text(""); // делает окно действий пустым
 
     update_labels();
-
+    update_player_status();
     current_map->move_to_player();
 }
 
@@ -282,8 +282,6 @@ void GameInterface::roll_button_clicked()
 
 void GameInterface::status_button_clicked()
 {
-    current_player_status->update_all();
-    update_player_status();
     current_player_status->setVisible(!current_player_status->isVisible());
 }
 
@@ -326,6 +324,7 @@ void GameInterface::process_equip(Equipment *item, QString place)
         player->equip_jewel(dynamic_cast<Jewel*>(item), place.toStdString());
 
     update_labels();
+    current_player_status->update_all();
     current_player_status->update_all();
 }
 
@@ -450,6 +449,7 @@ void GameInterface::update_player_status()
     tmp->update_chars();
     update_labels();
     tmp->die();
+    current_player_status->update_all();
 }
 
 void GameInterface::process_event_start()
