@@ -167,6 +167,7 @@ void GameInterface::end_game()
 
     foreach(Inventory* inv, inventories)
         delete inv;
+
     inventories.clear();
     //inventories.shrink_to_fit();
 
@@ -174,6 +175,11 @@ void GameInterface::end_game()
         delete ei;
     equipment_slots.clear();
     //equipment_slots.shrink_to_fit();
+
+    foreach (Player_status_widget* w, players_statuses) {
+        delete w;
+    }
+    players_statuses.clear();
 
     delete current_map;
     current_map = nullptr;
@@ -324,7 +330,6 @@ void GameInterface::process_equip(Equipment *item, QString place)
         player->equip_jewel(dynamic_cast<Jewel*>(item), place.toStdString());
 
     update_labels();
-    current_player_status->update_all();
     current_player_status->update_all();
 }
 

@@ -187,15 +187,6 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
 
 Player_status_widget::~Player_status_widget()
 {
-    delete pl_img;
-    delete name_label;
-    delete ov_health_label;
-    delete ov_atk_label;
-
-    delete name_val;
-    delete health_bar;
-    delete ov_atk_value;
-
     for (auto t : advanced->children())
         delete t;
 

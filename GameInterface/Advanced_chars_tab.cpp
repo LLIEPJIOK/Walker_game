@@ -27,7 +27,7 @@ Advanced_chars_tab::Advanced_chars_tab(QWidget *parent, std::map<QString, QStrin
 
     stat_names = _stat_names;
 
-    for (std::pair<QString, QString> p : _stat_names) {
+    for (const std::pair<QString, QString> &p : _stat_names) {
         QLabel* key = new QLabel(this);
         key->setText(p.second);
         key->setStyleSheet("font-size: 12px;"
@@ -48,7 +48,7 @@ Advanced_chars_tab::Advanced_chars_tab(QWidget *parent, std::map<QString, QStrin
 }
 
 void Advanced_chars_tab::update_chars(Player* assigned_player){
-    for (auto i : chars) {
+    for (auto& i : chars) {
         i.second->setText(QString::number(assigned_player->get_characteristics().at(i.first.toStdString())));
     }
 }
