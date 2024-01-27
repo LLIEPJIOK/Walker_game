@@ -7,8 +7,10 @@
 #include <QObject>
 #include <map>
 #include <fstream>
-#include "Engine/Json.h"
+#include "Json/json.hpp"
 #include "Engine/Player.h"
+
+using json = nlohmann::json;
 
 class Event
 {
@@ -24,7 +26,7 @@ protected:
 
 public:
     Event();
-    Event(JSONObject*);
+    Event(json&);
 
     std::string get_type();
     std::string get_event_name();
@@ -41,7 +43,7 @@ public:
 class experiment_event : public Event
 {
 public:
-    experiment_event(JSONObject* tmp) : Event(tmp){}
+    experiment_event(json& tmp) : Event(tmp){}
     void execute_success(Player*);
     void execute_failure(Player*);
 };
@@ -49,7 +51,7 @@ public:
 class loggers_event : public Event
 {
 public:
-    loggers_event(JSONObject* tmp) : Event(tmp){}
+    loggers_event(json& tmp) : Event(tmp){}
     int get_requirement(Player* pl);
     void execute_success(Player* pl);
     void execute_failure(Player* pl);
@@ -58,7 +60,7 @@ public:
 class empty_house_event : public Event
 {
 public:
-    empty_house_event(JSONObject* tmp) : Event(tmp){}
+    empty_house_event(json& tmp) : Event(tmp){}
     int get_requirement(Player* pl);
     void execute_success(Player* pl);
     void execute_failure(Player* pl);
@@ -67,7 +69,7 @@ public:
 class mushrooms_event : public Event
 {
 public:
-    mushrooms_event(JSONObject* tmp) : Event(tmp){}
+    mushrooms_event(json& tmp) : Event(tmp){}
     int get_requirement(Player* pl);
     void execute_success(Player* pl);
     void execute_failure(Player* pl);

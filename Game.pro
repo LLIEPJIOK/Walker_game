@@ -10,7 +10,6 @@ SOURCES += \
     Engine/DataBase.cpp \
     Engine/Effect.cpp \
     Engine/Equipment.cpp \
-    Engine/Json.cpp \
     Engine/Player.cpp \
     Engine/Turn.cpp \
     Engine/mapcell.cpp \
@@ -54,7 +53,6 @@ HEADERS += \
     Engine/DataBase.h \
     Engine/Effect.h \
     Engine/Equipment.h \
-    Engine/Json.h \
     Engine/Player.h \
     Engine/Turn.h \
     Engine/saveandloadmanager.h \

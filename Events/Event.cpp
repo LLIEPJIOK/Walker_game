@@ -1,6 +1,7 @@
 
 #include "Event.h"
 #include "Engine/Effect.h"
+#include "Engine/Json.h"
 #include <QTextStream>
 #include <sys/stat.h> // для проверки валидности пути файла
 
@@ -23,49 +24,21 @@ std::string from_invalid_to_missing_png(std::string path) // если путь �
     return path;
 }
 
-Event::Event(JSONObject* tmp)
+Event::Event(json& tmp)
 {
-    std::string cur = "event_name";
-    if (!tmp->is_in_values(cur)) // каждый раз проверяет, есть ли значение, соответствующее данному ключу.
-        throw std::invalid_argument(cur + " is not contained in JSON of Events");
+    event_name = tmp["event_name"];
 
-    event_name = tmp->get_value("event_name");
+    event_info = tmp["event_info"];
 
-    cur = "event_info";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+    option = tmp["option"];
 
-    event_info = tmp->get_value(cur);
+    success_text = tmp["success_text"];
 
-    cur = "option";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
+    failure_text = tmp["failure_text"];
 
-    option = tmp->get_value("option");
+    type = tmp["type"];
 
-    cur = "success_text";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    success_text = tmp->get_value("success_text");
-
-    cur = "failure_text";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    failure_text = tmp->get_value("failure_text");
-
-    cur = "type";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    type = tmp->get_value("type");
-
-    cur = "requirement";
-    if (!tmp->is_in_values(cur))
-        throw std::invalid_argument(cur + " is not contained in JSON of" + event_name);
-
-    requirement = stoi(tmp->get_value("requirement"));
+    requirement = tmp["requirement"];
 
 }
 
@@ -237,20 +210,15 @@ void mushrooms_event::execute_failure(Player *pl)
 Events::Events()
 {
     std::ifstream fin("../Game/Resources/Files/Events.txt");
-    std::string info = "", line;
-    while(fin.good())
-    {
-        std::getline(fin, line);
-        info+= line;
-    }
 
-    JSONObject events_info(info);
+    json events_info = json::parse(fin);
+    fin.close();
 
     // убрать ивент из пула ивентов безболезненно можно здесь, закомментив нужный
     // events.emplace(std::make_pair("experiment", new experiment_event(events_info.get_object("experiment")))); // ничего не делает
-    events.emplace(std::make_pair("loggers", new loggers_event(&events_info.get_object("loggers"))));
-    events.emplace(std::make_pair("empty_house", new empty_house_event(&events_info.get_object("empty_house"))));
-    events.emplace(std::make_pair("mushrooms", new mushrooms_event(&events_info.get_object("mushrooms"))));
+    events.emplace(std::make_pair("loggers", new loggers_event(events_info["loggers"])));
+    events.emplace(std::make_pair("empty_house", new empty_house_event(events_info["empty_house"])));
+    events.emplace(std::make_pair("mushrooms", new mushrooms_event(events_info["mushrooms"])));
 
 }
 

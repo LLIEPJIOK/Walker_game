@@ -2,866 +2,859 @@
 
 "Зелье развеивания" : 
 {
-"name" : "Зелье развивания"
-"ID" : "300"
-"class" : "зелье"
-"type" : "мгновенное"
-"effect_type" : "п"
-"effect_name" : "развеивание"
-"tier" : "2"
-"duration" : "1"
-"chars" : {}
-}
+"name" : "Зелье развивания",
+"ID" : 300,
+"class" : "зелье",
+"type" : "мгновенное",
+"effect_type" : "п",
+"effect_name" : "развеивание",
+"tier" : 2,
+"duration" : 1
+},
 
 "Малое зелье лечения" : 
 {
-"name" : "Малое зелье лечения"
-"ID" : "301"
-"class" : "зелье"
-"type" : "мгновенное"
-"effect_type" : "о"
-"effect_name" : "нет"
-"tier" : "1"
-"duration" : "1"
+"name" : "Малое зелье лечения",
+"ID" : 301,
+"class" : "зелье",
+"type" : "мгновенное",
+"effect_type" : "о",
+"effect_name" : "нет",
+"tier" : 1,
+"duration" : 1,
 "chars" : 
 {
-"HP" : "10"
+"HP" : 10
 }
-}
+},
 
 "Зелье лечения" : 
 {
-"name" : "Зелье лечения"
-"ID" : "302"
-"class" : "зелье"
-"type" : "мгновенное"
-"effect_type" : "р"
-"effect_name" : "нет"
-"tier" : "2"
-"duration" : "1"
+"name" : "Зелье лечения",
+"ID" : 302,
+"class" : "зелье",
+"type" : "мгновенное",
+"effect_type" : "р",
+"effect_name" : "нет",
+"tier" : 2,
+"duration" : 1,
 "chars" : 
 {
-"HP" : "20"
+"HP" : 20
 }
-}
+},
 
 "Большое зелье лечения" : 
 {
-"name" : "Большое зелье лечения"
-"ID" : "303"
-"class" : "зелье"
-"type" : "мгновенное"
-"effect_type" : "г"
-"effect_name" : "нет"
-"tier" : "3"
-"duration" : "1"
+"name" : "Большое зелье лечения",
+"ID" : 303,
+"class" : "зелье",
+"type" : "мгновенное",
+"effect_type" : "г",
+"effect_name" : "нет",
+"tier" : 3,
+"duration" : 1,
 "chars" : 
 {
-"HP" : "30"
+"HP" : 30
 }
-}
+},
 
 "Зелье регенерации" : 
 {
-"name" : "Зелье регенерации"
-"ID" : "304"
-"class" : "зелье"
-"type" : "длительное"
-"effect_type" : "го"
-"effect_name" : "регенерация"
-"tier" : "2"
-"duration" : "3"
-"chars" : 
-{}
-}
+"name" : "Зелье регенерации",
+"ID" : 304,
+"class" : "зелье",
+"type" : "длительное",
+"effect_type" : "го",
+"effect_name" : "регенерация",
+"tier" : 2,
+"duration" : 3
+},
 
 "Зелье силы" : 
 {
-"name" : "Зелье силы"
-"ID" : "305"
-"class" : "зелье"
-"type" : "длительное"
-"effect_type" : "щл"
-"effect_name" : "усиление"
-"tier" : "3"
-"duration" : "3"
-"chars" : 
-{}
-}
+"name" : "Зелье силы",
+"ID" : 305,
+"class" : "зелье",
+"type" : "длительное",
+"effect_type" : "щл",
+"effect_name" : "усиление",
+"tier" : 3,
+"duration" : 3
+},
 
 "Зелье стойкости" : 
 {
-"name" : "Зелье стойкости"
-"ID" : "306"
-"class" : "зелье"
-"type" : "длительное"
-"effect_type" : "щз"
-"effect_name" : "стойкость"
-"tier" : "3"
-"duration" : "3"
+"name" : "Зелье стойкости",
+"ID" : 306,
+"class" : "зелье",
+"type" : "длительное",
+"effect_type" : "щз",
+"effect_name" : "стойкость",
+"tier" : 3,
+"duration" : 3,
 "chars" : 
 {
-	"HP" : "10"
+	"HP" : 10
 }
-}
+},
 
 "Зелье ускорения" : 
 {
-"name" : "Зелье ускорения"
-"ID" : "307"
-"class" : "зелье"
-"type" : "длительное"
-"effect_type" : "зж"
-"effect_name" : "ускорение"
-"tier" : "2"
-"duration" : "3"
-"chars" : 
-{}
-}
+"name" : "Зелье ускорения",
+"ID" : 307,
+"class" : "зелье",
+"type" : "длительное",
+"effect_type" : "зж",
+"effect_name" : "ускорение",
+"tier" : 2,
+"duration" : 3
+},
 
 "Ржавый меч" :
 {
-"name" : "Ржавый меч"
-"ID" : "101"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Ржавый меч",
+"ID" : 101,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : "1",
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "4"
-        "RNG" : "0"
-	"PIERCE" : "1"
-	"CRIT_CH_FLAT" : "4"
-	"CRIT_DMG_FLAT" : "10"
+        "ATK_FLAT" : 4,
+        "RNG" : 0,
+	"PIERCE" : 1,
+	"CRIT_CH_FLAT" : 4,
+	"CRIT_DMG_FLAT" : 10
 }
-}
+},
 
 
 
 "Ржавый колун" :
 {
-"name" : "Ржавый колун"
-"ID" : "102"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Ржавый колун",
+"ID" : 102,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "9"
-        "RNG" : "0"
-	"PIERCE" : "3"
-	"CRIT_CH_FLAT" : "8"
-	"CRIT_DMG_FLAT" : "15"
+        "ATK_FLAT" : 9,
+        "RNG" : 0,
+	"PIERCE" : 3,
+	"CRIT_CH_FLAT" : 8,
+	"CRIT_DMG_FLAT" : 15
 }
-}
+},
 
 "Кастет" :
 {
-"name" : "Кастет"
-"ID" : "103"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Кастет",
+"ID" : 103,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "4"
-        "RNG" : "0"
-	"PIERCE" : "0"
-	"CRIT_CH_FLAT" : "2"
-	"CRIT_DMG_FLAT" : "3"
+        "ATK_FLAT" : 4,
+        "RNG" : 0,
+	"PIERCE" : 0,
+	"CRIT_CH_FLAT" : 2,
+	"CRIT_DMG_FLAT" : 3
 }
-}
+},
 
 "Деревянный щит" :
 {
-"name" : "Деревянный щит"
-"ID" : "105"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Деревянный щит",
+"ID" : 105,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "3"
-        "RNG" : "0"
-	"PIERCE" : "0"
-	"CRIT_CH_FLAT" : "0"
-	"CRIT_DMG_FLAT" : "0"
-	"ARM_FLAT" : "5"
+        "ATK_FLAT" : 3,
+        "RNG" : 0,
+	"PIERCE" : 0,
+	"CRIT_CH_FLAT" : 0,
+	"CRIT_DMG_FLAT" : 0,
+	"ARM_FLAT" : 5
 }
-}
+},
 
 "Железная булава" :
 {
-"name" : "Железная булава"
-"ID" : "106"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железная булава",
+"ID" : 106,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "10"
-        "RNG" : "0"
-	"PIERCE" : "5"
-	"CRIT_CH_FLAT" : "5"
-	"CRIT_DMG_FLAT" : "30"
+        "ATK_FLAT" : 10,
+        "RNG" : 0,
+	"PIERCE" : 5,
+	"CRIT_CH_FLAT" : 5,
+	"CRIT_DMG_FLAT" : 30
 }
-}
+},
 
 "Железный меч" :
 {
-"name" : "Железный меч"
-"ID" : "107"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный меч",
+"ID" : 107,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "10"
-        "RNG" : "0"
-	"PIERCE" : "6"
-	"CRIT_CH_FLAT" : "10"
-	"CRIT_DMG_FLAT" : "20"
+        "ATK_FLAT" : 10,
+        "RNG" : 0,
+	"PIERCE" : 6,
+	"CRIT_CH_FLAT" : 10,
+	"CRIT_DMG_FLAT" : 20
 }
-}
+},
 
 "Железный топор" :
 {
-"name" : "Железный топор"
-"ID" : "108"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный топор",
+"ID" : 108,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "10"
-        "RNG" : "0"
-	"PIERCE" : "4"
-	"CRIT_CH_FLAT" : "12"
-	"CRIT_DMG_FLAT" : "18"
+        "ATK_FLAT" : 10,
+        "RNG" : 0,
+	"PIERCE" : 4,
+	"CRIT_CH_FLAT" : 12,
+	"CRIT_DMG_FLAT" : 18
 }
-}
+},
 
 "Железный двуручный меч" :
 {
-"name" : "Железный двуручный меч"
-"ID" : "109"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный двуручный меч",
+"ID" : 109,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "18"
-        "RNG" : "0"
-	"PIERCE" : "13"
-	"CRIT_CH_FLAT" : "10"
-	"CRIT_DMG_FLAT" : "20"
+        "ATK_FLAT" : 18,
+        "RNG" : 0,
+	"PIERCE" : 13,
+	"CRIT_CH_FLAT" : 10,
+	"CRIT_DMG_FLAT" : 20
 }
-}
+},
 
 "Железный молот" :
 {
-"name" : "Железный молот"
-"ID" : "110"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный молот",
+"ID" : 110,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "20"
-        "RNG" : "0"
-	"PIERCE" : "12"
-	"CRIT_CH_FLAT" : "12"
-	"CRIT_DMG_FLAT" : "60"
+        "ATK_FLAT" : 20,
+        "RNG" : 0,
+	"PIERCE" : 12,
+	"CRIT_CH_FLAT" : 12,
+	"CRIT_DMG_FLAT" : 60
 }
-}
+},
 
 "Железная секира" :
 {
-"name" : "Железная секира"
-"ID" : "111"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железная секира",
+"ID" : 111,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "22"
-        "RNG" : "0"
-	"PIERCE" : "10"
-	"CRIT_CH_FLAT" : "12"
-	"CRIT_DMG_FLAT" : "60"
+        "ATK_FLAT" : 22,
+        "RNG" : 0,
+	"PIERCE" : 10,
+	"CRIT_CH_FLAT" : 12,
+	"CRIT_DMG_FLAT" : 60
 }
-}
+},
 
 "Железный щит" :
 {
-"name" : "Железный щит"
-"ID" : "112"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный щит",
+"ID" : 112,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "10"
-        "RNG" : "0"
-	"PIERCE" : "1"
-	"CRIT_CH_FLAT" : "5"
-	"CRIT_DMG_FLAT" : "10"
-	"ARM_FLAT" : "10"
+        "ATK_FLAT" : 10,
+        "RNG" : 0,
+	"PIERCE" : 1,
+	"CRIT_CH_FLAT" : 5,
+	"CRIT_DMG_FLAT" : 10,
+	"ARM_FLAT" : 10
 }
-}
+},
 
 "Стальная булава" :
 {
-"name" : "Стальная булава"
-"ID" : "113"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальная булава",
+"ID" : 113,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "20"
-        "RNG" : "0"
-	"PIERCE" : "15"
-	"CRIT_CH_FLAT" : "10"
-	"CRIT_DMG_FLAT" : "60"
+        "ATK_FLAT" : 20,
+        "RNG" : 0,
+	"PIERCE" : 15,
+	"CRIT_CH_FLAT" : 10,
+	"CRIT_DMG_FLAT" : 60
 }
-}
+},
 
 "Стальной меч" :
 {
-"name" : "Стальной меч"
-"ID" : "114"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной меч",
+"ID" : 114,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "20"
-        "RNG" : "0"
-	"PIERCE" : "15"
-	"CRIT_CH_FLAT" : "20"
-	"CRIT_DMG_FLAT" : "40"
+        "ATK_FLAT" : 20,
+        "RNG" : 0,
+	"PIERCE" : 15,
+	"CRIT_CH_FLAT" : 20,
+	"CRIT_DMG_FLAT" : 40
 }
-}
+},
 
 "Стальной топор" :
 {
-"name" : "Стальной топор"
-"ID" : "115"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной топор",
+"ID" : 115,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "20"
-        "RNG" : "0"
-	"PIERCE" : "13"
-	"CRIT_CH_FLAT" : "15"
-	"CRIT_DMG_FLAT" : "50"
+        "ATK_FLAT" : 20,
+        "RNG" : 0,
+	"PIERCE" : 13,
+	"CRIT_CH_FLAT" : 15,
+	"CRIT_DMG_FLAT" : 50
 }
-}
+},
 
 "Стальной двуручный меч" :
 {
-"name" : "Стальной двуручный меч"
-"ID" : "116"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной двуручный меч",
+"ID" : 116,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "40"
-        "RNG" : "0"
-	"PIERCE" : "20"
-	"CRIT_CH_FLAT" : "30"
-	"CRIT_DMG_FLAT" : "80"
+        "ATK_FLAT" : 40,
+        "RNG" : 0,
+	"PIERCE" : 20,
+	"CRIT_CH_FLAT" : 30,
+	"CRIT_DMG_FLAT" : 80
 }
-}
+},
 
 "Стальная секира" :
 {
-"name" : "Стальная секира"
-"ID" : "117"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальная секира",
+"ID" : 117,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "40"
-        "RNG" : "0"
-	"PIERCE" : "20"
-	"CRIT_CH_FLAT" : "20"
-	"CRIT_DMG_FLAT" : "75"
+        "ATK_FLAT" : 40,
+        "RNG" : 0,
+	"PIERCE" : 20,
+	"CRIT_CH_FLAT" : 20,
+	"CRIT_DMG_FLAT" : 75
 }
-}
+},
 
 "Стальной боевой молот" :
 {
-"name" : "Стальной боевой молот"
-"ID" : "118"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной боевой молот",
+"ID" : 118,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "40"
-        "RNG" : "0"
-	"PIERCE" : "25"
-	"CRIT_CH_FLAT" : "25"
-	"CRIT_DMG_FLAT" : "80"
+        "ATK_FLAT" : 40,
+        "RNG" : 0,
+	"PIERCE" : 25,
+	"CRIT_CH_FLAT" : 25,
+	"CRIT_DMG_FLAT" : 80
 }
-}
+},
 
 "Стальной щит" :
 {
-"name" : "Стальной щит"
-"ID" : "119"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной щит",
+"ID" : 119,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "10"
-        "RNG" : "0"
-	"PIERCE" : "3"
-	"CRIT_CH_FLAT" : "10"
-	"CRIT_DMG_FLAT" : "20"
-	"ARM_FLAT" : "20"
+        "ATK_FLAT" : 10,
+        "RNG" : 0,
+	"PIERCE" : 3,
+	"CRIT_CH_FLAT" : 10,
+	"CRIT_DMG_FLAT" : 20,
+	"ARM_FLAT" : 20
 }
-}
+},
 
 "Алебарда" :
 {
-"name" : "Алебарда"
-"ID" : "120"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Алебарда",
+"ID" : 120,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "30"
-        "RNG" : "0"
-	"PIERCE" : "30"
-	"CRIT_CH_FLAT" : "25"
-	"CRIT_DMG_FLAT" : "60"
+        "ATK_FLAT" : 30,
+        "RNG" : 0,
+	"PIERCE" : 30,
+	"CRIT_CH_FLAT" : 25,
+	"CRIT_DMG_FLAT" : 60
 }
-}
+},
 
 "Арбалет" :
 {
-"name" : "Арбалет"
-"ID" : "121"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Арбалет",
+"ID" : 121,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "35"
-        "RNG" : "2"
-	"PIERCE" : "30"
-	"CRIT_CH_FLAT" : "35"
-	"CRIT_DMG_FLAT" : "80"
+        "ATK_FLAT" : 35,
+        "RNG" : 2,
+	"PIERCE" : 30,
+	"CRIT_CH_FLAT" : 35,
+	"CRIT_DMG_FLAT" : 80
 }
-}
+},
 
 "Мьёлнир" :
 {
-"name" : "Мьёлнир"
-"ID" : "130"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "4"
-"enchantment" : "шок"
+"name" : "Мьёлнир",
+"ID" : 130,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 4,
+"enchantment" : "шок",
 "chars" :
 {
-        "ATK_FLAT" : "50"
-        "RNG" : "1"
-	"PIERCE" : "30"
-	"CRIT_CH_FLAT" : "50"
-	"CRIT_DMG_FLAT" : "120"
+        "ATK_FLAT" : 50,
+        "RNG" : 1,
+	"PIERCE" : 30,
+	"CRIT_CH_FLAT" : 50,
+	"CRIT_DMG_FLAT" : 120
 }
-}
+},
 
 "Копье Пелея" :
 {
-"name" : "Копье Пелея"
-"ID" : "140"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "4"
-"enchantment" : "отравление"
+"name" : "Копье Пелея",
+"ID" : 140,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 4,
+"enchantment" : "отравление",
 "chars" :
 {
-        "ATK_FLAT" : "50"
-        "RNG" : "1"
-	"PIERCE" : "30"
-	"CRIT_CH_FLAT" : "65"
-	"CRIT_DMG_FLAT" : "100"
+        "ATK_FLAT" : 50,
+        "RNG" : 1,
+	"PIERCE" : 30,
+	"CRIT_CH_FLAT" : 65,
+	"CRIT_DMG_FLAT" : 100
 }
-}
+},
 
 "Лук Аполонна" :
 {
-"name" : "Лук Аполонна"
-"ID" : "150"
-"class" : "оружие"
-"type" : "двуручное"
-"tier" : "4"
-"enchantment" : "горение"
+"name" : "Лук Аполонна",
+"ID" : 150,
+"class" : "оружие",
+"type" : "двуручное",
+"tier" : 4,
+"enchantment" : "горение",
 "chars" :
 {
-        "ATK_FLAT" : "50"
-        "RNG" : "3"
-	"PIERCE" : "25"
-	"CRIT_CH_FLAT" : "50"
-	"CRIT_DMG_FLAT" : "100"
+        "ATK_FLAT" : 50,
+        "RNG" : 3,
+	"PIERCE" : 25,
+	"CRIT_CH_FLAT" : 50,
+	"CRIT_DMG_FLAT" : 100
 }
-}
+},
 
 "Щит Ахилла" :
 {
-"name" : "Щит Ахилла"
-"ID" : "160"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "4"
-"enchantment" : "нет"
+"name" : "Щит Ахилла",
+"ID" : 160,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 4,
+"enchantment" : "нет",
 "chars" :
 {
-        "ATK_FLAT" : "20"
-        "RNG" : "0"
-	"PIERCE" : "10"
-	"CRIT_CH_FLAT" : "25"
-	"CRIT_DMG_FLAT" : "50"
-	"ARM_FLAT" : "100"
+        "ATK_FLAT" : 20,
+        "RNG" : 0,
+	"PIERCE" : 10,
+	"CRIT_CH_FLAT" : 25,
+	"CRIT_DMG_FLAT" : 50,
+	"ARM_FLAT" : 100
 }
-}
+},
 
 "Серп Кроноса" :
 {
-"name" : "Серп Кроноса"
-"ID" : "170"
-"class" : "оружие"
-"type" : "одноручное"
-"tier" : "4"
-"enchantment" : "кровотечение"
-"chars" :
+"name" : "Серп Кроноса",
+"ID" : 170,
+"class" : "оружие",
+"type" : "одноручное",
+"tier" : 4,
+"enchantment" : "кровотечение",
+"chars" : 
 {
-        "ATK_FLAT" : "45"
-        "RNG" : "0"
-	"PIERCE" : "45"
-	"CRIT_CH_FLAT" : "100"
-	"CRIT_DMG_FLAT" : "100"
+        "ATK_FLAT" : 45,
+        "RNG" : 0,
+	"PIERCE" : 45,
+	"CRIT_CH_FLAT" : 100,
+	"CRIT_DMG_FLAT" : 100
 }
-}
+},
 
 "Кожаный шлем" :
 {
-"name" : "Кожаный шлем"
-"ID" : "200"
-"class" : "броня"
-"type" : "шлем"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Кожаный шлем",
+"ID" : 200,
+"class" : "броня",
+"type" : "шлем",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "1"
-	"PIERCE_DEF" : "0"
-	"ARM_FLAT_VIT" : "20"
+        "ARM_FLAT" : 1,
+	"PIERCE_DEF" : 0,
+	"ARM_FLAT_VIT" : 20
 }
-}
+},
 
 "Кожаные перчатки" :
 {
-"name" : "Кожаные перчатки"
-"ID" : "201"
-"class" : "броня"
-"type" : "перчатки"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Кожаные перчатки",
+"ID" : 201,
+"class" : "броня",
+"type" : "перчатки",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "1"
-	"PIERCE_DEF" : "0"
-	"ARM_FLAT_VIT" : "20"
+        "ARM_FLAT" : 1,
+	"PIERCE_DEF" : 0,
+	"ARM_FLAT_VIT" : 20
 }
-}
+},
 
 "Кожаный нагрудник" :
 {
-"name" : "Кожаный нагрудник"
-"ID" : "202"
-"class" : "броня"
-"type" : "нагрудник"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Кожаный нагрудник",
+"ID" : 202,
+"class" : "броня",
+"type" : "нагрудник",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "3"
-	"PIERCE_DEF" : "1"
-	"ARM_FLAT_VIT" : "20"
+        "ARM_FLAT" : 3,
+	"PIERCE_DEF" : 1,
+	"ARM_FLAT_VIT" : 20
 }
-}
+},
 
 "Кожаные поножи" :
 {
-"name" : "Кожаные поножи"
-"ID" : "206"
-"class" : "броня"
-"type" : "поножи"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Кожаные поножи",
+"ID" : 206,
+"class" : "броня",
+"type" : "поножи",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "2"
-	"PIERCE_DEF" : "0"
-	"ARM_FLAT_VIT" : "20"
+        "ARM_FLAT" : 2,
+	"PIERCE_DEF" : 0,
+	"ARM_FLAT_VIT" : 20
 }
-}
+},
 
 
 "Кожаные сапоги" :
 {
-"name" : "Кожаные сапоги"
-"ID" : "203"
-"class" : "броня"
-"type" : "сапоги"
-"tier" : "1"
-"enchantment" : "нет"
+"name" : "Кожаные сапоги",
+"ID" : 203,
+"class" : "броня",
+"type" : "сапоги",
+"tier" : 1,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "1"
-	"PIERCE_DEF" : "0"
-	"ARM_FLAT_VIT" : "20"
+        "ARM_FLAT" : 1,
+	"PIERCE_DEF" : 0,
+	"ARM_FLAT_VIT" : 20
 }
-}
+},
 
 "Железный шлем" :
 {
-"name" : "Железный шлем"
-"ID" : "204"
-"class" : "броня"
-"type" : "шлем"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный шлем",
+"ID" : 204,
+"class" : "броня",
+"type" : "шлем",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "2"
-	"PIERCE_DEF" : "1"
-	"ARM_FLAT_VIT" : "40"
+        "ARM_FLAT" : 2,
+	"PIERCE_DEF" : 1,
+	"ARM_FLAT_VIT" : 40
 }
-}
+},
 
 "Железный нагрудник" :
 {
-"name" : "Железный нагрудник"
-"ID" : "205"
-"class" : "броня"
-"type" : "нагрудник"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железный нагрудник",
+"ID" : 205,
+"class" : "броня",
+"type" : "нагрудник",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "6"
-	"PIERCE_DEF" : "2"
-	"ARM_FLAT_VIT" : "50"
+        "ARM_FLAT" : 6,
+	"PIERCE_DEF" : 2,
+	"ARM_FLAT_VIT" : 50
 }
-}
+},
 
 "Железные перчатки" :
 {
-"name" : "Железные перчатки"
-"ID" : "206"
-"class" : "броня"
-"type" : "перчатки"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железные перчатки",
+"ID" : 206,
+"class" : "броня",
+"type" : "перчатки",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "2"
-	"PIERCE_DEF" : "1"
-	"ARM_FLAT_VIT" : "40"
+        "ARM_FLAT" : 2,
+	"PIERCE_DEF" : 1,
+	"ARM_FLAT_VIT" : 40
 }
-}
+},
 
 "Железные поножи" :
 {
-"name" : "Железные поножи"
-"ID" : "207"
-"class" : "броня"
-"type" : "поножи"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железные поножи",
+"ID" : 207,
+"class" : "броня",
+"type" : "поножи",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "3"
-	"PIERCE_DEF" : "1"
-	"ARM_FLAT_VIT" : "40"
+        "ARM_FLAT" : 3,
+	"PIERCE_DEF" : 1,
+	"ARM_FLAT_VIT" : 40
 }
-}
+},
 
 "Железные сапоги" :
 {
-"name" : "Железные сапоги"
-"ID" : "208"
-"class" : "броня"
-"type" : "сапоги"
-"tier" : "2"
-"enchantment" : "нет"
+"name" : "Железные сапоги",
+"ID" : 208,
+"class" : "броня",
+"type" : "сапоги",
+"tier" : 2,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "2"
-	"PIERCE_DEF" : "1"
-	"ARM_FLAT_VIT" : "20"
+        "ARM_FLAT" : 2,
+	"PIERCE_DEF" : 1,
+	"ARM_FLAT_VIT" : 20
 }
-}
+},
 
 "Стальной шлем" :
 {
-"name" : "Стальной шлем"
-"ID" : "209"
-"class" : "броня"
-"type" : "шлем"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной шлем",
+"ID" : 209,
+"class" : "броня",
+"type" : "шлем",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "3"
-	"PIERCE_DEF" : "2"
-	"ARM_FLAT_VIT" : "80"
+        "ARM_FLAT" : 3,
+	"PIERCE_DEF" : 2,
+	"ARM_FLAT_VIT" : 80
 }
-}
+},
 
 "Стальной нагрудник" :
 {
-"name" : "Стальной нагрудник"
-"ID" : "210"
-"class" : "броня"
-"type" : "нагрудник"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальной нагрудник",
+"ID" : 210,
+"class" : "броня",
+"type" : "нагрудник",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "9"
-	"PIERCE_DEF" : "4"
-	"ARM_FLAT_VIT" : "120"
+        "ARM_FLAT" : 9,
+	"PIERCE_DEF" : 4,
+	"ARM_FLAT_VIT" : 120
 }
-}
+},
 
 "Стальные перчатки" :
 {
-"name" : "Стальные перчатки"
-"ID" : "211"
-"class" : "броня"
-"type" : "перчатки"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальные перчатки",
+"ID" : 211,
+"class" : "броня",
+"type" : "перчатки",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "3"
-	"PIERCE_DEF" : "2"
-	"ARM_FLAT_VIT" : "80"
+        "ARM_FLAT" : 3,
+	"PIERCE_DEF" : 2,
+	"ARM_FLAT_VIT" : 80
 }
-}
+},
 
 "Стальные поножи" :
 {
-"name" : "Стальные поножи"
-"ID" : "212"
-"class" : "броня"
-"type" : "поножи"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальные поножи",
+"ID" : 212,
+"class" : "броня",
+"type" : "поножи",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "4"
-	"PIERCE_DEF" : "2"
-	"ARM_FLAT_VIT" : "80"
+        "ARM_FLAT" : 4,
+	"PIERCE_DEF" : 2,
+	"ARM_FLAT_VIT" : 80
 }
-}
+},
 
 "Стальные сапоги" :
 {
-"name" : "Стальные сапоги"
-"ID" : "213"
-"class" : "броня"
-"type" : "сапоги"
-"tier" : "3"
-"enchantment" : "нет"
+"name" : "Стальные сапоги",
+"ID" : 213,
+"class" : "броня",
+"type" : "сапоги",
+"tier" : 3,
+"enchantment" : "нет",
 "chars" :
 {
-        "ARM_FLAT" : "4"
-	"PIERCE_DEF" : "2"
-	"ARM_FLAT_VIT" : "80"
+        "ARM_FLAT" : 4,
+	"PIERCE_DEF" : 2,
+	"ARM_FLAT_VIT" : 80
 }
-}
+},
 
 "Госвит" :
 {
-"name" : "Госвит"
-"ID" : "220"
-"class" : "броня"
-"type" : "шлем"
-"tier" : "4"
-"enchantment" : "дальность"
+"name" : "Госвит",
+"ID" : 220,
+"class" : "броня",
+"type" : "шлем",
+"tier" : 4,
+"enchantment" : "дальность",
 "chars" :
 {
-        "ARM_FLAT" : "15"
-	"PIERCE_DEF" : "6"
-	"ARM_FLAT_VIT" : "200"
+        "ARM_FLAT" : 5,
+	"PIERCE_DEF" : 6,
+	"ARM_FLAT_VIT" : 200
 }
-}
+},
 
 "Шкура немейского льва" :
 {
-"name" : "Шкура немейского льва"
-"ID" : "230"
-"class" : "броня"
-"type" : "нагрудник"
-"tier" : "4"
-"enchantment" : "стойкость"
+"name" : "Шкура немейского льва",
+"ID" : 230,
+"class" : "броня",
+"type" : "нагрудник",
+"tier" : 4,
+"enchantment" : "стойкость",
 "chars" :
 {
-        "ARM_FLAT" : "20"
-	"PIERCE_DEF" : "10"
-	"ARM_FLAT_VIT" : "1000"
+        "ARM_FLAT" : 20,
+	"PIERCE_DEF" : 10,
+	"ARM_FLAT_VIT" : 1000
 }
-}
+},
 
 "Таларии" :
 {
-"name" : "Таларии"
-"ID" : "240"
-"class" : "броня"
-"type" : "сапоги"
-"tier" : "4"
-"enchantment" : "ускорение"
+"name" : "Таларии",
+"ID" : 240,
+"class" : "броня",
+"type" : "сапоги",
+"tier" : 4,
+"enchantment" : "ускорение",
 "chars" :
 {
-        "ARM_FLAT" : "5"
-	"PIERCE_DEF" : "5"
-	"ARM_FLAT_VIT" : "200"
-	"AGIL" : "5"
+        "ARM_FLAT" : 5,
+	"PIERCE_DEF" :5,
+	"ARM_FLAT_VIT" : 200,
+	"AGIL" :5
 }
 }
 

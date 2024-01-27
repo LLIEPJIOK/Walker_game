@@ -1,14 +1,15 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include "Json.h"
-#include "mapcell.h"
 
 #include <exception>
 #include <map>
 #include <iostream>
 #include <fstream>
 #include <QFile>
+
+#include "mapcell.h"
+#include "Json/json.hpp"
 
 const std::string map_file = "../Game/Resources/Files/in.txt";
 
@@ -18,9 +19,9 @@ class DataBase
     int height, width;
     std::vector <std::string> equipment_list;
 
-	JSONObject* all_equipment;
-    JSONObject* all_effects;
-    JSONObject* jewellery_stats;
+    nlohmann::json all_equipment;
+    nlohmann::json all_effects;
+    nlohmann::json jewellery_stats;
 
     std::vector <Player*> sequence;
 	static DataBase* data;
@@ -39,9 +40,9 @@ public:
     MapCell** get_map() const;
     int get_height() const;
     int get_width() const;
-    JSONObject* get_all_equipment_data() const;
-    JSONObject* get_jewellery_stats() const;
-    JSONObject* get_all_effects_data() const;
+    nlohmann::json get_all_equipment_data() const;
+    nlohmann::json get_jewellery_stats() const;
+    nlohmann::json get_all_effects_data() const;
     std::vector <Player*>* get_sequence();
 
     void set_height(int _height);

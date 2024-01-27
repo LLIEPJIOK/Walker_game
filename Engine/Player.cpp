@@ -3,6 +3,8 @@
 #include "Effect.h"
 #include "Turn.h"
 
+
+
 #define seq DataBase::get_DataBase()->get_sequence()
 int Player::CURRENT_ID = 0;
 
@@ -311,36 +313,42 @@ void Player::attack(Player* pl)
 
 void Player::use_potion(Potion* potion)
 {
-    if (potion->get_type() == "мгновенное")
-    {
-        for (const auto& i : *potion->get_item_characteristics()) // увеличение хар-к навсегда
+    if (potion->get_effect_name() == "развеивание"){
+        Effect eff(potion->get_effect_name(), this, potion->get_duration());
+        eff.execute_effect();
+    }
+    else {
+        if (potion->get_type() == "мгновенное")
         {
-            std::string ch = i.first;
-            int value = i.second;
-            if (ch == "HP" && characteristics["HP"] + value >= characteristics["MAX_HP"]) // проверка на избыток здоровья
+            for (const auto& i : *potion->get_item_characteristics()) // увеличение хар-к навсегда
             {
-                characteristics["HP"] = characteristics["MAX_HP"];
-                continue;
+                std::string ch = i.first;
+                int value = i.second;
+                if (ch == "HP" && characteristics["HP"] + value >= characteristics["MAX_HP"]) // проверка на избыток здоровья
+                {
+                    characteristics["HP"] = characteristics["MAX_HP"];
+                    continue;
+                }
+
+                characteristics[ch] += value;
             }
 
-            characteristics[ch] += value;
+            if(potion->get_effect_name() != "нет") // если зелье имеет эффект
+            {
+                Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
+                eff->apply_effect();
+            }
         }
-
-        if(potion->get_effect_name() != "нет") // если зелье имеет эффект
+        else // наложение соотв. эффекта на игрока
         {
             Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
             eff->apply_effect();
         }
-    }
-    else // наложение соотв. эффекта на игрока
-    {
-        Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
-        eff->apply_effect();
-	}
 
-    update_chars();
-    potions.erase(potion);
-	delete potion;
+        update_chars();
+        potions.erase(potion);
+        delete potion;
+    }
 }
 
 int Player::die()
@@ -367,7 +375,6 @@ int Player::die()
 
 void Player::process_active_effects() // производит исполнение эффектов, уменьшение их времени действия и увеличения кол-ва стаков
 {
-
     for (auto i = active_effects.begin(); i!=active_effects.end();)
     {
         (*i)->execute_effect();
@@ -375,7 +382,7 @@ void Player::process_active_effects() // производит исполнени
         (*i)->inc_counter();
 		if (!(*i)->get_effect_duration())
 		{
-			(*i)->reverse_effect(*this);
+            (*i)->reverse_effect(*this);
             delete* i;
             i = active_effects.erase(i);
             continue;
@@ -463,12 +470,17 @@ Equipment* Player::add_item(const std::string& equipment_id)
     }
 
     std::map<std::string, int> item_characteristics;
-    for (const auto& i : DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_object("chars").get_name_to_value())
-        item_characteristics.emplace(std::make_pair(i.first, stoi(i.second)));
-    std::string name = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("name");
-    int item_id = stoi(DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("ID"));
-    std::string type = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("type");
-    std::string equipment_class = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("class");
+    if (DataBase::get_DataBase()->get_all_equipment_data()[equipment_id].contains("chars")) {
+        json k = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("chars");
+        for (auto& [key, value] : k.items()) {
+            item_characteristics.emplace(std::make_pair(key, value));
+        }
+    } // access problems, thus copying into k;
+
+    std::string name = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("name");
+    int item_id = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("ID");
+    std::string type = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("type");
+    std::string equipment_class = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("class");
 
     if (equipment_class == "оружие")
     {
@@ -483,8 +495,8 @@ Equipment* Player::add_item(const std::string& equipment_id)
         return item;
     }
 
-    int dur = stoi(DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("duration"));
-    std::string effect_name = DataBase::get_DataBase()->get_all_equipment_data()->get_object(equipment_id).get_value("effect_name");
+    int dur = DataBase::get_DataBase()->get_all_equipment_data()[equipment_id]["duration"];
+    std::string effect_name = DataBase::get_DataBase()->get_all_equipment_data()[equipment_id]["effect_name"];
     Potion* item = new Potion(item_id, name, equipment_class, item_characteristics, type, dur, effect_name);
     potions.insert(item);
     return item;

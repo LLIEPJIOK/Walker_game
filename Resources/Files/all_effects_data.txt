@@ -2,202 +2,195 @@
 
 "экспериментальный эффект" : 
 {
-"effect_name" : "экспериментальный эффект"
-"effect_type" : "нейтральный"
-"effect_duration" : "-1"
-"effect_counter" : "1"
-"dispellable" : "0"
+"effect_name" : "экспериментальный эффект",
+"effect_type" : "нейтральный",
+"effect_duration" : -1,
+"effect_counter" : 1,
+"dispellable" : false,
 "special_chs" :
 {
-"HP" : "100"
-"ARM" : "100"
-"CRIT_CH_MULTI" : "1000"
-"CRIT_DMG_FLAT" : "200"
-"CRIT_DMG_MULTI" : "1000"
+"HP" : 100,
+"ARM" : 100,
+"CRIT_CH_MULTI" : 1000,
+"CRIT_DMG_FLAT" : 200,
+"CRIT_DMG_MULTI" : 1000
 }
-}
+},
 
 "регенерация" : 
 {
-"effect_name" : "регенерация"
-"effect_type" : "положительный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
-"special_chs" : {}
-}
+"effect_name" : "регенерация",
+"effect_type" : "положительный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true
+},
 
 "горение" : 
 {
-"effect_name" : "горение"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
-"special_chs" : {}
-}
+"effect_name" : "горение",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true
+},
 
 "отравление" : 
 {
-"effect_name" : "отравление"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
-"special_chs" : {}
-}
+"effect_name" : "отравление",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true
+},
 
 "кровотечение" : 
 {
-"effect_name" : "кровотечение"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
-"special_chs" : {}
-}
+"effect_name" : "кровотечение",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true
+},
 
 "обморожение" : 
 {
-"effect_name" : "обморожение"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
+"effect_name" : "обморожение",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true,
 "special_chs" : 
 {
-	"ROLL_MOD" = "-2"
-	"CRIT_CH_MULTI" = "-20"
+	"ROLL_MOD" : -2,
+	"CRIT_CH_MULTI" : -20
 }
-}
+},
 
 "шок" : 
 {
-"effect_name" : "шок"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
+"effect_name" : "шок",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true,
 "special_chs" :
 {
-	"CRIT_CH_MULTI" = "-30"
-	"CRIT_DMG_MULTI" = "-40"
+	"CRIT_CH_MULTI" : -30,
+	"CRIT_DMG_MULTI" : -40
 }
-}
+},
 
 "слабость" : 
 {
-"effect_name" : "слабость"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "0"
+"effect_name" : "слабость",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : false,
 "special_chs" : 
 {
-	"ATK_MULTI" = "-50"
-	"CRIT_CH_MULTI" = "-10"
-	"CRIT_DMG_MULTI" "-20"
+	"ATK_MULTI" : -50,
+	"CRIT_CH_MULTI" : -10,
+	"CRIT_DMG_MULTI" : -20
 }
-}
+},
 
 "усиление" : 
 {
-"effect_name" : "усиление"
-"effect_type" : "положительный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "0"
+"effect_name" : "усиление",
+"effect_type" : "положительный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : false,
 "special_chs" : 
 {
-	"ATK_MULTI" = "20"
-	"CRIT_CH_MULTI" = "20"
-	"CRIT_DMG_MULTI" "40"
+	"ATK_MULTI" : 20,
+	"CRIT_CH_MULTI" : 20,
+	"CRIT_DMG_MULTI": 40
 }
-}
+},
 
 "стойкость" : 
 {
-"effect_name" : "стойкость"
-"effect_type" : "положительный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "0"
+"effect_name" : "стойкость",
+"effect_type" : "положительный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : false,
 "special_chs" : 
 {
-	"MAX_HP" : "20"
-	"ARM_MULTI" : "30"
+	"MAX_HP" : 20,
+	"ARM_MULTI" : 30
 }
-}
+},
 
 "ускорение" : 
 {
-"effect_name" : "ускорение"
-"effect_type" : "положительный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
+"effect_name" : "ускорение",
+"effect_type" : "положительный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true,
 "special_chs" : 
 {
-	"ROLL_MOD" = "2"
-	"AGIL" = "3"
+	"ROLL_MOD" : 2,
+	"AGIL" : 3
 }
-}
+},
 
 "замедление" : 
 {
-"effect_name" : "замедление"
-"effect_type" : "отрицательный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
+"effect_name" : "замедление",
+"effect_type" : "отрицательный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true,
 "special_chs" : 
 {
-	"ROLL_MOD" = "-2"
-	"AGIL" = "-3"
+	"ROLL_MOD" : -2,
+	"AGIL" : -3
 }
-}
+},
 
 "удача" : 
 {
-"effect_name" : "удача"
-"effect_type" : "положительный"
-"effect_duration" : "3"
-"effect_counter" : "1"
-"dispellable" : "1"
+"effect_name" : "удача",
+"effect_type" : "положительный",
+"effect_duration" : 3,
+"effect_counter" : 1,
+"dispellable" : true,
 "special_chs" : 
 {
-	"EVENT_ROLL_MOD" : "1"
+	"EVENT_ROLL_MOD" : 1
 }
-}
+},
 
 "развеивание" : 
 {
-"effect_name" : "развеивание"
-"effect_type" : "нейтральный"
-"effect_duration" : "1"
-"effect_counter" : "1"
-"dispellable" : "0"
-"special_chs" : {}
-}
+"effect_name" : "развеивание",
+"effect_type" : "нейтральный",
+"effect_duration" : 1,
+"effect_counter" : 1,
+"dispellable" : false
+},
 
 "развеивание отрицательных эффектов" : 
 {
-"effect_name" : "развеивание"
-"effect_type" : "положительный"
-"effect_duration" : "1"
-"effect_counter" : "1"
-"dispellable" : "0"
-"special_chs" : {}
-}
+"effect_name" : "развеивание",
+"effect_type" : "положительный",
+"effect_duration" : 1,
+"effect_counter" : 1,
+"dispellable" : false
+},
 
 "развеивание положительных эффектов" : 
 {
-"effect_name" : "развеивание положительных эффектов"
-"effect_type" : "отрицательный"
-"effect_duration" : "1"
-"effect_counter" : "1"
-"dispellable" : "0"
-"special_chs" : {}
+"effect_name" : "развеивание положительных эффектов",
+"effect_type" : "отрицательный",
+"effect_duration" : 1,
+"effect_counter" : 1,
+"dispellable" : false
 }
 
 }

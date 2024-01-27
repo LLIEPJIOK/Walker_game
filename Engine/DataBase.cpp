@@ -2,6 +2,8 @@
 
 DataBase* DataBase::data = 0;
 
+using json = nlohmann::json;
+
 DataBase::DataBase()
 {
     initialize_equipment();
@@ -30,62 +32,23 @@ void DataBase::initialize_equipment()
 {
     std::ifstream fin;
     fin.open("../Game/Resources/Files/all_equipment_data.txt");
-    if (!fin.is_open())
-        throw std::exception("all_equipment_data.txt failed to open");
-    fin.peek();
-    if (!fin.good())
-        throw std::exception("all_equipment_data.txt is empty");
-
-    std::string line;
-    std::string all_equip;
-    while (fin.good())
-    {
-        getline(fin, line);
-        all_equip += line;
-    }
+    all_equipment = json::parse(fin);
     fin.close();
-    all_equipment = new JSONObject(all_equip);
 }
 
 void DataBase::initialize_effects()
 {
     std::ifstream fin;
     fin.open("../Game/Resources/Files/all_effects_data.txt");
-    if (!fin.is_open())
-        throw std::exception("all_effects_data.txt failed to open");
-    fin.peek();
-    if (!fin.good())
-        throw std::exception("all_effects_data.txt is empty");
-
-    std::string line;
-    std::string all_eff;
-    while (fin.good())
-    {
-        getline(fin, line);
-        all_eff += line;
-    }
+    all_effects = json::parse(fin);
     fin.close();
-    all_effects = new JSONObject(all_eff);
 }
 
 void DataBase::initialize_jewellery_stats()
 {
     std::ifstream fin;
     fin.open("../Game/Resources/Files/jewellery_stats.txt");
-    if (!fin.is_open())
-        throw std::exception("jewellery_stats.txt failed to open");
-    fin.peek();
-    if (!fin.good())
-        throw std::exception("jewellery_stats.txt is empty");
-
-    std::string line = "";
-    std::string text = "";
-    while(fin.good())
-    {
-        getline(fin, line);
-        text+=line;
-    }
-    jewellery_stats = new JSONObject(text);
+    jewellery_stats = json::parse(fin);
     fin.close();
 }
 
@@ -175,17 +138,17 @@ void DataBase::load(QFile &in)
     }
 }
 
-JSONObject* DataBase::get_all_equipment_data() const
+nlohmann::json DataBase::get_all_equipment_data() const
 {
     return all_equipment;
 }
 
-JSONObject *DataBase::get_jewellery_stats() const
+nlohmann::json DataBase::get_jewellery_stats() const
 {
     return  jewellery_stats;
 }
 
-JSONObject *DataBase::get_all_effects_data() const
+nlohmann::json DataBase::get_all_effects_data() const
 {
     return all_effects;
 }
@@ -213,11 +176,11 @@ DataBase::~DataBase()
 {
     for (int i = 0; i < height; ++i)
         delete[]map[i];
+
     delete[]map;
 	for (auto i = sequence.begin(); i != sequence.end(); ++i)
         delete *i;
-    delete all_equipment;
-    delete jewellery_stats;
+
     data = 0;
 }
 
