@@ -55,7 +55,6 @@ private:
     MiniMap *mini_map;
 
     QVector<QPushButton*> buttons;
-    QVector<QLabel*> labels;
 
     QVector<Inventory*> inventories;
     Inventory *current_inventory;
@@ -80,9 +79,6 @@ private:
     // обновляет все инвентари и слоты для экипировки
     void update_all_inventories_and_slots();
 
-    // обновляет все лейблы
-    void update_labels();
-
     // обновляет карту
     void update_map();
 
@@ -103,7 +99,6 @@ private slots:
     void enable_next_button();
     void add_item(Equipment* item);
     void pause_button();
-    void remaining_rolls();
     void to_main();
     void process_equip(Equipment* item, QString place);
     void process_unequip(Equipment* item, QString place);
