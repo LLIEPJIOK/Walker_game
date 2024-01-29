@@ -1,25 +1,25 @@
 {
 
-"Зелье развеивания" : 
+"Potion of dispell" : 
 {
-"name" : "Зелье развивания",
+"name" : "Potion of dispell",
 "ID" : 300,
-"class" : "зелье",
-"type" : "мгновенное",
-"effect_type" : "п",
-"effect_name" : "развеивание",
+"class" : "potion",
+"type" : "instant",
+"effect_type" : "positive",
+"effect_name" : "dispell",
 "tier" : 2,
 "duration" : 1
 },
 
-"Малое зелье лечения" : 
+"Lesser healing potion" : 
 {
-"name" : "Малое зелье лечения",
+"name" : "Lesser healing potion",
 "ID" : 301,
-"class" : "зелье",
-"type" : "мгновенное",
-"effect_type" : "о",
-"effect_name" : "нет",
+"class" : "potion",
+"type" : "instant",
+"effect_type" : "negative",
+"effect_name" : "none",
 "tier" : 1,
 "duration" : 1,
 "chars" : 
@@ -28,14 +28,14 @@
 }
 },
 
-"Зелье лечения" : 
+"Healing potion" : 
 {
-"name" : "Зелье лечения",
+"name" : "Healing potion",
 "ID" : 302,
-"class" : "зелье",
-"type" : "мгновенное",
-"effect_type" : "р",
-"effect_name" : "нет",
+"class" : "potion",
+"type" : "instant",
+"effect_type" : "рositive",
+"effect_name" : "none",
 "tier" : 2,
 "duration" : 1,
 "chars" : 
@@ -44,14 +44,14 @@
 }
 },
 
-"Большое зелье лечения" : 
+"Great healing potion" : 
 {
-"name" : "Большое зелье лечения",
+"name" : "Great healing potion",
 "ID" : 303,
-"class" : "зелье",
-"type" : "мгновенное",
-"effect_type" : "г",
-"effect_name" : "нет",
+"class" : "potion",
+"type" : "instant",
+"effect_type" : "positive",
+"effect_name" : "none",
 "tier" : 3,
 "duration" : 1,
 "chars" : 
@@ -60,38 +60,38 @@
 }
 },
 
-"Зелье регенерации" : 
+"Potion of regeneration" : 
 {
-"name" : "Зелье регенерации",
+"name" : "Potion of regeneration",
 "ID" : 304,
-"class" : "зелье",
-"type" : "длительное",
-"effect_type" : "го",
-"effect_name" : "регенерация",
+"class" : "potion",
+"type" : "lasting",
+"effect_type" : "positive",
+"effect_name" : "regeneration",
 "tier" : 2,
 "duration" : 3
 },
 
-"Зелье силы" : 
+"Potion of power" : 
 {
-"name" : "Зелье силы",
+"name" : "Potion of power",
 "ID" : 305,
-"class" : "зелье",
-"type" : "длительное",
+"class" : "potion",
+"type" : "lasting",
 "effect_type" : "щл",
 "effect_name" : "усиление",
 "tier" : 3,
 "duration" : 3
 },
 
-"Зелье стойкости" : 
+"Potion of endurance" : 
 {
-"name" : "Зелье стойкости",
+"name" : "Potion endurance",
 "ID" : 306,
-"class" : "зелье",
-"type" : "длительное",
-"effect_type" : "щз",
-"effect_name" : "стойкость",
+"class" : "potion",
+"type" : "lasting",
+"effect_type" : "positive",
+"effect_name" : "endurance",
 "tier" : 3,
 "duration" : 3,
 "chars" : 
@@ -100,26 +100,26 @@
 }
 },
 
-"Зелье ускорения" : 
+"Potion of haste" : 
 {
-"name" : "Зелье ускорения",
+"name" : "Potion of haste",
 "ID" : 307,
-"class" : "зелье",
-"type" : "длительное",
-"effect_type" : "зж",
-"effect_name" : "ускорение",
+"class" : "potion",
+"type" : "lasting",
+"effect_type" : "positive",
+"effect_name" : "haste",
 "tier" : 2,
 "duration" : 3
 },
 
-"Ржавый меч" :
+"Rusty sword" :
 {
-"name" : "Ржавый меч",
+"name" : "Rusty sword",
 "ID" : 101,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : "1",
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 4,
@@ -130,16 +130,14 @@
 }
 },
 
-
-
-"Ржавый колун" :
+"Rusty axe" :
 {
-"name" : "Ржавый колун",
+"name" : "Rusty axe",
 "ID" : 102,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 9,
@@ -150,14 +148,14 @@
 }
 },
 
-"Кастет" :
+"Knuckles" :
 {
-"name" : "Кастет",
+"name" : "Knuckles",
 "ID" : 103,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 4,
@@ -168,14 +166,14 @@
 }
 },
 
-"Деревянный щит" :
+"Wood shield" :
 {
-"name" : "Деревянный щит",
+"name" : "Wood shield",
 "ID" : 105,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 3,
@@ -187,14 +185,14 @@
 }
 },
 
-"Железная булава" :
+"Iron mace" :
 {
-"name" : "Железная булава",
+"name" : "Iron mace",
 "ID" : 106,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 10,
@@ -205,14 +203,14 @@
 }
 },
 
-"Железный меч" :
+"Iron sword" :
 {
-"name" : "Железный меч",
+"name" : "Iron sword",
 "ID" : 107,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 10,
@@ -223,14 +221,14 @@
 }
 },
 
-"Железный топор" :
+"Iron axe" :
 {
-"name" : "Железный топор",
+"name" : "Iron axe",
 "ID" : 108,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 10,
@@ -241,14 +239,14 @@
 }
 },
 
-"Железный двуручный меч" :
+"Iron two-handed sword" :
 {
-"name" : "Железный двуручный меч",
+"name" : "Iron two-handed sword",
 "ID" : 109,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 18,
@@ -259,14 +257,14 @@
 }
 },
 
-"Железный молот" :
+"Iron hammer" :
 {
-"name" : "Железный молот",
+"name" : "Iron hammer",
 "ID" : 110,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 20,
@@ -277,14 +275,14 @@
 }
 },
 
-"Железная секира" :
+"Iron poleaxe" :
 {
-"name" : "Железная секира",
+"name" : "Iron poleaxe",
 "ID" : 111,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 22,
@@ -295,14 +293,14 @@
 }
 },
 
-"Железный щит" :
+"Iron shield" :
 {
-"name" : "Железный щит",
+"name" : "Iron shield",
 "ID" : 112,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 10,
@@ -314,14 +312,14 @@
 }
 },
 
-"Стальная булава" :
+"Steel mace" :
 {
-"name" : "Стальная булава",
+"name" : "Steel mace",
 "ID" : 113,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 20,
@@ -332,14 +330,14 @@
 }
 },
 
-"Стальной меч" :
+"Steel sword" :
 {
-"name" : "Стальной меч",
+"name" : "Steel sword",
 "ID" : 114,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 20,
@@ -350,14 +348,14 @@
 }
 },
 
-"Стальной топор" :
+"Steel axe" :
 {
-"name" : "Стальной топор",
+"name" : "Steel axe",
 "ID" : 115,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 20,
@@ -368,14 +366,14 @@
 }
 },
 
-"Стальной двуручный меч" :
+"Steel two-handed sword" :
 {
-"name" : "Стальной двуручный меч",
+"name" : "Steel two-handed sword",
 "ID" : 116,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 40,
@@ -386,14 +384,14 @@
 }
 },
 
-"Стальная секира" :
+"Steel poleaxe" :
 {
-"name" : "Стальная секира",
+"name" : "Steel poleaxe",
 "ID" : 117,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 40,
@@ -404,14 +402,14 @@
 }
 },
 
-"Стальной боевой молот" :
+"Steel two-handed hammer" :
 {
-"name" : "Стальной боевой молот",
+"name" : "Steel two-handed hammer",
 "ID" : 118,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 40,
@@ -422,14 +420,14 @@
 }
 },
 
-"Стальной щит" :
+"Steel shield" :
 {
-"name" : "Стальной щит",
+"name" : "Steel shield",
 "ID" : 119,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 10,
@@ -441,14 +439,14 @@
 }
 },
 
-"Алебарда" :
+"Polearm" :
 {
-"name" : "Алебарда",
+"name" : "Polearm",
 "ID" : 120,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 30,
@@ -459,14 +457,14 @@
 }
 },
 
-"Арбалет" :
+"Crossbow" :
 {
-"name" : "Арбалет",
+"name" : "Crossbow",
 "ID" : 121,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 35,
@@ -477,14 +475,14 @@
 }
 },
 
-"Мьёлнир" :
+"Mjolnir" :
 {
-"name" : "Мьёлнир",
+"name" : "Mjolnir",
 "ID" : 130,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 4,
-"enchantment" : "шок",
+"enchantment" : "shock",
 "chars" :
 {
         "ATK_FLAT" : 50,
@@ -495,14 +493,14 @@
 }
 },
 
-"Копье Пелея" :
+"Spear of Peleus" :
 {
-"name" : "Копье Пелея",
+"name" : "Spear of Peleus",
 "ID" : 140,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 4,
-"enchantment" : "отравление",
+"enchantment" : "intoxication",
 "chars" :
 {
         "ATK_FLAT" : 50,
@@ -513,14 +511,14 @@
 }
 },
 
-"Лук Аполонна" :
+"Apollo's bow" :
 {
-"name" : "Лук Аполонна",
+"name" : "Apollo's bow",
 "ID" : 150,
-"class" : "оружие",
-"type" : "двуручное",
+"class" : "weapon",
+"type" : "two-handed",
 "tier" : 4,
-"enchantment" : "горение",
+"enchantment" : "burning",
 "chars" :
 {
         "ATK_FLAT" : 50,
@@ -531,14 +529,14 @@
 }
 },
 
-"Щит Ахилла" :
+"Akhil's shield" :
 {
-"name" : "Щит Ахилла",
+"name" : "Akhil's shield",
 "ID" : 160,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 4,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ATK_FLAT" : 20,
@@ -550,14 +548,14 @@
 }
 },
 
-"Серп Кроноса" :
+"Sickle of Kronos" :
 {
-"name" : "Серп Кроноса",
+"name" : "Sickle of Kronos",
 "ID" : 170,
-"class" : "оружие",
-"type" : "одноручное",
+"class" : "weapon",
+"type" : "one-handed",
 "tier" : 4,
-"enchantment" : "кровотечение",
+"enchantment" : "bleeding",
 "chars" : 
 {
         "ATK_FLAT" : 45,
@@ -568,14 +566,14 @@
 }
 },
 
-"Кожаный шлем" :
+"Leather helmet" :
 {
-"name" : "Кожаный шлем",
+"name" : "Leather helmet",
 "ID" : 200,
-"class" : "броня",
-"type" : "шлем",
+"class" : "armour",
+"type" : "helmet",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 1,
@@ -584,14 +582,14 @@
 }
 },
 
-"Кожаные перчатки" :
+"Leather gloves" :
 {
-"name" : "Кожаные перчатки",
+"name" : "Leather gloves",
 "ID" : 201,
-"class" : "броня",
-"type" : "перчатки",
+"class" : "armour",
+"type" : "gloves",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 1,
@@ -600,14 +598,14 @@
 }
 },
 
-"Кожаный нагрудник" :
+"Leather cuirass" :
 {
-"name" : "Кожаный нагрудник",
+"name" : "leather cuirass",
 "ID" : 202,
-"class" : "броня",
-"type" : "нагрудник",
+"class" : "armour",
+"type" : "cuirass",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 3,
@@ -616,14 +614,14 @@
 }
 },
 
-"Кожаные поножи" :
+"Leather leggings" :
 {
-"name" : "Кожаные поножи",
+"name" : "Leather leggings",
 "ID" : 206,
-"class" : "броня",
-"type" : "поножи",
+"class" : "armour",
+"type" : "leggings",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 2,
@@ -633,14 +631,14 @@
 },
 
 
-"Кожаные сапоги" :
+"Leather boots" :
 {
-"name" : "Кожаные сапоги",
+"name" : "Leather boots",
 "ID" : 203,
-"class" : "броня",
-"type" : "сапоги",
+"class" : "armour",
+"type" : "boots",
 "tier" : 1,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 1,
@@ -649,14 +647,14 @@
 }
 },
 
-"Железный шлем" :
+"Iron helmet" :
 {
-"name" : "Железный шлем",
+"name" : "Iron helmet",
 "ID" : 204,
-"class" : "броня",
-"type" : "шлем",
+"class" : "armour",
+"type" : "helmet",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 2,
@@ -665,14 +663,14 @@
 }
 },
 
-"Железный нагрудник" :
+"Iron cuirass" :
 {
-"name" : "Железный нагрудник",
+"name" : "Iron cuirass",
 "ID" : 205,
-"class" : "броня",
-"type" : "нагрудник",
+"class" : "armour",
+"type" : "cuirass",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 6,
@@ -681,14 +679,14 @@
 }
 },
 
-"Железные перчатки" :
+"Iron gloves" :
 {
-"name" : "Железные перчатки",
+"name" : "Iron gloves",
 "ID" : 206,
-"class" : "броня",
-"type" : "перчатки",
+"class" : "armour",
+"type" : "gloves",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 2,
@@ -697,14 +695,14 @@
 }
 },
 
-"Железные поножи" :
+"Iron leggings" :
 {
-"name" : "Железные поножи",
+"name" : "Iron leggings",
 "ID" : 207,
-"class" : "броня",
-"type" : "поножи",
+"class" : "armour",
+"type" : "leggings",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 3,
@@ -713,14 +711,14 @@
 }
 },
 
-"Железные сапоги" :
+"Iron boots" :
 {
-"name" : "Железные сапоги",
+"name" : "Iron boots",
 "ID" : 208,
-"class" : "броня",
-"type" : "сапоги",
+"class" : "armour",
+"type" : "boots",
 "tier" : 2,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 2,
@@ -729,14 +727,14 @@
 }
 },
 
-"Стальной шлем" :
+"Steel helmet" :
 {
-"name" : "Стальной шлем",
+"name" : "Steel helmet",
 "ID" : 209,
-"class" : "броня",
-"type" : "шлем",
+"class" : "armour",
+"type" : "helmet",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 3,
@@ -745,14 +743,14 @@
 }
 },
 
-"Стальной нагрудник" :
+"Steel cuirass" :
 {
-"name" : "Стальной нагрудник",
+"name" : "Steel cuirass",
 "ID" : 210,
-"class" : "броня",
-"type" : "нагрудник",
+"class" : "armour",
+"type" : "cuirass",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 9,
@@ -761,14 +759,14 @@
 }
 },
 
-"Стальные перчатки" :
+"Steel gloves" :
 {
-"name" : "Стальные перчатки",
+"name" : "Steel gloves",
 "ID" : 211,
-"class" : "броня",
-"type" : "перчатки",
+"class" : "armour",
+"type" : "gloves",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 3,
@@ -777,14 +775,14 @@
 }
 },
 
-"Стальные поножи" :
+"Steel leggings" :
 {
-"name" : "Стальные поножи",
+"name" : "Steel leggings",
 "ID" : 212,
-"class" : "броня",
-"type" : "поножи",
+"class" : "armour",
+"type" : "leggings",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 4,
@@ -793,14 +791,14 @@
 }
 },
 
-"Стальные сапоги" :
+"Steel boots" :
 {
-"name" : "Стальные сапоги",
+"name" : "Steel boots",
 "ID" : 213,
-"class" : "броня",
-"type" : "сапоги",
+"class" : "armour",
+"type" : "boots",
 "tier" : 3,
-"enchantment" : "нет",
+"enchantment" : "none",
 "chars" :
 {
         "ARM_FLAT" : 4,
@@ -809,14 +807,14 @@
 }
 },
 
-"Госвит" :
+"Gosvit" :
 {
-"name" : "Госвит",
+"name" : "Gosvit",
 "ID" : 220,
-"class" : "броня",
-"type" : "шлем",
+"class" : "armour",
+"type" : "helmet",
 "tier" : 4,
-"enchantment" : "дальность",
+"enchantment" : "range",
 "chars" :
 {
         "ARM_FLAT" : 5,
@@ -825,14 +823,14 @@
 }
 },
 
-"Шкура немейского льва" :
+"Nemean lion skin" :
 {
-"name" : "Шкура немейского льва",
+"name" : "Nemean lion skin",
 "ID" : 230,
-"class" : "броня",
-"type" : "нагрудник",
+"class" : "armour",
+"type" : "cuirass",
 "tier" : 4,
-"enchantment" : "стойкость",
+"enchantment" : "endurance",
 "chars" :
 {
         "ARM_FLAT" : 20,
@@ -841,14 +839,14 @@
 }
 },
 
-"Таларии" :
+"Talaries" :
 {
-"name" : "Таларии",
+"name" : "Talaries",
 "ID" : 240,
-"class" : "броня",
-"type" : "сапоги",
+"class" : "armour",
+"type" : "boots",
 "tier" : 4,
-"enchantment" : "ускорение",
+"enchantment" : "haste",
 "chars" :
 {
         "ARM_FLAT" : 5,

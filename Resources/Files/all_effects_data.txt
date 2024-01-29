@@ -1,9 +1,9 @@
 {
 
-"экспериментальный эффект" : 
+"experimental" : 
 {
-"effect_name" : "экспериментальный эффект",
-"effect_type" : "нейтральный",
+"effect_name" : "experimental",
+"effect_type" : "neutral",
 "effect_duration" : -1,
 "effect_counter" : 1,
 "dispellable" : false,
@@ -17,46 +17,46 @@
 }
 },
 
-"регенерация" : 
+"regeneration" : 
 {
-"effect_name" : "регенерация",
-"effect_type" : "положительный",
+"effect_name" : "regeneration",
+"effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"горение" : 
+"burning" : 
 {
-"effect_name" : "горение",
-"effect_type" : "отрицательный",
+"effect_name" : "burning",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"отравление" : 
+"intoxication" : 
 {
-"effect_name" : "отравление",
-"effect_type" : "отрицательный",
+"effect_name" : "intoxication",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"кровотечение" : 
+"bleeding" : 
 {
-"effect_name" : "кровотечение",
-"effect_type" : "отрицательный",
+"effect_name" : "bleeding",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"обморожение" : 
+"frostbite" : 
 {
-"effect_name" : "обморожение",
-"effect_type" : "отрицательный",
+"effect_name" : "frostbite",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true,
@@ -67,10 +67,10 @@
 }
 },
 
-"шок" : 
+"shock" : 
 {
-"effect_name" : "шок",
-"effect_type" : "отрицательный",
+"effect_name" : "shock",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true,
@@ -81,10 +81,10 @@
 }
 },
 
-"слабость" : 
+"weakness" : 
 {
-"effect_name" : "слабость",
-"effect_type" : "отрицательный",
+"effect_name" : "weakness",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : false,
@@ -96,10 +96,10 @@
 }
 },
 
-"усиление" : 
+"empower" : 
 {
-"effect_name" : "усиление",
-"effect_type" : "положительный",
+"effect_name" : "empower",
+"effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : false,
@@ -111,10 +111,10 @@
 }
 },
 
-"стойкость" : 
+"endurance" : 
 {
-"effect_name" : "стойкость",
-"effect_type" : "положительный",
+"effect_name" : "endurance",
+"effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : false,
@@ -125,10 +125,10 @@
 }
 },
 
-"ускорение" : 
+"haste" : 
 {
-"effect_name" : "ускорение",
-"effect_type" : "положительный",
+"effect_name" : "haste",
+"effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true,
@@ -139,10 +139,10 @@
 }
 },
 
-"замедление" : 
+"slowdown" : 
 {
-"effect_name" : "замедление",
-"effect_type" : "отрицательный",
+"effect_name" : "slowdown",
+"effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true,
@@ -153,10 +153,10 @@
 }
 },
 
-"удача" : 
+"luck" : 
 {
-"effect_name" : "удача",
-"effect_type" : "положительный",
+"effect_name" : "luck",
+"effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true,
@@ -166,28 +166,28 @@
 }
 },
 
-"развеивание" : 
+"dispell" : 
 {
-"effect_name" : "развеивание",
-"effect_type" : "нейтральный",
+"effect_name" : "dispell",
+"effect_type" : "neutral",
 "effect_duration" : 1,
 "effect_counter" : 1,
 "dispellable" : false
 },
 
-"развеивание отрицательных эффектов" : 
+"dispell negative" : 
 {
-"effect_name" : "развеивание",
-"effect_type" : "положительный",
+"effect_name" : "dispell negative",
+"effect_type" : "positive",
 "effect_duration" : 1,
 "effect_counter" : 1,
 "dispellable" : false
 },
 
-"развеивание положительных эффектов" : 
+"dispell positive" : 
 {
-"effect_name" : "развеивание положительных эффектов",
-"effect_type" : "отрицательный",
+"effect_name" : "dispell positive",
+"effect_type" : "negative",
 "effect_duration" : 1,
 "effect_counter" : 1,
 "dispellable" : false

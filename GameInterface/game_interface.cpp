@@ -85,16 +85,16 @@ void GameInterface::initialize()
     buttons[0]->setText("| |");
     connect(buttons[0], &QPushButton::clicked, this, &GameInterface::pause_button);
 
-    buttons[1]->setText("Roll");
+    buttons[1]->setText(tr("Roll"));
     connect(buttons[1], &QPushButton::clicked, this, &GameInterface::roll_button_clicked);
 
-    buttons[2]->setText("End Turn");
+    buttons[2]->setText(tr("End Turn"));
     connect(buttons[2], &QPushButton::clicked, this, &GameInterface::next_turn_button_clicked);
 
-    buttons[3]->setText("Inventory");
+    buttons[3]->setText(tr("Inventory"));
     connect(buttons[3], &QPushButton::clicked, this, &GameInterface::inventory_button_clicked);
 
-    buttons[4]->setText("Status");
+    buttons[4]->setText(tr("Status"));
     connect(buttons[4], &QPushButton::clicked, this, &GameInterface::status_button_clicked);
 
 
@@ -136,7 +136,7 @@ void GameInterface::initialize()
     }
 
     std::string name = turn->get_player()->get_name();
-    labels[0]->setText("Имя: " + QString::fromStdString(name));
+    labels[0]->setText(tr("Name: ") + tr(name.c_str()));
 
     pause = new PauseMenu(this);
     pause->setVisible(false);
@@ -250,7 +250,7 @@ void GameInterface::next_turn_button_clicked()
     //inventory_button->setEnabled(true);
 
     std::string name = turn->get_player()->get_name();
-    labels[0]->setText("Имя: " + QString::fromStdString(name));
+    labels[0]->setText(tr("Name: ") + tr(name.c_str()));
 
     buttons[1]->setEnabled(true);
     current_map->clear_chosen_way();
@@ -274,9 +274,9 @@ void GameInterface::roll_button_clicked()
 {
     turn->dice_roll();
     int roll = turn->get_roll();
-    labels[1]->setText("Шагов: " + QString::number(roll));
+    labels[1]->setText("" + QString::number(roll));
     buttons[1]->setEnabled(false);
-    action->set_text("Вы бросили кубики и выкинули: " + QString::number(roll));
+    action->set_text(tr("Dice roll: ") + QString::number(roll));
     current_map->want_to_move();
 }
 

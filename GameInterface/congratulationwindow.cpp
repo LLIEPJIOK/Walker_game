@@ -9,7 +9,7 @@ CongratulationWindow::CongratulationWindow(QWidget *parent, QString winner)
     QFont font ("Arial", 14, QFont::Normal, 1);
     QString style("color: rgb(255, 255, 255)");
     exit_button = new QPushButton(this);
-    exit_button->setText("Выход из Игры");
+    exit_button->setText(tr("Exit"));
     exit_button->setFont(font);
     exit_button->setFlat(1);
     exit_button->setStyleSheet(style);
@@ -17,7 +17,7 @@ CongratulationWindow::CongratulationWindow(QWidget *parent, QString winner)
 
 
     this->winner = new QLabel(this);
-    this->winner->setText("Поздравляем вас, " + winner);
+    this->winner->setText(tr("Congratulations, ") + winner);
     this->winner->setFont(QFont("Arial", 30, QFont::Normal, 1));
     this->winner->setStyleSheet(style);
 
