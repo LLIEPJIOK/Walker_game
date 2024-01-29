@@ -127,17 +127,6 @@ void GameInterface::initialize()
         players_statuses.push_back(status);
     }
 
-    for(int i = 0; i < 5; i++)
-    {
-        labels.push_back(new QLabel(this));
-        labels[i]->setGeometry(10 + i * 120, 0.958 * screen_size.height(), 0.078 * screen_size.width(), 0.028 * screen_size.height());
-        labels[i]->setStyleSheet(style);
-        labels[i]->setVisible(true);
-    }
-
-    std::string name = turn->get_player()->get_name();
-    labels[0]->setText(tr("Name: ") + tr(name.c_str()));
-
     pause = new PauseMenu(this);
     pause->setVisible(false);
     connect(pause, &PauseMenu::continue_button_clicked_signal, this, &GameInterface::pause_button);
@@ -167,6 +156,7 @@ void GameInterface::end_game()
 
     foreach(Inventory* inv, inventories)
         delete inv;
+
     inventories.clear();
     //inventories.shrink_to_fit();
 
@@ -175,17 +165,15 @@ void GameInterface::end_game()
     equipment_slots.clear();
     //equipment_slots.shrink_to_fit();
 
+    foreach (Player_status_widget* w, players_statuses) {
+        delete w;
+    }
+    players_statuses.clear();
+
     delete current_map;
     current_map = nullptr;
     delete mini_map;
     mini_map = nullptr;
-
-    for(int i = 0; i < labels.size(); i++)
-    {
-        delete labels[i];
-        labels[i] = nullptr;
-    }
-    labels.clear();
 
     for(int i = 0; i < buttons.size(); i++)
     {
@@ -249,9 +237,6 @@ void GameInterface::next_turn_button_clicked()
     buttons[2]->setEnabled(false);
     //inventory_button->setEnabled(true);
 
-    std::string name = turn->get_player()->get_name();
-    labels[0]->setText(tr("Name: ") + tr(name.c_str()));
-
     buttons[1]->setEnabled(true);
     current_map->clear_chosen_way();
     current_inventory->setVisible(false);
@@ -265,7 +250,6 @@ void GameInterface::next_turn_button_clicked()
 
     action->set_text(""); // делает окно действий пустым
 
-    update_labels();
     update_player_status();
     current_map->move_to_player();
 }
@@ -274,9 +258,7 @@ void GameInterface::roll_button_clicked()
 {
     turn->dice_roll();
     int roll = turn->get_roll();
-    labels[1]->setText("" + QString::number(roll));
-    buttons[1]->setEnabled(false);
-    action->set_text(tr("Dice roll: ") + QString::number(roll));
+    action->set_text("Вы бросили кубики и выкинули: " + QString::number(roll));
     current_map->want_to_move();
 }
 
@@ -300,11 +282,6 @@ void GameInterface::pause_button()
     pause->setVisible(!pause->isVisible());
 }
 
-void GameInterface::remaining_rolls()
-{
-    labels[1]->setText("Шагов: " + QString::number(turn->get_roll()));
-}
-
 void GameInterface::to_main()
 {
     pause->setVisible(false);
@@ -323,15 +300,12 @@ void GameInterface::process_equip(Equipment *item, QString place)
     else
         player->equip_jewel(dynamic_cast<Jewel*>(item), place.toStdString());
 
-    update_labels();
-    current_player_status->update_all();
     current_player_status->update_all();
 }
 
 void GameInterface::process_unequip(Equipment *item, QString place)
 {
     turn->get_player()->unequip_item(item, place.toStdString());
-    update_labels();
     current_player_status->update_all();
 }
 
@@ -396,17 +370,6 @@ void GameInterface::update_all_inventories_and_slots()
     }
 }
 
-// обновляет все лейблы
-void GameInterface::update_labels()
-{
-    labels[1]->setText("Шагов: " + QString::number(turn->get_roll()));
-
-    // см. дефайн
-    labels[2]->setText("ОЗ: " + QString::number(get_plchar("HP")));
-    labels[3]->setText("Броня: " + QString::number(get_plchar("ARM")));
-    labels[4]->setText("Атака: " + QString::number(get_plchar("ATK")));
-}
-
 // обновляет карту
 void GameInterface::update_map()
 {
@@ -419,7 +382,6 @@ void GameInterface::update_map()
     current_map->lower();
 
     connect(current_map, &GameMap::can_finish_turn, this, &GameInterface::enable_next_button);
-    connect(current_map, &GameMap::update_roll, this, &GameInterface::remaining_rolls);
     connect(current_map, &GameMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
     connect(current_map, &GameMap::action, action, &ActionWindow::set_text);
     connect(current_map, &GameMap::event_triggered, this, &GameInterface::process_event_start);
@@ -436,7 +398,6 @@ void GameInterface::update_all()
 {
     update_buttons();
     update_all_inventories_and_slots();
-    update_labels();
     update_map();
 }
 
@@ -447,7 +408,6 @@ void GameInterface::update_player_status()
     update_buttons();
     update_inventory_and_slots(tmp->get_id() - 1); // айдишники начинаются с 1
     tmp->update_chars();
-    update_labels();
     tmp->die();
     current_player_status->update_all();
 }
