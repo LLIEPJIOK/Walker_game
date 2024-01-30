@@ -12,17 +12,17 @@ PauseMenu::PauseMenu(QMainWindow *parent)
 
     load = new Load("save");
 
-    continue_button = new QPushButton("Продолжить");
+    continue_button = new QPushButton(tr("Continue"));
     continue_button->setMinimumSize(300, 50);
     continue_button->setFont(font);
     continue_button->setFlat(1);
 
-    save_menu = new QPushButton("Сохранить");
+    save_menu = new QPushButton(tr("Save"));
     save_menu->setMinimumSize(300, 50);
     save_menu->setFont(font);
     save_menu->setFlat(1);
 
-    main_menu = new QPushButton("Главное меню");
+    main_menu = new QPushButton(tr("Main menu"));
     main_menu->setMinimumSize(300, 50);
     main_menu->setFont(font);
     main_menu->setFlat(1);

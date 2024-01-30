@@ -17,7 +17,7 @@ CongratulationWindow::CongratulationWindow(QWidget *parent, QString winner)
 
 
     this->winner = new QLabel(this);
-    this->winner->setText(tr("Congratulations, ") + winner);
+    this->winner->setText(tr("Congratulations") + ", " + winner);
     this->winner->setFont(QFont("Arial", 30, QFont::Normal, 1));
     this->winner->setStyleSheet(style);
 

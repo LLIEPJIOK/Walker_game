@@ -39,14 +39,14 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     overview_lo = new QHBoxLayout();
 
     QLabel* character_sheet = new QLabel(this);
-    character_sheet->setText("Character Sheet of " + QString::fromStdString(assigned_player->get_name()));
+    character_sheet->setText(tr("Character Sheet of") + " " + QString::fromStdString(assigned_player->get_name()));
     character_sheet->setAlignment(Qt::AlignHCenter);
     character_sheet->setStyleSheet("font-size: 25px;"
                                    "font-style: italic;");
     main_layout->addWidget(character_sheet);
 
     QLabel* general = new QLabel(this);
-    general->setText("General");
+    general->setText(tr("General"));
     general->setAlignment(Qt::AlignHCenter);
     general->setStyleSheet("font-size: 18px;"
                            "font-style: italic;");
@@ -56,20 +56,20 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     // ov_labels
     overview_labels = new QVBoxLayout();
     name_label = new QLabel(this);
-    name_label->setText("Name");
+    name_label->setText(tr("Name"));
     name_label->setStyleSheet("font-size: 15px;"
                               "font-style: italic;");
     overview_labels->addWidget(name_label);
 
     ov_health_label = new QLabel(this);
-    ov_health_label->setText("Current Health");
+    ov_health_label->setText(tr("Current Health"));
     ov_health_label->setStyleSheet("font-size: 15px;"
                                    "font-style: italic;");
 
     overview_labels->addWidget(ov_health_label);
 
     ov_atk_label = new QLabel(this);
-    ov_atk_label->setText("Current Attack");
+    ov_atk_label->setText(tr("Current Attack"));
     ov_atk_label->setStyleSheet("font-size: 15px;"
                                 "font-style: italic;");
 
@@ -115,7 +115,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     main_layout->addLayout(overview_lo);
 
     QLabel* advanced_chars = new QLabel(this);
-    advanced_chars->setText("Advanced Characteristics");
+    advanced_chars->setText(tr("Advanced Characteristics"));
     advanced_chars->setStyleSheet("font-size: 18px;"
                                   "font-style: italic;");
     advanced_chars->setAlignment(Qt::AlignHCenter);
@@ -124,30 +124,30 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     // advanced chars
     advanced = new QTabWidget(this);
     std::map<QString, QString> vital;
-    vital["HP"] = "Current Health";
-    vital["MAX_HP"] = "Maximum Health";
-    vital["ARM"] = "Current Armour";
-    vital["PIERCE_ARM"] = "Current Damage Prevention Percentage";
-    advanced->addTab(new Advanced_chars_tab(this, vital, assigned_player), "Vitality");
+    vital["HP"] = tr("Current Health");
+    vital["MAX_HP"] = tr("Maximum Health");
+    vital["ARM"] = tr("Current Armour");
+    vital["PIERCE_ARM"] = tr("Current Damage Prevention Percentage");
+    advanced->addTab(new Advanced_chars_tab(this, vital, assigned_player), tr("Vitality"));
 
     std::map<QString, QString> offence;
-    offence["ATK"] = "Current Attack";
-    offence["CRIT_CH"] = "Crit Chance";
-    offence["CRIT_DMG"] = "Crit Damage Addative";
-     offence["PIERCE"] = "Piercing Damage (through armour)";
-    advanced->addTab(new Advanced_chars_tab(this, offence, assigned_player), "Offence");
+    offence["ATK"] = tr("Current Attack");
+    offence["CRIT_CH"] = tr("Crit Chance");
+    offence["CRIT_DMG"] = tr("Crit Damage Addative");
+    offence["PIERCE"] = tr("Piercing Damage (through armour)");
+    advanced->addTab(new Advanced_chars_tab(this, offence, assigned_player), tr("Offence"));
 
     std::map<QString, QString> attributes;
-    attributes["INT"] = "Intelligence";
-    attributes["STR"] = "Strength";
-    attributes["AGIL"] = "Agility";
-    advanced->addTab(new Advanced_chars_tab(this, attributes, assigned_player), "Attributes");
+    attributes["INT"] = tr("Intelligence");
+    attributes["STR"] = tr("Strength");
+    attributes["AGIL"] = tr("Agility");
+    advanced->addTab(new Advanced_chars_tab(this, attributes, assigned_player), tr("Attributes"));
 
     std::map<QString, QString> rolls;
-    rolls["ROLL_MOD"] = "Movement Roll Modifier";
-    rolls["DQNT"] = "Number of Dice";
-    rolls["EVENT_ROLL_MOD"] = "Event Roll Modifier";
-    advanced->addTab(new Advanced_chars_tab(this, rolls, assigned_player), "Rolls");
+    rolls["ROLL_MOD"] = tr("Movement Roll Modifier");
+    rolls["DQNT"] = tr("Number of Dice");
+    rolls["EVENT_ROLL_MOD"] = tr("Event Roll Modifier");
+    advanced->addTab(new Advanced_chars_tab(this, rolls, assigned_player), tr("Rolls"));
 
     advanced->setStyleSheet("QTabWidget::pane {"
         "border: 1px solid black;"
@@ -168,7 +168,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
 
 
     QLabel* effects_label = new QLabel(this);
-    effects_label->setText("Applied Effects");
+    effects_label->setText(tr("Applied Effects"));
     effects_label->setStyleSheet("font-size: 18px;"
                                  "font-style: italic;");
     effects_label->setAlignment(Qt::AlignHCenter);
@@ -177,9 +177,6 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     effects = new QListWidget();
     effects->setStyleSheet("background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png);"
                            "border: 1px solid black;");
-    effects->addItem("Burning");
-    effects->addItem("Intoxication");
-    effects->addItem("Weakness");
     main_layout->addWidget(effects);
 
     setLayout(main_layout);
@@ -191,7 +188,6 @@ Player_status_widget::~Player_status_widget()
         delete t;
 
     delete advanced;
-
     delete effects;
 }
 
@@ -206,11 +202,11 @@ void Player_status_widget::update_all()
     //updates all applied effects in qwlist
     effects->clear();
     for (Effect* eff : *assigned_player->get_active_effects()){
-        effects->addItem(QString::fromStdString(eff->get_effect_name()) + " (" + QString::number(eff->get_effect_duration()) + " х.)");
+        effects->addItem(tr(eff->get_effect_name().c_str()) + " (" + QString::number(eff->get_effect_duration()) + ")");
     }
 
     // updates bar and atk label
-     health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
+    health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
     health_bar->setValue(assigned_player->get_characteristics().at("HP"));
     ov_atk_value->setText(QString::number(assigned_player->get_characteristics().at("ATK")));
 }

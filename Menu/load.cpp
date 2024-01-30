@@ -14,7 +14,7 @@ Load::Load(QString _type, QWidget *parent)
     change_name_window = nullptr;
     enter_save_name_window = nullptr;
 
-    label = new QLabel("<U>Сохранения:</U>");
+    label = new QLabel("<U>" + tr("Saves") + "</U>");
     label->setFont(QFont("Arial", 20));
     label->setAlignment(Qt::AlignCenter);
     label->setStyleSheet("QLabel {color: white;}");
@@ -31,28 +31,28 @@ Load::Load(QString _type, QWidget *parent)
                   "QPushButton:disabled {color: gray;}"
                   "QPushButton:hover    {color: rgb(255, 178, 102);}");
 
-    btn_prev = new QPushButton("Назад");
+    btn_prev = new QPushButton(tr("Return"));
     btn_prev->setFlat(1);
     btn_prev->setFont(btn_font);
 
-    btn_delete = new QPushButton("Удалить");
+    btn_delete = new QPushButton(tr("Delete"));
     btn_delete->setFlat(1);
     btn_delete->setFont(btn_font);
 
-    btn_load = new QPushButton("Загрузить");
+    btn_load = new QPushButton(tr("Load"));
     btn_load->setFlat(1);
     btn_load->setFont(btn_font);
 
-    btn_change = new QPushButton("Изменить");
+    btn_change = new QPushButton(tr("Change"));
     btn_change->setFlat(1);
     btn_change->setFont(btn_font);
 
 
-    btn_add = new QPushButton("Добавить");
+    btn_add = new QPushButton(tr("New"));
     btn_add->setFlat(1);
     btn_add->setFont(btn_font);
 
-    btn_rewrite = new QPushButton("Перезаписать");
+    btn_rewrite = new QPushButton(tr("Rewrite"));
     btn_rewrite->setFlat(1);
     btn_rewrite->setFont(btn_font);
 
@@ -163,7 +163,7 @@ void Load::delete_window_slot()
 {
     if (accept_changes_window == nullptr)
     {
-        accept_changes_window = new Accept("Вы точно хотите удалить сохранение?", this);
+        accept_changes_window = new Accept(tr("Are you sure?"), this);
         connect(accept_changes_window, &Accept::accept_signal, this, &Load::delete_slot);
     }
 
@@ -181,7 +181,7 @@ void Load::open_change_slot()
 {
     if (change_name_window == nullptr)
     {
-        change_name_window = new EnterName("Измените название", qobject_cast<LoadSlot*>(chosen)->get_name(), this);
+        change_name_window = new EnterName(tr("Change the name"), qobject_cast<LoadSlot*>(chosen)->get_name(), this);
         connect(change_name_window, &EnterName::return_name, this, &Load::get_name_slot);
     }
     else
@@ -240,7 +240,7 @@ void Load::add_slot()
 {
     if (enter_save_name_window == nullptr)
     {
-        enter_save_name_window = new EnterName("Введите название сохранения", "", this);
+        enter_save_name_window = new EnterName(tr("Enter the desired save name"), "", this);
         connect(enter_save_name_window, &EnterName::return_name, this, &Load::get_name_slot);
     }
 
@@ -252,7 +252,7 @@ void Load::rewrite_slot()
 {
     if (enter_save_name_window == nullptr)
     {
-        enter_save_name_window = new EnterName("Введите название сохранения", qobject_cast<LoadSlot*>(chosen)->get_name(), this);
+        enter_save_name_window = new EnterName(tr("Enter the desired save name"), qobject_cast<LoadSlot*>(chosen)->get_name(), this);
         connect(enter_save_name_window, &EnterName::return_name, this, &Load::get_name_slot);
     }
 

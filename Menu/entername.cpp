@@ -25,7 +25,7 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     label->resize(width(), 50);
     label->move(0, 15);
 
-    btn_cansel = new QPushButton("Отмена", this);
+    btn_cansel = new QPushButton(tr("Cancel"), this);
     btn_cansel->setFlat(1);
     btn_cansel->setFont(btn_font);
     btn_cansel->resize(90, 30);
@@ -37,13 +37,13 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     btn_save->resize(120, 30);
     btn_save->move(width() - 145, 150);
 
-    if (str == "Введите название сохранения")
+    if (str == tr("Enter the desired save name"))
     {
-        btn_save->setText("Сохранить");
+        btn_save->setText(tr("Save"));
     }
     else
     {
-        btn_save->setText("Изменить");
+        btn_save->setText(tr("Change"));
     }
 
     // разрешённые символы
@@ -114,7 +114,7 @@ void EnterName::return_slot()
     }
     else
     {
-        if (str == "Введите название сохранения")
+        if (str == tr("Enter the desired save name"))
         {
             check_slot(true);
             return;
@@ -122,7 +122,7 @@ void EnterName::return_slot()
 
         if (ac == nullptr)
         {
-            ac = new Accept("Вы точно хотите изменить название?", qobject_cast<QWidget*>(parent()));
+            ac = new Accept(tr("Are you sure?"), qobject_cast<QWidget*>(parent()));
             connect(ac, &Accept::accept_signal, this, &EnterName::check_slot);
         }
 

@@ -192,11 +192,11 @@ void GameMap::process_attack()
 
     if(turn->get_moving())
     {
-        emit action("Вы не можете атаковать в движении!");
+        emit action(tr("You cannot attack while moving!"));
         return;
     }
     if(turn->get_has_attacked() /*&& s.find(player)!=s.end()*/)
-        emit action("Вы уже атаковали на этом ходу!");
+        emit action(tr("You have already attacked during this turned"));
     else
     {
         if(s.find(player) != s.end())
@@ -208,12 +208,12 @@ void GameMap::process_attack()
                 turn->set_has_attacked(true);
                 return;
             }
-            emit action("Вы ударили " + QString::fromStdString(player->get_name()));
+            emit action(tr("You attacked") + ":" + QString::fromStdString(player->get_name()));
             turn->set_has_attacked(true);
 
         }
         else
-            emit action("Вы слишком далеко! Попробуйте подойти ближе!");
+            emit action(tr("Too far away! Come closer!"));
     }
 
 }

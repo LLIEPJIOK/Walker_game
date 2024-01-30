@@ -94,39 +94,39 @@ void Inventory::add_new_item(Equipment *item)
     QString icon;
     std::string type = item->get_type();
 
-    if(type == "одноручное")
+    if(type == "one-handed")
     {
         icon = "sword";
     }
-    else if(type == "кольцо")
+    else if(type == "ring")
     {
         icon = "first_ring";
     }
-    else if(type == "шлем")
+    else if(type == "helmet")
     {
         icon = "helmet";
     }
-    else if(type == "нагрудник")
+    else if(type == "cuirass")
     {
         icon = "plate";
     }
-    else if(type == "пояс")
+    else if(type == "belt")
     {
         icon = "belt";
     }
-    else if(type == "поножи")
+    else if(type == "leggings")
     {
         icon = "pants";
     }
-    else if(type == "сапоги")
+    else if(type == "boots")
     {
         icon = "boots";
     }
-    else if (type == "перчатки")
+    else if (type == "gloves")
     {
         icon = "gloves";
     }
-    else if(type == "ожерелье")
+    else if(type == "necklace")
     {
         icon = "necklace";
     }

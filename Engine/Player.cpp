@@ -79,21 +79,21 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     // Экипированые предметы
 
 	//equiped_Armourment
-    equiped_armourment["нагрудник"] = nullptr;
-    equiped_armourment["шлем"] = nullptr;
-    equiped_armourment["перчатки"] = nullptr;
-    equiped_armourment["поножи"] = nullptr;
-    equiped_armourment["сапоги"] = nullptr;
+    equiped_armourment["cuirass"] = nullptr;
+    equiped_armourment["helmet"] = nullptr;
+    equiped_armourment["gloves"] = nullptr;
+    equiped_armourment["leggings"] = nullptr;
+    equiped_armourment["boots"] = nullptr;
 
 	//equiped_Weaponary
-    equiped_weaponary["основная_рука"] = nullptr;
-    equiped_weaponary["неосновная_рука"] = nullptr;
+    equiped_weaponary["main hand"] = nullptr;
+    equiped_weaponary["offhand"] = nullptr;
 
 	//equiped_Jewellery
-    equiped_jewellery["первое_кольцо"] = nullptr;
-    equiped_jewellery["второе_кольцо"] = nullptr;
-    equiped_jewellery["ожерелье"] = nullptr;
-    equiped_jewellery["пояс"] = nullptr;
+    equiped_jewellery["first ring"] = nullptr;
+    equiped_jewellery["second ring"] = nullptr;
+    equiped_jewellery["necklace"] = nullptr;
+    equiped_jewellery["belt"] = nullptr;
 
     killed_player = -1;
 }
@@ -313,12 +313,12 @@ void Player::attack(Player* pl)
 
 void Player::use_potion(Potion* potion)
 {
-    if (potion->get_effect_name() == "развеивание"){
+    if (potion->get_effect_name() == "dispell"){
         Effect eff(potion->get_effect_name(), this, potion->get_duration());
         eff.execute_effect();
     }
     else {
-        if (potion->get_type() == "мгновенное")
+        if (potion->get_type() == "instant")
         {
             for (const auto& i : *potion->get_item_characteristics()) // увеличение хар-к навсегда
             {
@@ -333,7 +333,7 @@ void Player::use_potion(Potion* potion)
                 characteristics[ch] += value;
             }
 
-            if(potion->get_effect_name() != "нет") // если зелье имеет эффект
+            if(potion->get_effect_name() != "none") // если зелье имеет эффект
             {
                 Effect* eff = new Effect(potion->get_effect_name(), this, potion->get_duration());
                 eff->apply_effect();
@@ -434,11 +434,11 @@ void Player::unequip_item(Equipment* equipment, std::string place)
 {
 	std::string type = equipment->get_type();
 	std::string equipment_class = equipment->get_class();
-    if (equipment_class == "оружие")
+    if (equipment_class == "weapon")
         equiped_weaponary[place] = nullptr;
-    else if (equipment_class == "броня")
+    else if (equipment_class == "armour")
         equiped_armourment[place] = nullptr;
-    else if (equipment_class == "украшение")
+    else if (equipment_class == "jewel")
         equiped_jewellery[place] = nullptr;
 
     equipment->change_equiped();
@@ -450,21 +450,21 @@ void Player::unequip_item(Equipment* equipment, std::string place)
 
 Equipment* Player::add_item(const std::string& equipment_id)
 {
-    if(equipment_id == "Загадочное кольцо")
+    if(equipment_id == "Mystery ring")
     {
-        Jewel* ring = new Jewel("кольцо", Turn::get_Turn()->get_turn_number());
+        Jewel* ring = new Jewel("ring", Turn::get_Turn()->get_turn_number());
         jewellery.insert(ring);
         return ring;
     }
-    else if(equipment_id == "Загадочное ожерелье")
+    else if(equipment_id == "Mystery necklace")
     {
-        Jewel* necklace = new Jewel("ожерелье", Turn::get_Turn()->get_turn_number());
+        Jewel* necklace = new Jewel("necklace", Turn::get_Turn()->get_turn_number());
         jewellery.insert(necklace);
         return necklace;
     }
-    else if(equipment_id == "Загадочный пояс")
+    else if(equipment_id == "Mystery belt")
     {
-        Jewel* belt = new Jewel("пояс", Turn::get_Turn()->get_turn_number());
+        Jewel* belt = new Jewel("belt", Turn::get_Turn()->get_turn_number());
         jewellery.insert(belt);
         return belt;
     }
@@ -482,13 +482,13 @@ Equipment* Player::add_item(const std::string& equipment_id)
     std::string type = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("type");
     std::string equipment_class = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("class");
 
-    if (equipment_class == "оружие")
+    if (equipment_class == "weapon")
     {
         Weapon* item = new Weapon(item_id, name, equipment_class, item_characteristics, type);
         weaponary.insert(item);
         return item;
     }
-    if (equipment_class == "броня")
+    if (equipment_class == "armour")
     {
         Armour* item = new Armour(item_id, name, equipment_class, item_characteristics, type);
         armourment.insert(item);

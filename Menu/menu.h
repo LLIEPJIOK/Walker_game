@@ -8,6 +8,7 @@
 
 #include <QPainter>
 #include <QPaintEvent>
+#include<QTranslator>
 
 class Menu : public QMainWindow
 {
@@ -22,12 +23,16 @@ private:
     QPushButton *btn_load;
     QPushButton *btn_titers;
     QPushButton *btn_exit;
+    QPushButton *btn_lang;
     QVBoxLayout *vblay;
     ExitWindow *exit_window;
     NewGame *new_game;
     QWidget *widget;
     Credits *titers;
     Load* load;
+    QTranslator* translator;
+
+    bool eng;
 
 private slots:
     void open_exit_window();
@@ -35,6 +40,7 @@ private slots:
     void open_new_game();
     void open_load();
     void menu_enable();
+    void change_lang();
 
 protected:
     void paintEvent(QPaintEvent* event);

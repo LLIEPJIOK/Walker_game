@@ -48,13 +48,8 @@ Advanced_chars_tab::Advanced_chars_tab(QWidget *parent, std::map<QString, QStrin
 }
 
 void Advanced_chars_tab::update_chars(Player* assigned_player){
-<<<<<<< HEAD
     for (auto i : chars) {
         i.second->setText(tr(std::to_string(assigned_player->get_characteristics().at(i.first.toStdString())).c_str()));
-=======
-    for (auto& i : chars) {
-        i.second->setText(QString::number(assigned_player->get_characteristics().at(i.first.toStdString())));
->>>>>>> main
     }
 }
 

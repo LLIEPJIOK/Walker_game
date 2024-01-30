@@ -122,7 +122,7 @@ void Event_window::challenge_button_was_clicked()
 
     info->setText(label);
 
-    challenge_your_luck->setText("Продолжить");
+    challenge_your_luck->setText(tr("Continue"));
     disconnect(challenge_your_luck, &QPushButton::clicked, this, &Event_window::challenge_button_was_clicked);
     connect(challenge_your_luck, &QPushButton::clicked, this, &Event_window::continue_playing);
 

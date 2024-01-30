@@ -160,7 +160,7 @@ void dispell_positive_exe (Player* target, int)
 
     for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end();)
     {
-        if ((*it)->get_effect_type() != "положительный" && (*it)->get_effect_type() != "отрицательный" && (*it)->get_effect_type() != "нейтральный")
+        if ((*it)->get_effect_type() != "positive" && (*it)->get_effect_type() != "negative" && (*it)->get_effect_type() != "neutral")
             throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
         if ((*it)->is_dispellable())
         {
@@ -181,7 +181,7 @@ void dispell_negative_exe (Player* target, int)
 
     for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end();)
     {
-        if ((*it)->get_effect_type() != "положительный" && (*it)->get_effect_type() != "отрицательный" && (*it)->get_effect_type() != "нейтральный")
+        if ((*it)->get_effect_type() != "positive" && (*it)->get_effect_type() != "negative" && (*it)->get_effect_type() != "neutral")
             throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
         if ((*it)->is_dispellable())
         {
@@ -196,30 +196,30 @@ void dispell_negative_exe (Player* target, int)
 
 std::map<std::string, V*> effects_exe =
     {
-        {"экспериментальный эффект", &experiment_exe},
-        {"регенерация", &regeneration_exe},
-        {"горение", &burning_exe},
-        {"отравление", &intoxication_exe},
-        {"кровотечение", &bleeding_exe},
-        {"обморожение", &frostbite_exe},
-        {"шок", &shock_exe},
-        {"слабость", &weakness_exe},
-        {"усиление", &empower_exe},
-        {"стойкость", &endurance_exe},
-        {"ускорение", &haste_exe},
-        {"замедление", &slowdown_exe},
-        {"удача", &luck_exe},
-        {"развеивание", &dispell_all_exe},
-        {"развеивание отрицательных эффектов", &dispell_negative_exe},
-        {"развеивание положительных эффектов", &dispell_positive_exe}
+        {"Experimental", &experiment_exe},
+        {"Regeneration", &regeneration_exe},
+        {"Burning", &burning_exe},
+        {"Intoxication", &intoxication_exe},
+        {"Bleeding", &bleeding_exe},
+        {"Frostbite", &frostbite_exe},
+        {"Shock", &shock_exe},
+        {"Weakness", &weakness_exe},
+        {"Empower", &empower_exe},
+        {"Endurance", &endurance_exe},
+        {"Haste", &haste_exe},
+        {"Slowdown", &slowdown_exe},
+        {"Luck", &luck_exe},
+        {"Dispell", &dispell_all_exe},
+        {"Dispell negative", &dispell_negative_exe},
+        {"Dispell positive", &dispell_positive_exe}
     };
 
 Effect::Effect()
 {
     effect_counter = 0;
     effect_duration = -1;
-    effect_name = "безымянный";
-    effect_type = "неизвестно";
+    effect_name = "no name";
+    effect_type = "unknown";
     dispellable = 0;
     target = nullptr;
     execute_effect_ptr = nullptr;

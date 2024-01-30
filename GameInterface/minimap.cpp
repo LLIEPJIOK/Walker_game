@@ -21,7 +21,7 @@ MiniMap::MiniMap(QWidget *parent, GameMap* battle_map)
 
 void MiniMap::paintEvent(QPaintEvent *event)
 {
-    QMap<std::string, QColor> type_to_color = {{"Лес", Qt::darkGreen}, {"Пустыня", Qt::darkYellow}, {"Болото", Qt::darkBlue}, {"Горы", Qt::darkGray}, {"non_moving_area", Qt::white}};
+    QMap<std::string, QColor> type_to_color = {{"Woods", Qt::darkGreen}, {"Desert", Qt::darkYellow}, {"Swamp", Qt::darkBlue}, {"Mountains", Qt::darkGray}, {"Non_moving_area", Qt::white}};
     QPainter painter(this);
     painter.setPen(Qt::NoPen);
     painter.setRenderHint(QPainter::Antialiasing);

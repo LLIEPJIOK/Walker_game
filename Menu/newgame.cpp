@@ -7,7 +7,7 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
                   "QPushButton:hover    {color: rgb(255, 178, 102);}"
                   "QLabel               {color: white;}");
 
-    label_choose = new QLabel("Выберите количество игроков");
+    label_choose = new QLabel(tr("Quantity of players"));
     label_choose->setFont(QFont("Arial", 16, QFont::Normal, 1));
 
     slider = new QSlider(Qt::Horizontal);
@@ -37,12 +37,12 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
     gridlay->addLayout(label_hblay, 1, 0);
     btn_next = new QPushButton();
     btn_next->setFlat(1);
-    btn_next->setText("Дальше");
+    btn_next->setText(tr("Continue"));
     btn_next->setFont(btn_font);
 
     btn_prev = new QPushButton();
     btn_prev->setFlat(1);
-    btn_prev->setText("Назад");
+    btn_prev->setText(tr("Return"));
     btn_prev->setFont(btn_font);
 
     btn_hblay = new QHBoxLayout();

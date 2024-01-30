@@ -10,13 +10,13 @@ ExitWindow::ExitWindow(QWidget *parent) : QWidget(parent)
     label = new QLabel();
     label->setFont(QFont("Arial", 16));
     label->setAlignment(Qt::AlignCenter);
-    label->setText("Вы точно хотите выйти?");
+    label->setText(tr("Are you sure?"));
 
-    btn_yes = new QPushButton("Да");
+    btn_yes = new QPushButton(tr("Yes"));
     btn_yes->setFont(btn_font);
     btn_yes->setFlat(1);
 
-    btn_no = new QPushButton("Нет");
+    btn_no = new QPushButton(tr("No"));
     btn_no->setFont(btn_font);
     btn_no->setFlat(1);
 

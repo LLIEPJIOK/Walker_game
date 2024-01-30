@@ -40,13 +40,13 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
 
     edit_name = new QLineEdit();
     edit_name->setFixedSize(250, 30);
-    edit_name->setPlaceholderText("Введите имя");
+    edit_name->setPlaceholderText(tr("Enter your name"));
 
     edit_hblay = new QHBoxLayout();
     edit_hblay->setAlignment(Qt::AlignCenter);
     edit_hblay->addWidget(edit_name);
 
-    is_ready = new QCheckBox("Готов");
+    is_ready = new QCheckBox(tr("Ready!"));
     is_ready->setFont(font);
     is_ready->setEnabled(0);
 
@@ -55,7 +55,7 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
     check_hblay->setAlignment(Qt::AlignCenter);
     check_hblay->addWidget(is_ready);
 
-    label_choose_stats = new QLabel("Распределите очки (" + QString::number(kol) + ") по характеристикам:");
+    label_choose_stats = new QLabel(tr("Distribute points") + " (" + QString::number(kol) + ") " + tr("between following attributes"));
     label_choose_stats->setFont(QFont("Arial", 10));
 
     label_stats_hblay = new QHBoxLayout();
@@ -64,7 +64,7 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
 
     force = 0;
 
-    label_force = new QLabel("Сила:");
+    label_force = new QLabel(tr("Strength"));
     label_force->setFont(QFont("Arial", 10));
     label_force->setContentsMargins(10, 0, 0, 0);
 
@@ -100,7 +100,7 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
 
     agility = 0;
 
-    label_agility = new QLabel("Ловкость:");
+    label_agility = new QLabel(tr("Agility"));
     label_agility->setFont(QFont("Arial", 10));
     label_agility->setContentsMargins(10, 0, 0, 0);
 
@@ -136,7 +136,7 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
 
     intelligence = 0;
 
-    label_intelligence = new QLabel("Интеллект:");
+    label_intelligence = new QLabel(tr("Intelligence"));
     label_intelligence->setFont(QFont("Arial", 10));
     label_intelligence->setContentsMargins(10, 0, 0, 0);
 
@@ -235,8 +235,8 @@ void InitialSettings::player_is_ready()
             name = edit_name->text().toStdString();
         else
         {
-            name = "Игрок" + std::to_string(id + 1);
-            edit_name->setPlaceholderText("Игрок" + QString::number(id + 1));
+            name = tr("Player").toStdString() + std::to_string(id + 1);
+            edit_name->setPlaceholderText(tr("Player") + QString::number(id + 1));
         }
     }
     else
@@ -247,8 +247,8 @@ void InitialSettings::player_is_ready()
             btn_minus_agility->setEnabled(1);
         if (intelligence)
             btn_minus_intelligence->setEnabled(1);
-        if (name == "Игрок" + std::to_string(id + 1))
-            edit_name->setPlaceholderText("Введите имя");
+        if (name == tr("Player").toStdString() + std::to_string(id + 1))
+            edit_name->setPlaceholderText(tr("Enter your name"));
     }
     btn_left->setEnabled(!btn_left->isEnabled());
     btn_right->setEnabled(!btn_right->isEnabled());
@@ -277,7 +277,7 @@ void InitialSettings::force_slot()
         if (!kol)
             disenable();
     }
-    label_choose_stats->setText("Распределите очки (" + QString::number(kol) + ") по характеристикам:");
+    label_choose_stats->setText(tr("Distribute points") + " (" + QString::number(kol) + ") " + tr("between following attributes"));
     cur_force->setText(QString::number(force));
 }
 
@@ -301,7 +301,7 @@ void InitialSettings::agility_slot()
         if (!kol)
             disenable();
     }
-    label_choose_stats->setText("Распределите очки (" + QString::number(kol) + ") по характеристикам:");
+    label_choose_stats->setText(tr("Distribute points") + " (" + QString::number(kol) + ") " + tr("between following attributes"));
     cur_agility->setText(QString::number(agility));
 }
 
@@ -324,6 +324,6 @@ void InitialSettings::intelligence_slot()
         if (!kol)
             disenable();
     }
-    label_choose_stats->setText("Распределите очки (" + QString::number(kol) + ") по характеристикам:");
+    label_choose_stats->setText(tr("Distribute points") + " (" + QString::number(kol) + ") " + tr("between following attributes"));
     cur_intelligence->setText(QString::number(intelligence));
 }

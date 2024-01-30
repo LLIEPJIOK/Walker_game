@@ -1,8 +1,8 @@
 {
 
-"experimental" : 
+"Experimental": 
 {
-"effect_name" : "experimental",
+"effect_name" : "Experimental",
 "effect_type" : "neutral",
 "effect_duration" : -1,
 "effect_counter" : 1,
@@ -17,45 +17,45 @@
 }
 },
 
-"regeneration" : 
+"Regeneration": 
 {
-"effect_name" : "regeneration",
+"effect_name" : "Regeneration",
 "effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"burning" : 
+"Burning": 
 {
-"effect_name" : "burning",
+"effect_name" : "Burning",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"intoxication" : 
+"Intoxication": 
 {
-"effect_name" : "intoxication",
+"effect_name" : "Intoxication",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"bleeding" : 
+"Bleeding": 
 {
-"effect_name" : "bleeding",
+"effect_name" : "Bleeding",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
 "dispellable" : true
 },
 
-"frostbite" : 
+"Frostbite": 
 {
-"effect_name" : "frostbite",
+"effect_name" : "Frostbite",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -67,9 +67,9 @@
 }
 },
 
-"shock" : 
+"Shock": 
 {
-"effect_name" : "shock",
+"effect_name" : "Shock",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -81,9 +81,9 @@
 }
 },
 
-"weakness" : 
+"Weakness": 
 {
-"effect_name" : "weakness",
+"effect_name" : "Weakness",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -96,9 +96,9 @@
 }
 },
 
-"empower" : 
+"Empower": 
 {
-"effect_name" : "empower",
+"effect_name" : "Empower",
 "effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -111,9 +111,9 @@
 }
 },
 
-"endurance" : 
+"Endurance": 
 {
-"effect_name" : "endurance",
+"effect_name" : "Endurance",
 "effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -125,9 +125,9 @@
 }
 },
 
-"haste" : 
+"Haste": 
 {
-"effect_name" : "haste",
+"effect_name" : "Haste",
 "effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -139,9 +139,9 @@
 }
 },
 
-"slowdown" : 
+"Slowdown": 
 {
-"effect_name" : "slowdown",
+"effect_name" : "Slowdown",
 "effect_type" : "negative",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -153,9 +153,9 @@
 }
 },
 
-"luck" : 
+"Luck": 
 {
-"effect_name" : "luck",
+"effect_name" : "Luck",
 "effect_type" : "positive",
 "effect_duration" : 3,
 "effect_counter" : 1,
@@ -166,27 +166,27 @@
 }
 },
 
-"dispell" : 
+"Dispell": 
 {
-"effect_name" : "dispell",
+"effect_name" : "Dispell",
 "effect_type" : "neutral",
 "effect_duration" : 1,
 "effect_counter" : 1,
 "dispellable" : false
 },
 
-"dispell negative" : 
+"Dispell negative" : 
 {
-"effect_name" : "dispell negative",
+"effect_name" : "Dispell negative",
 "effect_type" : "positive",
 "effect_duration" : 1,
 "effect_counter" : 1,
 "dispellable" : false
 },
 
-"dispell positive" : 
+"Dispell positive" : 
 {
-"effect_name" : "dispell positive",
+"effect_name" : "Dispell positive",
 "effect_type" : "negative",
 "effect_duration" : 1,
 "effect_counter" : 1,

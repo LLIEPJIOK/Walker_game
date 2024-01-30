@@ -88,7 +88,7 @@ void GameInterface::initialize()
     buttons[1]->setText(tr("Roll"));
     connect(buttons[1], &QPushButton::clicked, this, &GameInterface::roll_button_clicked);
 
-    buttons[2]->setText(tr("End Turn"));
+    buttons[2]->setText(tr("End turn"));
     connect(buttons[2], &QPushButton::clicked, this, &GameInterface::next_turn_button_clicked);
 
     buttons[3]->setText(tr("Inventory"));
@@ -258,8 +258,9 @@ void GameInterface::roll_button_clicked()
 {
     turn->dice_roll();
     int roll = turn->get_roll();
-    action->set_text("Вы бросили кубики и выкинули: " + QString::number(roll));
+    action->set_text(tr("Your dice roll:") + " " + QString::number(roll));
     current_map->want_to_move();
+    buttons[1]->setEnabled(false);
 }
 
 void GameInterface::status_button_clicked()
@@ -293,9 +294,9 @@ void GameInterface::to_main()
 void GameInterface::process_equip(Equipment *item, QString place)
 {
     Player* player = turn->get_player();
-    if(item->get_class() == "оружие")
+    if(item->get_class() == "weapon")
         player->equip_weapon(dynamic_cast<Weapon*>(item), place.toStdString());
-    else if(item->get_class() == "броня")
+    else if(item->get_class() == "armour")
         player->equip_armour(dynamic_cast<Armour*>(item), place.toStdString());
     else
         player->equip_jewel(dynamic_cast<Jewel*>(item), place.toStdString());
@@ -321,7 +322,7 @@ void GameInterface::save_game(QString file_name)
     save_load_manager->set_file_name(file_name);
     save_load_manager->save_all();
     information_window->raise();
-    information_window->inform("Игра сохранилась");
+    information_window->inform(tr("Saved!"));
 }
 
 void GameInterface::all_is_ready()
@@ -433,7 +434,7 @@ void GameInterface::process_item_pick() // совершает подбор пр�
         if(turn->get_picked_item())
         {
             add_item(turn->get_picked_item());
-            action->set_text("Вы получили предмет: " + QString::fromStdString(turn->get_picked_item()->get_name()) + " (предмет тайла)");
+        action->set_text(tr("You have picked up an item!") + " " + tr(turn->get_picked_item()->get_name().c_str()) + " " + tr("tile item."));
         }
 
         update_player_status();

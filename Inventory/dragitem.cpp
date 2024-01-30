@@ -9,7 +9,7 @@ DragItem::DragItem(Equipment *item, QString icon, QWidget *parent) :
 
 void DragItem::set_equiped()
 {
-    item_name->setText(QString::fromStdString(connected_item->get_name()) + " (экипировано)");
+    item_name->setText(QString::fromStdString(connected_item->get_name()) + " (" + tr("equipped") + ")");
     is_equiped = true;
 }
 
@@ -22,7 +22,7 @@ void DragItem::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         m_dragStart = event->pos();
-    if(event->button() == Qt::RightButton && connected_item->get_class() == "зелье")
+    if(event->button() == Qt::RightButton && connected_item->get_class() == "potion")
     {
         Turn::get_Turn()->get_player()->use_potion(dynamic_cast<Potion*>(connected_item));
         emit potion_was_used();
@@ -34,7 +34,7 @@ void DragItem::mouseMoveEvent(QMouseEvent *event)
 {
     if((event->buttons() & Qt::LeftButton) &&
         QApplication::startDragDistance() <= ( event->pos() - m_dragStart ).manhattanLength() &&
-        connected_item->get_class() != "зелье" &&
+        connected_item->get_class() != "potion" &&
         !is_equiped)
     {
         QDrag* drag = new QDrag(this);

@@ -100,3 +100,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Resources/Resources.qrc
+
+TRANSLATIONS += Game_en.ts \
+                Game_ru.ts

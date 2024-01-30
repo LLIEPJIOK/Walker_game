@@ -1,39 +1,49 @@
 #include "menu.h"
+#include "qtranslator.h"
 
 #include <QPixmap>
 #include <QStyle>
 
 Menu::Menu(QWidget *parent) : QMainWindow(parent)
 {
+    eng = true;
+    translator = new QTranslator();
+    translator->load("D:/Game/Game/Game_en");
     QFont btn_font ("Arial", 14, QFont::Normal, 1);
     setStyleSheet("QPushButton        {color: white;}"
                   "QPushButton:hover  {color: rgb(255, 178, 102);}");
 
-    btn_new_game = new QPushButton("Новая игра");
+    btn_new_game = new QPushButton(tr("New game"));
     btn_new_game->setMinimumSize(300, 50);
     btn_new_game->setFlat(1);
     btn_new_game->setFont(btn_font);
 
-    btn_load = new QPushButton("Загрузить");
+    btn_load = new QPushButton(tr("Load"));
     btn_load->setMinimumSize(300, 50);
     btn_load->setFlat(1);
     btn_load->setFont(btn_font);
 
-    btn_titers = new QPushButton("Об игре");
+    btn_titers = new QPushButton(tr("About"));
     btn_titers->setMinimumSize(300, 50);
     btn_titers->setFlat(1);
     btn_titers->setFont(btn_font);
 
-    btn_exit = new QPushButton("Выход");
+    btn_exit = new QPushButton(tr("Exit"));
     btn_exit->setMinimumSize(300, 50);
     btn_exit->setFlat(1);
     btn_exit->setFont(btn_font);
+
+    btn_lang = new QPushButton(tr("English"));
+    btn_lang->setMinimumSize(300, 50);
+    btn_lang->setFlat(1);
+    btn_lang->setFont(btn_font);
 
     vblay = new QVBoxLayout();
     vblay->setAlignment(Qt::AlignCenter);
     vblay->setSpacing(10);
     vblay->addWidget(btn_new_game);
     vblay->addWidget(btn_load);
+    vblay->addWidget(btn_lang);
     vblay->addWidget(btn_titers);
     vblay->addWidget(btn_exit);
 
@@ -50,6 +60,7 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     connect(btn_load, SIGNAL(clicked()), this, SLOT(open_load()));
     connect(btn_titers, SIGNAL(clicked()), this, SLOT(open_titers()));
     connect(btn_exit, SIGNAL(clicked()), this, SLOT(open_exit_window()));
+    connect(btn_lang, SIGNAL(clicked()), this, SLOT(change_lang()));
 
     connect(load, &Load::return_back_signal, this, &Menu::menu_enable);
     connect(new_game, &NewGame::open_menu_signal, this, &Menu::menu_enable);
@@ -94,6 +105,20 @@ void Menu::menu_enable()
 {
     centralWidget()->setParent(0);
     setCentralWidget(widget);
+}
+
+void Menu::change_lang()
+{
+    if (eng){
+        translator->load("D:/Game/Game/Game_ru");
+        QApplication::installTranslator(translator);
+        eng = false;
+    }
+    else{
+        translator->load("D:/Game/Game/Game_en");
+        QApplication::installTranslator(translator);
+        eng = false;
+    }
 }
 
 void Menu::paintEvent(QPaintEvent *event)

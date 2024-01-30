@@ -7,7 +7,7 @@
 "class" : "potion",
 "type" : "instant",
 "effect_type" : "positive",
-"effect_name" : "dispell",
+"effect_name" : "Dispell",
 "tier" : 2,
 "duration" : 1
 },
@@ -67,7 +67,7 @@
 "class" : "potion",
 "type" : "lasting",
 "effect_type" : "positive",
-"effect_name" : "regeneration",
+"effect_name" : "Regeneration",
 "tier" : 2,
 "duration" : 3
 },
@@ -79,7 +79,7 @@
 "class" : "potion",
 "type" : "lasting",
 "effect_type" : "щл",
-"effect_name" : "усиление",
+"effect_name" : "Empower",
 "tier" : 3,
 "duration" : 3
 },
@@ -91,7 +91,7 @@
 "class" : "potion",
 "type" : "lasting",
 "effect_type" : "positive",
-"effect_name" : "endurance",
+"effect_name" : "Endurance",
 "tier" : 3,
 "duration" : 3,
 "chars" : 
@@ -107,7 +107,7 @@
 "class" : "potion",
 "type" : "lasting",
 "effect_type" : "positive",
-"effect_name" : "haste",
+"effect_name" : "Haste",
 "tier" : 2,
 "duration" : 3
 },

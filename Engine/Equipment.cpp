@@ -60,13 +60,13 @@ void Jewel::make_ring(int turn_number)
 {
     if (turn_number < 1)
     {
-        throw std::exception("номер хода не может быть меньше 1");
+        throw std::exception("turn number is less than 1");
     }
 
     int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
     item_id = base*100 + spec*10 + utility + 600;
-    equipment_class = "украшение";
-    type = "кольцо";
+    equipment_class = "jewel";
+    type = "ring";
     is_equiped = 0;
 
     std::string tier = "";
@@ -74,30 +74,30 @@ void Jewel::make_ring(int turn_number)
     if (turn_number < 20) // определяет тир кольца
     {
         tier = "T1";
-        name = "Малое кольцо ";
+        name = QObject::tr("Lesser ring").toStdString();
     }
     else if (turn_number > 50)
     {
         tier = "T3";
-        name = "Великое кольцо ";
+        name = QObject::tr("Great ring").toStdString();
     }
     else
     {
         tier = "T2";
-        name = "Кольцо ";
+        name = QObject::tr("Ring").toStdString();
     }
 
     std::string special = "";
 
     switch (spec) // определяет атакующее свойство кольца
     {
-    case 1: name  += "пронзания ";
+    case 1: name  += " " + QObject::tr("of piercing").toStdString();
         special = "PIERCE";
         break;
-    case 2: name += "шанса крит. удара ";
+    case 2: name += " " + QObject::tr("of critical chance").toStdString();
         special = "CRIT_CH_FLAT";
         break;
-    case 3: name += "крит. удара ";
+    case 3: name += " " + QObject::tr("of critical damage").toStdString();
         special = "CRIT_DMG_FLAT";
         break;
     }
@@ -126,13 +126,13 @@ void Jewel::make_necklace(int turn_number)
 {
     if (turn_number < 1)
     {
-        throw std::exception("номер хода не может быть меньше 1");
+        throw std::exception("< 1???");
     }
 
     int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
     item_id = base*100 + spec*10 + utility + 630;
-    equipment_class = "украшение";
-    type = "ожерелье";
+    equipment_class = "jewel";
+    type = "necklace";
     is_equiped = 0;
 
     std::string tier = "";
@@ -140,30 +140,30 @@ void Jewel::make_necklace(int turn_number)
     if (turn_number < 20) // определяет тир ожерелья
     {
         tier = "T1";
-        name = "Малое ожерелье ";
+        name = QObject::tr("Lesser necklace").toStdString();
     }
     else if (turn_number > 50)
     {
         tier = "T3";
-        name = "Великое ожерелье ";
+        name = QObject::tr("Great necklace").toStdString();
     }
     else
     {
         tier = "T2";
-        name = "Ожерелье ";
+        name = QObject::tr("Necklace").toStdString();
     }
 
     std::string special = "";
 
     switch (spec) // определяет атакующее свойство ожерелья
     {
-    case 1: name  += "пронзания ";
+    case 1: name  += " " + QObject::tr("of piercing").toStdString() + " ";
         special = "PIERCE";
         break;
-    case 2: name += "шанса крит. удара ";
+    case 2: name += " " + QObject::tr("of critical chance").toStdString() + " ";
         special = "CRIT_CH_FLAT";
         break;
-    case 3: name += "крит. удара ";
+    case 3: name += " " + QObject::tr("of critical damage").toStdString() + " ";
         special = "CRIT_DMG_FLAT";
         break;
     }
@@ -172,13 +172,13 @@ void Jewel::make_necklace(int turn_number)
 
     switch (utility) // определяет полезное свойство ожерелья
     {
-    case 1: name += "и здоровья";
+    case 1: name += " " + QObject::tr("and health").toStdString();
         util = "HP";
         break;
-    case 2: name += "и атаки";
+    case 2: name += " " + QObject::tr("and attack").toStdString();
         util = "ATK_MULTI";
         break;
-    case 3: name += "и защиты";
+    case 3: name += " " + QObject::tr("and deffence").toStdString();
         util = "ARM_MULTI";
         break;
     }
@@ -213,8 +213,8 @@ void Jewel::make_belt(int turn_number)
 
     int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
     item_id = base*100 + spec*10 + utility + 660;
-    equipment_class = "украшение";
-    type = "пояс";
+    equipment_class = "jewel";
+    type = "belt";
     is_equiped = 0;
 
     std::string tier;
@@ -222,30 +222,30 @@ void Jewel::make_belt(int turn_number)
     if (turn_number < 20) // определяет тир пояса
     {
         tier = "T1";
-        name = "Простой пояс ";
+        name = "Simple belt";
     }
     else if (turn_number > 50)
     {
         tier = "T3";
-        name = "Великий пояс ";
+        name = "Great belt";
     }
     else
     {
         tier = "T2";
-        name = "Пояс ";
+        name = "Belt";
     }
 
     std::string util = "";
 
     switch (utility) // определяет полезное свойство пояса
     {
-    case 1: name += "здоровья";
+    case 1: name += " " + QObject::tr("of health").toStdString();
         util = "HP";
         break;
-    case 2: name += "атаки";
+    case 2: name += " " + QObject::tr("of attack").toStdString();
         util = "ATK_MULTI";
         break;
-    case 3: name += "защиты";
+    case 3: name += " " + QObject::tr("of deffence").toStdString();
         util = "ARM_MULTI";
         break;
     }
@@ -278,9 +278,9 @@ Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std
 
 Jewel::Jewel(std::string type, int turn_number) : Equipment()
 {
-    if(type == "кольцо")
+    if(type == "ring")
         make_ring(turn_number);
-    else if(type == "ожерелье")
+    else if(type == "necklace")
         make_necklace(turn_number);
     else
         make_belt(turn_number);

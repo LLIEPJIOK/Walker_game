@@ -18,13 +18,13 @@ Accept::Accept(QString str, QWidget *parent)
     label->resize(width(), 70);
     label->move(0, 35);
 
-    btn_yes = new QPushButton("Да", this);
+    btn_yes = new QPushButton(tr("Yes"), this);
     btn_yes->setFlat(1);
     btn_yes->setFont(btn_font);
     btn_yes->resize(50, 30);
     btn_yes->move(25, 125);
 
-    btn_no = new QPushButton("Нет", this);
+    btn_no = new QPushButton(tr("No"), this);
     btn_no->setFlat(1);
     btn_no->setFont(btn_font);
     btn_no->resize(50, 30);

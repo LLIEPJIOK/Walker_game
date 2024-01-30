@@ -171,16 +171,16 @@ std::vector<std::pair<int, int>> Turn::find_possible_ways()
     int posx = player->get_x();
 
     if(player->get_y()!= 0)
-        if (map[posy - 1][posx].get_type_of_terrain() != "non_moving_area" && player->get_previous_direction() != std::make_pair(0 ,-1))
+        if (map[posy - 1][posx].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(0 ,-1))
             ways.push_back(std::make_pair(posx, posy - 1));
     if(player->get_x() != DataBase::get_DataBase()->get_width()-1)
-        if (map[posy][posx + 1].get_type_of_terrain() != "non_moving_area" && player->get_previous_direction() != std::make_pair(1, 0))
+        if (map[posy][posx + 1].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(1, 0))
             ways.push_back(std::make_pair(posx + 1, posy));
     if(player->get_y() != DataBase::get_DataBase()->get_height()-1)
-        if (map[posy + 1][posx].get_type_of_terrain() != "non_moving_area" && player->get_previous_direction() != std::make_pair(0 , 1))
+        if (map[posy + 1][posx].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(0 , 1))
             ways.push_back(std::make_pair(posx, posy + 1));;
     if(player->get_x() != 0)
-        if (map[posy][posx - 1].get_type_of_terrain() != "non_moving_area" && player->get_previous_direction() != std::make_pair(-1, 0))
+        if (map[posy][posx - 1].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(-1, 0))
             ways.push_back(std::make_pair(posx - 1, posy));
     return ways;
 }
@@ -307,10 +307,10 @@ std::vector<std::pair<int, int>> Turn::move_player()
     //change_player_position(start_x, start_y, player->get_x(), player->get_y());
     MapCell **map = DataBase::get_DataBase()->get_map();
 
-    if(map[player->get_y()][player->get_x()].get_item() != "Нет")
+    if(map[player->get_y()][player->get_x()].get_item() != "None")
     {
         picked_item = player->add_item(map[player->get_y()][player->get_x()].get_item());
-        map[player->get_y()][player->get_x()].set_item("Нет");
+        map[player->get_y()][player->get_x()].set_item("None");
     }
     if(map[player->get_y()][player->get_x()].get_event_name() != "???")
         activated_event = Events::get_Events()->get_events()->at(map[player->get_y()][player->get_x()].get_event_name());

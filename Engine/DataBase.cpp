@@ -62,79 +62,9 @@ void DataBase::generate_items()
         {
             x = std::rand()%width;
             y = std::rand()%height;
-        }while(map[y][x].get_item() != "Нет" || map[y][x].get_type_of_terrain() == "non_moving_area" );
+        }while(map[y][x].get_item() != "None" || map[y][x].get_type_of_terrain() == "Non_moving_area" );
 
         map[y][x].set_item(equipment_list[std::rand()%equipment_list.size()]);
-    }
-}
-
-void DataBase::save(QFile &out)
-{
-    //запись height
-    out.write((char*)& height, sizeof(height));
-    //запись width
-    out.write((char*)& width, sizeof(width));
-    //внешний цикл для записи каждого объекта класса MapCell
-    for(int i = 0; i < height; i++)
-    {
-        //внутренний цикл для записи каждого объекта класса MapCell
-        for(int j = 0; j < width; j++)
-        {
-            //вызов метода записи объекта класса MapCell
-            map[i][j].save(out);
-        }
-    }
-
-    //размер контейнера sequence
-    size_t size = sequence.size();
-    //запись размера sequence
-    out.write((char*)& size, sizeof(size));
-    //цикл для записи каждого объекта класса Player
-    for(auto& i: sequence)
-    {
-        //вызов метода записи объекта класса Player
-        i->save(out);
-    }
-}
-
-void DataBase::load(QFile &in)
-{
-    //чтение height
-    in.read((char*)& height, sizeof(height));
-    //чтение width
-    in.read((char*)& width, sizeof(width));
-
-    //создание массива укаателей на MapCell рамзером  height
-    map = new MapCell*[height];
-    //внешний цикл для чтения каждого объекта класса MapCell
-    for(int i = 0; i < height; i++)
-    {
-        //создание массива объектов класса MapCell
-        map[i] = new MapCell[width];
-        //внутрениий цикл для чтения каждого объекта класса MapCell
-        for(int j = 0; j < width; j++)
-        {
-            //вызов метода чтения объекта класса MapCell
-            map[i][j].load(in);
-        }
-    }
-
-    //переменная для размера контейнера
-    size_t size;
-    //чтение размера контейнера sequence
-    in.read((char*)& size, sizeof(size));
-    //очистка контейнера sequence
-    sequence.clear();
-    sequence.reserve(size);
-    //цикл для заполнения контейнера данными
-    for(int i = 0; i < size; i++)
-    {
-        //создание нового объекта класса Player
-        Player* pl = new Player("");
-        //вызов метода чтения объекта класса Player
-        pl->load(in);
-        //добавление в контейнер указателя на объект класса Player
-        sequence.push_back(pl);
     }
 }
 
@@ -245,14 +175,14 @@ void DataBase::generate_map()
         {
             if(map[i][j].get_type_of_terrain() == "moving_area")
             {
-                map[i][j].set_type_of_terrain("Лес");
+                map[i][j].set_type_of_terrain("Woods");
                 map[i][j].set_tile_name("forest_");
             }
             else
                 map[i][j].set_tile_name("forest_1");
             if(map[height-1-i][j].get_type_of_terrain() == "moving_area")
             {
-                map[height-1-i][j].set_type_of_terrain("Пустыня");
+                map[height-1-i][j].set_type_of_terrain("Desert");
                 map[height-1-i][j].set_tile_name("desert_");
             }
             else
@@ -264,14 +194,14 @@ void DataBase::generate_map()
         {
             if(map[i][j].get_type_of_terrain() == "moving_area")
             {
-                map[i][j].set_type_of_terrain("Горы");
+                map[i][j].set_type_of_terrain("Mountains");
                 map[i][j].set_tile_name("tundra_");
             }
             else
                 map[i][j].set_tile_name("tundra_1");
             if(map[height-1-i][j].get_type_of_terrain() == "moving_area")
             {
-                map[height-1-i][j].set_type_of_terrain("Болото");
+                map[height-1-i][j].set_type_of_terrain("Swamp");
                 map[height-1-i][j].set_tile_name("swamp_");
             }
             else
@@ -283,3 +213,74 @@ void DataBase::set_map(MapCell**& map)
 {
     this->map = map;
 }
+
+void DataBase::save(QFile &out)
+{
+    //запись height
+    out.write((char*)& height, sizeof(height));
+    //запись width
+    out.write((char*)& width, sizeof(width));
+    //внешний цикл для записи каждого объекта класса MapCell
+    for(int i = 0; i < height; i++)
+    {
+        //внутренний цикл для записи каждого объекта класса MapCell
+        for(int j = 0; j < width; j++)
+        {
+            //вызов метода записи объекта класса MapCell
+            map[i][j].save(out);
+        }
+    }
+
+    //размер контейнера sequence
+    size_t size = sequence.size();
+    //запись размера sequence
+    out.write((char*)& size, sizeof(size));
+    //цикл для записи каждого объекта класса Player
+    for(auto& i: sequence)
+    {
+        //вызов метода записи объекта класса Player
+        i->save(out);
+    }
+}
+
+void DataBase::load(QFile &in)
+{
+    //чтение height
+    in.read((char*)& height, sizeof(height));
+    //чтение width
+    in.read((char*)& width, sizeof(width));
+
+    //создание массива укаателей на MapCell рамзером  height
+    map = new MapCell*[height];
+    //внешний цикл для чтения каждого объекта класса MapCell
+    for(int i = 0; i < height; i++)
+    {
+        //создание массива объектов класса MapCell
+        map[i] = new MapCell[width];
+        //внутрениий цикл для чтения каждого объекта класса MapCell
+        for(int j = 0; j < width; j++)
+        {
+            //вызов метода чтения объекта класса MapCell
+            map[i][j].load(in);
+        }
+    }
+
+    //переменная для размера контейнера
+    size_t size;
+    //чтение размера контейнера sequence
+    in.read((char*)& size, sizeof(size));
+    //очистка контейнера sequence
+    sequence.clear();
+    sequence.reserve(size);
+    //цикл для заполнения контейнера данными
+    for(int i = 0; i < size; i++)
+    {
+        //создание нового объекта класса Player
+        Player* pl = new Player("");
+        //вызов метода чтения объекта класса Player
+        pl->load(in);
+        //добавление в контейнер указателя на объект класса Player
+        sequence.push_back(pl);
+    }
+}
+

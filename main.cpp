@@ -1,5 +1,8 @@
 #include <QApplication>
+#include<QTranslator>
+
 #include "GameInterface/game_interface.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

@@ -1,7 +1,6 @@
 
 #include "Event.h"
 #include "Engine/Effect.h"
-#include "Engine/Json.h"
 #include <QTextStream>
 #include <sys/stat.h> // для проверки валидности пути файла
 
@@ -139,18 +138,18 @@ void empty_house_event::execute_success(Player *pl)
     int type = rand() % 3;
     switch (type)
     {
-    case 0: pl->add_item("Загадочное кольцо");
+    case 0: pl->add_item("Mystery ring");
         break;
-    case 1: pl->add_item("Загадочное ожерелье");
+    case 1: pl->add_item("Mystery necklace");
         break;
-    case 2: pl->add_item("Загадочный пояс");
+    case 2: pl->add_item("Mystery belt");
         break;
     }
 }
 
 void empty_house_event::execute_failure(Player *pl)
 {
-    Effect* eff = new Effect("слабость", pl);
+    Effect* eff = new Effect("Weakness", pl);
     eff->apply_effect();
 }
 
@@ -173,28 +172,28 @@ void mushrooms_event::execute_success(Player *pl)
     int type = rand() % 5;
     switch (type)
     {
-    case 0: pl->add_item("Зелье регенерации");
+    case 0: pl->add_item("Potion of regeneration");
         break;
-    case 1: pl->add_item("Зелье силы");
+    case 1: pl->add_item("Potion of power");
         break;
-    case 2: pl->add_item("Зелье стойкости");
+    case 2: pl->add_item("Potion of endurance");
         break;
-    case 3: pl->add_item("Зелье ускорения");
+    case 3: pl->add_item("Potion of haste");
         break;
     case 4:
 {
         int stat = pl->get_characteristics().at("INT");
         if (stat < 5)
         {
-            pl->add_item("Малое зелье лечения");
+            pl->add_item("Lesser healing potion");
         }
         else if (stat < 10)
         {
-            pl->add_item("Зелье лечения");
+            pl->add_item("Healing potion");
         }
         else
         {
-            pl->add_item("Большое зелье лечения");
+            pl->add_item("Great healing potion");
         }
         break;
 }
@@ -203,7 +202,7 @@ void mushrooms_event::execute_success(Player *pl)
 
 void mushrooms_event::execute_failure(Player *pl)
 {
-    Effect* eff = new Effect("отравление", pl);
+    Effect* eff = new Effect("Intoxication", pl);
     eff->apply_effect();
 }
 
