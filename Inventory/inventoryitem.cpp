@@ -1,5 +1,5 @@
 #include "inventoryitem.h"
-
+#include "Engine/translator.h"
 #include <Engine/Turn.h>
 
 InventoryItem::InventoryItem(QWidget* parent, Equipment *item) :
@@ -11,7 +11,7 @@ InventoryItem::InventoryItem(QWidget* parent, Equipment *item) :
     if (item)
     {
         connected_item = item;
-        item_name->setText(tr(item->get_name().c_str()) + "(" + tr(connected_item->get_type().c_str()) + ")");
+        item_name->setText(QString::fromStdString(Translator::translate(item->get_name().c_str())) + "(" + QString::fromStdString(Translator::translate(connected_item->get_type().c_str())) + ")");
     }
 
     item_name->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
@@ -23,7 +23,7 @@ InventoryItem::InventoryItem(QWidget* parent, Equipment *item) :
 
 void InventoryItem::switch_text()
 {
-    item_name->setText(tr(connected_item->get_name().c_str()) + "(" + tr(connected_item->get_type().c_str()) + ")");
+    item_name->setText(QString::fromStdString(Translator::translate(connected_item->get_name().c_str())) + "(" + QString::fromStdString(Translator::translate(connected_item->get_type().c_str())) + ")");
 }
 
 void InventoryItem::switch_equiped()

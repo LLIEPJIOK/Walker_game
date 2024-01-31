@@ -14,6 +14,7 @@ SOURCES += \
     Engine/Turn.cpp \
     Engine/mapcell.cpp \
     Engine/saveandloadmanager.cpp \
+    Engine/translator.cpp \
     Events/Event.cpp \
     Events/event_window.cpp \
     GameInterface/Player_status_widget.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     Engine/Turn.h \
     Engine/saveandloadmanager.h \
     Engine/mapcell.h \
+    Engine/translator.h \
     Events/Event.h \
     Events/event_window.h \
     GameInterface/Player_status_widget.h \

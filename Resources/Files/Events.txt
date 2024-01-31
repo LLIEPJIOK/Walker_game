@@ -13,33 +13,33 @@
 "loggers" :
 {
 "event_name": "loggers",
-"event_info" : "По дороге через лес вы наткнулись на место вырубки, где усердно трудятся лесорубы. Видно, что рабочих рук им не хватает, поэтому вы решаете помочь им в нелегком труде.",
+"event_info" : "Following a path in the woods you came across felling, where hardworking loggers were doing their hard work. It seems that they don't have enough working force. Why don't you help them out?",
 "type" : "STR",
-"option" : "Рубить!",
-"success_text" : "Вы отлично сработались с остальными лесорубами. Выполнив даже чуть больше нормы обычного лесоруба, вы готовились идти искать место для отдыха, как вдруг вас окликнул главный лесоруб. Он предложил ночлег и еду в ближайшей древене. Чуствуя усталость, вы не смогли устоять перед таким предложением. Вас тепло приняли в деревне.\nНаутро вы чувствуете себя здоровей и сильней.",
-"failure_text" : "Вы кое-как помогли лесорубам. Хотя вы скорее были помехой, чем настоящей подмогой. Наверное поэтому вас сухо поблагодарили за работу и оставили искать себе ночлег в сыром лесу.\nНаутро вы чуствуете себя крайне паршиво...",
+"option" : "*Chop* *Chop*",
+"success_text" : "You did surprisingly well! The lumberjacks are grateful to you for your effort. You were invited to join their camp for the night to have rest. Wonderful, isn't it?",
+"failure_text" : "Maybe it wasn't the best idea to join the loggers with your lacking physique... You were kicked away very quickly.\nYou are now left alone in the damp forest for the night, which is also complemented by sore muscles and cold winds.\nThis event didn't end up good for your health...",
 "requirement" : -1
 },
 
 "empty_house" :
 {
 "event_name": "empty_house",
-"event_info" : "После долгого дня хождения по лесу вы набрели на избу. Вам очень хочется узнать, что находится внутри. Осмотрев ее со всех сторон вы поняли, что окна слишком узки для вас чтобы пролезть, на единственной двери висит огромный замок, который вы врядли сможете взломать, а под крышей находится дыра, в которую кое-как сможете пролезть. Вы решаете попробовать забраться туда.",
+"event_info" : "Following the path of an adventurer is an interesting journey. Today you found yourself in front of an old abandoned house. Curiosity took better of you and you decided to break in.",
 "type" : "AGIL",
-"option" : "На крышу!",
-"success_text" : "Вы быстро забрались на крышу и вползли в дом. Осмотрев его, вы нашли сундучок с интересным украшением. Хозяева этого дома покинули его уже давно, и вы решили, что находка нужна вам в будущих путешествиях больше, чем пердыдущим хозяевам...",
-"failure_text" : "Забраться на крышку с вашими данными оказалось гораздо сложнее, чем вы себе представляли. Потратив несколько часов на безрезультатные попытки, вы сдаетесь. Разочарованный, в первую очередь в себе, уходите. На следущий день вы просыпаетесь ужасно усталым...",
+"option" : "Let's see...",
+"success_text" : "You quickly climded to the hole in the roof. Avoiding some sharp obstacles like glass and clinkers, you have successfully entered the house. After doing some interior search you found a shiny piece of jewellery left behind. It was shining mysteriously, almost like ordering you to take it... You just couldn't resist.",
+"failure_text" : "You quickly climbed onto the roof, but you lacked the skill to avoid different sharp obstacles scatterred around. You gave up trying after getting wounded. There were no severe wounds, but the next morning you felt intoxicated, almost as if all the objects in the house were poisoned...",
 "requirement" : -1
 },
 
 "mushrooms" :
 {
 "event_name": "mushrooms",
-"event_info" : "Идя по лесной тропе вы внезапно вышли на целую поляну грибов. Тут их просто огромное количество! В этом мире из грибов можно сварить самые разные зелья, которые точно помогут вам в путешествии. Однако, если перепутать ингредиенты, можно отравиться. Вы любитель рискнуть, да и в грибах вы что-то да смыслите (как вам кажется), поэтому причин пропускать такой шанс нет...",
+"event_info" : "Today you decided to see if there are any mushrooms in the surrounding forests, but you definetely didn't expect to see such a sight! Mushroom glades of different sorts all over the place. It is time for you to remember the basic survivalist knowledge and make some potions.",
 "type" : "INT",
-"option" : "Варим!",
-"success_text" : "Вы вспомнили все уроки, которые вам когда-либо рассказывали знающие грибники. Это спасло вас от участи лежания в траве со скрученными внутренностями. Даже более того: вы смогли сварить какое-то зелье! Вы точно помните, что эффект его положительный, но какой именно? В любом случае лишним не будет. Вы продолжаете путь с приподнятым настроением и бутыльком зелья в сумке.",
-"failure_text" : "Ваш разум оказался слишком мал чтобы вместить всю мудрость грибоведчества. Вы определенно допустили какую-то ошибку в процессе варения. Пары варева отравили вас. Теперь грибы хищно наблюдают за каждым вашим шагов. Вы готовы поклястся, что у подосиновика на шляпке было око Саурона! В подобных галлюцинациях вы провели весь оставшийся день. Наутро вы чувствуете симптомы серьезного отравления...",
+"option" : "Add this, add that...",
+"success_text" : "The consistency is right, the smell is expected, the colour also seems fitting. It was easy to mess up, but you succeeded in making a potion, grats!",
+"failure_text" : "Halfway into the process you messed up with both temperature and quantity. Now you're lying, not feeling your legs and hallucinations are flowing into your eyes. You have to rest for a couple of days after such an experience...",
 "requirement" : -1
 }
 

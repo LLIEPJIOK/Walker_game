@@ -1,5 +1,5 @@
 #include "DataBase.h"
-
+#include "translator.h"
 
 Equipment::Equipment(int ID, std::string _name, std::string _equipment_class, std::map<std::string, int> characteristics, std::string _type)
 {

@@ -2,6 +2,7 @@
 #include "game_interface.h"
 #include "Menu/general.h"
 #include "Events/event_window.h"
+#include "Engine/translator.h"
 
 #include <QApplication>
 
@@ -434,7 +435,7 @@ void GameInterface::process_item_pick() // совершает подбор пр�
         if(turn->get_picked_item())
         {
             add_item(turn->get_picked_item());
-        action->set_text(tr("You have picked up an item!") + " " + tr(turn->get_picked_item()->get_name().c_str()) + " " + tr("tile item."));
+        action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
         }
 
         update_player_status();

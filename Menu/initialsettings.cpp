@@ -210,7 +210,7 @@ void InitialSettings::clear()
 
 void InitialSettings::update_lang()
 {
-    label_id->setText(tr("Игрок") + " " + QString::number(id + 1));
+    label_id->setText(tr("Player") + " " + QString::number(id + 1));
     edit_name->setPlaceholderText(tr("Enter your name"));
     is_ready->setText(tr("Ready!"));
     label_choose_stats->setText(tr("Distribute points") + " (" + QString::number(kol) + ") " + tr("between following attributes"));

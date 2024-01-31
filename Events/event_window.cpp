@@ -1,6 +1,7 @@
 
 #include "event_window.h"
 #include "Event.h"
+#include "Engine/translator.h"
 
 #include <QPainter>
 
@@ -25,7 +26,7 @@ Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
 
     main_layout->addWidget(img_label);
 
-    info = new QLabel(QString::fromStdString(event->get_event_info()), this);
+    info = new QLabel(Translator::translate(event->get_event_info().c_str()).c_str(), this);
     //info->resize(700, 350);
     info->setWordWrap(true);
     info->setFont(font);
@@ -35,7 +36,7 @@ Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
     QHBoxLayout* buttons = new QHBoxLayout();
 
     challenge_your_luck = new QPushButton(this);
-    challenge_your_luck->setText(QString::fromStdString(event->get_option()));
+    challenge_your_luck->setText(Translator::translate(event->get_option().c_str()).c_str());
     challenge_your_luck->setCursor(Qt::PointingHandCursor);
     connect(challenge_your_luck, &QPushButton::clicked, this, &Event_window::challenge_button_was_clicked);
     buttons->addWidget(challenge_your_luck);
@@ -45,22 +46,20 @@ Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
     QString type;
     if(needed_characteristic == "AGIL")
     {
-        type = "Ловкость";
+        type = tr("Agility");
     }
     else if (needed_characteristic == "STR")
     {
-        type = "Сила";
+        type = tr("Strength");
     }
     else
     {
-        type = "Интеллект";
+        type = tr("Intelligence");
     }
 
     requirement_info = new QLabel(this);
-    requirement_info->setText("Выбор этого действия подразумевает использование характеристики " + type + "\n"
-                              "Требуется очков характеристики для попытки совершить действие: " + QString::number(event->get_requirement(target) - 6) + "\n"
-                              "Требуется очков характеристики для гарантированного успеха: " + QString::number(event->get_requirement(target) - 1) + "\n"
-                              "Текущее количество очков: " + QString::number(target->get_characteristics().at(needed_characteristic)) + "\n");
+    requirement_info->setText(tr("Success rate of the event is based on your") + " " + type + "\n" +
+                              tr("Current stat") + ": " + QString::number(target->get_characteristics().at(needed_characteristic)) + "\n");
     requirement_info->setFont(font);
     requirement_info->setStyleSheet(style);
     main_layout->addWidget(requirement_info);
@@ -107,12 +106,12 @@ void Event_window::challenge_button_was_clicked()
     if((success = roll >= need))
     {
         img_path = QString::fromStdString(":/events/Pictures/Events/" + event->get_event_name() + "_success.png");
-        label = QString::fromStdString(event->get_success_text());
+        label = QString::fromStdString(Translator::translate(event->get_success_text().c_str()));
     }
     else
     {
         img_path = QString::fromStdString(":/events/Pictures/Events/" + event->get_event_name() + "_failure.png");
-        label = QString::fromStdString(event->get_failure_text());
+        label = QString::fromStdString(Translator::translate(event->get_failure_text().c_str()));
     }
 
     QPixmap img(img_path); // Event rework

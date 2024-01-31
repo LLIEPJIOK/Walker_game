@@ -4,6 +4,7 @@
 
 #include "Engine/Effect.h"
 #include "advanced_chars_tab.h"
+#include "Engine/translator.h"
 
 void Player_status_widget::paintEvent(QPaintEvent *event)
 {
@@ -202,7 +203,7 @@ void Player_status_widget::update_all()
     //updates all applied effects in qwlist
     effects->clear();
     for (Effect* eff : *assigned_player->get_active_effects()){
-        effects->addItem(tr(eff->get_effect_name().c_str()) + " (" + QString::number(eff->get_effect_duration()) + ")");
+        effects->addItem(QString::fromStdString(Translator::translate(eff->get_effect_name().c_str())) + " (" + QString::number(eff->get_effect_duration()) + ")");
     }
 
     // updates bar and atk label

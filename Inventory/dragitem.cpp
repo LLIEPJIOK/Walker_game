@@ -1,5 +1,6 @@
 #include "dragitem.h"
 #include "Engine/Turn.h"
+#include "Engine/translator.h"
 
 DragItem::DragItem(Equipment *item, QString icon, QWidget *parent) :
     InventoryItem(parent, item)
@@ -9,7 +10,7 @@ DragItem::DragItem(Equipment *item, QString icon, QWidget *parent) :
 
 void DragItem::set_equiped()
 {
-    item_name->setText(QString::fromStdString(connected_item->get_name()) + " (" + tr("equipped") + ")");
+    item_name->setText(QString::fromStdString(Translator::translate(connected_item->get_name().c_str())) + " (" + tr("equipped") + ")");
     is_equiped = true;
 }
 
@@ -44,7 +45,7 @@ void DragItem::mouseMoveEvent(QMouseEvent *event)
         QByteArray data = type.toUtf8();
 
         mimeData->setData("application/" + type, data);
-        mimeData->setText(QString::fromStdString(connected_item->get_name()));
+        mimeData->setText(QString::fromStdString(Translator::translate(connected_item->get_name().c_str())));
         drag->setMimeData(mimeData);
 
         Qt::DropAction result = drag->exec(Qt::MoveAction);

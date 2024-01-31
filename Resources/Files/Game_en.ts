@@ -67,7 +67,32 @@
 <context>
     <name>Event_window</name>
     <message>
-        <location filename="Events/event_window.cpp" line="125"/>
+        <location filename="Events/event_window.cpp" line="48"/>
+        <source>Agility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Events/event_window.cpp" line="52"/>
+        <source>Strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Events/event_window.cpp" line="56"/>
+        <source>Intelligence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Events/event_window.cpp" line="60"/>
+        <source>Success rate of the event is based on your</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Events/event_window.cpp" line="61"/>
+        <source>Current stat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Events/event_window.cpp" line="123"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -289,31 +314,31 @@
     <name>Menu</name>
     <message>
         <location filename="Menu/menu.cpp" line="16"/>
-        <location filename="Menu/menu.cpp" line="141"/>
+        <location filename="Menu/menu.cpp" line="145"/>
         <source>New game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Menu/menu.cpp" line="21"/>
-        <location filename="Menu/menu.cpp" line="142"/>
+        <location filename="Menu/menu.cpp" line="146"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Menu/menu.cpp" line="26"/>
-        <location filename="Menu/menu.cpp" line="143"/>
+        <location filename="Menu/menu.cpp" line="147"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Menu/menu.cpp" line="31"/>
-        <location filename="Menu/menu.cpp" line="144"/>
+        <location filename="Menu/menu.cpp" line="148"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="Menu/menu.cpp" line="36"/>
-        <location filename="Menu/menu.cpp" line="145"/>
+        <location filename="Menu/menu.cpp" line="149"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>

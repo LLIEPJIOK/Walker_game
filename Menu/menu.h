@@ -30,7 +30,7 @@ private:
     QWidget *widget;
     Credits *titers;
     Load* load;
-    QTranslator* translator;
+    static QTranslator translator;
 
     bool eng;
 

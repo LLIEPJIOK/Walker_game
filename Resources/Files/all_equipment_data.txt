@@ -600,7 +600,7 @@
 
 "Leather cuirass" :
 {
-"name" : "leather cuirass",
+"name" : "Leather cuirass",
 "ID" : 202,
 "class" : "armour",
 "type" : "cuirass",

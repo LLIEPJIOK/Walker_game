@@ -5,7 +5,6 @@ Wooden shield
 Iron mace
 Iron sword
 Iron axe
-Iron hammer
 Iron shield
 Steel mace
 Steel sword

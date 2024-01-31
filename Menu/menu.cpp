@@ -1,14 +1,13 @@
 #include "menu.h"
 #include "qtranslator.h"
+#include "Engine/translator.h"
 
 #include <QPixmap>
 #include <QStyle>
 
 Menu::Menu(QWidget *parent) : QMainWindow(parent)
 {
-    eng = true;
-    translator = new QTranslator();
-    translator->load("D:/Game/Game/Game_en");
+    eng = (translator.language() == "en") || translator.isEmpty();
     QFont btn_font ("Arial", 14, QFont::Normal, 1);
     setStyleSheet("QPushButton        {color: white;}"
                   "QPushButton:hover  {color: rgb(255, 178, 102);}");
@@ -110,17 +109,19 @@ void Menu::menu_enable()
 void Menu::change_lang()
 {
     if (eng){
-        if (!translator->load(":/files/Files/Game_ru.qm"))
+        if (!translator.load(":/files/Files/Game_ru.qm"))
             qDebug("Translation to ru_RU has failed");
 
-        QApplication::installTranslator(translator);
+        QApplication::installTranslator(&translator);
+        Translator::load(":/files/Files/Translator_ru.txt");
         eng = false;
     }
     else{
-        if (!translator->load(":/files/Files/Game_en.qm"))
+        if (!translator.load(":/files/Files/Game_en.qm"))
             qDebug("Translation to en_EN has failed");
 
-        QApplication::installTranslator(translator);
+        Translator::load(":/files/Files/Translator_en.txt");
+        QApplication::installTranslator(&translator);
         eng = true;
     }
 
@@ -148,3 +149,5 @@ void Menu::update_lang()
     btn_exit->setText(tr("Exit"));
     btn_lang->setText(tr("English"));
 }
+
+QTranslator Menu::translator;
