@@ -15,7 +15,7 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
                   "QCheckBox:disabled   {color: gray;}"
                   "QCheckBox:hover      {color: rgb(255, 178, 102);}");
 
-    label_id = new QLabel("Игрок " + QString::number(id + 1));
+    label_id = new QLabel(tr("Player") + " " + QString::number(id + 1));
     label_id->setAlignment(Qt::AlignCenter);
     label_id->setFont(font);
 
@@ -206,6 +206,17 @@ void InitialSettings::clear()
 {
     edit_name->setText("");
     is_ready->setChecked(0);
+}
+
+void InitialSettings::update_lang()
+{
+    label_id->setText(tr("Игрок") + " " + QString::number(id + 1));
+    edit_name->setPlaceholderText(tr("Enter your name"));
+    is_ready->setText(tr("Ready!"));
+    label_choose_stats->setText(tr("Distribute points") + " (" + QString::number(kol) + ") " + tr("between following attributes"));
+    label_force->setText(tr("Strength"));
+    label_agility->setText(tr("Agility"));
+    label_intelligence->setText(tr("Intelligence"));
 }
 
 void InitialSettings::disenable()

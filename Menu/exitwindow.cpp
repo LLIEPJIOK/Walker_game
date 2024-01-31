@@ -40,6 +40,14 @@ ExitWindow::ExitWindow(QWidget *parent) : QWidget(parent)
     connect(btn_no, &QPushButton::clicked, this, &ExitWindow::return_slot);
 }
 
+void ExitWindow::update_lang()
+{
+    label->setText(tr("Are you sure?"));
+    btn_yes->setText(tr("Yes"));
+    btn_no->setText(tr("No"));
+
+}
+
 void ExitWindow::close_slot()
 {
     emit signal_open_menu();

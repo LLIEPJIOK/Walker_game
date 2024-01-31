@@ -16,6 +16,7 @@ public:
     InitialSettings(int _id, QWidget *parent = nullptr);
     void clear();
     int id;
+    void update_lang();
 private:
     int kol;
     QLabel *label_id;

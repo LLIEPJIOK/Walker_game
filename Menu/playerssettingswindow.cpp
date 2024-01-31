@@ -24,7 +24,7 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     data.resize(players_number);
     players_ready.resize(players_number);
 
-    start_the_game = new QPushButton("Начать");
+    start_the_game = new QPushButton(tr("Start!"));
     start_the_game->setFlat(1);
     start_the_game->setEnabled(0);
     start_the_game->setFont(btn_font);
@@ -33,7 +33,7 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     pal.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::gray);
     start_the_game->setPalette(pal);
 
-    back = new QPushButton("Назад");
+    back = new QPushButton(tr("Return"));
     back->setFlat(1);
     back->setFont(btn_font);
 
@@ -92,6 +92,16 @@ void PlayersSettingsWindow::add_player(int number)
         connect(is, &InitialSettings::ready, this, &PlayersSettingsWindow::set_player);
         players_number++;
     }
+}
+
+void PlayersSettingsWindow::update_lang()
+{
+    start_the_game->setText(tr("Start!"));
+    back->setText(tr("Return"));
+    for (auto& i : in_set)
+        i->update_lang();
+
+    //set_players(0);
 }
 
 void PlayersSettingsWindow::check_all_ready()

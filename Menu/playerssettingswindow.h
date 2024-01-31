@@ -16,6 +16,7 @@ public:
     ~PlayersSettingsWindow();
     void set_players(int number);
     void add_player(int number);
+    void update_lang();
 private:
     int players_number;
     QHBoxLayout *buttons;

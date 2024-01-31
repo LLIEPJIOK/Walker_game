@@ -127,6 +127,17 @@ void Load::reset()
     }
 }
 
+void Load::update_lang()
+{
+    label->setText("<U>" + tr("Saves") + "</U>");
+    btn_prev->setText(tr("Return"));
+    btn_delete->setText(tr("Delete"));
+    btn_load->setText(tr("Load"));
+    btn_change->setText(tr("Change"));
+    btn_add->setText(tr("New"));
+    btn_rewrite->setText(tr("Rewrite"));
+}
+
 void Load::set_available()
 {
     btn_load->setEnabled(is_available);

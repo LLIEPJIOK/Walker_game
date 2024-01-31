@@ -44,6 +44,7 @@ private slots:
 
 protected:
     void paintEvent(QPaintEvent* event);
+    void update_lang();
 
 signals:
     void hide_main_window();

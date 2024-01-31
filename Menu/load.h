@@ -18,6 +18,7 @@ public:
 
     // сбрасывает выделение на слоте
     void reset();
+    void update_lang();
 
 private:
 

@@ -14,6 +14,7 @@ class NewGame : public QMainWindow
 public:
     NewGame(QWidget *parent = nullptr);
     ~NewGame();
+    void update_lang();
 private:
     QLabel *label_choose;
     QLabel *label_2;

@@ -117,8 +117,14 @@ void Menu::change_lang()
     else{
         translator->load("D:/Game/Game/Game_en");
         QApplication::installTranslator(translator);
-        eng = false;
+        eng = true;
     }
+
+    update_lang();
+    new_game->update_lang();
+    exit_window->update_lang();
+    load->update_lang();
+
 }
 
 void Menu::paintEvent(QPaintEvent *event)
@@ -128,4 +134,13 @@ void Menu::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.drawPixmap(0, 0, background);
     QMainWindow::paintEvent(event);
+}
+
+void Menu::update_lang()
+{
+    btn_new_game->setText(tr("New game"));
+    btn_load->setText(tr("Load"));
+    btn_titers->setText(tr("About"));
+    btn_exit->setText(tr("Exit"));
+    btn_lang->setText(tr("English"));
 }

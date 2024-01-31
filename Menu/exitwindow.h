@@ -14,6 +14,7 @@ class ExitWindow : public QWidget
     Q_OBJECT
 public:
     ExitWindow(QWidget *parent = nullptr);
+    void update_lang();
 private:
     QPushButton *btn_yes;
     QPushButton *btn_no;

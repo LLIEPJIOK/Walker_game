@@ -81,6 +81,16 @@ NewGame::~NewGame()
     delete player_set_window;
 }
 
+void NewGame::update_lang()
+{
+    btn_next->setText(tr("Continue"));
+    btn_prev->setText(tr("Return"));
+    label_choose->setText(tr("Quantity of players"));
+    if (player_set_window != nullptr)
+        player_set_window->update_lang();
+
+}
+
 void NewGame::go_choose_players()
 {
     if (!player_set_window)
@@ -90,6 +100,7 @@ void NewGame::go_choose_players()
     }
     else
         player_set_window->set_players(slider->value());
+
     centralWidget()->setParent(0);
     setCentralWidget(player_set_window);
 }
