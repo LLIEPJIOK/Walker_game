@@ -85,6 +85,7 @@ public:
 class Equipment_Comparator {
 public:
     bool operator ()(const Equipment* first, const Equipment* second) const { return first->get_name() < second->get_name(); }
+    bool operator ()(const Equipment& first, const Equipment& second) const { return first.get_name() < second.get_name(); }
 };
 
 #endif

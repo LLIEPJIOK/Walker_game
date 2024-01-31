@@ -74,30 +74,30 @@ void Jewel::make_ring(int turn_number)
     if (turn_number < 20) // определяет тир кольца
     {
         tier = "T1";
-        name = QObject::tr("Lesser ring").toStdString();
+        name = "Lesser ring";
     }
     else if (turn_number > 50)
     {
         tier = "T3";
-        name = QObject::tr("Great ring").toStdString();
+        name = "Great ring";
     }
     else
     {
         tier = "T2";
-        name = QObject::tr("Ring").toStdString();
+        name = "Ring";
     }
 
     std::string special = "";
 
     switch (spec) // определяет атакующее свойство кольца
     {
-    case 1: name  += " " + QObject::tr("of piercing").toStdString();
+    case 1: name  += " of piercing";
         special = "PIERCE";
         break;
-    case 2: name += " " + QObject::tr("of critical chance").toStdString();
+    case 2: name += " of critical chance";
         special = "CRIT_CH_FLAT";
         break;
-    case 3: name += " " + QObject::tr("of critical damage").toStdString();
+    case 3: name += " of critical damage";
         special = "CRIT_DMG_FLAT";
         break;
     }
@@ -140,30 +140,30 @@ void Jewel::make_necklace(int turn_number)
     if (turn_number < 20) // определяет тир ожерелья
     {
         tier = "T1";
-        name = QObject::tr("Lesser necklace").toStdString();
+        name = "Lesser necklace";
     }
     else if (turn_number > 50)
     {
         tier = "T3";
-        name = QObject::tr("Great necklace").toStdString();
+        name = "Great necklace";
     }
     else
     {
         tier = "T2";
-        name = QObject::tr("Necklace").toStdString();
+        name = "Necklace";
     }
 
     std::string special = "";
 
     switch (spec) // определяет атакующее свойство ожерелья
     {
-    case 1: name  += " " + QObject::tr("of piercing").toStdString() + " ";
+    case 1: name  += " of piercing ";
         special = "PIERCE";
         break;
-    case 2: name += " " + QObject::tr("of critical chance").toStdString() + " ";
+    case 2: name += " of critical chance ";
         special = "CRIT_CH_FLAT";
         break;
-    case 3: name += " " + QObject::tr("of critical damage").toStdString() + " ";
+    case 3: name += " of critical damage ";
         special = "CRIT_DMG_FLAT";
         break;
     }
@@ -172,13 +172,13 @@ void Jewel::make_necklace(int turn_number)
 
     switch (utility) // определяет полезное свойство ожерелья
     {
-    case 1: name += " " + QObject::tr("and health").toStdString();
+    case 1: name += " and health";
         util = "HP";
         break;
-    case 2: name += " " + QObject::tr("and attack").toStdString();
+    case 2: name += " and attack";
         util = "ATK_MULTI";
         break;
-    case 3: name += " " + QObject::tr("and deffence").toStdString();
+    case 3: name += " and deffence";
         util = "ARM_MULTI";
         break;
     }
@@ -239,13 +239,13 @@ void Jewel::make_belt(int turn_number)
 
     switch (utility) // определяет полезное свойство пояса
     {
-    case 1: name += " " + QObject::tr("of health").toStdString();
+    case 1: name += " of health";
         util = "HP";
         break;
-    case 2: name += " " + QObject::tr("of attack").toStdString();
+    case 2: name += " of attack";
         util = "ATK_MULTI";
         break;
-    case 3: name += " " + QObject::tr("of deffence").toStdString();
+    case 3: name += " of deffence";
         util = "ARM_MULTI";
         break;
     }
