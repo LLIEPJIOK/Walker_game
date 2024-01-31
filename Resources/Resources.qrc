@@ -10,6 +10,10 @@
         <file>Files/jewellery_stats.txt</file>
         <file>Files/TEMPLATE.txt</file>
         <file>Files/Text.txt</file>
+        <file>Files/Game_en.qm</file>
+        <file>Files/Game_en.ts</file>
+        <file>Files/Game_ru.qm</file>
+        <file>Files/Game_ru.ts</file>
     </qresource>
     <qresource prefix="/equipment">
         <file>Pictures/Equipment/belt.png</file>

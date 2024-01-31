@@ -110,12 +110,16 @@ void Menu::menu_enable()
 void Menu::change_lang()
 {
     if (eng){
-        translator->load("D:/Game/Game/Game_ru");
+        if (!translator->load(":/files/Files/Game_ru.qm"))
+            qDebug("Translation to ru_RU has failed");
+
         QApplication::installTranslator(translator);
         eng = false;
     }
     else{
-        translator->load("D:/Game/Game/Game_en");
+        if (!translator->load(":/files/Files/Game_en.qm"))
+            qDebug("Translation to en_EN has failed");
+
         QApplication::installTranslator(translator);
         eng = true;
     }
