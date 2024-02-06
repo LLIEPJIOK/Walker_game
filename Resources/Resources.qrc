@@ -16,6 +16,7 @@
         <file>Files/Game_ru.ts</file>
         <file>Files/Translator_ru.txt</file>
         <file>Files/Translator_en.txt</file>
+        <file>Files/build.pch</file>
     </qresource>
     <qresource prefix="/equipment">
         <file>Pictures/Equipment/belt.png</file>
