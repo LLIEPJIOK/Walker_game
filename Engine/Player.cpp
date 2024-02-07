@@ -248,22 +248,22 @@ std::map<std::string, int>& Player::get_characteristics()
     return characteristics;
 }
 
-std::multiset <Weapon*, Equipment_Comparator>* Player::get_weaponary()
+std::multiset <Equipment*, Equipment_Comparator>* Player::get_weaponary()
 {
     return &weaponary;
 }
 
-std::multiset <Armour*, Equipment_Comparator>* Player::get_armourment()
+std::multiset <Equipment*, Equipment_Comparator>* Player::get_armourment()
 {
     return &armourment;
 }
 
-std::multiset <Potion*, Equipment_Comparator>* Player::get_potions()
+std::multiset <Equipment*, Equipment_Comparator>* Player::get_potions()
 {
     return &potions;
 }
 
-std::multiset <Jewel*, Equipment_Comparator>* Player::get_jewellery()
+std::multiset<Equipment *, Equipment_Comparator> *Player::get_jewellery()
 {
     return &jewellery;
 }
@@ -273,17 +273,17 @@ std::vector <Effect*>* Player::get_active_effects()
     return &active_effects;
 }
 
-std::map<std::string, Weapon*>* Player::get_equiped_weaponary()
+std::map<std::string, Equipment*>* Player::get_equiped_weaponary()
 {
     return &equiped_weaponary;
 }
 
-std::map<std::string, Armour*>* Player::get_equiped_armourment()
+std::map<std::string, Equipment*>* Player::get_equiped_armourment()
 {
     return &equiped_armourment;
 }
 
-std::map<std::string, Jewel*>* Player::get_equiped_jewellery()
+std::map<std::string, Equipment*>* Player::get_equiped_jewellery()
 {
     return &equiped_jewellery;
 }
@@ -394,38 +394,18 @@ void Player::process_active_effects() // производит исполнени
     update_chars();
 }
 
-void Player::equip_armour(Armour* armour, std::string place)
+void Player::equip_item(std::map <std::string, Equipment*>* container, Equipment *item, std::string place)
 {
-    if (equiped_armourment[place] != nullptr)
-        unequip_item(equiped_armourment[place], place);
-    equiped_armourment[place] = armour;
-	armour->change_equiped();
-	for (const auto& i : *armour->get_item_characteristics())
-		characteristics[i.first] += i.second;
+    if (container->find(place) == container->end())
+        throw new std::invalid_argument("Place is invalid");
 
-    update_chars();
-}
+    if (container->at(place) != nullptr)
+        unequip_item(container->at(place), place);
 
-void Player::equip_weapon(Weapon* weapon, std::string place)
-{
-    if (equiped_weaponary[place] != nullptr)
-        unequip_item(equiped_weaponary[place], place);
-    equiped_weaponary[place] = weapon;
-	weapon->change_equiped();
-	for (const auto& i : *weapon->get_item_characteristics())
-		characteristics[i.first] += i.second;
-
-    update_chars();
-}
-
-void Player::equip_jewel(Jewel* jewel, std::string place)
-{
-    if (equiped_jewellery[place] != nullptr)
-        unequip_item(equiped_jewellery[place], place);
-    equiped_jewellery[place] = jewel;
-	jewel->change_equiped();
-	for (const auto& i : *jewel->get_item_characteristics())
-		characteristics[i.first] += i.second;
+    container->at(place) = item;
+    item->change_equiped();
+    for (const auto& i : *item->get_item_characteristics())
+        characteristics[i.first] += i.second;
 
     update_chars();
 }

@@ -19,6 +19,7 @@ protected:
     // нужно для фронта, сохранять и загружать не надо!
     bool is_front_equiped;
 
+
 public:
     Equipment(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
     Equipment() = default;
@@ -42,9 +43,7 @@ public:
 
 class Jewel : public Equipment {
 private:
-    void make_ring(int turn_number);
-    void make_necklace(int turn_number);
-    void make_belt(int turn_number);
+    void augment(std::string tier, std::string field, std::string choice);
 public:
     Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type);
     Jewel(std::string type, int turn_number);

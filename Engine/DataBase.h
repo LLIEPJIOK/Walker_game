@@ -31,9 +31,7 @@ class DataBase
 
     DataBase();
 
-    void initialize_equipment();
-    void initialize_effects();
-    void initialize_jewellery_stats();
+    void initialize_json(const char* path, nlohmann::json& container);
 public:
 	~DataBase();
     static DataBase *get_DataBase();

@@ -296,11 +296,11 @@ void GameInterface::process_equip(Equipment *item, QString place)
 {
     Player* player = turn->get_player();
     if(item->get_class() == "weapon")
-        player->equip_weapon(dynamic_cast<Weapon*>(item), place.toStdString());
+        player->equip_item(player->get_equiped_weaponary(), item, place.toStdString());
     else if(item->get_class() == "armour")
-        player->equip_armour(dynamic_cast<Armour*>(item), place.toStdString());
+        player->equip_item(player->get_equiped_armourment(), item, place.toStdString());
     else
-        player->equip_jewel(dynamic_cast<Jewel*>(item), place.toStdString());
+        player->equip_item(player->get_equiped_jewellery(), item, place.toStdString());
 
     current_player_status->update_all();
 }

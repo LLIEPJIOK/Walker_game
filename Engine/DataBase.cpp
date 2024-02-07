@@ -6,9 +6,9 @@ using json = nlohmann::json;
 
 DataBase::DataBase()
 {
-    initialize_equipment();
-    initialize_jewellery_stats();
-    initialize_effects();
+    initialize_json("../Game/Resources/Files/all_equipment_data.txt", all_equipment);
+    initialize_json("../Game/Resources/Files/jewellery_stats.txt", jewellery_stats);
+    initialize_json("../Game/Resources/Files/all_effects_data.txt", all_effects);
 
     // equipment_list.txt нужно будет переделать под JSON, когда будем реализовывать тиры предметов
     std::ifstream fin;
@@ -28,27 +28,11 @@ DataBase::DataBase()
     fin.close();
 }
 
-void DataBase::initialize_equipment()
+void DataBase::initialize_json(const char *path, nlohmann::json &container)
 {
     std::ifstream fin;
-    fin.open("../Game/Resources/Files/all_equipment_data.txt");
-    all_equipment = json::parse(fin);
-    fin.close();
-}
-
-void DataBase::initialize_effects()
-{
-    std::ifstream fin;
-    fin.open("../Game/Resources/Files/all_effects_data.txt");
-    all_effects = json::parse(fin);
-    fin.close();
-}
-
-void DataBase::initialize_jewellery_stats()
-{
-    std::ifstream fin;
-    fin.open("../Game/Resources/Files/jewellery_stats.txt");
-    jewellery_stats = json::parse(fin);
+    fin.open(path);
+    container = json::parse(fin);
     fin.close();
 }
 

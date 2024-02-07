@@ -54,220 +54,12 @@ void Equipment::change_front_equiped()
     is_front_equiped = !is_front_equiped;
 }
 
-
 //Jewellery
-void Jewel::make_ring(int turn_number)
+void Jewel::augment(std::string tier, std::string field, std::string choice)
 {
-    if (turn_number < 1)
-    {
-        throw std::exception("turn number is less than 1");
-    }
-
-    int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
-    item_id = base*100 + spec*10 + utility + 600;
-    equipment_class = "jewel";
-    type = "ring";
-    is_equiped = 0;
-
-    std::string tier = "";
-
-    if (turn_number < 20) // определяет тир кольца
-    {
-        tier = "T1";
-        name = "Lesser ring";
-    }
-    else if (turn_number > 50)
-    {
-        tier = "T3";
-        name = "Great ring";
-    }
-    else
-    {
-        tier = "T2";
-        name = "Ring";
-    }
-
-    std::string special = "";
-
-    switch (spec) // определяет атакующее свойство кольца
-    {
-    case 1: name  += " of piercing";
-        special = "PIERCE";
-        break;
-    case 2: name += " of critical chance";
-        special = "CRIT_CH_FLAT";
-        break;
-    case 3: name += " of critical damage";
-        special = "CRIT_DMG_FLAT";
-        break;
-    }
-
-    std::string basa ="";
-
-    switch (base) // определяет атрибут в кольце
-    {
-    case 1: name += "(STR)";
-        basa = "STR";
-        break;
-    case 2: name += "(AGIL)";
-        basa = "AGIL";
-        break;
-    case 3: name += "(INT)";
-        basa = "INT";
-        break;
-    }
-
-    // заполнение характеристик
-    item_characteristics.insert(std::make_pair(special ,DataBase::get_DataBase()->get_jewellery_stats()[tier][special]));
-    item_characteristics.insert(std::make_pair(basa,DataBase::get_DataBase()->get_jewellery_stats()[tier][basa]));
-}
-
-void Jewel::make_necklace(int turn_number)
-{
-    if (turn_number < 1)
-    {
-        throw std::exception("< 1???");
-    }
-
-    int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
-    item_id = base*100 + spec*10 + utility + 630;
-    equipment_class = "jewel";
-    type = "necklace";
-    is_equiped = 0;
-
-    std::string tier = "";
-
-    if (turn_number < 20) // определяет тир ожерелья
-    {
-        tier = "T1";
-        name = "Lesser necklace";
-    }
-    else if (turn_number > 50)
-    {
-        tier = "T3";
-        name = "Great necklace";
-    }
-    else
-    {
-        tier = "T2";
-        name = "Necklace";
-    }
-
-    std::string special = "";
-
-    switch (spec) // определяет атакующее свойство ожерелья
-    {
-    case 1: name  += " of piercing ";
-        special = "PIERCE";
-        break;
-    case 2: name += " of critical chance ";
-        special = "CRIT_CH_FLAT";
-        break;
-    case 3: name += " of critical damage ";
-        special = "CRIT_DMG_FLAT";
-        break;
-    }
-
-    std::string util = "";
-
-    switch (utility) // определяет полезное свойство ожерелья
-    {
-    case 1: name += " and health";
-        util = "HP";
-        break;
-    case 2: name += " and attack";
-        util = "ATK_MULTI";
-        break;
-    case 3: name += " and deffence";
-        util = "ARM_MULTI";
-        break;
-    }
-
-    std::string basa ="";
-
-    switch (base) // определяет атрибут ожерелья
-    {
-    case 1: name += "(STR)";
-        basa = "STR";
-        break;
-    case 2: name += "(AGIL)";
-        basa = "AGIL";
-        break;
-    case 3: name += "(INT)";
-        basa = "INT";
-        break;
-    }
-
-    // заполнение характеристик
-    item_characteristics.insert(std::make_pair(special ,DataBase::get_DataBase()->get_jewellery_stats()[tier][special]));
-    item_characteristics.insert(std::make_pair(basa, DataBase::get_DataBase()->get_jewellery_stats()[tier][basa]));
-    item_characteristics.insert(std::make_pair(util, DataBase::get_DataBase()->get_jewellery_stats()[tier][util]));
-}
-
-void Jewel::make_belt(int turn_number)
-{
-    if (turn_number < 1)
-    {
-        throw std::exception("номер хода не может быть меньше 1");
-    }
-
-    int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
-    item_id = base*100 + spec*10 + utility + 660;
-    equipment_class = "jewel";
-    type = "belt";
-    is_equiped = 0;
-
-    std::string tier;
-
-    if (turn_number < 20) // определяет тир пояса
-    {
-        tier = "T1";
-        name = "Simple belt";
-    }
-    else if (turn_number > 50)
-    {
-        tier = "T3";
-        name = "Great belt";
-    }
-    else
-    {
-        tier = "T2";
-        name = "Belt";
-    }
-
-    std::string util = "";
-
-    switch (utility) // определяет полезное свойство пояса
-    {
-    case 1: name += " of health";
-        util = "HP";
-        break;
-    case 2: name += " of attack";
-        util = "ATK_MULTI";
-        break;
-    case 3: name += " of deffence";
-        util = "ARM_MULTI";
-        break;
-    }
-
-    std::string basa ="";
-
-    switch (base) // определяет атрибут пояса
-    {
-    case 1: name += "(STR)";
-        basa = "STR";
-        break;
-    case 2: name += "(AGIL)";
-        basa = "AGIL";
-        break;
-    case 3: name += "(INT)";
-        basa = "INT";
-        break;
-    }
-
-    // заполнение характеристик
-    item_characteristics.insert(std::make_pair(basa, DataBase::get_DataBase()->get_jewellery_stats()[tier][basa]));
-    item_characteristics.insert(std::make_pair(util, DataBase::get_DataBase()->get_jewellery_stats()[tier][util]));
+    std::string chosen_stat = DataBase::get_DataBase()->get_jewellery_stats()["choice"][field][choice];
+    name += DataBase::get_DataBase()->get_jewellery_stats()["char_names"][chosen_stat];
+    item_characteristics.insert(std::make_pair(chosen_stat, DataBase::get_DataBase()->get_jewellery_stats()[tier]["chars"][field][chosen_stat]));
 }
 
 Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
@@ -278,12 +70,31 @@ Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std
 
 Jewel::Jewel(std::string type, int turn_number) : Equipment()
 {
-    if(type == "ring")
-        make_ring(turn_number);
-    else if(type == "necklace")
-        make_necklace(turn_number);
+    if (turn_number < 1)
+    {
+        throw std::exception("turn number is less than 11");
+    }
+
+    int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
+    item_id = base*100 + spec*10 + utility + 660;
+    equipment_class = "jewel";
+    this->type = type;
+    is_equiped = 0;
+    std::string tier = "T" + std::to_string(int(turn_number > 20) + int(turn_number > 50) + 1);
+
+    name = DataBase::get_DataBase()->get_jewellery_stats()[tier]["name"][type];
+    name += " of ";
+    if (type == "necklace"){
+        augment(tier, "special", std::to_string(spec));
+        name += " and ";
+        augment(tier, "util", std::to_string(utility));
+    }
+    else if (type == "belt")
+        augment(tier, "util", std::to_string(utility));
     else
-        make_belt(turn_number);
+        augment(tier, "special", std::to_string(spec));
+
+    augment(tier, "attributes", std::to_string(base));
 }
 
 //Weaponary

@@ -17,7 +17,7 @@ private:
     QString str;
     QLabel *label;
     QLineEdit *edit;
-    QPushButton *btn_cansel;
+    QPushButton *btn_cancel;
     QPushButton *btn_save;
     Accept *ac;
     void turn(bool is_turn_on);

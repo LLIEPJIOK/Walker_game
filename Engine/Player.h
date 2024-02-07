@@ -25,15 +25,15 @@ private:
 
     std::map<std::string, int> characteristics;
 
-    std::multiset <Weapon*, Equipment_Comparator> weaponary;
-    std::multiset <Armour*, Equipment_Comparator> armourment;
-    std::multiset <Potion*, Equipment_Comparator> potions;
-    std::multiset <Jewel*, Equipment_Comparator> jewellery;
+    std::multiset <Equipment*, Equipment_Comparator> weaponary;
+    std::multiset <Equipment*, Equipment_Comparator> armourment;
+    std::multiset <Equipment*, Equipment_Comparator> potions;
+    std::multiset <Equipment*, Equipment_Comparator> jewellery;
 
     std::vector<Effect*> active_effects;
-    std::map<std::string, Weapon*> equiped_weaponary;
-    std::map<std::string, Armour*> equiped_armourment;
-    std::map<std::string, Jewel*> equiped_jewellery;
+    std::map<std::string, Equipment*> equiped_weaponary;
+    std::map<std::string, Equipment*> equiped_armourment;
+    std::map<std::string, Equipment*> equiped_jewellery;
 
     void save_all_items(QFile& out);
     void load_all_items(QFile& in);
@@ -64,25 +64,22 @@ public:
 
     std::map<std::string, int>& get_characteristics();
 
-    std::multiset <Weapon*, Equipment_Comparator>* get_weaponary();
-    std::multiset <Armour*, Equipment_Comparator>* get_armourment();
-    std::multiset <Potion*, Equipment_Comparator>* get_potions();
-    std::multiset <Jewel*, Equipment_Comparator>* get_jewellery();
+    std::multiset <Equipment*, Equipment_Comparator>* get_weaponary();
+    std::multiset <Equipment*, Equipment_Comparator>* get_armourment();
+    std::multiset <Equipment*, Equipment_Comparator>* get_potions();
+    std::multiset <Equipment*, Equipment_Comparator>* get_jewellery();
 
     std::vector<Effect*>* get_active_effects();
 
-    std::map <std::string, Weapon*>* get_equiped_weaponary();
-    std::map <std::string, Armour*>* get_equiped_armourment();
-    std::map <std::string, Jewel*>* get_equiped_jewellery();
+    std::map <std::string, Equipment*>* get_equiped_weaponary();
+    std::map <std::string, Equipment*>* get_equiped_armourment();
+    std::map <std::string, Equipment*>* get_equiped_jewellery();
 
     Equipment* add_item(const std::string& FileName);
 
     void attack(Player *pl);
     void use_potion(Potion*);
-
-    void equip_weapon(Weapon* weapon, std::string place);
-    void equip_armour(Armour* armour, std::string place);
-    void equip_jewel(Jewel* jewel, std::string place);
+    void equip_item(std::map <std::string, Equipment*>* container, Equipment* item, std::string place);
     void unequip_item(Equipment* equipment, std::string place);
     void process_active_effects();
 

@@ -1,41 +1,99 @@
 {
 "T1" : 
 {
-"HP" : 5,
-"ARM_MULTI" : 10,
-"ATK_MULTI" : 10 ,
-"PIERCE" : 4,
-"CRIT_CH_FLAT" : 5,
-"CRIT_DMG_FLAT" : 10 ,
+"chars" : {
+    "util" : {
+    "HP" : 5,
+    "ARM_MULTI" : 10,
+    "ATK_MULTI" : 10 },
+
+"special" : { 
+    "PIERCE" : 4,
+    "CRIT_CH_FLAT" : 5,
+    "CRIT_DMG_FLAT" : 10},
+
+"attributes" : { 
 "AGIL" : 1,
 "INT" : 1,
-"STR" : 1
+"STR" : 1 }},
+
+"name" : {
+"ring" : "Simple ring",
+"necklace" : "Simple necklace",
+"belt" : "Simple belt" }
 },
 
 "T2" :
 { 
-"HP" : 10,
+"chars" : {
+"util" : { "HP" : 10,
 "ARM_MULTI" : 20,
-"ATK_MULTI" : 20,
-"PIERCE" : 8,
+"ATK_MULTI" : 20},
+
+"special" : { "PIERCE" : 8,
 "CRIT_CH_FLAT" : 7,
-"CRIT_DMG_FLAT" : 15 ,
-"AGIL" : 2,
+"CRIT_DMG_FLAT" : 15} ,
+
+"attributes" : { "AGIL" : 2,
 "INT" : 2,
-"STR" : 2
+"STR" : 2 }},
+
+"name" : {
+"ring" : "Ring",
+"necklace" : "Necklace",
+"belt" : "Belt" }
 },
 
 "T3" : 
 {
+"chars" : {
+"util" : {
 "HP" : 20,
 "ARM_MULTI" : 30,
-"ATK_MULTI" : 30 ,
+"ATK_MULTI" : 30},
+
+"special" : {
 "PIERCE" : 12,
 "CRIT_CH_FLAT" : 10,
-"CRIT_DMG_FLAT" : 20 ,
+"CRIT_DMG_FLAT" : 20},
+
+"attributes" : {
 "AGIL" : 3,
 "INT" : 3,
-"STR" : 3
-}
+"STR" : 3 }},
+
+"name" : {
+"ring" : "Great ring",
+"necklace" : "Great necklace",
+"belt" : "Great belt" }
+},
+
+"char_names" : {
+"HP" : "health",
+"ARM_MULTI" : "deffence",
+"ATK_MULTI" : "attack",
+"PIERCE" : "piercing",
+"CRIT_CH_FLAT" : "critical chance",
+"CRIT_DMG_FLAT" : "critical damage" ,
+"AGIL" : "(AGIL)",
+"INT" : "(INT)",
+"STR" : "(STR)" 
+},
+
+"choice" : {
+"util" : { 
+"1" : "HP",
+"2" :"ARM_MULTI",
+"3" :"ATK_MULTI"},
+
+"special" :{ 
+"1" :"PIERCE",
+"2" :"CRIT_CH_FLAT",
+"3" :"CRIT_DMG_FLAT"} ,
+
+"attributes" :{ 
+"1" :"AGIL",
+"2" :"INT",
+"3" :"STR"}}
 }
 

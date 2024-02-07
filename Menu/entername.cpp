@@ -25,11 +25,11 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     label->resize(width(), 50);
     label->move(0, 15);
 
-    btn_cansel = new QPushButton(tr("Cancel"), this);
-    btn_cansel->setFlat(1);
-    btn_cansel->setFont(btn_font);
-    btn_cansel->resize(90, 30);
-    btn_cansel->move(25, 150);
+    btn_cancel = new QPushButton(tr("Cancel"), this);
+    btn_cancel->setFlat(1);
+    btn_cancel->setFont(btn_font);
+    btn_cancel->resize(90, 30);
+    btn_cancel->move(25, 150);
 
     btn_save = new QPushButton(this);
     btn_save->setFlat(1);
@@ -59,7 +59,7 @@ EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     check_text(old_name);
 
     connect(edit, &QLineEdit::textEdited, this, &EnterName::check_text);
-    connect(btn_cansel, SIGNAL(clicked()), this, SLOT(return_slot()));
+    connect(btn_cancel, SIGNAL(clicked()), this, SLOT(return_slot()));
     connect(btn_save, SIGNAL(clicked()), this, SLOT(return_slot()));
 }
 
@@ -86,7 +86,7 @@ void EnterName::turn(bool is_turn_on)
         hide();
     }
 
-    btn_cansel->setEnabled(is_turn_on);
+    btn_cancel->setEnabled(is_turn_on);
     btn_save->setEnabled(is_turn_on);
     edit->setEnabled(is_turn_on);
 }
@@ -108,7 +108,7 @@ void EnterName::check_text(const QString& text)
 void EnterName::return_slot()
 {
     turn(0);
-    if (sender() == btn_cansel)
+    if (sender() == btn_cancel)
     {
         emit return_name("");
     }

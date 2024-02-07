@@ -141,6 +141,9 @@ void dispell_all_exe (Player* target, int)
 
     for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end();)
     {
+        if ((*it)->get_effect_type() != "positive" && (*it)->get_effect_type() != "negative" && (*it)->get_effect_type() != "neutral")
+            throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
+
         if ((*it)->is_dispellable())
         {
             delete *it;
@@ -162,7 +165,8 @@ void dispell_positive_exe (Player* target, int)
     {
         if ((*it)->get_effect_type() != "positive" && (*it)->get_effect_type() != "negative" && (*it)->get_effect_type() != "neutral")
             throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
-        if ((*it)->is_dispellable())
+
+        if ((*it)->is_dispellable() && (*it)->get_effect_type() == "positive")
         {
             delete *it;
             it = target->get_active_effects()->erase(it);
@@ -183,7 +187,7 @@ void dispell_negative_exe (Player* target, int)
     {
         if ((*it)->get_effect_type() != "positive" && (*it)->get_effect_type() != "negative" && (*it)->get_effect_type() != "neutral")
             throw std::invalid_argument((*it)->get_effect_name() + " has invalid type");
-        if ((*it)->is_dispellable())
+        if ((*it)->is_dispellable() && (*it)->get_effect_type() == "negative")
         {
             delete *it;
             it = target->get_active_effects()->erase(it);
@@ -214,17 +218,6 @@ std::map<std::string, V*> effects_exe =
         {"Dispell positive", &dispell_positive_exe}
     };
 
-Effect::Effect()
-{
-    effect_counter = 0;
-    effect_duration = -1;
-    effect_name = "no name";
-    effect_type = "unknown";
-    dispellable = 0;
-    target = nullptr;
-    execute_effect_ptr = nullptr;
-}
-
 Effect::Effect(std::string _effect_name, Player *_target)
 {
     json tmp = eff_data[_effect_name];
@@ -243,40 +236,14 @@ Effect::Effect(std::string _effect_name, Player *_target)
     }
 }
 
-Effect::Effect(std::string _effect_name, Player *_target, int dur)
+Effect::Effect(std::string _effect_name, Player *_target, int dur) : Effect(_effect_name, _target)
 {
-    json tmp = eff_data[_effect_name];
-    effect_counter = tmp["effect_counter"];
     effect_duration = dur;
-    effect_name = tmp["effect_name"];
-    effect_type = tmp["effect_type"];
-    dispellable = tmp["dispellable"];
-    target = _target;
-    execute_effect_ptr = effects_exe.at(effect_name);
-
-    json chars = tmp["special_chs"];
-    for (const auto& i : chars.items())
-    {
-        special_chs.emplace(i.key(), i.value());
-    }
 }
 
-Effect::Effect(std::string _effect_name, Player *_target, int dur, int counter)
+Effect::Effect(std::string _effect_name, Player *_target, int dur, int counter) : Effect(_effect_name, _target, dur)
 {
-    json tmp = eff_data[_effect_name];
     effect_counter = counter;
-    effect_duration = dur;
-    effect_name = tmp["effect_name"];
-    effect_type = tmp["effect_type"];
-    dispellable = tmp["dispellable"];
-    target = _target;
-    execute_effect_ptr = effects_exe.at(effect_name);
-
-    json chars = tmp["special_chs"];
-    for (const auto& i : chars.items())
-    {
-        special_chs.emplace(i.key(), i.value());
-    }
 }
 
 std::string Effect::get_effect_name() const
