@@ -12,20 +12,23 @@ PauseMenu::PauseMenu(QMainWindow *parent)
 
     load = new Load("save");
 
-    continue_button = new QPushButton(tr("Continue"));
-    continue_button->setMinimumSize(300, 50);
-    continue_button->setFont(font);
-    continue_button->setFlat(1);
+    QVector<QPushButton*> tmp;
 
-    save_menu = new QPushButton(tr("Save"));
-    save_menu->setMinimumSize(300, 50);
-    save_menu->setFont(font);
-    save_menu->setFlat(1);
+    for (int i = 0; i < 3; i++){
+        tmp.push_back(new QPushButton);
+        tmp.back()->setMinimumSize(300, 50);
+        tmp.back()->setFont(font);
+        tmp.back()->setFlat(1);
+    }
 
-    main_menu = new QPushButton(tr("Main menu"));
-    main_menu->setMinimumSize(300, 50);
-    main_menu->setFont(font);
-    main_menu->setFlat(1);
+    continue_button = tmp[0];
+    tmp[0]->setText("Continue");
+
+    save_menu = tmp[1];
+    tmp[1]->setText("Save");
+
+    main_menu = tmp[2];
+    tmp[2]->setText("Main menu");
 
     vblay = new QVBoxLayout();
     vblay->setAlignment(Qt::AlignCenter);

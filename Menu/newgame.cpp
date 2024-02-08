@@ -35,6 +35,7 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
     gridlay->setSpacing(0);
     gridlay->addWidget(slider, 0, 0);
     gridlay->addLayout(label_hblay, 1, 0);
+
     btn_next = new QPushButton();
     btn_next->setFlat(1);
     btn_next->setText(tr("Continue"));

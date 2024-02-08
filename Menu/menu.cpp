@@ -12,30 +12,25 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     setStyleSheet("QPushButton        {color: white;}"
                   "QPushButton:hover  {color: rgb(255, 178, 102);}");
 
-    btn_new_game = new QPushButton(tr("New game"));
-    btn_new_game->setMinimumSize(300, 50);
-    btn_new_game->setFlat(1);
-    btn_new_game->setFont(btn_font);
+    QVector<QPushButton*> tmp;
 
-    btn_load = new QPushButton(tr("Load"));
-    btn_load->setMinimumSize(300, 50);
-    btn_load->setFlat(1);
-    btn_load->setFont(btn_font);
+    for (int i = 0 ; i < 5; i++){
+        tmp.push_back(new QPushButton());
+        tmp.back()->setMinimumSize(300, 50);
+        tmp.back()->setFlat(1);
+        tmp.back()->setFont(btn_font);
+    }
 
-    btn_titers = new QPushButton(tr("About"));
-    btn_titers->setMinimumSize(300, 50);
-    btn_titers->setFlat(1);
-    btn_titers->setFont(btn_font);
-
-    btn_exit = new QPushButton(tr("Exit"));
-    btn_exit->setMinimumSize(300, 50);
-    btn_exit->setFlat(1);
-    btn_exit->setFont(btn_font);
-
-    btn_lang = new QPushButton(tr("English"));
-    btn_lang->setMinimumSize(300, 50);
-    btn_lang->setFlat(1);
-    btn_lang->setFont(btn_font);
+    btn_new_game = tmp[0];
+    btn_new_game->setText(tr("New game"));
+    btn_load = tmp[1];
+    btn_load->setText(tr("Load"));
+    btn_titers = tmp[2];
+    btn_titers->setText(tr("About"));
+    btn_exit = tmp[3];
+    btn_exit->setText(tr("Exit"));
+    btn_lang = tmp[4];
+    btn_lang->setText(tr("English"));
 
     vblay = new QVBoxLayout();
     vblay->setAlignment(Qt::AlignCenter);

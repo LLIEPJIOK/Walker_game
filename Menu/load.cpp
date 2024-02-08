@@ -31,30 +31,27 @@ Load::Load(QString _type, QWidget *parent)
                   "QPushButton:disabled {color: gray;}"
                   "QPushButton:hover    {color: rgb(255, 178, 102);}");
 
-    btn_prev = new QPushButton(tr("Return"));
-    btn_prev->setFlat(1);
-    btn_prev->setFont(btn_font);
+    QVector<QPushButton*> tmp;
 
-    btn_delete = new QPushButton(tr("Delete"));
-    btn_delete->setFlat(1);
-    btn_delete->setFont(btn_font);
+    for (int i = 0; i < 6; i++){
+        tmp.push_back(new QPushButton);
+        tmp.back()->setFlat(1);
+        tmp.back()->setFont(btn_font);
+    }
 
-    btn_load = new QPushButton(tr("Load"));
-    btn_load->setFlat(1);
-    btn_load->setFont(btn_font);
+    btn_prev = tmp[0];
+    btn_delete = tmp[1];
+    btn_load = tmp[2];
+    btn_change = tmp[3];
+    btn_add = tmp[4];
+    btn_rewrite = tmp[5];
 
-    btn_change = new QPushButton(tr("Change"));
-    btn_change->setFlat(1);
-    btn_change->setFont(btn_font);
-
-
-    btn_add = new QPushButton(tr("New"));
-    btn_add->setFlat(1);
-    btn_add->setFont(btn_font);
-
-    btn_rewrite = new QPushButton(tr("Rewrite"));
-    btn_rewrite->setFlat(1);
-    btn_rewrite->setFont(btn_font);
+    btn_prev->setText(tr("Return"));
+    btn_delete->setText(tr("Delete"));
+    btn_load->setText(tr("Load"));
+    btn_change->setText(tr("Change"));
+    btn_add->setText(tr("New"));
+    btn_rewrite->setText(tr("Rewrite"));
 
     set_available();
 
