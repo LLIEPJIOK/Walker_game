@@ -229,7 +229,9 @@ void GameInterface::load(QString file_name)
 void GameInterface::inventory_button_clicked()
 {
     current_inventory->setVisible(!current_inventory->isVisible());
+    current_inventory->raise();
     current_equipment_slot->setVisible(!current_equipment_slot->isVisible());
+    current_equipment_slot->raise();
 }
 
 void GameInterface::next_turn_button_clicked()
@@ -267,6 +269,7 @@ void GameInterface::roll_button_clicked()
 void GameInterface::status_button_clicked()
 {
     current_player_status->setVisible(!current_player_status->isVisible());
+    current_player_status->raise();
 }
 
 void GameInterface::enable_next_button()
@@ -282,6 +285,7 @@ void GameInterface::add_item(Equipment *item)
 void GameInterface::pause_button()
 {
     pause->setVisible(!pause->isVisible());
+    pause->raise();
 }
 
 void GameInterface::to_main()

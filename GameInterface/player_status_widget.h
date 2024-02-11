@@ -43,6 +43,7 @@ class Player_status_widget : public QWidget
     QListWidget* effects;
 protected:
     void paintEvent(QPaintEvent* event);
+    void mousePressEvent(QMouseEvent* event);
 
 public:
     Player_status_widget(QWidget *parent = nullptr);

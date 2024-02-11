@@ -27,10 +27,10 @@ public:
     int find_equip(Equipment* equip) const;
 
     // возвращает константную ссылку на вектор предметов
-    const QVector <DragItem*>& get_items() const;
+    const QVector <QPointer<DragItem>>& get_items() const;
 
 private:
-    QVector <DragItem*> items;
+    QVector <QPointer<DragItem>> items;
     Player* player;
     QVBoxLayout *list;
 
@@ -55,6 +55,7 @@ signals:
 
 protected:
     void paintEvent(QPaintEvent* event);
+    void mousePressEvent(QMouseEvent* event);
 
 public slots:
     void add_new_item(Equipment* item);

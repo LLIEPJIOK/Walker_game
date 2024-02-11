@@ -19,10 +19,16 @@ QPixmap DragItem::get_icon()
     return icon;
 }
 
+DragItem::~DragItem()
+{
+    //qDebug("DragItem destroyed");
+}
+
 void DragItem::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         m_dragStart = event->pos();
+
     if(event->button() == Qt::RightButton && connected_item->get_class() == "potion")
     {
         Turn::get_Turn()->get_player()->use_potion(dynamic_cast<Potion*>(connected_item));

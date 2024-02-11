@@ -54,6 +54,12 @@ void EquipedItems::update_equiped()
     update_equiped_container(player->get_equiped_jewellery());
 }
 
+void EquipedItems::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+        raise();
+}
+
 // нахождит нужное места для эквипа и туда его ставит
 void EquipedItems::find_place(Equipment *equip)
 {

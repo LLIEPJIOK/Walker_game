@@ -12,6 +12,7 @@ public:
     void set_equiped();
     QPixmap get_icon();
 
+    ~DragItem();
 protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);

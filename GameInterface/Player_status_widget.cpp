@@ -20,6 +20,12 @@ void Player_status_widget::paintEvent(QPaintEvent *event)
 
 }
 
+void Player_status_widget::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+        raise();
+}
+
 
 
 
@@ -181,6 +187,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     main_layout->addWidget(effects);
 
     setLayout(main_layout);
+
 }
 
 Player_status_widget::~Player_status_widget()

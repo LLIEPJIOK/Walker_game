@@ -36,8 +36,11 @@ Player *Inventory::get_player() const
 // если его нет возвращает -1
 int Inventory::find_equip(Equipment *equip) const
 {
+
     for (int i = 0; i < (int)items.size(); ++i)
     {
+        if (items[i].isNull())
+            continue;
         if (items[i]->get_connected_item() == equip)
         {
             return i;
@@ -48,7 +51,7 @@ int Inventory::find_equip(Equipment *equip) const
 }
 
 // возвращает константную ссылку на вектор предметов
-const QVector<DragItem *> &Inventory::get_items() const
+const QVector<QPointer<DragItem> > &Inventory::get_items() const
 {
     return items;
 }
@@ -81,6 +84,12 @@ void Inventory::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.drawPixmap(0, 0, inventory);
     painter.end();
+}
+
+void Inventory::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button() == Qt::LeftButton)
+        raise();
 }
 
 void Inventory::add_new_item(Equipment *item)
@@ -131,7 +140,7 @@ void Inventory::add_new_item(Equipment *item)
         icon = "necklace";
     }
 
-    DragItem* inventory_item = new DragItem(item, icon, this);
+    QPointer<DragItem> inventory_item = QPointer<DragItem>(new DragItem(item, icon, this));
     inventory_item->setFixedSize(width() - 30, 40);
     list->addWidget(inventory_item, Qt::AlignTop);
     items.push_back(inventory_item);

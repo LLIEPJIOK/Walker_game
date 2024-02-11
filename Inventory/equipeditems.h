@@ -47,6 +47,7 @@ private:
 
 protected:
     void paintEvent(QPaintEvent* event);
+    void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // EQUIPEDITEMS_H
