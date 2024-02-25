@@ -1,6 +1,7 @@
 #include "general_info_widget.h"
 #include "Inventory/item.h"
 
+#include<QPushButton>
 #include<QPainter>
 
 General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(parent)
@@ -60,6 +61,10 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
 
     image = new Image_scene(this);
     image->setGeometry(equipped_items->x() + equipped_items->width(), 20, parent->width() - (equipped_items->x() + equipped_items->width()), height() - 40);
+
+    QPushButton* back = new QPushButton("BACK", this);
+    back->setGeometry(width() - 200, height() - 50, 160, 40);
+    connect(back, &QPushButton::clicked, this, &General_info_widget::back);
 
     connect(class_to_inventory["jewel"], &Inventory_modified::entered, image, &Image_scene::take_item);
     connect(class_to_inventory["weapon"], &Inventory_modified::entered, image, &Image_scene::take_item);
@@ -244,6 +249,11 @@ void General_info_widget::process_potion(Item *item)
     status->update_all();
     delete item;
 
+}
+
+void General_info_widget::back()
+{
+    this->setVisible(false);
 }
 
 void General_info_widget::paintEvent(QPaintEvent *event)

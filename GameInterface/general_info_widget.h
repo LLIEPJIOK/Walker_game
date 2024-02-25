@@ -38,6 +38,7 @@ public:
 public slots:
     void process_equip(Item* item, bool primary);
     void process_potion(Item* item);
+    void back();
 protected:
     void paintEvent(QPaintEvent *event);
 
