@@ -1,7 +1,29 @@
 #include "DataBase.h"
-#include "translator.h"
 
-Equipment::Equipment(int ID, std::string _name, std::string _equipment_class, std::map<std::string, int> characteristics, std::string _type)
+Equipment::Equipment(std::string name)
+{
+    nlohmann::json js = DataBase::get_DataBase()->get_all_equipment_data()[name];
+    item_id = js["ID"];
+    this->name = name;
+    auto ch_p = js[name];
+    if (DataBase::get_DataBase()->get_all_equipment_data()[name].contains("chars")) {
+        nlohmann::json k = DataBase::get_DataBase()->get_all_equipment_data().at(name).at("chars");
+        for (auto& [key, value] : k.items()) {
+            item_characteristics.emplace(std::make_pair(key, value));
+        }
+    }
+//    for (auto& ch_p : js[name]["chars"].items()){
+//        item_characteristics[ch_p.key()] = ch_p.value();
+//    }
+    type = js["type"];
+    equipment_class = js["class"];
+    is_equiped = false;
+    is_front_equiped = false;
+    primary_slot = false;
+
+}
+
+Equipment::Equipment(int ID, std::string _name, std::string _equipment_class, std::unordered_map<std::string, int> characteristics, std::string _type)
 {
     item_id = ID;
     name = _name;
@@ -10,6 +32,7 @@ Equipment::Equipment(int ID, std::string _name, std::string _equipment_class, st
     equipment_class = _equipment_class;
     is_equiped = false;
     is_front_equiped = false;
+    primary_slot = false;
 }
 
 std::string Equipment::get_name() const
@@ -17,7 +40,7 @@ std::string Equipment::get_name() const
     return name;
 }
 
-const std::map<std::string, int>* Equipment::get_item_characteristics() const
+const std::unordered_map<std::string, int>* Equipment::get_item_characteristics() const
 {
     return &item_characteristics;
 }
@@ -37,6 +60,11 @@ bool Equipment::get_front_equiped() const
     return is_front_equiped;
 }
 
+bool Equipment::get_primary_equipped() const
+{
+    return primary_slot;
+}
+
 std::string Equipment::get_type() const
 {
     return type;
@@ -54,6 +82,11 @@ void Equipment::change_front_equiped()
     is_front_equiped = !is_front_equiped;
 }
 
+void Equipment::set_primary_equipped(bool val)
+{
+    primary_slot = val;
+}
+
 //Jewellery
 void Jewel::augment(std::string tier, std::string field, std::string choice)
 {
@@ -62,7 +95,7 @@ void Jewel::augment(std::string tier, std::string field, std::string choice)
     item_characteristics.insert(std::make_pair(chosen_stat, DataBase::get_DataBase()->get_jewellery_stats()[tier]["chars"][field][chosen_stat]));
 }
 
-Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::unordered_map<std::string, int> characteristics, std::string type)
     : Equipment(ID, name, equipment_class, characteristics, type)
 {
 
@@ -75,7 +108,10 @@ Jewel::Jewel(std::string type, int turn_number) : Equipment()
         throw std::exception("turn number is less than 11");
     }
 
-    int base = rand() % 3 + 1, spec = rand() % 3 + 1, utility = rand() % 3 + 1;
+
+    std::default_random_engine e1(r());
+     std::uniform_int_distribution<int> uniform_dist(1, 3);
+    int base = uniform_dist(e1), spec = uniform_dist(e1), utility = uniform_dist(e1);
     item_id = base*100 + spec*10 + utility + 660;
     equipment_class = "jewel";
     this->type = type;
@@ -98,14 +134,14 @@ Jewel::Jewel(std::string type, int turn_number) : Equipment()
 }
 
 //Weaponary
-Weapon::Weapon(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+Weapon::Weapon(int ID, std::string name, std::string equipment_class, std::unordered_map<std::string, int> characteristics, std::string type)
     : Equipment(ID, name, equipment_class, characteristics, type)
 {
 
 }
 
 //Armourment
-Armour::Armour(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type)
+Armour::Armour(int ID, std::string name, std::string equipment_class, std::unordered_map<std::string, int> characteristics, std::string type)
     : Equipment(ID, name, equipment_class, characteristics, type)
 {
 
@@ -133,12 +169,19 @@ void Potion::load(QFile& in)
     in.read(effect_name.data(), size);
 }
 
-Potion::Potion(int ID, std::string name, std::string equipment_class, std::map<std::string, int> characteristics, std::string type, int _duration, std::string _effect_name)
+Potion::Potion(int ID, std::string name, std::string equipment_class, std::unordered_map<std::string, int> characteristics, std::string type, int _duration, std::string _effect_name)
     : Equipment(ID, name, equipment_class, characteristics, type)
 
 {
     duration = _duration;
     effect_name = _effect_name;
+}
+
+Potion::Potion(std::string name) : Equipment(name)
+{
+    nlohmann::json js = DataBase::get_DataBase()->get_all_equipment_data()[name];
+    duration = js["duration"];
+    effect_name = js["effect_name"];
 }
 
 void Potion::dec_duration()
@@ -199,6 +242,9 @@ void Equipment::save(QFile& out)
 
     //запись is_equiped
     out.write((char*)& is_equiped, sizeof(is_equiped));
+
+    //запись primary_slot
+    out.write((char*)& primary_slot, sizeof(primary_slot));
 }
 
 void Equipment::load(QFile &in)
@@ -258,5 +304,9 @@ void Equipment::load(QFile &in)
 
     //чтение is_equiped
     in.read((char*)& is_equiped, sizeof(is_equiped));
+
+    in.read((char*)& primary_slot, sizeof(primary_slot));
 }
+
+
 

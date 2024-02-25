@@ -10,7 +10,7 @@ void Player_status_widget::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);
 
-    QPixmap back(":/backgrounds/Pictures/widget_backgrounds/status_main.png");
+    QPixmap back(":/backgrounds/Pictures/widget_backgrounds/status.png");
     back = back.scaled(width(), height());
 
     QPainter painter;
@@ -36,8 +36,7 @@ Player_status_widget::Player_status_widget(QWidget *parent)
 
 Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidget(parent)
 {
-    this->setGeometry(parent->width() / 2 - 350, parent->height() / 2 - 450, 350, 450);
-    this->setFixedSize(350, 450);
+
 
     assigned_player = pl;
 
@@ -49,14 +48,14 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     character_sheet->setText(tr("Character Sheet of") + " " + QString::fromStdString(assigned_player->get_name()));
     character_sheet->setAlignment(Qt::AlignHCenter);
     character_sheet->setStyleSheet("font-size: 25px;"
-                                   "font-style: italic;");
+                                   "font-style: arial;");
     main_layout->addWidget(character_sheet);
 
     QLabel* general = new QLabel(this);
     general->setText(tr("General"));
     general->setAlignment(Qt::AlignHCenter);
-    general->setStyleSheet("font-size: 18px;"
-                           "font-style: italic;");
+    general->setStyleSheet("font-size: 20px;"
+                           "font-style: arial;");
 
     main_layout->addWidget(general);
 
@@ -64,21 +63,21 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     overview_labels = new QVBoxLayout();
     name_label = new QLabel(this);
     name_label->setText(tr("Name"));
-    name_label->setStyleSheet("font-size: 15px;"
-                              "font-style: italic;");
+    name_label->setStyleSheet("font-size: 16px;"
+                              "font-style: arial;");
     overview_labels->addWidget(name_label);
 
     ov_health_label = new QLabel(this);
     ov_health_label->setText(tr("Current Health"));
-    ov_health_label->setStyleSheet("font-size: 15px;"
-                                   "font-style: italic;");
+    ov_health_label->setStyleSheet("font-size: 16px;"
+                                   "font-style: arial;");
 
     overview_labels->addWidget(ov_health_label);
 
     ov_atk_label = new QLabel(this);
     ov_atk_label->setText(tr("Current Attack"));
-    ov_atk_label->setStyleSheet("font-size: 15px;"
-                                "font-style: italic;");
+    ov_atk_label->setStyleSheet("font-size: 16px;"
+                                "font-style: arial;");
 
     overview_labels->addWidget(ov_atk_label);
 
@@ -88,7 +87,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     name_val = new QLabel(this);
     name_val->setText(QString::fromStdString(assigned_player->get_name()));
     name_val->setAlignment(Qt::AlignHCenter);
-    name_val->setStyleSheet("font-size: 15px;");
+    name_val->setStyleSheet("font-size: 16px;");
 
     overview_present->addWidget(name_val);
 
@@ -123,8 +122,8 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
 
     QLabel* advanced_chars = new QLabel(this);
     advanced_chars->setText(tr("Advanced Characteristics"));
-    advanced_chars->setStyleSheet("font-size: 18px;"
-                                  "font-style: italic;");
+    advanced_chars->setStyleSheet("font-size: 20px;"
+                                  "font-style: arial;");
     advanced_chars->setAlignment(Qt::AlignHCenter);
     main_layout->addWidget(advanced_chars);
 
@@ -134,13 +133,26 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     vital["HP"] = tr("Current Health");
     vital["MAX_HP"] = tr("Maximum Health");
     vital["ARM"] = tr("Current Armour");
+    vital["ARM_FLAT"] = tr("Flat Armour");
+    vital["ARM_MULTI"] = tr("Armour Multiplier (%)");
     vital["PIERCE_ARM"] = tr("Current Damage Prevention Percentage");
     advanced->addTab(new Advanced_chars_tab(this, vital, assigned_player), tr("Vitality"));
 
     std::map<QString, QString> offence;
-    offence["ATK"] = tr("Current Attack");
-    offence["CRIT_CH"] = tr("Crit Chance");
-    offence["CRIT_DMG"] = tr("Crit Damage Addative");
+    offence["ATK"] = tr("Current Attack (total)");
+    offence["ATK_FLAT"] = tr("Flat Attack");
+    offence["ATK_MULTI"] = tr("Multiplier of Attack (%)");
+
+    offence["CRIT_CH"] = tr("Crit Chance (total)");
+    offence["CRIT_CH_AGIL"] = tr("Crit Chance from Agility (%)");
+    offence["CRIT_CH_FLAT"] = tr("Flat Crit Chance (%)");
+    offence["CRIT_CH_MULTI"] = tr("Crit Chance Multiplier(%)");
+
+    offence["CRIT_DMG"] = tr("Critical Damage (total) (%)");
+    offence["CRIT_DMG_FLAT"] = tr("Flat Critical Damage (%)");
+    offence["CRIT_DMG_INT"] = tr("Critical Damage from Intelligence (%)");
+    offence["CRIT_DMG_MULTI"] = tr("Critical Damage Multiplier (%)");
+
     offence["PIERCE"] = tr("Piercing Damage (through armour)");
     advanced->addTab(new Advanced_chars_tab(this, offence, assigned_player), tr("Offence"));
 
@@ -156,6 +168,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     rolls["EVENT_ROLL_MOD"] = tr("Event Roll Modifier");
     advanced->addTab(new Advanced_chars_tab(this, rolls, assigned_player), tr("Rolls"));
 
+
     advanced->setStyleSheet("QTabWidget::pane {"
         "border: 1px solid black;"
         "top:-1px; "
@@ -163,6 +176,8 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
         "}"
     "QTabBar::tab {"
         "border: 1px solid lightblack; "
+        "height : 30;"
+        "width : 111;"
         " background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png)"
         "} "
     "QTabBar::tab:selected { "
@@ -176,14 +191,15 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
 
     QLabel* effects_label = new QLabel(this);
     effects_label->setText(tr("Applied Effects"));
-    effects_label->setStyleSheet("font-size: 18px;"
-                                 "font-style: italic;");
+    effects_label->setStyleSheet("font-size: 20px;"
+                                 "font-style: arial;");
     effects_label->setAlignment(Qt::AlignHCenter);
     main_layout->addWidget(effects_label);
 
     effects = new QListWidget();
     effects->setStyleSheet("background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png);"
-                           "border: 1px solid black;");
+                           "border: 1px solid black;"
+                           "font-size: 16px;");
     main_layout->addWidget(effects);
 
     setLayout(main_layout);
@@ -202,10 +218,12 @@ Player_status_widget::~Player_status_widget()
 void Player_status_widget::update_all()
 {
     // updates tabs
+    int cur_i = advanced->currentIndex();
     for (int i = 0; i < 4; i++){
         advanced->setCurrentIndex(i);
         dynamic_cast<Advanced_chars_tab*>(advanced->currentWidget())->update_chars(assigned_player);
     }
+    advanced->setCurrentIndex(cur_i);
 
     //updates all applied effects in qwlist
     effects->clear();

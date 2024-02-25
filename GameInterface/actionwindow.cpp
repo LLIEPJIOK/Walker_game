@@ -4,7 +4,7 @@
 ActionWindow::ActionWindow(QWidget *parent)
     : QFrame{parent}
 {
-    setFixedSize( 0.195 * parent->width(), 0.255 * parent->height() - 10);
+    setFixedSize( 0.195 * parent->width(), 0.325 * parent->height() - 10);
     setFrameStyle(QFrame::WinPanel | QFrame::Plain);
     QPalette pal;
     pal.setBrush(backgroundRole(), QBrush(Qt::white));

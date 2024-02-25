@@ -1,3 +1,4 @@
+#include "GameInterface/general_info_widget.h"
 #include "congratulationwindow.h"
 #include "game_interface.h"
 #include "Menu/general.h"
@@ -51,21 +52,11 @@ GameInterface::~GameInterface()
     delete mini_map;
     delete menu;
 
-    foreach (Inventory* inv, inventories)
-        delete inv;
-
-    inventories.clear();
-
-    foreach (EquipedItems* ei, equipment_slots)
-        delete ei;
-
-    equipment_slots.clear();
-
-    foreach (Player_status_widget* st, players_statuses) {
-        delete st;
+    foreach (General_info_widget* wid, info_widgets) {
+        delete wid;
     }
 
-    players_statuses.clear();
+    info_widgets.clear();
 }
 
 void GameInterface::initialize()
@@ -73,7 +64,7 @@ void GameInterface::initialize()
     QFont font ("Arial", 14, QFont::Normal, 1);
     QString style("color: rgb(255, 255, 255)");
 
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 4; i++)
     {
         buttons.push_back(new QPushButton(this));
         buttons[i]->setGeometry(0.8 * screen_size.width(), 10 + i * 0.069 * screen_size.height(), 0.195 * screen_size.width(), 0.069 * screen_size.height());
@@ -92,40 +83,18 @@ void GameInterface::initialize()
     buttons[2]->setText(tr("End turn"));
     connect(buttons[2], &QPushButton::clicked, this, &GameInterface::next_turn_button_clicked);
 
-    buttons[3]->setText(tr("Inventory"));
-    connect(buttons[3], &QPushButton::clicked, this, &GameInterface::inventory_button_clicked);
-
-    buttons[4]->setText(tr("Status"));
-    connect(buttons[4], &QPushButton::clicked, this, &GameInterface::status_button_clicked);
+    buttons[3]->setText(tr("Info"));
+    connect(buttons[3], &QPushButton::clicked, this, &GameInterface::info_button_clicked);
 
 
     action = new ActionWindow(this);
-    action->setGeometry(0.8 * screen_size.width(), 10 + 0.345 * screen_size.height(), 0.195 * screen_size.width(), 0.255 * screen_size.height() - 10);
+    action->setGeometry(0.8 * screen_size.width(), 10 + 0.275 * screen_size.height(), 0.195 * screen_size.width(), 0.5 * screen_size.height() - 10);
     action->setVisible(true);
 
-    for(auto& i: *data_base->get_sequence())
-    {
-        Inventory* inventory = new Inventory(i, this);
-        inventory->setVisible(false);
-        inventories.push_back(inventory);
-        connect(inventory, &Inventory::item_was_equiped, this, &GameInterface::process_equip);
-        connect(inventory, &Inventory::item_was_unequiped, this, &GameInterface::process_unequip);
-        connect(inventory, &Inventory::potion_was_used, this, &GameInterface::update_player_status);
-    }
-
-    for(int i = 0; i < data_base->get_sequence()->size(); i++)
-    {
-        EquipedItems* win = new EquipedItems(data_base->get_sequence()->at(i), inventories[i], this);
-        win->setVisible(false);
-        win->setGeometry(0.335 * screen_size.width(), 20, 0, 0);
-        equipment_slots.push_back(win);
-    }
-
-    for(auto& i: *data_base->get_sequence())
-    {
-        Player_status_widget* status = new Player_status_widget(this, i);
-        status->setVisible(false);
-        players_statuses.push_back(status);
+    for(auto& i: *data_base->get_sequence()){
+        General_info_widget* wid = new General_info_widget(this, i);
+        info_widgets.push_back(wid);
+        wid->setVisible(false);
     }
 
     pause = new PauseMenu(this);
@@ -135,7 +104,6 @@ void GameInterface::initialize()
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
     update_all();
-    current_player_status->update_all();
     game_is_played = true;
 }
 
@@ -155,21 +123,12 @@ void GameInterface::end_game()
     delete pause;
     pause = nullptr;
 
-    foreach(Inventory* inv, inventories)
-        delete inv;
 
-    inventories.clear();
-    //inventories.shrink_to_fit();
-
-    foreach(EquipedItems* ei, equipment_slots)
-        delete ei;
-    equipment_slots.clear();
-    //equipment_slots.shrink_to_fit();
-
-    foreach (Player_status_widget* w, players_statuses) {
-        delete w;
+    foreach (General_info_widget* wid, info_widgets) {
+        delete wid;
     }
-    players_statuses.clear();
+
+    info_widgets.clear();
 
     delete current_map;
     current_map = nullptr;
@@ -228,10 +187,6 @@ void GameInterface::load(QString file_name)
 
 void GameInterface::inventory_button_clicked()
 {
-    current_inventory->setVisible(!current_inventory->isVisible());
-    current_inventory->raise();
-    current_equipment_slot->setVisible(!current_equipment_slot->isVisible());
-    current_equipment_slot->raise();
 }
 
 void GameInterface::next_turn_button_clicked()
@@ -242,14 +197,9 @@ void GameInterface::next_turn_button_clicked()
 
     buttons[1]->setEnabled(true);
     current_map->clear_chosen_way();
-    current_inventory->setVisible(false);
-    current_inventory = inventories[(turn->get_turn_number()-1) % inventories.size()];
 
-    current_player_status->setVisible(false);
-    current_player_status = players_statuses[(turn->get_turn_number()-1) % players_statuses.size()];
-
-    current_equipment_slot->setVisible(false);
-    current_equipment_slot = equipment_slots[(turn->get_turn_number()-1) % equipment_slots.size()];
+    current_info_widget->setVisible(false);
+    current_info_widget = info_widgets[(turn->get_turn_number()-1) % info_widgets.size()];
 
     action->set_text(""); // делает окно действий пустым
 
@@ -266,10 +216,10 @@ void GameInterface::roll_button_clicked()
     buttons[1]->setEnabled(false);
 }
 
-void GameInterface::status_button_clicked()
+void GameInterface::info_button_clicked()
 {
-    current_player_status->setVisible(!current_player_status->isVisible());
-    current_player_status->raise();
+    current_info_widget->setVisible(true);
+    current_info_widget->raise();
 }
 
 void GameInterface::enable_next_button()
@@ -279,7 +229,7 @@ void GameInterface::enable_next_button()
 
 void GameInterface::add_item(Equipment *item)
 {
-    current_inventory->add_new_item(item);
+    current_info_widget->addItem(item);
 }
 
 void GameInterface::pause_button()
@@ -296,24 +246,24 @@ void GameInterface::to_main()
     setCentralWidget(menu);
 }
 
-void GameInterface::process_equip(Equipment *item, QString place)
-{
-    Player* player = turn->get_player();
-    if(item->get_class() == "weapon")
-        player->equip_item(player->get_equiped_weaponary(), item, place.toStdString());
-    else if(item->get_class() == "armour")
-        player->equip_item(player->get_equiped_armourment(), item, place.toStdString());
-    else
-        player->equip_item(player->get_equiped_jewellery(), item, place.toStdString());
+//void GameInterface::process_equip(Equipment *item, QString place)
+//{
+//    Player* player = turn->get_player();
+//    if(item->get_class() == "weapon")
+//        player->equip_item(player->get_equiped_weaponary(), item, place.toStdString());
+//    else if(item->get_class() == "armour")
+//        player->equip_item(player->get_equiped_armourment(), item, place.toStdString());
+//    else
+//        player->equip_item(player->get_equiped_jewellery(), item, place.toStdString());
 
-    current_player_status->update_all();
-}
+//    current_info_widget->update_stats();
+//}
 
-void GameInterface::process_unequip(Equipment *item, QString place)
-{
-    turn->get_player()->unequip_item(item, place.toStdString());
-    current_player_status->update_all();
-}
+//void GameInterface::process_unequip(Equipment *item, QString place)
+//{
+//    turn->get_player()->unequip_item(item, place.toStdString());
+//    current_info_widget->update_stats();
+//}
 
 void GameInterface::congratulate_the_winner()
 {
@@ -344,34 +294,30 @@ void GameInterface::update_buttons()
 {
     buttons[1]->setEnabled(!turn->was_roll());
     buttons[2]->setEnabled(turn->get_already_moved());
-    // inventory_button->setEnabled(!turn->get_already_moved()); // надо подумать...
     buttons[3]->setEnabled(true);
     buttons[0]->setEnabled(true);
 }
 
 // обновляет конкретный инвентарь и слоты для экипировки по номеру
-void GameInterface::update_inventory_and_slots(int id)
+void GameInterface::update_info_widget(int id)
 {
-    if (id < 0 || id >= (int)inventories.size())
+    if (id < 0 || id >= (int)info_widgets.size())
     {
         throw std::exception("Index is out of range");
     }
 
-    inventories[id]->update_inventory();
-    equipment_slots[id]->update_equiped();
+    info_widgets[id]->update_all();
 }
 
 // обновляет все инвентари и слоты для экипировки
-void GameInterface::update_all_inventories_and_slots()
+void GameInterface::update_info_widgets()
 {
-    for (int i = 0; i < (int)inventories.size(); ++i)
+    for (int i = 0; i < (int)info_widgets.size(); ++i)
     {
-        update_inventory_and_slots(i);
-        if (turn->get_player() == inventories[i]->get_player())
+        update_info_widget(i);
+        if (turn->get_player() == info_widgets[i]->get_player())
         {
-            current_inventory = inventories[i];
-            current_equipment_slot = equipment_slots[i];
-            current_player_status = players_statuses[i];
+            current_info_widget = info_widgets[i];
         }
     }
 }
@@ -403,7 +349,7 @@ void GameInterface::update_map()
 void GameInterface::update_all()
 {
     update_buttons();
-    update_all_inventories_and_slots();
+    update_info_widgets();
     update_map();
 }
 
@@ -412,10 +358,10 @@ void GameInterface::update_player_status()
 {
     Player* tmp = turn->get_player();
     update_buttons();
-    update_inventory_and_slots(tmp->get_id() - 1); // айдишники начинаются с 1
+    update_info_widget(tmp->get_id() - 1); // айдишники начинаются с 1
     tmp->update_chars();
     tmp->die();
-    current_player_status->update_all();
+    //current_player_status->update_all();
 }
 
 void GameInterface::process_event_start()

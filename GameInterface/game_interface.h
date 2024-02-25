@@ -1,6 +1,7 @@
 #ifndef GAME_INTERFACE_H
 #define GAME_INTERFACE_H
 
+#include "GameInterface/general_info_widget.h"
 #include "informationwindow.h"
 #include "minimap.h"
 #include "Menu/menu.h"
@@ -56,14 +57,17 @@ private:
 
     QVector<QPushButton*> buttons;
 
-    QVector<Inventory*> inventories;
-    Inventory *current_inventory;
+    QVector<General_info_widget*> info_widgets;
+    General_info_widget *current_info_widget;
 
-    QVector<EquipedItems*> equipment_slots;
-    EquipedItems* current_equipment_slot;
+//    QVector<Inventory*> inventories;
+//    Inventory *current_inventory;
 
-    QVector<Player_status_widget*> players_statuses;
-    Player_status_widget* current_player_status;
+//    QVector<EquipedItems*> equipment_slots;
+//    EquipedItems* current_equipment_slot;
+
+//    QVector<Player_status_widget*> players_statuses;
+//    Player_status_widget* current_player_status;
 
     QMap<int, void(GameInterface::*)()> key_to_action;
     void initialize();
@@ -74,10 +78,10 @@ private:
     void update_buttons();
 
     // обновляет конкретный инвентарь и слоты для экипировки по номеру
-    void update_inventory_and_slots(int id);
+    void update_info_widget(int id);
 
     // обновляет все инвентари и слоты для экипировки
-    void update_all_inventories_and_slots();
+    void update_info_widgets();
 
     // обновляет карту
     void update_map();
@@ -92,16 +96,16 @@ protected:
 private slots:
     void start(std::vector<std::pair<std::string, std::string>> data);
     void load(QString file_name);
+
     void inventory_button_clicked();
     void next_turn_button_clicked();
     void roll_button_clicked();
-    void status_button_clicked();
+    void info_button_clicked();
+
     void enable_next_button();
     void add_item(Equipment* item);
     void pause_button();
     void to_main();
-    void process_equip(Equipment* item, QString place);
-    void process_unequip(Equipment* item, QString place);
 
     void congratulate_the_winner();
 

@@ -24,16 +24,17 @@ SOURCES += \
     GameInterface/Advanced_chars_tab.cpp \
     GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
+    GameInterface/general_info_widget.cpp \
+    GameInterface/image_scene.cpp \
     GameInterface/informationwindow.cpp \
     GameInterface/pausemenu.cpp \
     GameInterface/game_interface.cpp \
     GameInterface/minimap.cpp \
     GameInterface/movingarea.cpp \
-    Inventory/dragitem.cpp \
     Inventory/dropitem.cpp \
     Inventory/equipeditems.cpp \
-    Inventory/inventory.cpp \
-    Inventory/inventoryitem.cpp \
+    Inventory/inventory_modified.cpp \
+    Inventory/item.cpp \
     Map/cell.cpp \
     Map/gamemap.cpp \
     Map/gamemapobject.cpp \
@@ -68,16 +69,17 @@ HEADERS += \
     GameInterface/Advanced_chars_tab.h \
     GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
+    GameInterface/general_info_widget.h \
+    GameInterface/image_scene.h \
     GameInterface/informationwindow.h \
     GameInterface/pausemenu.h \
     GameInterface/game_interface.h \
     GameInterface/minimap.h \
     GameInterface/movingarea.h \
-    Inventory/dragitem.h \
     Inventory/dropitem.h \
     Inventory/equipeditems.h \
-    Inventory/inventory.h \
-    Inventory/inventoryitem.h \
+    Inventory/inventory_modified.h \
+    Inventory/item.h \
     Map/cell.h \
     Map/gamemap.h \
     Map/gamemapobject.h \

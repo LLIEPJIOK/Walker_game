@@ -79,21 +79,21 @@ Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
     // Экипированые предметы
 
 	//equiped_Armourment
-    equiped_armourment["cuirass"] = nullptr;
-    equiped_armourment["helmet"] = nullptr;
-    equiped_armourment["gloves"] = nullptr;
-    equiped_armourment["leggings"] = nullptr;
-    equiped_armourment["boots"] = nullptr;
+    equipped_items["cuirass"] = nullptr;
+    equipped_items["helmet"] = nullptr;
+    equipped_items["gloves"] = nullptr;
+    equipped_items["leggings"] = nullptr;
+    equipped_items["boots"] = nullptr;
 
 	//equiped_Weaponary
-    equiped_weaponary["main hand"] = nullptr;
-    equiped_weaponary["offhand"] = nullptr;
+    equipped_items["main_hand"] = nullptr;
+    equipped_items["offhand"] = nullptr;
 
 	//equiped_Jewellery
-    equiped_jewellery["first ring"] = nullptr;
-    equiped_jewellery["second ring"] = nullptr;
-    equiped_jewellery["necklace"] = nullptr;
-    equiped_jewellery["belt"] = nullptr;
+    equipped_items["first_ring"] = nullptr;
+    equipped_items["second_ring"] = nullptr;
+    equipped_items["necklace"] = nullptr;
+    equipped_items["belt"] = nullptr;
 
     killed_player = -1;
 }
@@ -156,14 +156,15 @@ void Player::update_chars()
 
 Player::~Player()
 {
-    for (auto& i : weaponary)
-		delete i;
-    for (auto& i : armourment)
-		delete i;
+    for (auto& i : items)
+        delete i;
+
+    items.clear();
+
     for (auto& i : potions)
-		delete i;
-    for (auto& i : jewellery)
-		delete i;
+        delete i;
+
+    potions.clear();
 
     CURRENT_ID--;
 }
@@ -248,24 +249,14 @@ std::map<std::string, int>& Player::get_characteristics()
     return characteristics;
 }
 
-std::multiset <Equipment*, Equipment_Comparator>* Player::get_weaponary()
+std::multiset <Equipment*, Equipment_Comparator>* Player::get_items()
 {
-    return &weaponary;
+    return &items;
 }
 
-std::multiset <Equipment*, Equipment_Comparator>* Player::get_armourment()
-{
-    return &armourment;
-}
-
-std::multiset <Equipment*, Equipment_Comparator>* Player::get_potions()
+std::multiset<Potion *, Equipment_Comparator> *Player::get_potions()
 {
     return &potions;
-}
-
-std::multiset<Equipment *, Equipment_Comparator> *Player::get_jewellery()
-{
-    return &jewellery;
 }
 
 std::vector <Effect*>* Player::get_active_effects()
@@ -273,19 +264,9 @@ std::vector <Effect*>* Player::get_active_effects()
     return &active_effects;
 }
 
-std::map<std::string, Equipment*>* Player::get_equiped_weaponary()
+std::map<std::string, Equipment*>* Player::get_equipped_items()
 {
-    return &equiped_weaponary;
-}
-
-std::map<std::string, Equipment*>* Player::get_equiped_armourment()
-{
-    return &equiped_armourment;
-}
-
-std::map<std::string, Equipment*>* Player::get_equiped_jewellery()
-{
-    return &equiped_jewellery;
+    return &equipped_items;
 }
 
 void Player::attack(Player* pl)
@@ -394,15 +375,15 @@ void Player::process_active_effects() // производит исполнени
     update_chars();
 }
 
-void Player::equip_item(std::map <std::string, Equipment*>* container, Equipment *item, std::string place)
+void Player::equip_item(Equipment *item, std::string place)
 {
-    if (container->find(place) == container->end())
+    if (equipped_items.find(place) == equipped_items.end())
         throw new std::invalid_argument("Place is invalid");
 
-    if (container->at(place) != nullptr)
-        unequip_item(container->at(place), place);
+    if (equipped_items[place] != nullptr)
+        unequip_item(place);
 
-    container->at(place) = item;
+    equipped_items.at(place) = item;
     item->change_equiped();
     for (const auto& i : *item->get_item_characteristics())
         characteristics[i.first] += i.second;
@@ -410,16 +391,15 @@ void Player::equip_item(std::map <std::string, Equipment*>* container, Equipment
     update_chars();
 }
 
-void Player::unequip_item(Equipment* equipment, std::string place)
+void Player::unequip_item(std::string place)
 {
-	std::string type = equipment->get_type();
-	std::string equipment_class = equipment->get_class();
-    if (equipment_class == "weapon")
-        equiped_weaponary[place] = nullptr;
-    else if (equipment_class == "armour")
-        equiped_armourment[place] = nullptr;
-    else if (equipment_class == "jewel")
-        equiped_jewellery[place] = nullptr;
+    if (equipped_items[place] == nullptr)
+        return;
+
+    Equipment* equipment = equipped_items[place];
+    std::string type = equipment->get_type();
+    std::string equipment_class = equipment->get_class();
+    equipped_items[place] = nullptr;
 
     equipment->change_equiped();
     for (auto& i : *equipment->get_item_characteristics())
@@ -433,23 +413,23 @@ Equipment* Player::add_item(const std::string& equipment_id)
     if(equipment_id == "Mystery ring")
     {
         Jewel* ring = new Jewel("ring", Turn::get_Turn()->get_turn_number());
-        jewellery.insert(ring);
+        items.insert(ring);
         return ring;
     }
     else if(equipment_id == "Mystery necklace")
     {
         Jewel* necklace = new Jewel("necklace", Turn::get_Turn()->get_turn_number());
-        jewellery.insert(necklace);
+        items.insert(necklace);
         return necklace;
     }
     else if(equipment_id == "Mystery belt")
     {
         Jewel* belt = new Jewel("belt", Turn::get_Turn()->get_turn_number());
-        jewellery.insert(belt);
+        items.insert(belt);
         return belt;
     }
 
-    std::map<std::string, int> item_characteristics;
+    std::unordered_map<std::string, int> item_characteristics;
     if (DataBase::get_DataBase()->get_all_equipment_data()[equipment_id].contains("chars")) {
         json k = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("chars");
         for (auto& [key, value] : k.items()) {
@@ -462,16 +442,9 @@ Equipment* Player::add_item(const std::string& equipment_id)
     std::string type = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("type");
     std::string equipment_class = DataBase::get_DataBase()->get_all_equipment_data().at(equipment_id).at("class");
 
-    if (equipment_class == "weapon")
-    {
-        Weapon* item = new Weapon(item_id, name, equipment_class, item_characteristics, type);
-        weaponary.insert(item);
-        return item;
-    }
-    if (equipment_class == "armour")
-    {
-        Armour* item = new Armour(item_id, name, equipment_class, item_characteristics, type);
-        armourment.insert(item);
+    if (equipment_class != "potion"){
+        Equipment* item = new Equipment(item_id, name, equipment_class, item_characteristics, type);
+        items.insert(item);
         return item;
     }
 
@@ -479,52 +452,30 @@ Equipment* Player::add_item(const std::string& equipment_id)
     std::string effect_name = DataBase::get_DataBase()->get_all_equipment_data()[equipment_id]["effect_name"];
     Potion* item = new Potion(item_id, equipment_id, equipment_class, item_characteristics, type, dur, effect_name);
     potions.insert(item);
+    qDebug() << "Potion added";
     return item;
 }
 
 void Player::save_all_items(QFile &out)
 {
-    //размер контейнера weaponary
-    size_t size = weaponary.size();
-    //запись размера weaponary
+    //размер контейнера items
+    size_t size = items.size();
+    //запись размера items
     out.write((char*)& size, sizeof(size));
-    //цикл для записи каждого объекта класса Weapon
-    for(const auto &i : weaponary)
+    //цикл для записи каждого объекта класса Equipment
+    for(const auto &i : items)
     {
-        //вызов метода записи у объекта класса Weapon
+        //вызов метода записи у объекта класса Equipment
         i->save(out);
     }
 
-    //размер контейнера armourment
-    size = armourment.size();
-    //запись размера armourment
-    out.write((char*)& size, sizeof(size));
-    //цикл для записи каждого объекта класса Armour
-    for(const auto &i : armourment)
-    {
-        //вызов метода записи у объекта класса Armour
-        i->save(out);
-    }
-
-    //размер контейнера jewellery
-    size = jewellery.size();
-    //запись размера jewellery
-    out.write((char*)& size, sizeof(size));
-    //цикл для записи каждого объекта класса Jewel
-    for(const auto &i : jewellery)
-    {
-        //вызов метода записи у объекта класса Jewel
-        i->save(out);
-    }
-
-    //размер контейнера potions
     size = potions.size();
     //запись размера potions
     out.write((char*)& size, sizeof(size));
-    //цикл для записи каждого объекта класса Potion
+    //цикл для записи каждого объекта класса potions
     for(const auto &i : potions)
     {
-        //вызов метода записи у объекта класса Potion
+        //вызов метода записи у объекта класса potions
         i->save(out);
     }
 
@@ -544,63 +495,33 @@ void Player::load_all_items(QFile &in)
 {
     //переменная для размеров контейнеров
     size_t size;
-    //чтение размера контейнера weaponary
+    //чтение размера контейнера items
     in.read((char*)& size, sizeof(size));
     //очистка контейнера weaponary
-    weaponary.clear();
+    items.clear();
     //цикл для заполенения контейнера данными
     for(int i = 0; i < size; i++)
     {
         //создание нового объекта класса Weapon без значений
-        Weapon* item = new Weapon();
+        Equipment* item = new Equipment();
         //вызов метода чтения объекта класса Weapon
         item->load(in);
         //добавление в контейнер указателя на объект класса Weapon
-        weaponary.insert(item);
-    }
-
-    //чтение размера контейнера armourment
-    in.read((char*)& size, sizeof(size));
-    //очистка контейнера armourment
-    armourment.clear();
-    //цикл для заполнения контейнера данными
-    for(int i = 0; i < size; i++)
-    {
-        //создание нового объекта класса Armour без значений
-        Armour* item = new Armour();
-        //вызов метода чтения объекта класса Armour
-        item->load(in);
-        //добавление в контейнер указателя на объект класса Armour
-        armourment.insert(item);
-    }
-
-    //чтение размера контейнера jewellery
-    in.read((char*)& size, sizeof(size));
-    //очистка контейнера jewellery
-    jewellery.clear();
-    //цикл для заполнения контейнера данными
-    for(int i = 0; i < size; i++)
-    {
-        //создание нового объекта класса Jewel без значений
-        Jewel* item = new Jewel();
-        //вызов метода чтения объекта класса Jewel
-        item->load(in);
-        //добавление в контейнер указателя на объект класса Jewel
-        jewellery.insert(item);
+        items.insert(item);
     }
 
     //чтение размера контейнера potions
     in.read((char*)& size, sizeof(size));
-    //очистка контейнера potions
+    //очистка контейнера weaponary
     potions.clear();
-    //цикл для заполнения контейнера данными
+    //цикл для заполенения контейнера данными
     for(int i = 0; i < size; i++)
     {
-        //создание нового объекта класса Potion
+        //создание нового объекта класса Weapon без значений
         Potion* item = new Potion();
-        //вызов метода чтения объекта класса Potion
+        //вызов метода чтения объекта класса Weapon
         item->load(in);
-        //добавление в контейнер указателя на объект класса Potion
+        //добавление в контейнер указателя на объект класса Weapon
         potions.insert(item);
     }
 
@@ -633,38 +554,16 @@ void Player::load_all_items(QFile &in)
 
 void Player::load_equiped_items()
 {
-    //цикл для заполнения контейнера equiped_weaponary
-    for(auto & i : weaponary)
-    {
-        //проверка на экипированность предмета
-        if(i->get_equiped())
-        {
-            //присваивание указателя по ключу
-            equiped_weaponary[i->get_type()] = i;
-        }
-    }
-
-    //цикл для заполнения контейнера equiped_armourment
-    for(auto& i : armourment)
-    {
-        //проверка на экипированность предмета
-        if (i->get_equiped())
-        {
-            //присваивание указателя по ключу
-            equiped_armourment[i->get_type()] = i;
-        }
-    }
-
-    //цикл для заполнения контейнера equiped_jewellery
-    for(auto& i : jewellery)
-    {
-        //проверка на экипированность предмета
-        if(i->get_equiped())
-        {
-            //присваивание указателя по ключу
-            equiped_jewellery[i->get_type()] = i;
-        }
-    }
+//    //цикл для заполнения контейнера equiped_weaponary
+//    for(auto & i : items)
+//    {
+//        //проверка на экипированность предмета
+//        if(i->get_equiped())
+//        {
+//            //присваивание указателя по ключу
+//            equiped_weaponary[i->get_type()] = i;
+//        }
+//    }
 }
 
 void Player::save(QFile& out)

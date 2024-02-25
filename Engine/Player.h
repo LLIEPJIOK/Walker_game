@@ -25,15 +25,11 @@ private:
 
     std::map<std::string, int> characteristics;
 
-    std::multiset <Equipment*, Equipment_Comparator> weaponary;
-    std::multiset <Equipment*, Equipment_Comparator> armourment;
-    std::multiset <Equipment*, Equipment_Comparator> potions;
-    std::multiset <Equipment*, Equipment_Comparator> jewellery;
+    std::multiset <Equipment*, Equipment_Comparator> items;
+    std::multiset <Potion*, Equipment_Comparator> potions;
+    std::map<std::string, Equipment*> equipped_items;
 
     std::vector<Effect*> active_effects;
-    std::map<std::string, Equipment*> equiped_weaponary;
-    std::map<std::string, Equipment*> equiped_armourment;
-    std::map<std::string, Equipment*> equiped_jewellery;
 
     void save_all_items(QFile& out);
     void load_all_items(QFile& in);
@@ -64,23 +60,20 @@ public:
 
     std::map<std::string, int>& get_characteristics();
 
-    std::multiset <Equipment*, Equipment_Comparator>* get_weaponary();
-    std::multiset <Equipment*, Equipment_Comparator>* get_armourment();
-    std::multiset <Equipment*, Equipment_Comparator>* get_potions();
-    std::multiset <Equipment*, Equipment_Comparator>* get_jewellery();
+    std::multiset <Equipment*, Equipment_Comparator>* get_items();
+    std::multiset <Potion*, Equipment_Comparator>* get_potions();
+
 
     std::vector<Effect*>* get_active_effects();
 
-    std::map <std::string, Equipment*>* get_equiped_weaponary();
-    std::map <std::string, Equipment*>* get_equiped_armourment();
-    std::map <std::string, Equipment*>* get_equiped_jewellery();
+    std::map <std::string, Equipment*>* get_equipped_items();
 
     Equipment* add_item(const std::string& FileName);
 
     void attack(Player *pl);
     void use_potion(Potion*);
-    void equip_item(std::map <std::string, Equipment*>* container, Equipment* item, std::string place);
-    void unequip_item(Equipment* equipment, std::string place);
+    void equip_item(Equipment* item, std::string place);
+    void unequip_item(std::string place);
     void process_active_effects();
 
 

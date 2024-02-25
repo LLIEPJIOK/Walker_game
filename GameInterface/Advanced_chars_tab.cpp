@@ -30,8 +30,8 @@ Advanced_chars_tab::Advanced_chars_tab(QWidget *parent, std::map<QString, QStrin
     for (const std::pair<QString, QString> &p : _stat_names) {
         QLabel* key = new QLabel(this);
         key->setText(tr(p.second.toStdString().c_str()));
-        key->setStyleSheet("font-size: 12px;"
-                           "font-style: italic;");
+        key->setStyleSheet("font-size: 16px;"
+                           "font-style: arial;");
         keys_lo->addWidget(key);
 
         QLabel* value = new QLabel(this);
@@ -42,6 +42,7 @@ Advanced_chars_tab::Advanced_chars_tab(QWidget *parent, std::map<QString, QStrin
         chars[p.first] = value;
     }
 
+    main_layout->setAlignment(Qt::AlignTop);
     main_layout->addLayout(keys_lo);
     main_layout->addLayout(values_lo);
     setLayout(main_layout);
