@@ -1,5 +1,6 @@
 #include "general_info_widget.h"
 #include "Inventory/item.h"
+#include "Engine/translator.h"
 
 #include<QPushButton>
 #include<QPainter>
@@ -22,7 +23,7 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
                             "QTabBar::tab {"
                             "border: 1px solid lightblack;"
                             "height : 55;"
-                            "width : 80;"
+                            "width : 90;"
                             " background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png)"
                             "} "
                             "QTabBar::tab:selected { "
@@ -46,9 +47,6 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
     class_to_inventory["jewel"] = new Inventory_modified(this);
     class_to_inventory["jewel"]->setGeometry(20, 540, 0.25 * width(), 0.45 * height());
     sections->addTab(class_to_inventory["jewel"], tr("Jewels"));
-    class_to_inventory["jewel"]->addItem(new Item(new Jewel("belt", 16)));
-    class_to_inventory["jewel"]->addItem(new Item(new Jewel("ring", 16)));
-    class_to_inventory["jewel"]->addItem(new Item(new Jewel("necklace", 16)));
 
     class_to_inventory["potion"] = new Inventory_modified(this);
     class_to_inventory["potion"]->setGeometry(20, 540, 0.25 * width(), 0.45 * height());
@@ -63,9 +61,13 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
     image->setGeometry(equipped_items->x() + equipped_items->width(), 20, parent->width() - (equipped_items->x() + equipped_items->width()), height() - 40);
 
     QPushButton* back = new QPushButton("BACK", this);
+    back->setStyleSheet("background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png);"
+                        "border: 1px solid black;");
+
     back->setGeometry(width() - 200, height() - 50, 160, 40);
     connect(back, &QPushButton::clicked, this, &General_info_widget::back);
 
+    connect(status->get_effects(), &QListWidget::itemEntered, image, &Image_scene::take_effect);
     connect(class_to_inventory["jewel"], &Inventory_modified::entered, image, &Image_scene::take_item);
     connect(class_to_inventory["weapon"], &Inventory_modified::entered, image, &Image_scene::take_item);
     connect(class_to_inventory["armour"], &Inventory_modified::entered, image, &Image_scene::take_item);
@@ -231,9 +233,9 @@ void General_info_widget::process_equip(Item * item, bool primary)
     }
 
     if (it->get_equiped())
-        item->setText(QString::fromStdString(it->get_name()) + "(" + tr("equipped") + ")");
+        item->setText(QString::fromStdString(Translator::translate(it->get_name().c_str())) + "(" + tr("equipped") + ")");
     else
-        item->setText(it->get_name().c_str());
+        item->setText(QString::fromStdString(Translator::translate(it->get_name().c_str())));
 
 
     status->update_all();

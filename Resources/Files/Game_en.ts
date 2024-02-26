@@ -28,14 +28,6 @@
     </message>
 </context>
 <context>
-    <name>DragItem</name>
-    <message>
-        <location filename="Inventory/dragitem.cpp" line="13"/>
-        <source>equipped</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EnterName</name>
     <message>
         <location filename="Menu/entername.cpp" line="28"/>
@@ -121,42 +113,37 @@
 <context>
     <name>GameInterface</name>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="89"/>
+        <location filename="GameInterface/game_interface.cpp" line="80"/>
         <source>Roll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="92"/>
+        <location filename="GameInterface/game_interface.cpp" line="83"/>
         <source>End turn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="95"/>
-        <source>Inventory</source>
+        <location filename="GameInterface/game_interface.cpp" line="86"/>
+        <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="98"/>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/game_interface.cpp" line="262"/>
+        <location filename="GameInterface/game_interface.cpp" line="214"/>
         <source>Your dice roll:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="326"/>
+        <location filename="GameInterface/game_interface.cpp" line="280"/>
         <source>Saved!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="438"/>
+        <location filename="GameInterface/game_interface.cpp" line="388"/>
         <source>You have picked up an item!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="438"/>
+        <location filename="GameInterface/game_interface.cpp" line="388"/>
         <source>tile item.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -181,6 +168,67 @@
     <message>
         <location filename="Map/gamemap.cpp" line="216"/>
         <source>Too far away! Come closer!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>General_info_widget</name>
+    <message>
+        <location filename="GameInterface/general_info_widget.cpp" line="37"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/general_info_widget.cpp" line="41"/>
+        <source>Weapons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/general_info_widget.cpp" line="45"/>
+        <source>Armour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/general_info_widget.cpp" line="49"/>
+        <source>Jewels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/general_info_widget.cpp" line="53"/>
+        <source>Potions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/general_info_widget.cpp" line="235"/>
+        <source>equipped</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Image_scene</name>
+    <message>
+        <location filename="GameInterface/image_scene.cpp" line="24"/>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/image_scene.cpp" line="27"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/image_scene.cpp" line="30"/>
+        <source>Class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/image_scene.cpp" line="33"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/image_scene.cpp" line="37"/>
+        <source>Characteristics</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -249,59 +297,59 @@
     <name>Load</name>
     <message>
         <location filename="Menu/load.cpp" line="17"/>
-        <location filename="Menu/load.cpp" line="132"/>
+        <location filename="Menu/load.cpp" line="129"/>
         <source>Saves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="34"/>
-        <location filename="Menu/load.cpp" line="133"/>
+        <location filename="Menu/load.cpp" line="49"/>
+        <location filename="Menu/load.cpp" line="130"/>
         <source>Return</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="38"/>
-        <location filename="Menu/load.cpp" line="134"/>
+        <location filename="Menu/load.cpp" line="50"/>
+        <location filename="Menu/load.cpp" line="131"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="42"/>
-        <location filename="Menu/load.cpp" line="135"/>
+        <location filename="Menu/load.cpp" line="51"/>
+        <location filename="Menu/load.cpp" line="132"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="46"/>
-        <location filename="Menu/load.cpp" line="136"/>
+        <location filename="Menu/load.cpp" line="52"/>
+        <location filename="Menu/load.cpp" line="133"/>
         <source>Change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="51"/>
-        <location filename="Menu/load.cpp" line="137"/>
+        <location filename="Menu/load.cpp" line="53"/>
+        <location filename="Menu/load.cpp" line="134"/>
         <source>New</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="55"/>
-        <location filename="Menu/load.cpp" line="138"/>
+        <location filename="Menu/load.cpp" line="54"/>
+        <location filename="Menu/load.cpp" line="135"/>
         <source>Rewrite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="177"/>
+        <location filename="Menu/load.cpp" line="174"/>
         <source>Are you sure?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="195"/>
+        <location filename="Menu/load.cpp" line="192"/>
         <source>Change the name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/load.cpp" line="254"/>
-        <location filename="Menu/load.cpp" line="266"/>
+        <location filename="Menu/load.cpp" line="251"/>
+        <location filename="Menu/load.cpp" line="263"/>
         <source>Enter the desired save name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -309,32 +357,32 @@
 <context>
     <name>Menu</name>
     <message>
-        <location filename="Menu/menu.cpp" line="15"/>
-        <location filename="Menu/menu.cpp" line="146"/>
+        <location filename="Menu/menu.cpp" line="25"/>
+        <location filename="Menu/menu.cpp" line="141"/>
         <source>New game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="20"/>
-        <location filename="Menu/menu.cpp" line="147"/>
+        <location filename="Menu/menu.cpp" line="27"/>
+        <location filename="Menu/menu.cpp" line="142"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="25"/>
-        <location filename="Menu/menu.cpp" line="148"/>
+        <location filename="Menu/menu.cpp" line="29"/>
+        <location filename="Menu/menu.cpp" line="143"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="30"/>
-        <location filename="Menu/menu.cpp" line="149"/>
+        <location filename="Menu/menu.cpp" line="31"/>
+        <location filename="Menu/menu.cpp" line="144"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="35"/>
-        <location filename="Menu/menu.cpp" line="150"/>
+        <location filename="Menu/menu.cpp" line="33"/>
+        <location filename="Menu/menu.cpp" line="145"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
@@ -343,157 +391,193 @@
     <name>NewGame</name>
     <message>
         <location filename="Menu/newgame.cpp" line="10"/>
-        <location filename="Menu/newgame.cpp" line="88"/>
+        <location filename="Menu/newgame.cpp" line="89"/>
         <source>Quantity of players</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Menu/newgame.cpp" line="40"/>
-        <location filename="Menu/newgame.cpp" line="86"/>
-        <source>Continue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Menu/newgame.cpp" line="45"/>
+        <location filename="Menu/newgame.cpp" line="41"/>
         <location filename="Menu/newgame.cpp" line="87"/>
-        <source>Return</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PauseMenu</name>
-    <message>
-        <location filename="GameInterface/pausemenu.cpp" line="15"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/pausemenu.cpp" line="20"/>
-        <source>Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/pausemenu.cpp" line="25"/>
-        <source>Main menu</source>
+        <location filename="Menu/newgame.cpp" line="46"/>
+        <location filename="Menu/newgame.cpp" line="88"/>
+        <source>Return</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Player_status_widget</name>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="66"/>
-        <location filename="GameInterface/Player_status_widget.cpp" line="128"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="71"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="133"/>
         <source>Current Health</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="129"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="134"/>
         <source>Maximum Health</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="130"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="135"/>
         <source>Current Armour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="131"/>
-        <source>Current Damage Prevention Percentage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="132"/>
-        <source>Vitality</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="73"/>
-        <location filename="GameInterface/Player_status_widget.cpp" line="135"/>
-        <source>Current Attack</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="43"/>
-        <source>Character Sheet of</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="50"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="60"/>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="119"/>
-        <source>Advanced Characteristics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="136"/>
-        <source>Crit Chance</source>
+        <source>Flat Armour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="137"/>
-        <source>Crit Damage Addative</source>
+        <source>Armour Multiplier (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="138"/>
-        <source>Piercing Damage (through armour)</source>
+        <source>Current Damage Prevention Percentage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="139"/>
-        <source>Offence</source>
+        <source>Vitality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="78"/>
+        <source>Current Attack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="48"/>
+        <source>Character Sheet of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="55"/>
+        <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="65"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="124"/>
+        <source>Advanced Characteristics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="142"/>
-        <source>Intelligence</source>
+        <source>Current Attack (total)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="143"/>
-        <source>Strength</source>
+        <source>Flat Attack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="144"/>
-        <source>Agility</source>
+        <source>Multiplier of Attack (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="145"/>
-        <source>Attributes</source>
+        <location filename="GameInterface/Player_status_widget.cpp" line="146"/>
+        <source>Crit Chance (total)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="147"/>
+        <source>Crit Chance from Agility (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="148"/>
-        <source>Movement Roll Modifier</source>
+        <source>Flat Crit Chance (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="149"/>
-        <source>Number of Dice</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="150"/>
-        <source>Event Roll Modifier</source>
+        <source>Crit Chance Multiplier(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="GameInterface/Player_status_widget.cpp" line="151"/>
+        <source>Critical Damage (total) (%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="152"/>
+        <source>Flat Critical Damage (%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="153"/>
+        <source>Critical Damage from Intelligence (%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="154"/>
+        <source>Critical Damage Multiplier (%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="156"/>
+        <source>Piercing Damage (through armour)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="157"/>
+        <source>Offence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="160"/>
+        <source>Intelligence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="161"/>
+        <source>Strength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="162"/>
+        <source>Agility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="163"/>
+        <source>Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="166"/>
+        <source>Movement Roll Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="167"/>
+        <source>Number of Dice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="168"/>
+        <source>Event Roll Modifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GameInterface/Player_status_widget.cpp" line="169"/>
         <source>Rolls</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="172"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="193"/>
         <source>Applied Effects</source>
         <translation type="unfinished"></translation>
     </message>

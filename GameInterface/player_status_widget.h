@@ -13,6 +13,7 @@
 #include <QTabWidget>
 #include <QListWidget>
 #include "./Engine/Player.h"
+#include "GameInterface/effect_item.h"
 class Player_status_widget : public QWidget
 
 {
@@ -49,6 +50,8 @@ public:
     Player_status_widget(QWidget *parent = nullptr);
     Player_status_widget(QWidget *parent, Player* pl);
     ~Player_status_widget();
+
+    QListWidget* get_effects();
 public slots:
     void update_all();
 };

@@ -8,7 +8,7 @@
 
 std::mutex paint_mutex;
 
-void Image_scene::paint(Item *item)
+void Image_scene::paint_item(Item *item)
 {
     QPainter painter;
     QImage info_canvas(info.size(), QImage::Format_RGB32);
@@ -33,16 +33,34 @@ void Image_scene::paint(Item *item)
     painter.drawText(7 * _px, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Type"));
     painter.drawText(info_canvas.width() / 2, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_item()->get_type().c_str()).c_str());
 
-    painter.setFont(QFont("Arial", 20 * _px));
-    painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Characteristics"));
 
-    int i = 1;
-    painter.setFont(QFont("Arial", 10 * _px));
-    for (auto& ch : *item->get_connected_item()->get_item_characteristics()){
-        painter.drawText(7 * _px, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
-        painter.drawText(info_canvas.width() / 2, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(ch.second));
-        i++;
+    if (item->get_connected_item()->get_class() != "potion") {
+        painter.setFont(QFont("Arial", 20 * _px));
+        painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Characteristics"));
+
+        int i = 1;
+        painter.setFont(QFont("Arial", 10 * _px));
+        for (auto& ch : *item->get_connected_item()->get_item_characteristics()){
+            painter.drawText(7 * _px, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
+            painter.drawText(info_canvas.width() / 2, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(ch.second));
+            i++;
+        }
     }
+    else{
+        painter.setFont(QFont("Arial", 20 * _px));
+        painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Potion info"));
+
+        painter.setFont(QFont("Arial", 15 * _px));
+        Potion* pot = dynamic_cast<Potion*>(item->get_connected_item());
+
+        painter.drawText(7 * _px, 135 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Effect name"));
+        painter.drawText(info_canvas.width() / 2, 135 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(pot->get_effect_name().c_str()).c_str());
+
+        painter.drawText(7 * _px, 160 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Effect duration"));
+        painter.drawText(info_canvas.width() / 2, 160 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(pot->get_duration()));
+    }
+
+
 
     painter.end();
 
@@ -56,6 +74,61 @@ void Image_scene::paint(Item *item)
     paint_mutex.unlock();
 }
 
+void Image_scene::paint_effect(Effect_item *item)
+{
+    QPainter painter;
+    QImage info_canvas(info.size(), QImage::Format_RGB32);
+    int h = info.height();
+    double _px = h / 300;
+
+    painter.begin(&info_canvas);
+    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing, true);
+    painter.setPen(QPen(Qt::black, 3));
+    painter.drawPixmap(0, 0, info_canvas.width(), info_canvas.height(), background);
+
+    painter.setFont(QFont("Arial", 20 * _px));
+    painter.drawText(0, 5 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("General"));
+
+    painter.setFont(QFont("Arial", 15 * _px));
+    painter.drawText(7 * _px, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Name"));
+    painter.drawText(7 * _px + info_canvas.width() / 2, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_effect()->get_effect_name().c_str()).c_str());
+
+    painter.drawText(7 * _px, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Type"));
+    painter.drawText(info_canvas.width() / 2, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_effect()->get_effect_type().c_str()).c_str());
+
+    painter.drawText(7 * _px, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Duration"));
+    painter.drawText(info_canvas.width() / 2, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(item->get_connected_effect()->get_effect_duration()));
+
+
+    if (!item->get_connected_effect()->get_sp_chs().empty()) {
+        painter.setFont(QFont("Arial", 20 * _px));
+        painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Temporary buffs"));
+
+        int i = 1;
+        painter.setFont(QFont("Arial", 10 * _px));
+        for (auto& ch : item->get_connected_effect()->get_sp_chs()){
+            painter.drawText(7 * _px, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
+            painter.drawText(info_canvas.width() / 2, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(ch.second));
+            i++;
+        }
+    }
+
+
+
+    painter.end();
+
+    qDebug() << "Locked";
+    paint_mutex.lock();
+    this->info = QPixmap::fromImage(info_canvas);
+    //this->current = QPixmap(":/equipment/Pictures/Equipment/" + QString::fromStdString(item->get_connected_effect()->get_effect_name()) + ".png");
+
+    this->current = QPixmap(":/events/Pictures/Events/missingContentError.png");
+    this->update();
+    qDebug() << "Finished";
+    paint_mutex.unlock();
+    qDebug() << "Unlocked";
+}
+
 Image_scene::Image_scene() : QWidget()
 {
 
@@ -63,6 +136,7 @@ Image_scene::Image_scene() : QWidget()
 
 Image_scene::Image_scene(QWidget *parent) : QWidget(parent)
 {
+    prev_chosen = nullptr;
     background = QPixmap(":/backgrounds/Pictures/widget_backgrounds/status.png");
     current = QPixmap(":/backgrounds/Pictures/widget_backgrounds/status.png");
     info = QPixmap(":/backgrounds/Pictures/widget_backgrounds/status.png");
@@ -70,7 +144,24 @@ Image_scene::Image_scene(QWidget *parent) : QWidget(parent)
 
 void Image_scene::take_item(Item *item)
 {
-    std::thread t(&Image_scene::paint, this, item);
+    if (prev_chosen)
+        prev_chosen->setSelected(false);
+
+    item->setSelected(true);
+    prev_chosen = item;
+    std::thread t(&Image_scene::paint_item, this, item);
+    t.detach();
+}
+
+void Image_scene::take_effect(QListWidgetItem *item)
+{
+    if (prev_chosen)
+        prev_chosen->setSelected(false);
+
+    item->setSelected(true);
+    prev_chosen = item;
+
+    std::thread t(&Image_scene::paint_effect, this, dynamic_cast<Effect_item*>(item));
     t.detach();
 }
 

@@ -1,5 +1,6 @@
 
 #include "item.h"
+#include"Engine/translator.h"
 
 Item::Item()
 {
@@ -10,7 +11,8 @@ Item::Item()
 Item::Item(Equipment *eq)
 {
     connected_item = eq;
-    this->setText(eq->get_name().c_str());
+    this->setText(Translator::translate(eq->get_name().c_str()).c_str());
+    this->setSizeHint(QSize(1, 50));
 }
 
 void Item::update_info()

@@ -234,6 +234,7 @@ void GameInterface::add_item(Equipment *item)
 
 void GameInterface::pause_button()
 {
+    current_info_widget->setVisible(false);
     pause->setVisible(!pause->isVisible());
     pause->raise();
 }

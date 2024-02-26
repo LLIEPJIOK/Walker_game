@@ -24,6 +24,7 @@ SOURCES += \
     GameInterface/Advanced_chars_tab.cpp \
     GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
+    GameInterface/effect_item.cpp \
     GameInterface/general_info_widget.cpp \
     GameInterface/image_scene.cpp \
     GameInterface/informationwindow.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     GameInterface/Advanced_chars_tab.h \
     GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
+    GameInterface/effect_item.h \
     GameInterface/general_info_widget.h \
     GameInterface/image_scene.h \
     GameInterface/informationwindow.h \

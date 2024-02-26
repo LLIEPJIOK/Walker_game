@@ -3,6 +3,7 @@
 #include "Inventory/item.h"
 #include<QMenu>
 #include<QListWidgetItem>
+#include<QSize>
 
 Inventory_modified::Inventory_modified()
 {
@@ -10,7 +11,9 @@ Inventory_modified::Inventory_modified()
 }
 
 Inventory_modified::Inventory_modified(QWidget *parent) : QListWidget(parent){
-    this->setStyleSheet("background-image : url(:/backgrounds/Pictures/widget_backgrounds/status.png)");
+    this->setStyleSheet("QListWidget{background-image : url(:/backgrounds/Pictures/widget_backgrounds/status.png)}"
+                        "QListWidget::item {}");
+
     this->setMouseTracking(true);
     connect(this, &QListWidget::itemEntered, this, &Inventory_modified::hovered);
 }

@@ -3,6 +3,7 @@
 #include <QPainter>
 
 #include "Engine/Effect.h"
+#include "GameInterface/effect_item.h"
 #include "advanced_chars_tab.h"
 #include "Engine/translator.h"
 
@@ -203,7 +204,7 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     main_layout->addWidget(effects);
 
     setLayout(main_layout);
-
+    effects->setMouseTracking(true);
 }
 
 Player_status_widget::~Player_status_widget()
@@ -213,6 +214,11 @@ Player_status_widget::~Player_status_widget()
 
     delete advanced;
     delete effects;
+}
+
+QListWidget *Player_status_widget::get_effects()
+{
+    return effects;
 }
 
 void Player_status_widget::update_all()
@@ -228,13 +234,15 @@ void Player_status_widget::update_all()
     //updates all applied effects in qwlist
     effects->clear();
     for (Effect* eff : *assigned_player->get_active_effects()){
-        effects->addItem(QString::fromStdString(Translator::translate(eff->get_effect_name().c_str())) + " (" + QString::number(eff->get_effect_duration()) + ")");
+        effects->addItem(new Effect_item(eff));
     }
 
     // updates bar and atk label
     health_bar->setMaximum(assigned_player->get_characteristics().at("MAX_HP"));
     health_bar->setValue(assigned_player->get_characteristics().at("HP"));
     ov_atk_value->setText(QString::number(assigned_player->get_characteristics().at("ATK")));
+
+
 }
 
 
