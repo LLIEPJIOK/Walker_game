@@ -117,16 +117,13 @@ void Image_scene::paint_effect(Effect_item *item)
 
     painter.end();
 
-    qDebug() << "Locked";
     paint_mutex.lock();
     this->info = QPixmap::fromImage(info_canvas);
     //this->current = QPixmap(":/equipment/Pictures/Equipment/" + QString::fromStdString(item->get_connected_effect()->get_effect_name()) + ".png");
 
     this->current = QPixmap(":/events/Pictures/Events/missingContentError.png");
     this->update();
-    qDebug() << "Finished";
     paint_mutex.unlock();
-    qDebug() << "Unlocked";
 }
 
 Image_scene::Image_scene() : QWidget()
@@ -142,8 +139,19 @@ Image_scene::Image_scene(QWidget *parent) : QWidget(parent)
     info = QPixmap(":/backgrounds/Pictures/widget_backgrounds/status.png");
 }
 
+void Image_scene::reset()
+{
+    prev_chosen = nullptr;
+    current = QPixmap(":/backgrounds/Pictures/widget_backgrounds/status.png");
+    info = QPixmap(":/backgrounds/Pictures/widget_backgrounds/status.png");
+    update();
+}
+
 void Image_scene::take_item(Item *item)
 {
+    if (!item)
+        return;
+
     if (prev_chosen)
         prev_chosen->setSelected(false);
 
@@ -155,6 +163,9 @@ void Image_scene::take_item(Item *item)
 
 void Image_scene::take_effect(QListWidgetItem *item)
 {
+    if (!item)
+        return;
+
     if (prev_chosen)
         prev_chosen->setSelected(false);
 

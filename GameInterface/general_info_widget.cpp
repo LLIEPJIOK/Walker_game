@@ -251,6 +251,7 @@ void General_info_widget::process_potion(Item *item)
     status->update_all();
     delete item;
 
+    image->reset();
 }
 
 void General_info_widget::back()

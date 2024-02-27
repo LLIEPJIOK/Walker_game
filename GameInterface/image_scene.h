@@ -27,6 +27,7 @@ private:
 public:
     Image_scene();
     Image_scene(QWidget* parent);
+    void reset();
 public slots:
     void take_item(Item* item);
     void take_effect(QListWidgetItem* item);
