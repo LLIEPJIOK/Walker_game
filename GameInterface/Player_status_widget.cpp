@@ -17,7 +17,6 @@ void Player_status_widget::paintEvent(QPaintEvent *event)
     painter.begin(this);
     painter.drawPixmap(0, 0, this->width(), this->height(), back);
     QWidget::paintEvent(event);
-
 }
 
 

@@ -6,14 +6,14 @@
 #include <QWidget>
 #include <QFrame>
 #include <QMouseEvent>
-#include "Map/gamemap.h"
+#include "HexMap.h"
+
 class MovingArea : public QFrame
 {
     Q_OBJECT
 public:
-    explicit MovingArea(QWidget *parent = nullptr, GameMap* battle_map = nullptr);
+    explicit MovingArea(QWidget *parent = nullptr);
 private:
-    GameMap *battle_map;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     QPoint old_pos;

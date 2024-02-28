@@ -32,10 +32,6 @@ private:
     Equipment* picked_item;
     Event* activated_event;
 
-
-    int start_x, start_y;
-    std::pair<int, int> chosen_direction;
-
     Turn();
     const Turn& operator = (const Turn&) = delete;
     Turn(const Turn&) = delete;
@@ -66,10 +62,10 @@ public:
     void set_game_over(bool over);
     void set_roll(int _roll);
     void set_is_moving(bool moving);
-    void set_start_x(int _start_x);
-    void set_start_y(int _start_y);
     void set_turn_number(int _turn_number);
 
+
+    void process_end_of_movement();
     /*
     "game_over" :"0"
     "roll" :"0"
@@ -83,18 +79,8 @@ public:
     Equipment* get_picked_item();
     Event* get_activated_event();
 
-    std::pair<int, int>* get_chosen_direction();
-
     int get_start_x();
     int get_start_y();
-
-    //Движение игрока
-    void set_chosen_direction(int x, int y);
-    std::vector<std::pair<int, int>> move_player();
-    std::vector<std::pair<int, int>> find_possible_ways();
-    //void change_player_position(const int& x1, const int& y1, const int& x2, const int& y2) const;
-
-    std::set<Player*> check_players_in_range() const;
 
     void save(QFile &out);
     void load(QFile& in);

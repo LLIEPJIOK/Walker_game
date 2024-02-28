@@ -2,11 +2,11 @@
 #define PLAYERSMODEL_H
 
 #include "Engine/Player.h"
-#include "gamemapobject.h"
+#include "mapobject.h"
 
 #include <QTimer>
 #include <QPixmap>
-class PlayersModel : public QObject, public GameMapObject
+class PlayersModel : public QObject, public MapObject
 {
     Q_OBJECT
     enum animation_status
@@ -21,7 +21,6 @@ public:
     explicit PlayersModel(QObject* parent = nullptr, int width = 0, int height = 0, QString icon = "knight");
     Player* get_connected_player();
     void set_connected_player(Player* player);
-
 
     void set_left_direction();
     void set_right_direction();
@@ -41,7 +40,7 @@ private:
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 signals:
-    void target_to_attack();
+    void target_to_attack(PlayersModel* attacked_player);
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);

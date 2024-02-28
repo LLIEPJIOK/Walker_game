@@ -15,9 +15,11 @@ class MiniMap : public QFrame
 {
     Q_OBJECT
 public:
-    explicit MiniMap(QWidget *parent = nullptr, GameMap* battle_map = nullptr);
+    explicit MiniMap(QWidget *parent = nullptr, HexMap* hex_map = nullptr);
+    HexMap* get_connected_hex_map() const;
+    void create_moving_area();
 private:
-    GameMap* battle_map;
+    HexMap* connected_hex_map;
     MovingArea *moving_area;
     void paintEvent(QPaintEvent *event);
     QPair<int, int> battle_map_size;

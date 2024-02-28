@@ -245,38 +245,14 @@ Effect::Effect(std::string _effect_name, Player *_target)
 
 Effect::Effect(std::string _effect_name, Player *_target, int dur)
 {
-    json tmp = eff_data[_effect_name];
-    effect_counter = tmp["effect_counter"];
+    Effect(_effect_name, _target);
     effect_duration = dur;
-    effect_name = tmp["effect_name"];
-    effect_type = tmp["effect_type"];
-    dispellable = tmp["dispellable"];
-    target = _target;
-    execute_effect_ptr = effects_exe.at(effect_name);
-
-    json chars = tmp["special_chs"];
-    for (const auto& i : chars.items())
-    {
-        special_chs.emplace(i.key(), i.value());
-    }
 }
 
 Effect::Effect(std::string _effect_name, Player *_target, int dur, int counter)
 {
-    json tmp = eff_data[_effect_name];
+    Effect(_effect_name, _target, dur);
     effect_counter = counter;
-    effect_duration = dur;
-    effect_name = tmp["effect_name"];
-    effect_type = tmp["effect_type"];
-    dispellable = tmp["dispellable"];
-    target = _target;
-    execute_effect_ptr = effects_exe.at(effect_name);
-
-    json chars = tmp["special_chs"];
-    for (const auto& i : chars.items())
-    {
-        special_chs.emplace(i.key(), i.value());
-    }
 }
 
 std::string Effect::get_effect_name() const

@@ -2,7 +2,6 @@
 #define GAME_INTERFACE_H
 
 #include "informationwindow.h"
-#include "minimap.h"
 #include "Menu/menu.h"
 #include "Inventory/equipeditems.h"
 #include "pausemenu.h"
@@ -11,6 +10,8 @@
 #include "actionwindow.h"
 #include "Engine/saveandloadmanager.h"
 #include "GameInterface/player_status_widget.h"
+#include "Map/minimap.h"
+
 
 #include <QMainWindow>
 #include <QWidget>
@@ -38,6 +39,10 @@ public slots:
     void process_item_pick();
 
 private:
+    QFont font;
+    QString style;
+
+
     bool game_is_played;
     bool game_is_paused;
     bool is_load;
@@ -51,8 +56,9 @@ private:
     InformationWindow* information_window;
     ActionWindow *action;
     PauseMenu* pause;
-    GameMap *current_map;
-    MiniMap *mini_map;
+
+    HexMap* hex_map;
+    MiniMap* mini_map;
 
     QVector<QPushButton*> buttons;
 
@@ -66,7 +72,9 @@ private:
     Player_status_widget* current_player_status;
 
     QMap<int, void(GameInterface::*)()> key_to_action;
+
     void initialize();
+    void create_buttons();
     void show_player();
     void end_game();
 
@@ -84,6 +92,8 @@ private:
 
     // обновляет всё вышеперечисленное
     void update_all();
+
+
 
 protected:
     void paintEvent(QPaintEvent* event);
