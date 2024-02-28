@@ -25,13 +25,13 @@ void Image_scene::paint_item(Item *item)
 
     painter.setFont(QFont("Arial", 15 * _px));
     painter.drawText(7 * _px, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Name"));
-    painter.drawText(7 * _px + info_canvas.width() / 2, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_item()->get_name().c_str()).c_str());
+    painter.drawText(7 * _px + info_canvas.width() / 2, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, Translator::translate(item->get_connected_item()->get_name().c_str()).c_str());
 
     painter.drawText(7 * _px, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Class"));
-    painter.drawText(info_canvas.width() / 2, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_item()->get_class().c_str()).c_str());
+    painter.drawText(info_canvas.width() / 2, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, Translator::translate(item->get_connected_item()->get_class().c_str()).c_str());
 
     painter.drawText(7 * _px, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Type"));
-    painter.drawText(info_canvas.width() / 2, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_item()->get_type().c_str()).c_str());
+    painter.drawText(info_canvas.width() / 2, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, Translator::translate(item->get_connected_item()->get_type().c_str()).c_str());
 
 
     if (item->get_connected_item()->get_class() != "potion") {
@@ -39,25 +39,38 @@ void Image_scene::paint_item(Item *item)
         painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Characteristics"));
 
         int i = 1;
-        painter.setFont(QFont("Arial", 10 * _px));
+        painter.setFont(QFont("Arial", 13 * _px));
         for (auto& ch : *item->get_connected_item()->get_item_characteristics()){
             painter.drawText(7 * _px, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
-            painter.drawText(info_canvas.width() / 2, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(ch.second));
+            painter.drawText(info_canvas.width() / 2, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, QString::number(ch.second));
             i++;
         }
     }
     else{
         painter.setFont(QFont("Arial", 20 * _px));
-        painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Potion info"));
+        painter.drawText(0, 110 * _px, info_canvas.width(), 23 * _px, Qt::AlignCenter, tr("Potion info"));
 
         painter.setFont(QFont("Arial", 15 * _px));
         Potion* pot = dynamic_cast<Potion*>(item->get_connected_item());
 
         painter.drawText(7 * _px, 135 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Effect name"));
-        painter.drawText(info_canvas.width() / 2, 135 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(pot->get_effect_name().c_str()).c_str());
+        painter.drawText(info_canvas.width() / 2, 135 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, Translator::translate(pot->get_effect_name().c_str()).c_str());
 
         painter.drawText(7 * _px, 160 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Effect duration"));
-        painter.drawText(info_canvas.width() / 2, 160 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(pot->get_duration()));
+        painter.drawText(info_canvas.width() / 2, 160 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, QString::number(pot->get_duration()));
+
+        if (!item->get_connected_item()->get_item_characteristics()->empty()){
+            painter.setFont(QFont("Arial", 20 * _px));
+            painter.drawText(0, 190 * _px, info_canvas.width(), 30 * _px, Qt::AlignCenter, tr("Instant gains"));
+
+            int i = 1;
+            painter.setFont(QFont("Arial", 13 * _px));
+            for (auto& ch : *item->get_connected_item()->get_item_characteristics()){
+                painter.drawText(7 * _px, (195 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
+                painter.drawText(info_canvas.width() / 2, (195 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, QString::number(ch.second));
+                i++;
+            }
+        }
     }
 
 
@@ -91,24 +104,24 @@ void Image_scene::paint_effect(Effect_item *item)
 
     painter.setFont(QFont("Arial", 15 * _px));
     painter.drawText(7 * _px, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Name"));
-    painter.drawText(7 * _px + info_canvas.width() / 2, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_effect()->get_effect_name().c_str()).c_str());
+    painter.drawText(7 * _px + info_canvas.width() / 2, 30 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, Translator::translate(item->get_connected_effect()->get_effect_name().c_str()).c_str());
 
     painter.drawText(7 * _px, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Type"));
-    painter.drawText(info_canvas.width() / 2, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, Translator::translate(item->get_connected_effect()->get_effect_type().c_str()).c_str());
+    painter.drawText(info_canvas.width() / 2, 55 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, Translator::translate(item->get_connected_effect()->get_effect_type().c_str()).c_str());
 
     painter.drawText(7 * _px, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, tr("Duration"));
-    painter.drawText(info_canvas.width() / 2, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(item->get_connected_effect()->get_effect_duration()));
+    painter.drawText(info_canvas.width() / 2, 80 * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, QString::number(item->get_connected_effect()->get_effect_duration()));
 
 
     if (!item->get_connected_effect()->get_sp_chs().empty()) {
         painter.setFont(QFont("Arial", 20 * _px));
-        painter.drawText(0, 110 * _px, info_canvas.width(), 20 * _px, Qt::AlignCenter, tr("Temporary buffs"));
+        painter.drawText(0, 110 * _px, info_canvas.width(), 30 * _px, Qt::AlignCenter, tr("Temporary buffs"));
 
         int i = 1;
         painter.setFont(QFont("Arial", 10 * _px));
         for (auto& ch : item->get_connected_effect()->get_sp_chs()){
-            painter.drawText(7 * _px, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
-            painter.drawText(info_canvas.width() / 2, (110 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignCenter, QString::number(ch.second));
+            painter.drawText(7 * _px, (115 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, ch.first.c_str());
+            painter.drawText(info_canvas.width() / 2, (115 + i * 25) * _px, info_canvas.width() / 2, 23 * _px, Qt::AlignLeft, QString::number(ch.second));
             i++;
         }
     }

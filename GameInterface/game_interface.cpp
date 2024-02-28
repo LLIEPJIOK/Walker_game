@@ -27,7 +27,7 @@ GameInterface::GameInterface(QWidget *parent)
     setFixedSize(screen_size);
     showFullScreen();
 
-    key_to_action[Qt::Key_I] = &GameInterface::inventory_button_clicked;
+    key_to_action[Qt::Key_I] = &GameInterface::info_button_clicked;
     key_to_action[Qt::Key_Escape] = &GameInterface::pause_button;
     key_to_action[Qt::Key_Q] = &GameInterface::show_player;
 
@@ -214,11 +214,12 @@ void GameInterface::roll_button_clicked()
     action->set_text(tr("Your dice roll:") + " " + QString::number(roll));
     current_map->want_to_move();
     buttons[1]->setEnabled(false);
+    buttons[3]->setEnabled(false);
 }
 
 void GameInterface::info_button_clicked()
 {
-    current_info_widget->setVisible(true);
+    current_info_widget->setVisible(!current_info_widget->isVisible());
     current_info_widget->raise();
 }
 
@@ -234,6 +235,11 @@ void GameInterface::add_item(Equipment *item)
 
 void GameInterface::pause_button()
 {
+    if (current_info_widget->isVisible()) {
+        current_info_widget->setVisible(false);
+        return;
+    }
+
     current_info_widget->setVisible(false);
     pause->setVisible(!pause->isVisible());
     pause->raise();
@@ -246,25 +252,6 @@ void GameInterface::to_main()
     end_game();
     setCentralWidget(menu);
 }
-
-//void GameInterface::process_equip(Equipment *item, QString place)
-//{
-//    Player* player = turn->get_player();
-//    if(item->get_class() == "weapon")
-//        player->equip_item(player->get_equiped_weaponary(), item, place.toStdString());
-//    else if(item->get_class() == "armour")
-//        player->equip_item(player->get_equiped_armourment(), item, place.toStdString());
-//    else
-//        player->equip_item(player->get_equiped_jewellery(), item, place.toStdString());
-
-//    current_info_widget->update_stats();
-//}
-
-//void GameInterface::process_unequip(Equipment *item, QString place)
-//{
-//    turn->get_player()->unequip_item(item, place.toStdString());
-//    current_info_widget->update_stats();
-//}
 
 void GameInterface::congratulate_the_winner()
 {

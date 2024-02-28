@@ -11,7 +11,8 @@ Inventory_modified::Inventory_modified()
 }
 
 Inventory_modified::Inventory_modified(QWidget *parent) : QListWidget(parent){
-    this->setStyleSheet("QListWidget{background-image : url(:/backgrounds/Pictures/widget_backgrounds/status.png)}"
+    this->setStyleSheet("QListWidget{background-image : url(:/backgrounds/Pictures/widget_backgrounds/status.png);"
+                        "border : 0px;}"
                         "QListWidget::item {}");
 
     this->setMouseTracking(true);

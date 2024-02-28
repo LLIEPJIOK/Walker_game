@@ -170,6 +170,8 @@ Player_status_widget::Player_status_widget(QWidget *parent, Player *pl) : QWidge
     advanced->addTab(new Advanced_chars_tab(this, rolls, assigned_player), tr("Rolls"));
 
 
+    advanced->tabBar()->setDocumentMode(true);
+    advanced->tabBar()->setExpanding(true);
     advanced->setStyleSheet("QTabWidget::pane {"
         "border: 1px solid black;"
         "top:-1px; "

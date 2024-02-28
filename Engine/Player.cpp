@@ -452,7 +452,6 @@ Equipment* Player::add_item(const std::string& equipment_id)
     std::string effect_name = DataBase::get_DataBase()->get_all_equipment_data()[equipment_id]["effect_name"];
     Potion* item = new Potion(item_id, equipment_id, equipment_class, item_characteristics, type, dur, effect_name);
     potions.insert(item);
-    qDebug() << "Potion added";
     return item;
 }
 

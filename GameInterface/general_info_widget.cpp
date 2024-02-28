@@ -14,6 +14,8 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
     this->setGeometry(0, 0, QApplication::screens().at(0)->size().width(), QApplication::screens().at(0)->size().height());
 
     sections = new QTabWidget(this);
+    sections->tabBar()->setDocumentMode(true);
+    sections->tabBar()->setExpanding(true);
     sections->setGeometry(0, 0, 0.25 * width(), height());
     sections->setStyleSheet("QTabWidget::pane {"
                             "border: 1px solid black;"
@@ -22,8 +24,7 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
                             "}"
                             "QTabBar::tab {"
                             "border: 1px solid lightblack;"
-                            "height : 55;"
-                            "width : 90;"
+                            "height : 45;"
                             " background-image: url(:/backgrounds/Pictures/widget_backgrounds/status.png)"
                             "} "
                             "QTabBar::tab:selected { "
@@ -47,6 +48,7 @@ General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(
     class_to_inventory["jewel"] = new Inventory_modified(this);
     class_to_inventory["jewel"]->setGeometry(20, 540, 0.25 * width(), 0.45 * height());
     sections->addTab(class_to_inventory["jewel"], tr("Jewels"));
+
 
     class_to_inventory["potion"] = new Inventory_modified(this);
     class_to_inventory["potion"]->setGeometry(20, 540, 0.25 * width(), 0.45 * height());
