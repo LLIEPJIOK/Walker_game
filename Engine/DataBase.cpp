@@ -1,4 +1,6 @@
 #include "DataBase.h"
+#include <fstream>
+#include <exception>
 
 DataBase* DataBase::data = 0;
 
@@ -6,9 +8,9 @@ using json = nlohmann::json;
 
 DataBase::DataBase()
 {
-    initialize_json("../Game/Resources/Files/all_equipment_data.txt", all_equipment);
-    initialize_json("../Game/Resources/Files/jewellery_stats.txt", jewellery_stats);
-    initialize_json("../Game/Resources/Files/all_effects_data.txt", all_effects);
+    initialize_json(all_equipment, "../Game/Resources/Files/all_equipment_data.txt");
+    initialize_json(all_effects, "../Game/Resources/Files/all_effects_data.txt");
+    initialize_json(jewellery_stats, "../Game/Resources/Files/jewellery_stats.txt");
 
     // equipment_list.txt нужно будет переделать под JSON, когда будем реализовывать тиры предметов
     std::ifstream fin;
@@ -20,36 +22,24 @@ DataBase::DataBase()
         throw std::exception("equipment_list.txt is empty");
 
     std::string line = "";
+
     while(fin.good())
     {
         getline(fin, line);
         equipment_list.push_back(line);
     }
+
     fin.close();
+
+    map = GraphMap(50, 50);
 }
 
-void DataBase::initialize_json(const char *path, nlohmann::json &container)
+void DataBase::initialize_json(nlohmann::json &field, const std::string &path)
 {
     std::ifstream fin;
     fin.open(path);
-    container = json::parse(fin);
+    field = json::parse(fin);
     fin.close();
-}
-
-void DataBase::generate_items()
-{
-    std::srand((unsigned int)time(NULL));
-    int x, y;
-    for(int i = 0; i < 200; i++)
-    {
-        do
-        {
-            x = std::rand()%width;
-            y = std::rand()%height;
-        }while(map[y][x].get_item() != "None" || map[y][x].get_type_of_terrain() == "Non_moving_area" );
-
-        map[y][x].set_item(equipment_list[std::rand()%equipment_list.size()]);
-    }
 }
 
 nlohmann::json DataBase::get_all_equipment_data() const
@@ -72,6 +62,10 @@ std::vector<Player*>* DataBase::get_sequence()
     return &sequence;
 }
 
+GraphMap *DataBase::get_graph_map()
+{
+    return &map;
+}
 
 void DataBase::generate_players(std::vector<std::pair<std::string, std::string> > data)
 {
@@ -86,12 +80,21 @@ void DataBase::generate_players(std::vector<std::pair<std::string, std::string> 
     }
 }
 
+void DataBase::generate_events()
+{
+
+}
+
+void DataBase::generate_items()
+{
+    srand((unsigned int)time(NULL));
+    for(auto& i : map.getMap()) {
+        i.second.set_item(equipment_list[rand() % equipment_list.size()]);
+    }
+}
+
 DataBase::~DataBase()
 {
-    for (int i = 0; i < height; ++i)
-        delete[]map[i];
-
-    delete[]map;
 	for (auto i = sequence.begin(); i != sequence.end(); ++i)
         delete *i;
 
@@ -105,116 +108,10 @@ DataBase* DataBase::get_DataBase()
     return data;
 }
 
-MapCell** DataBase::get_map() const
-{
-    return map;
-}
 
-int DataBase::get_height() const
-{
-    return height;
-}
-
-int DataBase::get_width() const
-{
-    return width;
-}
-
-void DataBase::set_height(int _height)
-{
-    height = _height;
-}
-
-void DataBase::set_width(int _width)
-{
-    width = _width;
-}
-
-void DataBase::generate_map()
-{
-    std::ifstream fin(map_file);
-    if (!fin.is_open())
-        throw;
-    fin.peek();
-    if (!fin.good())
-        throw;
-    fin >> height >> width;
-
-    map = new MapCell* [height];
-    int c;
-    for (int i = 0; i < height; i++)
-    {
-        map[i] = new MapCell[width];
-        for (int j = 0; j < width; j++)
-        {
-            fin >> c;
-            if (c)
-                map[i][j].set_type_of_terrain("moving_area");
-        }
-    }
-    fin.close();
-
-    for(int i = 0; i < height/2; i++)
-        for(int j = 0; j < width/2; j++)
-        {
-            if(map[i][j].get_type_of_terrain() == "moving_area")
-            {
-                map[i][j].set_type_of_terrain("Woods");
-                map[i][j].set_tile_name("forest_");
-            }
-            else
-                map[i][j].set_tile_name("forest_1");
-            if(map[height-1-i][j].get_type_of_terrain() == "moving_area")
-            {
-                map[height-1-i][j].set_type_of_terrain("Desert");
-                map[height-1-i][j].set_tile_name("desert_");
-            }
-            else
-                map[height-1-i][j].set_tile_name("desert_1");
-        }
-
-    for(int i = 0; i < height/2; i++)
-        for(int j = width/2; j < width; j++)
-        {
-            if(map[i][j].get_type_of_terrain() == "moving_area")
-            {
-                map[i][j].set_type_of_terrain("Mountains");
-                map[i][j].set_tile_name("tundra_");
-            }
-            else
-                map[i][j].set_tile_name("tundra_1");
-            if(map[height-1-i][j].get_type_of_terrain() == "moving_area")
-            {
-                map[height-1-i][j].set_type_of_terrain("Swamp");
-                map[height-1-i][j].set_tile_name("swamp_");
-            }
-            else
-                map[height-1-i][j].set_tile_name("swamp_1");
-        }
-}
-
-void DataBase::set_map(MapCell**& map)
-{
-    this->map = map;
-}
 
 void DataBase::save(QFile &out)
 {
-    //запись height
-    out.write((char*)& height, sizeof(height));
-    //запись width
-    out.write((char*)& width, sizeof(width));
-    //внешний цикл для записи каждого объекта класса MapCell
-    for(int i = 0; i < height; i++)
-    {
-        //внутренний цикл для записи каждого объекта класса MapCell
-        for(int j = 0; j < width; j++)
-        {
-            //вызов метода записи объекта класса MapCell
-            map[i][j].save(out);
-        }
-    }
-
     //размер контейнера sequence
     size_t size = sequence.size();
     //запись размера sequence
@@ -225,30 +122,12 @@ void DataBase::save(QFile &out)
         //вызов метода записи объекта класса Player
         i->save(out);
     }
+
+    map.save(out);
 }
 
 void DataBase::load(QFile &in)
 {
-    //чтение height
-    in.read((char*)& height, sizeof(height));
-    //чтение width
-    in.read((char*)& width, sizeof(width));
-
-    //создание массива укаателей на MapCell рамзером  height
-    map = new MapCell*[height];
-    //внешний цикл для чтения каждого объекта класса MapCell
-    for(int i = 0; i < height; i++)
-    {
-        //создание массива объектов класса MapCell
-        map[i] = new MapCell[width];
-        //внутрениий цикл для чтения каждого объекта класса MapCell
-        for(int j = 0; j < width; j++)
-        {
-            //вызов метода чтения объекта класса MapCell
-            map[i][j].load(in);
-        }
-    }
-
     //переменная для размера контейнера
     size_t size;
     //чтение размера контейнера sequence
@@ -266,5 +145,7 @@ void DataBase::load(QFile &in)
         //добавление в контейнер указателя на объект класса Player
         sequence.push_back(pl);
     }
+
+    map.load(in);
 }
 

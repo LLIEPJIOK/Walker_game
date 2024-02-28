@@ -3,7 +3,7 @@
 
 MapCell::MapCell()
 {
-    this->type_of_terrain = "Non_moving_area";
+    this->type_of_terrain = Wall;
     this->item = "None";
     int ev = rand() % Events::get_Events()->get_events()->size(); //рандомный номер ивента из всех
     std::map<std::string, Event*>::iterator it = Events::get_Events()->get_events()->begin();
@@ -11,34 +11,34 @@ MapCell::MapCell()
     this->event_name = it->first;
 }
 
-MapCell::MapCell(std::string type_of_terrain, std::string item, std::string event_name)
+MapCell::MapCell(LocationType type_of_terrain, std::string item, std::string event_name)
 {
     this->type_of_terrain = type_of_terrain;
     this->item = item;
     this->event_name = event_name;
 }
 
-std::string MapCell::get_type_of_terrain()
+LocationType MapCell::get_type_of_terrain() const
 {
     return type_of_terrain;
 }
 
-std::string MapCell::get_item()
+std::string MapCell::get_item() const
 {
     return item;
 }
 
-std::string MapCell::get_event_name()
+std::string MapCell::get_event_name() const
 {
     return event_name;
 }
 
-std::string MapCell::get_tile_name()
+std::string MapCell::get_tile_name() const
 {
     return tile_name;
 }
 
-void MapCell::set_type_of_terrain(std::string type_of_terrain)
+void MapCell::set_type_of_terrain(LocationType type_of_terrain)
 {
     this->type_of_terrain = type_of_terrain;
 }
@@ -60,15 +60,11 @@ void MapCell::set_tile_name(std::string tile_name)
 
 void MapCell::save(QFile &out)
 {
-    //размер type_of_terrain c /0
-    size_t size = type_of_terrain.length() + 1;
-    //запись размера type_of_terrain
-    out.write((char*)& size, sizeof(size));
     //запись type_of_terrain
-    out.write(type_of_terrain.c_str(), size);
+    out.write((char*)& type_of_terrain, sizeof(type_of_terrain));
 
     //размер item c /0
-    size = item.size() + 1;
+    size_t size = item.size() + 1;
     //запись зазмера item
     out.write((char*)& size, sizeof(size));
     //запись item
@@ -93,12 +89,8 @@ void MapCell::load(QFile &in)
 {
     //переменная для размера строк
     size_t size;
-    //чтения размера type_of_terrain
-    in.read((char*)& size, sizeof(size));
-    //присваивание type_of_terrain строки из пробелов длиной size-1, без /0
-    type_of_terrain = std::string(size - 1, ' ');
     //чтение type_of_terrain
-    in.read(type_of_terrain.data(), size);
+    in.read((char*)&type_of_terrain, sizeof(type_of_terrain));
 
     //чтение размера item
     in.read((char*)& size, sizeof(size));

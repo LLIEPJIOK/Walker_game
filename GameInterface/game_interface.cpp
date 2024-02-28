@@ -10,17 +10,22 @@
 #define get_plchar(character) turn->get_player()->get_characteristics().at(character)
 #define sleep(time) std::this_thread::sleep_for(std::chrono::milliseconds(time))
 
+
 GameInterface::GameInterface(QWidget *parent)
     : QMainWindow{parent}
 {
-    current_map = nullptr;
-    mini_map = nullptr;
+    font = QFont("Arial", 14, QFont::Normal, 1);
+    style = QString("color: rgb(255, 255, 255)");
+
     turn = nullptr;
     data_base = nullptr;
 
     is_load = false;
     game_is_played = false;
     game_is_paused = false;
+
+    hex_map = nullptr;
+    mini_map = nullptr;
 
     screen_size = QApplication::screens().at(0)->size();
 
@@ -29,7 +34,6 @@ GameInterface::GameInterface(QWidget *parent)
 
     key_to_action[Qt::Key_I] = &GameInterface::info_button_clicked;
     key_to_action[Qt::Key_Escape] = &GameInterface::pause_button;
-    key_to_action[Qt::Key_Q] = &GameInterface::show_player;
 
     menu = new Menu();
     setCentralWidget(menu);
@@ -48,8 +52,6 @@ GameInterface::~GameInterface()
     delete information_window;
     delete turn;
     delete data_base;
-    delete current_map;
-    delete mini_map;
     delete menu;
 
     foreach (General_info_widget* wid, info_widgets) {
@@ -61,31 +63,7 @@ GameInterface::~GameInterface()
 
 void GameInterface::initialize()
 {
-    QFont font ("Arial", 14, QFont::Normal, 1);
-    QString style("color: rgb(255, 255, 255)");
-
-    for(int i = 0; i < 4; i++)
-    {
-        buttons.push_back(new QPushButton(this));
-        buttons[i]->setGeometry(0.8 * screen_size.width(), 10 + i * 0.069 * screen_size.height(), 0.195 * screen_size.width(), 0.069 * screen_size.height());
-        buttons[i]->setFlat(1);
-        buttons[i]->setFont(font);
-        buttons[i]->setStyleSheet(style);
-        buttons[i]->setVisible(true);
-    }
-
-    buttons[0]->setText("| |");
-    connect(buttons[0], &QPushButton::clicked, this, &GameInterface::pause_button);
-
-    buttons[1]->setText(tr("Roll"));
-    connect(buttons[1], &QPushButton::clicked, this, &GameInterface::roll_button_clicked);
-
-    buttons[2]->setText(tr("End turn"));
-    connect(buttons[2], &QPushButton::clicked, this, &GameInterface::next_turn_button_clicked);
-
-    buttons[3]->setText(tr("Info"));
-    connect(buttons[3], &QPushButton::clicked, this, &GameInterface::info_button_clicked);
-
+    create_buttons();
 
     action = new ActionWindow(this);
     action->setGeometry(0.8 * screen_size.width(), 10 + 0.275 * screen_size.height(), 0.195 * screen_size.width(), 0.5 * screen_size.height() - 10);
@@ -107,10 +85,31 @@ void GameInterface::initialize()
     game_is_played = true;
 }
 
-void GameInterface::show_player()
+void GameInterface::create_buttons()
 {
-    current_map->move_to_player();
+    for(int i = 0; i < 4; i++)
+    {
+        buttons.push_back(new QPushButton(this));
+        buttons[i]->setGeometry(0.8 * screen_size.width(), 10 + i * 0.069 * screen_size.height(), 0.195 * screen_size.width(), 0.069 * screen_size.height());
+        buttons[i]->setFlat(1);
+        buttons[i]->setFont(font);
+        buttons[i]->setStyleSheet(style);
+        buttons[i]->setVisible(true);
+    }
+
+    buttons[0]->setText("| |");
+    connect(buttons[0], &QPushButton::clicked, this, &GameInterface::pause_button);
+
+    buttons[1]->setText(tr("Roll"));
+    connect(buttons[1], &QPushButton::clicked, this, &GameInterface::roll_button_clicked);
+
+    buttons[2]->setText(tr("End turn"));
+    connect(buttons[2], &QPushButton::clicked, this, &GameInterface::next_turn_button_clicked);
+
+    buttons[3]->setText(tr("Info"));
+    connect(buttons[3], &QPushButton::clicked, this, &GameInterface::info_button_clicked);
 }
+
 
 void GameInterface::end_game()
 {
@@ -130,10 +129,6 @@ void GameInterface::end_game()
 
     info_widgets.clear();
 
-    delete current_map;
-    current_map = nullptr;
-    delete mini_map;
-    mini_map = nullptr;
 
     for(int i = 0; i < buttons.size(); i++)
     {
@@ -142,6 +137,12 @@ void GameInterface::end_game()
     }
     buttons.clear();
 }
+
+void GameInterface::show_player()
+{
+    hex_map->move_to_player();
+}
+
 
 void GameInterface::paintEvent(QPaintEvent *event)
 {
@@ -167,8 +168,9 @@ void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
     turn = Turn::get_Turn();
 
     data_base->generate_players(data);
-    data_base->generate_map();
+    data_base->generate_events();
     data_base->generate_items();
+
     turn->next_player();
     initialize();
 }
@@ -192,11 +194,11 @@ void GameInterface::inventory_button_clicked()
 void GameInterface::next_turn_button_clicked()
 {
     turn->next_player();
+    hex_map->next_players_model();
     buttons[2]->setEnabled(false);
     //inventory_button->setEnabled(true);
 
     buttons[1]->setEnabled(true);
-    current_map->clear_chosen_way();
 
     current_info_widget->setVisible(false);
     current_info_widget = info_widgets[(turn->get_turn_number()-1) % info_widgets.size()];
@@ -204,7 +206,7 @@ void GameInterface::next_turn_button_clicked()
     action->set_text(""); // делает окно действий пустым
 
     update_player_status();
-    current_map->move_to_player();
+    hex_map->move_to_player();
 }
 
 void GameInterface::roll_button_clicked()
@@ -212,7 +214,7 @@ void GameInterface::roll_button_clicked()
     turn->dice_roll();
     int roll = turn->get_roll();
     action->set_text(tr("Your dice roll:") + " " + QString::number(roll));
-    current_map->want_to_move();
+    hex_map->want_to_move();
     buttons[1]->setEnabled(false);
     buttons[3]->setEnabled(false);
 }
@@ -221,6 +223,7 @@ void GameInterface::info_button_clicked()
 {
     current_info_widget->setVisible(!current_info_widget->isVisible());
     current_info_widget->raise();
+    //hex_map->setVisible(!hex_map->isVisible());
 }
 
 void GameInterface::enable_next_button()
@@ -271,7 +274,7 @@ void GameInterface::save_game(QString file_name)
 void GameInterface::all_is_ready()
 {
     if(is_load && turn->get_roll())
-        current_map->want_to_move();
+        hex_map->want_to_move();
     menu->setVisible(false);
     delete menu;
     menu = nullptr;
@@ -313,22 +316,23 @@ void GameInterface::update_info_widgets()
 // обновляет карту
 void GameInterface::update_map()
 {
-    delete current_map;
+    delete hex_map;
     delete mini_map;
 
-    current_map = new GameMap(this);
-    current_map->setGeometry(10, 10, 0.79 * screen_size.width(), 0.9375 * screen_size.height());
-    current_map->setVisible(true);
-    current_map->lower();
+    hex_map = new HexMap(this, data_base->get_graph_map());
+    hex_map->setGeometry(10, 10, 0.79 * screen_size.width(), 0.9375 * screen_size.height());
+    hex_map->setVisible(true);
+    hex_map->lower();
 
-    connect(current_map, &GameMap::can_finish_turn, this, &GameInterface::enable_next_button);
-    connect(current_map, &GameMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
-    connect(current_map, &GameMap::action, action, &ActionWindow::set_text);
-    connect(current_map, &GameMap::event_triggered, this, &GameInterface::process_event_start);
-    connect(current_map, &GameMap::was_initialized, this, &GameInterface::all_is_ready);
+    connect(hex_map, &HexMap::can_finish_turn, this, &GameInterface::enable_next_button);
+    connect(hex_map, &HexMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
+    connect(hex_map, &HexMap::action, action, &ActionWindow::set_text);
+    connect(hex_map, &HexMap::event_triggered, this, &GameInterface::process_event_start);
+    connect(hex_map, &HexMap::was_initialized, this, &GameInterface::all_is_ready);
 
-    mini_map = new MiniMap(this, current_map);
+    mini_map = new MiniMap(this, hex_map);
     mini_map->setGeometry(0.8 * screen_size.width(), 0.6 * screen_size.height(), 0.195 * screen_size.width(), 0.347 * screen_size.height());
+    mini_map->create_moving_area();
     mini_map->setVisible(true);
     mini_map->lower();
 }
@@ -370,11 +374,11 @@ void GameInterface::process_event_start()
 
 void GameInterface::process_item_pick() // совершает подбор предмета, по совместительству заканичивает цепочку действий после конца движения
 {
-        if(turn->get_picked_item())
-        {
-            add_item(turn->get_picked_item());
-        action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
-        }
+    if(turn->get_picked_item())
+    {
+        add_item(turn->get_picked_item());
+    action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
+    }
 
-        update_player_status();
+    update_player_status();
 }

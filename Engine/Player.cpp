@@ -3,16 +3,13 @@
 #include "Effect.h"
 #include "Turn.h"
 
-
-
 #define seq DataBase::get_DataBase()->get_sequence()
 int Player::CURRENT_ID = 0;
 
 Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 {
 	name = _name;
-    x = y = 0;
-    previous_direction = std::make_pair(0, 0);
+    players_position = Coordinates::Hex<int> {0, 0};
 
     // Итоговые хар-ки, используемые в рассчетах при атаке, ивентах и получении урона:
 
@@ -179,6 +176,16 @@ std::string Player::get_name() const
     return name;
 }
 
+Coordinates::Hex<int> Player::get_players_position() const
+{
+    return players_position;
+}
+
+void Player::set_players_position(const Coordinates::Hex<int> new_position)
+{
+    players_position = new_position;
+}
+
 int Player::get_killed_player()
 {
     return killed_player;
@@ -189,55 +196,6 @@ void Player::set_killed_player(int id)
     killed_player = id;
 }
 
-int Player::get_x() const
-{
-    return x;
-}
-
-void Player::set_x(const int& _x)
-{
-    x = _x;
-}
-
-int Player::get_y() const
-{
-    return y;
-}
-
-void Player::set_y(const int& _y)
-{
-    y = _y;
-}
-
-std::pair<int, int> Player::get_previous_direction() const
-{
-    return previous_direction;
-}
-
-void Player::set_previous_direction(const std::pair<int, int>& dir)
-{
-    previous_direction = dir;
-}
-
-void Player::change_x(const bool& is_right)
-{
-	if (is_right)
-	{
-		++x;
-		return;
-	}
-	--x;
-}
-
-void Player::change_y(const bool& is_up)
-{
-	if (is_up)
-	{
-		--y;
-		return;
-    }
-    ++y;
-}
 
 void Player::set_current_id(int id)
 {
@@ -338,11 +296,10 @@ int Player::die()
 	{
         int to_return = 0;
         auto s = DataBase::get_DataBase()->get_sequence();
-        for(auto i = s->begin(); i !=s->end(); i++)
+        for(auto i = s->begin(); i != s->end(); i++)
         {
-            if((*i)->PLAYER_ID == this->PLAYER_ID)
+            if(*i == this)
             {
-
                 s->erase(i);
                 break;
             }
@@ -574,15 +531,9 @@ void Player::save(QFile& out)
     //запись name
     out.write(name.c_str(), size);
 
-    //запись первого значения previous_direction
-    out.write((char*)& previous_direction.first, sizeof(previous_direction.first));
-    //запись второго значения previous_direction
-    out.write((char*)& previous_direction.second, sizeof(previous_direction.second));
 
-    //запись x
-    out.write((char*)& x, sizeof(x));
-    //запись y
-    out.write((char*)& y, sizeof(y));
+    out.write((char*)& players_position, sizeof(players_position));
+
 
     //размер контейнера characteristics
     size = characteristics.size();
@@ -617,15 +568,9 @@ void Player::load(QFile &in)
     //чтение name
     in.read(name.data(), size);
 
-    //чтение первого значния previous_direction
-    in.read((char*)& previous_direction.first, sizeof(previous_direction.first));
-    //чтение второго значения previous_direction
-    in.read((char*)& previous_direction.second, sizeof(previous_direction.second));
 
-    //чтение x
-    in.read((char*)& x, sizeof(x));
-    //чтение y
-    in.read((char*)& y, sizeof(y));
+    in.read((char*)& players_position, sizeof(players_position));
+
 
     //чтение размера контейнера characteristics
     in.read((char*)& size, sizeof(size));

@@ -10,6 +10,7 @@
 #include <cassert>
 
 #include "Equipment.h"
+#include "Map/Hex.h"
 
 class Effect;
 
@@ -19,8 +20,9 @@ private:
     static int CURRENT_ID;
     const int PLAYER_ID;
     std::string name;
-    std::pair<int, int> previous_direction;
-    int x, y;
+
+    Coordinates::Hex<int> players_position;
+
     int killed_player;
 
     std::map<std::string, int> characteristics;
@@ -42,18 +44,13 @@ public:
     int get_id() const;
     std::string get_name() const;
 
+    Coordinates::Hex<int> get_players_position() const;
+    void set_players_position(const Coordinates::Hex<int> new_position);
 
     int get_killed_player();
     void set_killed_player(int id);
     // coordinates manipulations
-    int get_x() const;
-    void set_x(const int& _x);
-    int get_y() const;
-    void set_y(const int& _y);
-    std::pair<int, int> get_previous_direction() const;
-    void set_previous_direction(const std::pair<int, int>& dir);
-    void change_x(const bool& is_right);
-    void change_y(const bool& is_up);
+
     void update_chars();
     static void set_current_id(int id);
 

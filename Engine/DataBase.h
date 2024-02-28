@@ -1,22 +1,18 @@
 #ifndef DATABASE_H
 #define DATABASE_H
-
-
-#include <exception>
-#include <map>
-#include <iostream>
-#include <fstream>
 #include <QFile>
+#include "Player.h"
+#include "Map/GraphMap.h"
 
-#include "mapcell.h"
 #include "Json/json.hpp"
 
 const std::string map_file = "../Game/Resources/Files/in.txt";
 
 class DataBase
 {
-    MapCell** map;
-    int height, width;
+
+    GraphMap map;
+
     std::vector <std::string> equipment_list;
 
     nlohmann::json all_equipment;
@@ -31,24 +27,19 @@ class DataBase
 
     DataBase();
 
-    void initialize_json(const char* path, nlohmann::json& container);
+    void initialize_json(nlohmann::json& field, const std::string& path);
 public:
 	~DataBase();
     static DataBase *get_DataBase();
-    MapCell** get_map() const;
-    int get_height() const;
-    int get_width() const;
     nlohmann::json get_all_equipment_data() const;
     nlohmann::json get_jewellery_stats() const;
     nlohmann::json get_all_effects_data() const;
     std::vector <Player*>* get_sequence();
 
-    void set_height(int _height);
-    void set_width(int _width);
-    void set_map(MapCell**& map);
+    GraphMap* get_graph_map();
 
-    void generate_map();
     void generate_players(std::vector<std::pair<std::string, std::string>> data);
+    void generate_events();
     void generate_items();
 
     void save(QFile &out);

@@ -15,7 +15,6 @@ SOURCES += \
     Engine/Equipment.cpp \
     Engine/Player.cpp \
     Engine/Turn.cpp \
-    Engine/mapcell.cpp \
     Engine/saveandloadmanager.cpp \
     Engine/translator.cpp \
     Events/Event.cpp \
@@ -30,15 +29,18 @@ SOURCES += \
     GameInterface/informationwindow.cpp \
     GameInterface/pausemenu.cpp \
     GameInterface/game_interface.cpp \
-    GameInterface/minimap.cpp \
-    GameInterface/movingarea.cpp \
     Inventory/dropitem.cpp \
     Inventory/equipeditems.cpp \
     Inventory/inventory_modified.cpp \
     Inventory/item.cpp \
-    Map/cell.cpp \
-    Map/gamemap.cpp \
-    Map/gamemapobject.cpp \
+    Map/GraphMap.cpp \
+    Map/Hex.cpp \
+    Map/HexMap.cpp \
+    Map/hexmodel.cpp \
+    Map/mapcell.cpp \
+    Map/mapobject.cpp \
+    Map/minimap.cpp \
+    Map/movingarea.cpp \
     Map/playersmodel.cpp \
     Menu/accept.cpp \
     Menu/entername.cpp \
@@ -62,7 +64,6 @@ HEADERS += \
     Engine/Player.h \
     Engine/Turn.h \
     Engine/saveandloadmanager.h \
-    Engine/mapcell.h \
     Engine/translator.h \
     Events/Event.h \
     Events/event_window.h \
@@ -76,15 +77,18 @@ HEADERS += \
     GameInterface/informationwindow.h \
     GameInterface/pausemenu.h \
     GameInterface/game_interface.h \
-    GameInterface/minimap.h \
-    GameInterface/movingarea.h \
     Inventory/dropitem.h \
     Inventory/equipeditems.h \
     Inventory/inventory_modified.h \
     Inventory/item.h \
-    Map/cell.h \
-    Map/gamemap.h \
-    Map/gamemapobject.h \
+    Map/GraphMap.h \
+    Map/Hex.h \
+    Map/HexMap.h \
+    Map/hexmodel.h \
+    Map/mapcell.h \
+    Map/mapobject.h \
+    Map/minimap.h \
+    Map/movingarea.h \
     Map/playersmodel.h \
     Menu/accept.h \
     Menu/entername.h \

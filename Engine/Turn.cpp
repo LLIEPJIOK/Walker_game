@@ -112,19 +112,27 @@ void Turn::set_is_moving(bool moving)
     is_moving = moving;
 }
 
-void Turn::set_start_x(int _start_x)
-{
-    start_x = _start_x;
-}
-
-void Turn::set_start_y(int _start_y)
-{
-    start_y = _start_y;
-}
 
 void Turn::set_turn_number(int _turn_number)
 {
     turn_number = _turn_number;
+}
+
+void Turn::process_end_of_movement()
+{
+    auto map = DataBase::get_DataBase()->get_graph_map()->getMap();
+    auto players_position = player->get_players_position();
+
+    if(map[players_position].get_item() != "None") {
+        picked_item = player->add_item(map[players_position].get_item());
+        map[players_position].set_item("None");
+    }
+
+    if(map[players_position].get_event_name() != "???")
+        activated_event = Events::get_Events()->get_events()->at(map[players_position].get_event_name());
+
+    has_already_moved = true;
+    is_moving = false;
 }
 
 Equipment *Turn::get_picked_item()
@@ -137,61 +145,9 @@ Event *Turn::get_activated_event()
     return activated_event;
 }
 
-std::pair<int, int> *Turn::get_chosen_direction()
-{
-    return &chosen_direction;
-}
-
-int Turn::get_start_x()
-{
-    return start_x;
-}
-
-int Turn::get_start_y()
-{
-    return start_y;
-}
-
 int Turn::get_turn_number()
 {
     return turn_number;
-}
-
-void Turn::set_chosen_direction(int x, int y)
-{
-    chosen_direction.first = x;
-    chosen_direction.second = y;
-}
-
-std::vector<std::pair<int, int>> Turn::find_possible_ways()
-{
-    MapCell** map = DataBase::get_DataBase()->get_map();
-    std::vector<std::pair<int, int>> ways;
-    int posy = player->get_y();
-    int posx = player->get_x();
-
-    if(player->get_y()!= 0)
-        if (map[posy - 1][posx].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(0 ,-1))
-            ways.push_back(std::make_pair(posx, posy - 1));
-    if(player->get_x() != DataBase::get_DataBase()->get_width()-1)
-        if (map[posy][posx + 1].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(1, 0))
-            ways.push_back(std::make_pair(posx + 1, posy));
-    if(player->get_y() != DataBase::get_DataBase()->get_height()-1)
-        if (map[posy + 1][posx].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(0 , 1))
-            ways.push_back(std::make_pair(posx, posy + 1));;
-    if(player->get_x() != 0)
-        if (map[posy][posx - 1].get_type_of_terrain() != "Non_moving_area" && player->get_previous_direction() != std::make_pair(-1, 0))
-            ways.push_back(std::make_pair(posx - 1, posy));
-    return ways;
-}
-
-std::set<Player *> Turn::check_players_in_range() const
-{
-    std::set<Player*> s;
-    for (auto i = seq->begin(); i != seq->end(); ++i)
-        if ((*i)->get_id() != player->get_id() && abs((*i)->get_x() - player->get_x()) + abs((*i)->get_y() - player->get_y()) <= player->get_characteristics()["RNG"])
-            s.insert(*i);
-    return s;
 }
 
 void Turn::save(QFile &out)
@@ -219,18 +175,6 @@ void Turn::save(QFile &out)
 
     //запись event_finished
     out.write((char*)& event_finished, sizeof(event_finished));
-
-    //запись start_x
-    out.write((char*)& start_x, sizeof(start_x));
-
-    //запись start_y
-    out.write((char*)& start_y, sizeof(start_y));
-
-    //запись первого значения chosen_direction
-    out.write((char*)& chosen_direction.first, sizeof(chosen_direction.first));
-
-    //запись второго значения chosen_direction
-    out.write((char*)& chosen_direction.second, sizeof(chosen_direction.second));
 }
 
 void Turn::load(QFile &in)
@@ -259,21 +203,6 @@ void Turn::load(QFile &in)
     //чтение event_finished
     in.read((char*)&event_finished, sizeof(event_finished));
 
-    //чтение start_x
-    in.read((char*)&start_x, sizeof(start_x));
-
-    //чтение start_y
-    in.read((char*)&start_y, sizeof(start_y));
-
-    //чтение первого значения chosen_direction
-    in.read((char*)&chosen_direction.first, sizeof(chosen_direction.first));
-
-    //чтение второго значения chosen_direction
-    in.read((char*)&chosen_direction.second, sizeof(chosen_direction.second));
-
-    chosen_direction.first = -1;
-    chosen_direction.second = -1;
-
     //присваивание указателя на объект класса Player в зависимости от переменной turn_number
     player = seq->at((turn_number - 1) % seq->size());
 }
@@ -283,40 +212,6 @@ bool Turn::was_roll()
     return roll != 0 || is_moving || has_already_moved;
 }
 
-std::vector<std::pair<int, int>> Turn::move_player()
-{
-    is_moving = true;
-    std::vector<std::pair<int, int>> ways = find_possible_ways();
-    if(chosen_direction == std::make_pair(-1, -1))
-        return ways;
-    if(roll > 0)
-    {
-        roll--;
-        player->set_previous_direction(std::make_pair(player->get_x() - chosen_direction.first, player->get_y() - chosen_direction.second));
-        player->set_x(chosen_direction.first);
-        player->set_y(chosen_direction.second);
-        ways = find_possible_ways();
-        if(ways.size() == 1 && ways[0] != chosen_direction)
-        {
-            chosen_direction = ways[0];
-        }
-        if(roll)
-            return ways;
-    }
-    has_already_moved = true;
-    //change_player_position(start_x, start_y, player->get_x(), player->get_y());
-    MapCell **map = DataBase::get_DataBase()->get_map();
-
-    if(map[player->get_y()][player->get_x()].get_item() != "None")
-    {
-        picked_item = player->add_item(map[player->get_y()][player->get_x()].get_item());
-        map[player->get_y()][player->get_x()].set_item("None");
-    }
-    if(map[player->get_y()][player->get_x()].get_event_name() != "???")
-        activated_event = Events::get_Events()->get_events()->at(map[player->get_y()][player->get_x()].get_event_name());
-    is_moving = false;
-    return std::vector<std::pair<int, int>>();
-}
 
 void Turn::next_player()
 {
@@ -334,7 +229,4 @@ void Turn::next_player()
     picked_item = nullptr;
     activated_event = nullptr;
     event_finished = 1;
-    start_x = player->get_x();
-    start_y = player->get_y();
-    chosen_direction = std::make_pair(-1, -1);
 };

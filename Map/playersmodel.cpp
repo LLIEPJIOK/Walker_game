@@ -1,8 +1,7 @@
-
 #include "playersmodel.h"
 #include "QTransform"
 PlayersModel::PlayersModel(QObject *parent, int width, int height, QString icon) :
-    QObject(parent), GameMapObject(width, height)
+    QObject(parent), MapObject(width, height)
 {
     connected_player = nullptr;
 
@@ -131,7 +130,7 @@ void PlayersModel::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void PlayersModel::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::RightButton)
-        emit target_to_attack();
+        emit target_to_attack(this);
 }
 
 void PlayersModel::next_frame()
