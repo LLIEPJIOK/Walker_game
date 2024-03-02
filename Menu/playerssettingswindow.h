@@ -1,6 +1,7 @@
 #ifndef PLAYERSSETTINGSWINDOW_H
 #define PLAYERSSETTINGSWINDOW_H
 
+#include "Engine/Transceiver.h"
 #include "initialsettings.h"
 
 #include <QList>
@@ -31,12 +32,13 @@ private:
 signals:
     void go_back();
     void all_are_ready(std::vector<std::pair<std::string, std::string>>);
-private slots:
+public slots:
     void set_player(int id, bool is_ready, std::string name, std::string stats);
     void start_button_is_clicked();
     void check_all_ready();
-public slots:
     void someone_connected(int id);
+    void update_access();
+    void update_info(game_msg msg);
 };
 
 #endif // PLAYERSSETTINGSWINDOW_H

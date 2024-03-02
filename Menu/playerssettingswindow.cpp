@@ -124,6 +124,22 @@ void PlayersSettingsWindow::someone_connected(int id)
     in_set[id]->set_connected(true);
 }
 
+void PlayersSettingsWindow::update_access()
+{
+    qDebug() << Transceiver::get_transceiver()->get_id();
+    for (int i = 0; i < in_set.size(); i++){
+        if (i + 1 != Transceiver::get_transceiver()->get_id())
+            in_set[i]->setEnabled(false);
+        else
+            in_set[i]->set_connected(true);
+    }
+}
+
+void PlayersSettingsWindow::update_info(game_msg msg)
+{
+
+}
+
 void PlayersSettingsWindow::clear()
 {
     for (const auto& i : in_set)

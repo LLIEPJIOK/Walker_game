@@ -37,7 +37,7 @@ private:
 
     bool eng;
 
-private slots:
+public slots:
     void open_exit_window();
     void open_titers();
     void open_new_game();
@@ -45,6 +45,7 @@ private slots:
     void menu_enable();
     void change_lang();
     void connectTo();
+    void create_lobby(int myid, int qnt);
 protected:
     void paintEvent(QPaintEvent* event);
     void update_lang();

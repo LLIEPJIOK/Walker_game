@@ -3,10 +3,44 @@
 
 Transceiver* Transceiver::trans;
 
+void serialise_msg(game_msg& msg, char* output) {
+    int* q  = (int*)output;
+    *q = msg.id; q++;
+    *q = msg.target_id; q++;
+    *q = msg.operation_type; q++;
+    *q = msg.extra; q++;
+
+    char* p = (char*)q;
+    for (int i = 0; i < 127; i++) {
+        *p = msg.buffer[i];
+        p++;
+    }
+}
+
+
+void deserialise_msg(char* input, game_msg* msg) {
+    int* q = (int*)input;
+    msg->id = *q; q++;
+    msg->target_id = *q; q++;
+    msg->operation_type = *q; q++;
+    msg->extra = *q; q++;
+
+    char* p = (char*)q;
+    for (int i = 0; i < 127; i++) {
+        msg->buffer[i] = *p;
+        p++;
+    }
+}
+
 void Transceiver::startListening(int qnt)
 {
     reset();
+    connected.resize(qnt);
+    id = 0;
     max = qnt;
+    for (int i = max; i > 0 ; i--)
+        availibleIds.push(i - 1);
+
     is_host =true;
 
     // Bind the socket
@@ -29,30 +63,47 @@ void Transceiver::startListening(int qnt)
 
     std::thread t(&Transceiver::listen, this);
     t.detach();
+
+    std::thread t2(&Transceiver::receive, this);
+    t2.detach();
+}
+
+void Transceiver::start_receiving()
+{
+    qDebug() << "Waiting for lobby data";
+    // getting our id from msg
+    char buffer[200];
+    int rbytes = recv(me, buffer, 200, 0);
+    if (rbytes < 0){
+        qDebug() << "Client receive error " << WSAGetLastError();
+    }
+    else{
+        qDebug() << "Lobby data received, connecting " << WSAGetLastError();
+    }
+
+    game_msg msg;
+    deserialise_msg(buffer, &msg);
+
+    if (msg.target_id < 1 || msg.extra < 2){
+        qDebug() << "Lobby data is invalid";
+    }
+
+    id = msg.target_id + 1;
+    emit initiate_lobby(msg.target_id, msg.extra);
+
+    std::thread t(&Transceiver::receive, this);
+    t.detach();
 }
 
 void Transceiver::terminate()
 {
     WSACleanup();
+    connected.clear();
 }
-
-//void Transceiver::receive()
-//{
-//    // Receive data from the client
-//    char receiveBuffer[200];
-//    int rbyteCount = recv(connected[0], receiveBuffer, 200, 0);
-//    if (rbyteCount < 0) {
-//        qDebug() << "Server recv error: " << WSAGetLastError() << ;
-//        return;
-//    }
-//    else {
-//        qDebug() << "Received data: " << receiveBuffer << ;
-//    }
-//}
 
 void Transceiver::listen()
 {
-    while (connected.size() < max){
+    while (true){
         if (::listen(me, 1) != 0) {
             qDebug() << "listen(): Error listening on socket: " << WSAGetLastError();
         }
@@ -60,6 +111,9 @@ void Transceiver::listen()
             qDebug() << "listen() is OK! I'm waiting for new connections...";
         }
 
+        while (connected.size() >= max) {
+            continue;
+        }
         // Accept incoming connections
         SOCKET acceptSocket;
         acceptSocket = accept(me, nullptr, nullptr);
@@ -74,8 +128,28 @@ void Transceiver::listen()
             qDebug() << "accept() is OK!";
         }
 
-        connected.push_back(acceptSocket);
-        emit connect_successful(1); // ID
+        connected[availibleIds.top()] = acceptSocket;
+        emit connect_successful(availibleIds.top() + 1); // ID
+        availibleIds.pop();
+    }
+}
+
+void Transceiver::receive()
+{
+    while (true){
+        char buffer[200];
+        int rbytes = recv(me, buffer, 200, 0);
+        if (rbytes < 0){
+            Sleep(50);
+            continue;
+        }
+        else{
+            qDebug() << "New msg received" << WSAGetLastError();
+        }
+
+        game_msg msg;
+        deserialise_msg(buffer, &msg);
+        emit msg_received(msg);
     }
 }
 
@@ -110,6 +184,14 @@ Transceiver::Transceiver()
     }
 
     max = 2;
+
+    connect(this, &Transceiver::join_successful, this, &Transceiver::start_receiving);
+    connect(this, &Transceiver::connect_successful, this, &Transceiver::process_connection);
+}
+
+int Transceiver::get_id()
+{
+    return trans->id;
 }
 
 Transceiver *Transceiver::get_transceiver()
@@ -118,6 +200,21 @@ Transceiver *Transceiver::get_transceiver()
         return trans = new Transceiver;
 
     return trans;
+}
+
+void Transceiver::process_connection(int _id)
+{
+    // here we send user id and then states of users
+    game_msg msg{id, _id, -1, max + 1, "join"};
+    char buffer[200];
+    serialise_msg(msg, buffer);
+    ::send(connected[id], buffer, 200, 0);
+    qDebug() << "package sent";
+}
+
+void Transceiver::process_msg(game_msg msg)
+{
+
 }
 
 void Transceiver::reset()

@@ -69,7 +69,7 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     connect(titers, &Credits::open_menu_signal, this, &Menu::menu_enable);
     connect(exit_window, &ExitWindow::signal_open_menu, this, &Menu::menu_enable);
 
-    //connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, new_game, &NewGame::go_choose_players);
+    connect(Transceiver::get_transceiver(), &Transceiver::initiate_lobby, this, &Menu::create_lobby);
 }
 
 Menu::~Menu()
@@ -152,6 +152,15 @@ void Menu::connectTo()
     centralWidget()->setParent(0);
     setCentralWidget(wid);
     wid->show();
+}
+
+void Menu::create_lobby(int myid, int qnt)
+{
+    PlayersSettingsWindow* settings = new PlayersSettingsWindow(qnt, this);
+    settings->update_access();
+    connect(settings, &PlayersSettingsWindow::all_are_ready, settings, &QObject::deleteLater);
+    centralWidget()->setParent(0);
+    setCentralWidget(settings);
 }
 
 void Menu::paintEvent(QPaintEvent *event)

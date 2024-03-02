@@ -1,4 +1,5 @@
 #include "initialsettings.h"
+#include "Engine/Transceiver.h"
 
 InitialSettings::InitialSettings(int _id, QWidget *parent)
     : QFrame(parent)
@@ -236,6 +237,8 @@ void InitialSettings::disenable()
     btn_plus_force->setEnabled(0);
     btn_plus_agility->setEnabled(0);
     btn_plus_intelligence->setEnabled(0);
+
+
 }
 
 void InitialSettings::enable()
