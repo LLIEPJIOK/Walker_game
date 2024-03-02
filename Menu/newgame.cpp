@@ -78,7 +78,7 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
     connect(btn_prev, SIGNAL(clicked()), this, SIGNAL(open_menu_signal()));
     connect(btn_prev, SIGNAL(clicked()), Transceiver::get_transceiver(), SLOT(terminate()));
     connect(btn_next, SIGNAL(clicked()), this, SLOT(go_choose_players()));
-    connect(this, &NewGame::start_lobby, Transceiver::get_transceiver(), &Transceiver::start_listening);
+    connect(this, &NewGame::start_lobby, Transceiver::get_transceiver(), &Transceiver::startListening);
 }
 
 NewGame::~NewGame()

@@ -69,7 +69,7 @@ Menu::Menu(QWidget *parent) : QMainWindow(parent)
     connect(titers, &Credits::open_menu_signal, this, &Menu::menu_enable);
     connect(exit_window, &ExitWindow::signal_open_menu, this, &Menu::menu_enable);
 
-    connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, new_game, &NewGame::go_choose_players);
+    //connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, new_game, &NewGame::go_choose_players);
 }
 
 Menu::~Menu()
@@ -147,7 +147,7 @@ void Menu::connectTo()
 
     connect(w, &JoinGameWidget::cancel, this, &Menu::menu_enable);
     connect(w, &JoinGameWidget::cancel, wid, &QObject::deleteLater);
-    connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, wid, &QObject::deleteLater);
+    connect(Transceiver::get_transceiver(), &Transceiver::join_successful, wid, &QObject::deleteLater);
     connect(w, &JoinGameWidget::joinTo, Transceiver::get_transceiver(), &Transceiver::connectTo);
     centralWidget()->setParent(0);
     setCentralWidget(wid);

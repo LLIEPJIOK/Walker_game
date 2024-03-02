@@ -11,6 +11,7 @@ CONFIG += PRECOMPILED_HEADER
 
 SOURCES += \
     Engine/DataBase.cpp \
+    Engine/Transceiver.cpp \
     Engine/Effect.cpp \
     Engine/Equipment.cpp \
     Engine/Player.cpp \
@@ -55,10 +56,12 @@ SOURCES += \
     Menu/load.cpp \
     Menu/loadframe.cpp \
     Menu/loadslot.cpp \
+    Menu/joingamewidget.cpp \
     main.cpp
 
 HEADERS += \
     Engine/DataBase.h \
+    Engine/Transceiver.h \
     Engine/Effect.h \
     Engine/Equipment.h \
     Engine/Player.h \
@@ -102,7 +105,8 @@ HEADERS += \
     Menu/creditstext.h \
     Menu/load.h \
     Menu/loadframe.h \
-    Menu/loadslot.h
+    Menu/loadslot.h\
+    Menu/joingamewidget.h \
 
 FORMS +=
 
