@@ -15,7 +15,10 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
                   "QCheckBox:disabled   {color: gray;}"
                   "QCheckBox:hover      {color: rgb(255, 178, 102);}");
 
-    label_id = new QLabel(tr("Player") + " " + QString::number(id + 1));
+    if (id == 0)
+        label_id = new QLabel(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Host") + ")");
+    else
+        label_id = new QLabel(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Not Connected") + ")");
     label_id->setAlignment(Qt::AlignCenter);
     label_id->setFont(font);
 
@@ -217,6 +220,14 @@ void InitialSettings::update_lang()
     label_force->setText(tr("Strength"));
     label_agility->setText(tr("Agility"));
     label_intelligence->setText(tr("Intelligence"));
+}
+
+void InitialSettings::set_connected(bool val)
+{
+    if (val)
+        label_id->setText(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Connected") + ")");
+    else
+        label_id->setText(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Not Connected") + ")");
 }
 
 void InitialSettings::disenable()

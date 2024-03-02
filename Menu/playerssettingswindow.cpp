@@ -1,5 +1,6 @@
 #include "playerssettingswindow.h"
 #include "general.h"
+#include "Engine/Transceiver.h"
 
 PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *parent)
     : QWidget(parent)
@@ -51,6 +52,8 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     connect(back, &QPushButton::clicked, this, &PlayersSettingsWindow::go_back);
     connect(start_the_game, &QPushButton::clicked, this, &PlayersSettingsWindow::start_button_is_clicked);
     connect(this, &PlayersSettingsWindow::all_are_ready, General::get_general(), &General::start_game);
+    connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, this, &PlayersSettingsWindow::someone_connected);
+
 }
 
 PlayersSettingsWindow::~PlayersSettingsWindow()
@@ -113,6 +116,12 @@ void PlayersSettingsWindow::check_all_ready()
             return;
         }
     start_the_game->setEnabled(1);
+}
+
+void PlayersSettingsWindow::someone_connected(int id)
+{
+    in_set[id]->setEnabled(false);
+    in_set[id]->set_connected(true);
 }
 
 void PlayersSettingsWindow::clear()

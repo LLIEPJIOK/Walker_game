@@ -17,6 +17,7 @@ public:
     void clear();
     int id;
     void update_lang();
+    void set_connected(bool val);
 private:
     int kol;
     QLabel *label_id;

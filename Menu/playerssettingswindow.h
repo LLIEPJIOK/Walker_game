@@ -25,8 +25,8 @@ private:
     QPushButton *back;
     QPushButton *start_the_game;
     std::vector<std::pair<std::string, std::string>> data;
-    QList <bool> players_ready;
-    QList <InitialSettings*> in_set;
+    QVector <bool> players_ready;
+    QVector <InitialSettings*> in_set;
     void clear();
 signals:
     void go_back();
@@ -35,6 +35,8 @@ private slots:
     void set_player(int id, bool is_ready, std::string name, std::string stats);
     void start_button_is_clicked();
     void check_all_ready();
+public slots:
+    void someone_connected(int id);
 };
 
 #endif // PLAYERSSETTINGSWINDOW_H

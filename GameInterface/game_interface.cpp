@@ -193,6 +193,8 @@ void GameInterface::inventory_button_clicked()
 
 void GameInterface::next_turn_button_clicked()
 {
+    // BUTTONS
+    // INFO
     turn->next_player();
     hex_map->next_players_model();
     buttons[2]->setEnabled(false);
@@ -206,17 +208,21 @@ void GameInterface::next_turn_button_clicked()
     action->set_text(""); // делает окно действий пустым
 
     update_player_status();
+    // CAMERA
     hex_map->move_to_player();
+    // NET
 }
 
 void GameInterface::roll_button_clicked()
 {
+    // MOVEMENT
     turn->dice_roll();
     int roll = turn->get_roll();
     action->set_text(tr("Your dice roll:") + " " + QString::number(roll));
     hex_map->want_to_move();
     buttons[1]->setEnabled(false);
     buttons[3]->setEnabled(false);
+    // NET
 }
 
 void GameInterface::info_button_clicked()
@@ -228,11 +234,13 @@ void GameInterface::info_button_clicked()
 
 void GameInterface::enable_next_button()
 {
+    // BUTTONS
     buttons[2]->setEnabled(true);
 }
 
 void GameInterface::add_item(Equipment *item)
 {
+    // INVENTORY
     current_info_widget->addItem(item);
 }
 
@@ -261,6 +269,7 @@ void GameInterface::congratulate_the_winner()
     CongratulationWindow* clw = new CongratulationWindow(this, QString::fromStdString(turn->get_player()->get_name()));
     setCentralWidget(clw);
     connect(clw, &CongratulationWindow::exit_the_game, this, &QCoreApplication::quit);
+    // NET
 }
 
 void GameInterface::save_game(QString file_name)
@@ -278,6 +287,7 @@ void GameInterface::all_is_ready()
     menu->setVisible(false);
     delete menu;
     menu = nullptr;
+    // NET
 }
 
 // восстановление состояния кнопок
@@ -287,6 +297,7 @@ void GameInterface::update_buttons()
     buttons[2]->setEnabled(turn->get_already_moved());
     buttons[3]->setEnabled(true);
     buttons[0]->setEnabled(true);
+    // NET
 }
 
 // обновляет конкретный инвентарь и слоты для экипировки по номеру
@@ -354,6 +365,7 @@ void GameInterface::update_player_status()
     tmp->update_chars();
     tmp->die();
     //current_player_status->update_all();
+    // NET
 }
 
 void GameInterface::process_event_start()
@@ -381,4 +393,5 @@ void GameInterface::process_item_pick() // совершает подбор пр�
     }
 
     update_player_status();
+    // NET
 }

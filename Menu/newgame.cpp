@@ -1,5 +1,7 @@
 #include "newgame.h"
 
+#include "Engine/Transceiver.h"
+
 NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
 {
     QFont btn_font ("Arial", 14, QFont::Normal, 1);
@@ -74,7 +76,9 @@ NewGame::NewGame(QWidget *parent) : QMainWindow(parent)
     player_set_window = 0;
 
     connect(btn_prev, SIGNAL(clicked()), this, SIGNAL(open_menu_signal()));
+    connect(btn_prev, SIGNAL(clicked()), Transceiver::get_transceiver(), SLOT(terminate()));
     connect(btn_next, SIGNAL(clicked()), this, SLOT(go_choose_players()));
+    connect(this, &NewGame::start_lobby, Transceiver::get_transceiver(), &Transceiver::start_listening);
 }
 
 NewGame::~NewGame()
@@ -94,13 +98,12 @@ void NewGame::update_lang()
 
 void NewGame::go_choose_players()
 {
-    if (!player_set_window)
-    {
-        player_set_window = new PlayersSettingsWindow(slider->value());
-        connect(player_set_window, &PlayersSettingsWindow::go_back, this, &NewGame::show_new_game);
-    }
-    else
-        player_set_window->set_players(slider->value());
+    emit start_lobby(slider->value() -1);
+    if (player_set_window)
+        delete player_set_window;
+
+    player_set_window = new PlayersSettingsWindow(slider->value());
+    connect(player_set_window, &PlayersSettingsWindow::go_back, this, &NewGame::show_new_game);
 
     centralWidget()->setParent(0);
     setCentralWidget(player_set_window);

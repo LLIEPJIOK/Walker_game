@@ -33,7 +33,8 @@ private:
     PlayersSettingsWindow *player_set_window;
 signals:
     void open_menu_signal();
-private slots:
+    void start_lobby(int players);
+public slots:
     void go_choose_players();
     void show_new_game();
 };

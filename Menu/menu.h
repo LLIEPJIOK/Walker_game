@@ -19,8 +19,11 @@ public:
     ~Menu();
 
 private:
-    QPushButton *btn_new_game;
-    QPushButton *btn_load;
+//    QPushButton *btn_new_game;
+//    QPushButton *btn_load;
+    QPushButton *btn_lobby;
+    QPushButton *btn_connect;
+
     QPushButton *btn_titers;
     QPushButton *btn_exit;
     QPushButton *btn_lang;
@@ -41,7 +44,7 @@ private slots:
     void open_load();
     void menu_enable();
     void change_lang();
-
+    void connectTo();
 protected:
     void paintEvent(QPaintEvent* event);
     void update_lang();
