@@ -56,6 +56,7 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     connect(Transceiver::get_transceiver(), &Transceiver::user_disconnected, this, &PlayersSettingsWindow::someone_disconnected);
     connect(Transceiver::get_transceiver(), &Transceiver::ready_check, this, &PlayersSettingsWindow::get_info_msg);
     connect(Transceiver::get_transceiver(), &Transceiver::lobby_sync_init, this, &PlayersSettingsWindow::sync);
+    connect(Transceiver::get_transceiver(), &Transceiver::set_connected, this, &PlayersSettingsWindow::set_connected);
     connect(this, &PlayersSettingsWindow::sync_data, Transceiver::get_transceiver(), &Transceiver::lobby_sync);
 
     update_access();
@@ -136,6 +137,11 @@ void PlayersSettingsWindow::check_all_ready()
     start_the_game->setEnabled(1);
 }
 
+void PlayersSettingsWindow::set_connected(int id, bool val)
+{
+    in_set[id]->set_connected(val);
+}
+
 void PlayersSettingsWindow::someone_connected(int id)
 {
     in_set[id]->setEnabled(false);
@@ -164,9 +170,9 @@ void PlayersSettingsWindow::update_access()
 void PlayersSettingsWindow::get_info_msg(game_msg msg)
 {
     in_set[msg.target_id]->update_info(msg);
-    if (msg.target_id != 0)
-        in_set[msg.target_id]->set_connected(Transceiver::get_transceiver()->get_connected().at(msg.target_id - 1) != INVALID_SOCKET);
+
     players_ready[msg.target_id] = msg.extra;
+
 
     if (Transceiver::get_transceiver()->get_id() == 0)
         check_all_ready();

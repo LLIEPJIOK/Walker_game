@@ -38,6 +38,7 @@ public slots:
     void set_player(int id, bool is_ready, std::string name, std::string stats);
     void start_button_is_clicked();
     void check_all_ready();
+    void set_connected(int id, bool val);
     void someone_connected(int id);
     void someone_disconnected(int id);
     void update_access();

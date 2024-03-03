@@ -79,6 +79,7 @@ signals:
     void lobby_sync_init(int id);
     void ready_check(game_msg);
     void user_disconnected(int id);
+    void set_connected(int id, bool val);
 };
 
 #endif // TRANSCEIVER_H

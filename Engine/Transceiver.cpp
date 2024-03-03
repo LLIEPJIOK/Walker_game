@@ -117,8 +117,10 @@ void Transceiver::lobby_sync(std::vector<game_msg> states, int _id)
 {
     send_to(states[0], _id);
     for (int i = 1; i < states.size(); i++){
-        if (connected[i - 1] == INVALID_SOCKET)
-            continue;
+        if (connected[i - 1] != INVALID_SOCKET)
+            send_to({0, i, 2, 1, "set_connected"}, _id);
+        else
+            send_to({0, i, 2, 0, "set_connected"}, _id);
 
         send_to(states[i], _id);
     }
@@ -172,6 +174,9 @@ void Transceiver::terminate()
 
     if (!is_host)
         shutdown(me, 0);
+
+    connected.clear();
+
     terminated = false;
 }
 
@@ -329,6 +334,9 @@ void Transceiver::process_msg(game_msg msg)
         id = msg.target_id;
 
         emit initiate_lobby(msg.extra);
+    }
+    else if (msg.operation_type == 2){
+        emit set_connected(msg.target_id, msg.extra);
     }
 }
 
