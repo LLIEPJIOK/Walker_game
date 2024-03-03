@@ -154,11 +154,14 @@ void Menu::connectTo()
     wid->show();
 }
 
-void Menu::create_lobby(int myid, int qnt)
+void Menu::create_lobby(int qnt)
 {
     PlayersSettingsWindow* settings = new PlayersSettingsWindow(qnt, this);
     settings->update_access();
     connect(settings, &PlayersSettingsWindow::all_are_ready, settings, &QObject::deleteLater);
+    connect(settings, &PlayersSettingsWindow::go_back, settings, &QObject::deleteLater);
+    connect(settings, &PlayersSettingsWindow::go_back, this, &Menu::menu_enable);
+    connect(settings, &PlayersSettingsWindow::go_back, Transceiver::get_transceiver(), &Transceiver::terminate);
     centralWidget()->setParent(0);
     setCentralWidget(settings);
 }

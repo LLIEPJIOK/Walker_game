@@ -20,6 +20,10 @@ InitialSettings::InitialSettings(int _id, QWidget *parent)
         label_id = new QLabel(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Host") + ")");
     else
         label_id = new QLabel(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Not Connected") + ")");
+
+    if (id == Transceiver::get_transceiver()->get_id()){
+        label_id->setText(label_id->text() + "(" + tr("You") + ")");
+    }
     label_id->setAlignment(Qt::AlignCenter);
     label_id->setFont(font);
 
@@ -231,6 +235,33 @@ void InitialSettings::set_connected(bool val)
         label_id->setText(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Not Connected") + ")");
 }
 
+void InitialSettings::update_info(game_msg msg)
+{
+    cur_force->setText(QString::number(msg.buffer[0]));
+    cur_intelligence->setText(QString::number(msg.buffer[1]));
+    cur_agility->setText(QString::number(msg.buffer[2]));
+    is_ready->setChecked(msg.extra);
+    label_choose_stats->setText(tr("Distribute points") + " (0) " + tr("between following attributes"));
+    kol = 0;
+
+
+
+
+    QString name;
+
+    for (int i = 3; i < 127 && msg.buffer[i] != 0; i++){
+        name += msg.buffer[i];
+    }
+
+    if (name.isEmpty())
+        name = tr("Player") + QString::number(msg.target_id + 1);
+
+
+    edit_name->setText(name);
+
+    qDebug() << name;
+}
+
 void InitialSettings::disenable()
 {
     is_ready->setEnabled(1);
@@ -263,6 +294,15 @@ void InitialSettings::player_is_ready()
             name = tr("Player").toStdString() + std::to_string(id + 1);
             edit_name->setPlaceholderText(tr("Player") + QString::number(id + 1));
         }
+
+        std::string txt = {static_cast<char>(force), static_cast<char>(intelligence), static_cast<char>(agility)};
+        txt += edit_name->text().toStdString();
+        game_msg msg = {0, Transceiver::get_transceiver()->get_id() ,0 ,1};
+        for (int i = 0; i < 127 && i < txt.size(); i++)
+            msg.buffer[i] = txt[i];
+
+        Transceiver::get_transceiver()->send_msg(msg);
+
     }
     else
     {
@@ -274,6 +314,15 @@ void InitialSettings::player_is_ready()
             btn_minus_intelligence->setEnabled(1);
         if (name == tr("Player").toStdString() + std::to_string(id + 1))
             edit_name->setPlaceholderText(tr("Enter your name"));
+
+        std::string txt = {static_cast<char>(force), static_cast<char>(intelligence), static_cast<char>(agility)};
+        txt += edit_name->text().toStdString();
+        game_msg msg = {0, Transceiver::get_transceiver()->get_id() ,0 ,0};
+        for (int i = 0; i < 127 && i < txt.size(); i++)
+            msg.buffer[i] = txt[i];
+
+        Transceiver::get_transceiver()->send_msg(msg);
+
     }
     btn_left->setEnabled(!btn_left->isEnabled());
     btn_right->setEnabled(!btn_right->isEnabled());

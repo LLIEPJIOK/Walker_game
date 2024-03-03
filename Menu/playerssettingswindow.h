@@ -37,8 +37,9 @@ public slots:
     void start_button_is_clicked();
     void check_all_ready();
     void someone_connected(int id);
+    void someone_disconnected(int id);
     void update_access();
-    void update_info(game_msg msg);
+    void get_info_msg(game_msg msg);
 };
 
 #endif // PLAYERSSETTINGSWINDOW_H

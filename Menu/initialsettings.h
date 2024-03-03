@@ -1,6 +1,7 @@
 #ifndef INITIALSETTINGS_H
 #define INITIALSETTINGS_H
 
+#include "Engine/Transceiver.h"
 #include <Qlabel>
 #include <QLineEdit>
 #include <QPushButton>
@@ -18,6 +19,7 @@ public:
     int id;
     void update_lang();
     void set_connected(bool val);
+    void update_info(game_msg msg);
 private:
     int kol;
     QLabel *label_id;

@@ -53,6 +53,10 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     connect(start_the_game, &QPushButton::clicked, this, &PlayersSettingsWindow::start_button_is_clicked);
     connect(this, &PlayersSettingsWindow::all_are_ready, General::get_general(), &General::start_game);
     connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, this, &PlayersSettingsWindow::someone_connected);
+    connect(Transceiver::get_transceiver(), &Transceiver::user_disconnected, this, &PlayersSettingsWindow::someone_disconnected);
+    connect(Transceiver::get_transceiver(), &Transceiver::ready_check, this, &PlayersSettingsWindow::get_info_msg);
+
+    update_access();
 
 }
 
@@ -124,20 +128,31 @@ void PlayersSettingsWindow::someone_connected(int id)
     in_set[id]->set_connected(true);
 }
 
+void PlayersSettingsWindow::someone_disconnected(int id)
+{
+    in_set[id]->set_connected(false);
+    in_set[id]->clear();
+    players_ready[id] = false;
+
+    if (Transceiver::get_transceiver()->get_id() == 0)
+        check_all_ready();
+}
+
 void PlayersSettingsWindow::update_access()
 {
     qDebug() << Transceiver::get_transceiver()->get_id();
     for (int i = 0; i < in_set.size(); i++){
-        if (i + 1 != Transceiver::get_transceiver()->get_id())
+        if (i != Transceiver::get_transceiver()->get_id())
             in_set[i]->setEnabled(false);
-        else
-            in_set[i]->set_connected(true);
     }
 }
 
-void PlayersSettingsWindow::update_info(game_msg msg)
+void PlayersSettingsWindow::get_info_msg(game_msg msg)
 {
-
+    in_set[msg.target_id]->update_info(msg);
+    players_ready[msg.target_id] = msg.extra;
+    if (Transceiver::get_transceiver()->get_id() == 0)
+        check_all_ready();
 }
 
 void PlayersSettingsWindow::clear()

@@ -39,31 +39,43 @@ private:
     int max;
     bool is_host;
 
+    bool pulsing;
+    bool listening;
+    std::vector<bool> receiving;
+
+    bool terminated;
+
     //int my_id;
 
     void listen();
-    void receive();
+    void receive(int _id);
 public:
     Transceiver();
 
     int get_id();
 
     static Transceiver* get_transceiver();
+    void send_msg(game_msg msg);
+    void resend_msg(game_msg msg);
 private slots:
     void process_connection(int _id);
     void process_msg(game_msg msg);
 public slots:
+    void process_disconnect(int _id);
     void terminate();
     void reset();
     void connectTo(std::string IP);
     void startListening(int qnt);
     void start_receiving();
+    void pulse();
 signals:
-    void connect_successful(int id);
+    void connect_successful(int _id);
     void join_successful();
-    void initiate_lobby(int id, int qnt);
+    void initiate_lobby(int qnt);
     void msg_received(game_msg msg);
-    void send_msg(game_msg);
+
+    void ready_check(game_msg);
+    void user_disconnected(int id);
 };
 
 #endif // TRANSCEIVER_H

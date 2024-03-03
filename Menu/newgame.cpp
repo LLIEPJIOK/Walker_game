@@ -98,7 +98,7 @@ void NewGame::update_lang()
 
 void NewGame::go_choose_players()
 {
-    emit start_lobby(slider->value() -1);
+    emit start_lobby(slider->value() - 1);
     if (player_set_window)
         delete player_set_window;
 

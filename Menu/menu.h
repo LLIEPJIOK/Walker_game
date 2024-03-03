@@ -45,7 +45,7 @@ public slots:
     void menu_enable();
     void change_lang();
     void connectTo();
-    void create_lobby(int myid, int qnt);
+    void create_lobby(int qnt);
 protected:
     void paintEvent(QPaintEvent* event);
     void update_lang();
