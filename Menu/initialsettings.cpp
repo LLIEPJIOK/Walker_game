@@ -233,6 +233,9 @@ void InitialSettings::set_connected(bool val)
         label_id->setText(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Connected") + ")");
     else
         label_id->setText(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Not Connected") + ")");
+
+    if (Transceiver::get_transceiver()->get_id() == id)
+        label_id->setText(label_id->text() + "(" + tr("You") + ")");
 }
 
 void InitialSettings::update_info(game_msg msg)
@@ -241,11 +244,8 @@ void InitialSettings::update_info(game_msg msg)
     cur_intelligence->setText(QString::number(msg.buffer[1]));
     cur_agility->setText(QString::number(msg.buffer[2]));
     is_ready->setChecked(msg.extra);
-    label_choose_stats->setText(tr("Distribute points") + " (0) " + tr("between following attributes"));
-    kol = 0;
-
-
-
+    kol = 4 - msg.buffer[0] - msg.buffer[1] - msg.buffer[2];
+    label_choose_stats->setText(tr("Distribute points") + " " + QString::number(kol) + " " + tr("between following attributes"));
 
     QString name;
 
@@ -260,6 +260,17 @@ void InitialSettings::update_info(game_msg msg)
     edit_name->setText(name);
 
     qDebug() << name;
+}
+
+game_msg InitialSettings::get_info_msg()
+{
+    std::string txt = {static_cast<char>(force), static_cast<char>(intelligence), static_cast<char>(agility)};
+    txt += edit_name->text().toStdString();
+    game_msg msg = {0, 0 , 0 , is_ready->isChecked()};
+    for (int i = 0; i < 127 && i < txt.size(); i++)
+        msg.buffer[i] = txt[i];
+
+    return msg;
 }
 
 void InitialSettings::disenable()

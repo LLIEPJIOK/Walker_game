@@ -20,6 +20,7 @@ public:
     void update_lang();
     void set_connected(bool val);
     void update_info(game_msg msg);
+    game_msg get_info_msg();
 private:
     int kol;
     QLabel *label_id;

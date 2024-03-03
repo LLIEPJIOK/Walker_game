@@ -55,6 +55,8 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     connect(Transceiver::get_transceiver(), &Transceiver::connect_successful, this, &PlayersSettingsWindow::someone_connected);
     connect(Transceiver::get_transceiver(), &Transceiver::user_disconnected, this, &PlayersSettingsWindow::someone_disconnected);
     connect(Transceiver::get_transceiver(), &Transceiver::ready_check, this, &PlayersSettingsWindow::get_info_msg);
+    connect(Transceiver::get_transceiver(), &Transceiver::lobby_sync_init, this, &PlayersSettingsWindow::sync);
+    connect(this, &PlayersSettingsWindow::sync_data, Transceiver::get_transceiver(), &Transceiver::lobby_sync);
 
     update_access();
 
@@ -111,6 +113,18 @@ void PlayersSettingsWindow::update_lang()
     //set_players(0);
 }
 
+std::vector<game_msg> PlayersSettingsWindow::gather_info()
+{
+    std::vector<game_msg> res;
+    for (int i = 0; i < in_set.size(); i++){
+        game_msg msg = in_set[i]->get_info_msg();
+        msg.target_id = i;
+        res.push_back(msg);
+    }
+
+    return res;
+}
+
 void PlayersSettingsWindow::check_all_ready()
 {
     for(const auto& i : players_ready)
@@ -126,6 +140,9 @@ void PlayersSettingsWindow::someone_connected(int id)
 {
     in_set[id]->setEnabled(false);
     in_set[id]->set_connected(true);
+
+    if (Transceiver::get_transceiver()->get_id() == 0)
+        check_all_ready();
 }
 
 void PlayersSettingsWindow::someone_disconnected(int id)
@@ -133,9 +150,6 @@ void PlayersSettingsWindow::someone_disconnected(int id)
     in_set[id]->set_connected(false);
     in_set[id]->clear();
     players_ready[id] = false;
-
-    if (Transceiver::get_transceiver()->get_id() == 0)
-        check_all_ready();
 }
 
 void PlayersSettingsWindow::update_access()
@@ -150,10 +164,20 @@ void PlayersSettingsWindow::update_access()
 void PlayersSettingsWindow::get_info_msg(game_msg msg)
 {
     in_set[msg.target_id]->update_info(msg);
+    if (msg.target_id != 0)
+        in_set[msg.target_id]->set_connected(Transceiver::get_transceiver()->get_connected().at(msg.target_id - 1) != INVALID_SOCKET);
     players_ready[msg.target_id] = msg.extra;
+
     if (Transceiver::get_transceiver()->get_id() == 0)
         check_all_ready();
 }
+
+void PlayersSettingsWindow::sync(int id)
+{
+    emit sync_data(gather_info(), id);
+}
+
+
 
 void PlayersSettingsWindow::clear()
 {
@@ -169,7 +193,9 @@ void PlayersSettingsWindow::set_player(int id, bool is_ready, std::string name, 
 {
     data[id] = {name, stats};
     players_ready[id] = is_ready;
-    check_all_ready();
+
+    if (Transceiver::get_transceiver()->get_id() == 0)
+        check_all_ready();
 }
 
 void PlayersSettingsWindow::start_button_is_clicked()

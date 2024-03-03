@@ -56,7 +56,9 @@ public:
 
     static Transceiver* get_transceiver();
     void send_msg(game_msg msg);
+    void send_to(game_msg msg, int _id);
     void resend_msg(game_msg msg);
+    std::vector<SOCKET> get_connected();
 private slots:
     void process_connection(int _id);
     void process_msg(game_msg msg);
@@ -66,6 +68,7 @@ public slots:
     void reset();
     void connectTo(std::string IP);
     void startListening(int qnt);
+    void lobby_sync(std::vector<game_msg> states, int _id);
     void start_receiving();
     void pulse();
 signals:
@@ -73,7 +76,7 @@ signals:
     void join_successful();
     void initiate_lobby(int qnt);
     void msg_received(game_msg msg);
-
+    void lobby_sync_init(int id);
     void ready_check(game_msg);
     void user_disconnected(int id);
 };

@@ -82,6 +82,7 @@ void Transceiver::startListening(int qnt)
     max = qnt;
     while (!availibleIds.empty())
         availibleIds.pop();
+
     for (int i = max; i > 0; i--)
         availibleIds.push(i);
 
@@ -110,6 +111,17 @@ void Transceiver::startListening(int qnt)
 
     std::thread t1(&Transceiver::pulse, this);
     t1.detach();
+}
+
+void Transceiver::lobby_sync(std::vector<game_msg> states, int _id)
+{
+    send_to(states[0], _id);
+    for (int i = 1; i < states.size(); i++){
+        if (connected[i - 1] == INVALID_SOCKET)
+            continue;
+
+        send_to(states[i], _id);
+    }
 }
 
 void Transceiver::start_receiving()
@@ -210,6 +222,7 @@ void Transceiver::listen()
 
             // for the front
             emit connect_successful(avail_id);
+            emit lobby_sync_init(avail_id);
         }
     }
 
@@ -276,9 +289,28 @@ void Transceiver::send_msg(game_msg msg)
     qDebug() << "msg sent";
 }
 
+void Transceiver::send_to(game_msg msg, int _id)
+{
+    if (_id > connected.size()) {
+        qDebug() << "Trying send msg out of connected boundaries";
+        return;
+    }
+
+    char buffer[200];
+    serialise_msg(msg, buffer);
+    send_mutex.lock();
+    int sbyteCount = ::send(connected[_id - 1], buffer, 200, 0);
+    send_mutex.unlock();
+}
+
 void Transceiver::resend_msg(game_msg msg)
 {
     //resending to others
+}
+
+std::vector<SOCKET> Transceiver::get_connected()
+{
+    return connected;
 }
 
 void Transceiver::process_connection(int _id)
