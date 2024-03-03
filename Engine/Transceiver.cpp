@@ -1,6 +1,8 @@
 
 #include "transceiver.h"
 
+std::mutex send_mutex;
+
 Transceiver* Transceiver::trans;
 
 Transceiver::Transceiver()
@@ -78,6 +80,8 @@ void Transceiver::startListening(int qnt)
     connected.resize(qnt);
     id = 0;
     max = qnt;
+    while (!availibleIds.empty())
+        availibleIds.pop();
     for (int i = max; i > 0; i--)
         availibleIds.push(i);
 
@@ -110,27 +114,10 @@ void Transceiver::startListening(int qnt)
 
 void Transceiver::start_receiving()
 {
-    connected.push_back(me);
+    connected.resize(1, INVALID_SOCKET);
+    connected[0] = me;
     qDebug() << "Waiting for lobby data";
     // getting our id from msg
-    char buffer[200];
-    int rbytes = recv(connected[0], buffer, 200, 0);
-    if (rbytes < 0){
-        qDebug() << "Client receive error " << WSAGetLastError();
-    }
-    else{
-        qDebug() << "Lobby data received, connecting " << WSAGetLastError();
-    }
-
-    game_msg msg;
-    deserialise_msg(buffer, &msg);
-
-    if (msg.target_id < 1 || msg.extra < 2){
-        qDebug() << "Lobby data is invalid";
-    }
-
-    id = msg.target_id;
-    emit initiate_lobby(msg.extra);
 
     std::thread t(&Transceiver::receive, this, 0);
     t.detach();
@@ -139,18 +126,22 @@ void Transceiver::start_receiving()
 void Transceiver::pulse()
 {
     pulsing = true;
+    game_msg check_msg = {0, 0, -1, 0, "pulse"};
+    char buff[200];
+    serialise_msg(check_msg, buff);
     while (!terminated){
-        game_msg check_msg = {0, 0, -1, 0, "pulse"};
-        char buff[200];
-        serialise_msg(check_msg, buff);
+        //pulse_mutex.lock();
         for (int i = 0; i < connected.size(); i++){
             if (connected[i] == INVALID_SOCKET)
                 continue;
 
+            send_mutex.lock();
             int sbyteCount = ::send(connected[i], buff, 200, 0);
+            send_mutex.unlock();
             if (sbyteCount == SOCKET_ERROR)
                 emit user_disconnected(i + 1);
         }
+        //pulse_mutex.unlock();
 
         Sleep(1000);
     }
@@ -161,11 +152,14 @@ void Transceiver::pulse()
 
 void Transceiver::terminate()
 {
+
     terminated = true;
     WSACleanup();
     while (receiving[0] || receiving[1] || receiving[2] || listening || pulsing)
         continue;
-    \
+
+    if (!is_host)
+        shutdown(me, 0);
     terminated = false;
 }
 
@@ -194,11 +188,28 @@ void Transceiver::listen()
         else {
             qDebug() << "accept() is OK!";
             int avail_id = availibleIds.top();
+            availibleIds.pop();
+
+            // for lobby msg
+            game_msg msg{0, avail_id, -1, max + 1, "join"};
+            char buffer[200];
+            serialise_msg(msg, buffer);
+
+            // sending lobby data
+            //pulse_mutex.lock();
             connected[avail_id - 1] = acceptSocket;
+            // lobby settings
+            ::send(connected[avail_id - 1], buffer, 200, 0);
+            //pulse_mutex.unlock();
+
+            // special thread for the socket
             std::thread t(&Transceiver::receive, this, avail_id - 1);
             t.detach();
-            availibleIds.pop();
-            emit connect_successful(avail_id); // ID
+
+            qDebug() << "package sent";
+
+            // for the front
+            emit connect_successful(avail_id);
         }
     }
 
@@ -210,7 +221,7 @@ void Transceiver::listen()
 void Transceiver::receive(int _id)
 {
     receiving[_id] = true;
-    while (!terminated){
+    while (!terminated && receiving[_id]){
         char buffer[200];
         int rbytes = recv(connected[_id], buffer, 200, 0);
         if (rbytes < 0){
@@ -247,11 +258,16 @@ void Transceiver::send_msg(game_msg msg)
     char buffer[200];
     serialise_msg(msg, buffer);
     if (is_host){
-        for (int i = 0; i < max; i++)
+        for (int i = 0; i < max; i++){
+            send_mutex.lock();
             ::send(connected[i], buffer, 200, 0);
+            send_mutex.unlock();
+        }
     }
     else{
+        send_mutex.lock();
         int sbyteCount = ::send(me, buffer, 200, 0);
+        send_mutex.unlock();
         if (sbyteCount == SOCKET_ERROR) {
             qDebug() << "Client send error: " << WSAGetLastError();
         }
@@ -268,11 +284,7 @@ void Transceiver::resend_msg(game_msg msg)
 void Transceiver::process_connection(int _id)
 {
     // here we send user id and then states of users
-    game_msg msg{0, _id, -1, max + 1, "join"};
-    char buffer[200];
-    serialise_msg(msg, buffer);
-    ::send(connected[id], buffer, 200, 0);
-    qDebug() << "package sent";
+    // deleted
 }
 
 void Transceiver::process_msg(game_msg msg)
@@ -280,11 +292,19 @@ void Transceiver::process_msg(game_msg msg)
     if (msg.operation_type == 0){
         emit ready_check(msg);
     }
+    else if (msg.operation_type == -1 && msg.extra > 1){
+        qDebug() << "Lobby data received " << msg.extra << "pl";
+        id = msg.target_id;
+
+        emit initiate_lobby(msg.extra);
+    }
 }
 
 void Transceiver::process_disconnect(int _id)
 {
     availibleIds.push(_id);
+    shutdown(connected[_id - 1], 0);
+    receiving[_id - 1] = false;
     connected[_id - 1] = INVALID_SOCKET;
 }
 

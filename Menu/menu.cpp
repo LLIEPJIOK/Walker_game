@@ -162,7 +162,7 @@ void Menu::create_lobby(int qnt)
     connect(settings, &PlayersSettingsWindow::go_back, settings, &QObject::deleteLater);
     connect(settings, &PlayersSettingsWindow::go_back, this, &Menu::menu_enable);
     connect(settings, &PlayersSettingsWindow::go_back, Transceiver::get_transceiver(), &Transceiver::terminate);
-    centralWidget()->setParent(0);
+    //centralWidget()->setParent(0);
     setCentralWidget(settings);
 }
 
