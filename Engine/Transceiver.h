@@ -60,7 +60,6 @@ public:
     void resend_msg(game_msg msg);
     std::vector<SOCKET> get_connected();
 private slots:
-    void process_connection(int _id);
     void process_msg(game_msg msg);
 public slots:
     void process_disconnect(int _id);

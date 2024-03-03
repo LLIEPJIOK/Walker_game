@@ -234,6 +234,9 @@ void InitialSettings::set_connected(bool val)
     else
         label_id->setText(tr("Player") + " " + QString::number(id + 1) + "(" + tr("Not Connected") + ")");
 
+    if (!val)
+        is_ready->setChecked(false);
+
     if (Transceiver::get_transceiver()->get_id() == id)
         label_id->setText(label_id->text() + "(" + tr("You") + ")");
 }
@@ -308,7 +311,7 @@ void InitialSettings::player_is_ready()
 
         std::string txt = {static_cast<char>(force), static_cast<char>(intelligence), static_cast<char>(agility)};
         txt += edit_name->text().toStdString();
-        game_msg msg = {0, Transceiver::get_transceiver()->get_id() ,0 ,1};
+        game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id() ,0 ,1};
         for (int i = 0; i < 127 && i < txt.size(); i++)
             msg.buffer[i] = txt[i];
 
@@ -328,7 +331,7 @@ void InitialSettings::player_is_ready()
 
         std::string txt = {static_cast<char>(force), static_cast<char>(intelligence), static_cast<char>(agility)};
         txt += edit_name->text().toStdString();
-        game_msg msg = {0, Transceiver::get_transceiver()->get_id() ,0 ,0};
+        game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id() ,0 ,0};
         for (int i = 0; i < 127 && i < txt.size(); i++)
             msg.buffer[i] = txt[i];
 

@@ -41,7 +41,6 @@ Transceiver::Transceiver()
     receiving.resize(3, false);
 
     connect(this, &Transceiver::join_successful, this, &Transceiver::start_receiving);
-    connect(this, &Transceiver::connect_successful, this, &Transceiver::process_connection);
     connect(this, &Transceiver::user_disconnected, this, &Transceiver::process_disconnect);
     connect(this, &Transceiver::msg_received, this, &Transceiver::process_msg);
 }
@@ -177,6 +176,8 @@ void Transceiver::terminate()
 
     connected.clear();
 
+    is_host = false;
+
     terminated = false;
 }
 
@@ -228,6 +229,7 @@ void Transceiver::listen()
             // for the front
             emit connect_successful(avail_id);
             emit lobby_sync_init(avail_id);
+            send_msg({avail_id, avail_id, 2,  1, "connect_upd"});
         }
     }
 
@@ -273,23 +275,16 @@ Transceiver *Transceiver::get_transceiver()
 
 void Transceiver::send_msg(game_msg msg)
 {
-    char buffer[200];
-    serialise_msg(msg, buffer);
     if (is_host){
-        for (int i = 0; i < max; i++){
-            send_mutex.lock();
-            ::send(connected[i], buffer, 200, 0);
-            send_mutex.unlock();
+        for (int i = 0; i < connected.size(); i++){
+            if (connected[i] == INVALID_SOCKET || i + 1 == msg.id)
+                continue;
+
+            send_to(msg, i + 1);
         }
     }
-    else{
-        send_mutex.lock();
-        int sbyteCount = ::send(me, buffer, 200, 0);
-        send_mutex.unlock();
-        if (sbyteCount == SOCKET_ERROR) {
-            qDebug() << "Client send error: " << WSAGetLastError();
-        }
-    }
+    else
+        send_to(msg, 0);
 
     qDebug() << "msg sent";
 }
@@ -303,9 +298,17 @@ void Transceiver::send_to(game_msg msg, int _id)
 
     char buffer[200];
     serialise_msg(msg, buffer);
-    send_mutex.lock();
-    int sbyteCount = ::send(connected[_id - 1], buffer, 200, 0);
-    send_mutex.unlock();
+
+    if (is_host) {
+        send_mutex.lock();
+        int sbyteCount = ::send(connected[_id - 1], buffer, 200, 0);
+        send_mutex.unlock();
+    }
+    else if (_id == 0){
+        send_mutex.lock();
+        int sbyteCount = ::send(connected[0], buffer, 200, 0);
+        send_mutex.unlock();
+    }
 }
 
 void Transceiver::resend_msg(game_msg msg)
@@ -318,15 +321,14 @@ std::vector<SOCKET> Transceiver::get_connected()
     return connected;
 }
 
-void Transceiver::process_connection(int _id)
-{
-    // here we send user id and then states of users
-    // deleted
-}
+
 
 void Transceiver::process_msg(game_msg msg)
 {
     if (msg.operation_type == 0){
+        if (is_host)
+            send_msg(msg);
+
         emit ready_check(msg);
     }
     else if (msg.operation_type == -1 && msg.extra > 1){
@@ -338,6 +340,8 @@ void Transceiver::process_msg(game_msg msg)
     else if (msg.operation_type == 2){
         emit set_connected(msg.target_id, msg.extra);
     }
+    else
+        return;
 }
 
 void Transceiver::process_disconnect(int _id)
@@ -346,6 +350,7 @@ void Transceiver::process_disconnect(int _id)
     shutdown(connected[_id - 1], 0);
     receiving[_id - 1] = false;
     connected[_id - 1] = INVALID_SOCKET;
+    send_msg({id, _id, 2,  0, "connect_upd"});
 }
 
 void Transceiver::reset()
