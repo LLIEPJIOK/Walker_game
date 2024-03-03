@@ -165,6 +165,8 @@ void Transceiver::terminate()
     WSACleanup();
     while (receiving[0] || receiving[1] || receiving[2] || listening || pulsing)
         continue;
+    \
+    terminated = false;
 }
 
 void Transceiver::listen()
@@ -288,8 +290,7 @@ void Transceiver::process_disconnect(int _id)
 
 void Transceiver::reset()
 {
-    WSACleanup();
-    connected.clear();
+    terminate();
 
     WSADATA wsaData;
     int wsaerr;
