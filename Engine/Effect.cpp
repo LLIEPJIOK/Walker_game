@@ -1,4 +1,5 @@
 #include "Effect.h"
+#include "Engine/Transceiver.h"
 #include "Turn.h"
 #include "DataBase.h"
 #include <vector>
@@ -313,6 +314,15 @@ void Effect::dec_counter()
 
 void Effect::apply_effect()
 {
+    if (target->get_id() - 1 == Transceiver::get_transceiver()->get_id()){
+        game_msg msg = {target->get_id() - 1, target->get_id() - 1,  7, effect_duration};
+        std::string txt = effect_name;
+        for (int i = 0; i < 127 && i < txt.size(); i++){
+            msg.buffer[i] = txt[i];
+        }
+
+        Transceiver::get_transceiver()->send_msg(msg);
+    }
     // проверка на наличие аналогичного эффекта у цели
     for (std::vector<Effect*>::iterator it = target->get_active_effects()->begin(); it != target->get_active_effects()->end(); it++)
     {

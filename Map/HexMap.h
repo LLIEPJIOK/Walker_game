@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/Transceiver.h"
 #include "playersmodel.h"
 
 #include <QKeyEvent>
@@ -93,4 +94,6 @@ private slots:
     void process_attack(PlayersModel* attacked_player);
     void process_killed_player(int place);
     void prepare_for_move(const Coordinates::Hex<int>& hex);
+
+    void move_to(game_msg msg);
 };

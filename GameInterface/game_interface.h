@@ -97,8 +97,7 @@ private:
     // обновляет всё вышеперечисленное
     void update_all();
 
-
-
+    void send_map_data();
 protected:
     void paintEvent(QPaintEvent* event);
     void keyPressEvent(QKeyEvent* event);
@@ -122,6 +121,11 @@ private slots:
     void save_game(QString file_name);
 
     void all_is_ready();
+
+    // Multiplayer
+    void set_cell_data(game_msg msg);
+    void add_item_m(game_msg msg);
+    void apply_effect(game_msg msg);
 };
 
 #endif // GAME_INTERFACE_H

@@ -45,6 +45,9 @@ GameInterface::GameInterface(QWidget *parent)
 
     connect(General::get_general(), &General::start_game, this, &GameInterface::start);
     connect(General::get_general(), &General::load_game, this, &GameInterface::load);
+    connect(Transceiver::get_transceiver(), &Transceiver::send_cell_data, this, &GameInterface::set_cell_data);
+    connect(Transceiver::get_transceiver(), &Transceiver::add_item, this, &GameInterface::add_item_m);
+    connect(Transceiver::get_transceiver(), &Transceiver::apply_effect, this, &GameInterface::apply_effect);
 }
 
 GameInterface::~GameInterface()
@@ -81,7 +84,11 @@ void GameInterface::initialize()
     connect(pause, &PauseMenu::main_menu_clicked, this, &GameInterface::to_main);
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
+    if (Transceiver::get_transceiver()->get_id() == 0)
+        send_map_data();
+
     update_all();
+
     game_is_played = true;
 }
 
@@ -168,8 +175,10 @@ void GameInterface::start(std::vector<std::pair<std::string, std::string>> data)
     turn = Turn::get_Turn();
 
     data_base->generate_players(data);
-    data_base->generate_events();
-    data_base->generate_items();
+    if (Transceiver::get_transceiver()->get_id() == 0){
+        data_base->generate_events();
+        data_base->generate_items();
+    }
 
     turn->next_player();
     initialize();
@@ -290,6 +299,63 @@ void GameInterface::all_is_ready()
     // NET
 }
 
+void GameInterface::set_cell_data(game_msg msg)
+{
+    Location loc;
+    loc.q = msg.target_id;
+    loc.r = msg.extra;
+
+    int i = 0;
+    std::string event;
+    for (; i < 127 && msg.buffer[i] != '\\'; i++){
+        event.push_back(msg.buffer[i]);
+    }
+
+    i++;
+    std::string name;
+    for (; i < 127 && msg.buffer[i] != '\\'; i++){
+        name.push_back(msg.buffer[i]);
+    }
+
+    i++;
+    std::string item;
+    for (; i < 127 && msg.buffer[i] != 0; i++){
+        item.push_back(msg.buffer[i]);
+    }
+
+
+    DataBase::get_DataBase()->get_graph_map()->getMap().at(loc).set_event_name(event);
+    DataBase::get_DataBase()->get_graph_map()->getMap().at(loc).set_tile_name(name);
+    DataBase::get_DataBase()->get_graph_map()->getMap().at(loc).set_item(item);
+
+    qDebug() << event << " " << name << " " << item;
+}
+
+void GameInterface::add_item_m(game_msg msg)
+{
+    std::string item_name;
+    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
+        item_name.push_back(msg.buffer[i]);
+
+    DataBase::get_DataBase()->get_sequence()->at(msg.id)->add_item(item_name);
+    action->set_text(QString::fromStdString(DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name()) + tr(" has picked up an item!") + " " + QString::fromStdString(item_name) + " " + tr("tile item."));
+
+    qDebug() << item_name << " was processed " << DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name();
+}
+
+void GameInterface::apply_effect(game_msg msg)
+{
+    std::string effect_name;
+    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
+        effect_name.push_back(msg.buffer[i]);
+
+    int duration = msg.extra;
+    Effect* eff = new Effect(effect_name,DataBase::get_DataBase()->get_sequence()->at(msg.target_id) , duration);
+    eff->apply_effect();
+
+    qDebug() << "Effect " << effect_name << " was applied on " << DataBase::get_DataBase()->get_sequence()->at(msg.target_id)->get_name();
+}
+
 // восстановление состояния кнопок
 void GameInterface::update_buttons()
 {
@@ -356,6 +422,21 @@ void GameInterface::update_all()
     update_map();
 }
 
+void GameInterface::send_map_data()
+{
+    for (auto& i : DataBase::get_DataBase()->get_graph_map()->getMap()){
+        int x = i.first.q;
+        int y = i.first.r;
+        std::string msg = i.second.get_event_name() + '\\' + i.second.get_tile_name() + '\\' + i.second.get_item();
+        game_msg envelope = {0, x, 4, y};
+
+        for (int i = 0; i < 127 && i < msg.size(); i++)
+            envelope.buffer[i] = msg[i];
+
+        Transceiver::get_transceiver()->send_msg(envelope);
+    }
+}
+
 // обновляет инвентарь, слоты экипировки, лэйблы текщуго игрока
 void GameInterface::update_player_status()
 {
@@ -389,7 +470,14 @@ void GameInterface::process_item_pick() // совершает подбор пр�
     if(turn->get_picked_item())
     {
         add_item(turn->get_picked_item());
-    action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
+        action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
+
+        game_msg msg = {turn->get_player()->get_id() - 1, 0, 6, 0};
+        std::string buff =turn->get_picked_item()->get_name();
+        for (int i = 0; i < 127 && i < buff.size(); i++)
+            msg.buffer[i] = buff[i];
+
+        Transceiver::get_transceiver()->send_msg(msg);
     }
 
     update_player_status();

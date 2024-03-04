@@ -20,6 +20,7 @@ public:
     void update_lang();
     void set_connected(bool val);
     void update_info(game_msg msg);
+    std::pair<std::string, std::string> get_start_data();
     game_msg get_info_msg();
 private:
     int kol;
@@ -65,7 +66,7 @@ private:
 
     QStringList pathes;
     QCheckBox* is_ready;
-    std::string name;
+    QString name;
     //std::string players_stats;
     //player stats
     void disenable();

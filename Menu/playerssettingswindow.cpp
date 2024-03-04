@@ -58,6 +58,7 @@ PlayersSettingsWindow::PlayersSettingsWindow(int _players_number, QWidget *paren
     connect(Transceiver::get_transceiver(), &Transceiver::lobby_sync_init, this, &PlayersSettingsWindow::sync);
     connect(Transceiver::get_transceiver(), &Transceiver::set_connected, this, &PlayersSettingsWindow::set_connected);
     connect(this, &PlayersSettingsWindow::sync_data, Transceiver::get_transceiver(), &Transceiver::lobby_sync);
+    connect(Transceiver::get_transceiver(), &Transceiver::start_game, this, &PlayersSettingsWindow::start_button_is_clicked);
 
     update_access();
 
@@ -206,6 +207,14 @@ void PlayersSettingsWindow::set_player(int id, bool is_ready, std::string name, 
 
 void PlayersSettingsWindow::start_button_is_clicked()
 {
+    data.clear();
+    for (int i = 0; i < in_set.size(); i++){
+        data.push_back(in_set[i]->get_start_data());
+    }
+
+    if (Transceiver::get_transceiver()->get_id() == 0)
+        Transceiver::get_transceiver()->send_msg({0, 0, 3, 0, "start the game"});
+
     close();
     emit all_are_ready(data);
 }

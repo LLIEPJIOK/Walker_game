@@ -12,7 +12,8 @@ void HexMap::end_movement()
 
     if (turn->get_already_moved())
     {
-        emit event_triggered(); // запуск цепочки обработок всех действий, происходящих после конца движения
+        if (Transceiver::get_transceiver()->get_id() == turn->get_player()->get_id() - 1)
+            emit event_triggered(); // запуск цепочки обработок всех действий, происходящих после конца движения
     }
 }
 
@@ -46,6 +47,8 @@ HexMap::HexMap(QWidget *parent, GraphMap* map_) : QGraphicsView(parent) {
     source_pixmap_painter.begin(&source_pixmap);
 
     timer->start(50);
+
+    connect(Transceiver::get_transceiver(), &Transceiver::move_to, this, &HexMap::move_to);
 }
 
 QPoint HexMap::get_offset() const noexcept
@@ -173,11 +176,6 @@ void HexMap::mousePressEvent(QMouseEvent *event)
     }
 }
 
-// void HexMap::scrollContentsBy(int dx, int dy)
-// {
-
-// }
-
 void HexMap::initialize()
 {
     timer->stop();
@@ -215,8 +213,6 @@ void HexMap::initialize()
     emit was_initialized();
 }
 
-
-
 void HexMap::player_move()
 {
     auto turn = Turn::get_Turn();
@@ -225,6 +221,8 @@ void HexMap::player_move()
     auto player_pos = current_players_model->pos().toPoint();
 
     QPoint destination = coordinate_path.first().toPoint();
+
+
 
     if(player_pos.x() > destination.x())
         to_move.setX(-1);
@@ -237,6 +235,9 @@ void HexMap::player_move()
 
     current_players_model->moveBy(to_move.x(), to_move.y());
     move_to_player();
+
+    game_msg msg = {turn->get_player()->get_id() - 1, turn->get_player()->get_id() - 1, 8, turn->get_roll(), {char(to_move.x()), char(to_move.y())}};
+    Transceiver::get_transceiver()->send_msg(msg);
 
     if(player_pos == destination) {
         current_players_model->get_connected_player()->set_players_position(HexMathOnScreen::pixelToHex(coordinate_path.dequeue().toPoint()));
@@ -315,4 +316,10 @@ void HexMap::prepare_for_move(const Coordinates::Hex<int> &hex)
     Turn::get_Turn()->set_is_moving(true);
 
     timer->start(10);
+}
+
+void HexMap::move_to(game_msg msg)
+{
+    current_players_model->moveBy(msg.buffer[0], msg.buffer[1]);
+    move_to_player();
 }

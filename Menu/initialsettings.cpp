@@ -250,7 +250,7 @@ void InitialSettings::update_info(game_msg msg)
     kol = 4 - msg.buffer[0] - msg.buffer[1] - msg.buffer[2];
     label_choose_stats->setText(tr("Distribute points") + " " + QString::number(kol) + " " + tr("between following attributes"));
 
-    QString name;
+    name.clear();
 
     for (int i = 3; i < 127 && msg.buffer[i] != 0; i++){
         name += msg.buffer[i];
@@ -263,6 +263,11 @@ void InitialSettings::update_info(game_msg msg)
     edit_name->setText(name);
 
     qDebug() << name;
+}
+
+std::pair<std::string, std::string> InitialSettings::get_start_data()
+{
+    return {name.toStdString(), {static_cast<char>(force + 48), static_cast<char>(agility + 48), static_cast<char>(intelligence + 48)}};
 }
 
 game_msg InitialSettings::get_info_msg()
@@ -302,10 +307,10 @@ void InitialSettings::player_is_ready()
         btn_minus_agility->setEnabled(0);
         btn_minus_intelligence->setEnabled(0);
         if (!edit_name->text().isEmpty())
-            name = edit_name->text().toStdString();
+            name = edit_name->text();
         else
         {
-            name = tr("Player").toStdString() + std::to_string(id + 1);
+            name = tr("Player") + QString::number(id + 1);
             edit_name->setPlaceholderText(tr("Player") + QString::number(id + 1));
         }
 
@@ -326,7 +331,7 @@ void InitialSettings::player_is_ready()
             btn_minus_agility->setEnabled(1);
         if (intelligence)
             btn_minus_intelligence->setEnabled(1);
-        if (name == tr("Player").toStdString() + std::to_string(id + 1))
+        if (name == tr("Player") + QString::number(id + 1))
             edit_name->setPlaceholderText(tr("Enter your name"));
 
         std::string txt = {static_cast<char>(force), static_cast<char>(intelligence), static_cast<char>(agility)};
@@ -341,7 +346,7 @@ void InitialSettings::player_is_ready()
     btn_left->setEnabled(!btn_left->isEnabled());
     btn_right->setEnabled(!btn_right->isEnabled());
     edit_name->setEnabled(!edit_name->isEnabled());
-    emit ready(id, is_ready->isChecked(), name, std::to_string(force) +
+    emit ready(id, is_ready->isChecked(), name.toStdString(), std::to_string(force) +
                std::to_string(agility) + std::to_string(intelligence));
 }
 

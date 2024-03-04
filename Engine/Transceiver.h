@@ -71,14 +71,23 @@ public slots:
     void start_receiving();
     void pulse();
 signals:
+    void msg_received(game_msg msg);
+
+    // LOBBY
     void connect_successful(int _id);
     void join_successful();
     void initiate_lobby(int qnt);
-    void msg_received(game_msg msg);
     void lobby_sync_init(int id);
     void ready_check(game_msg);
     void user_disconnected(int id);
     void set_connected(int id, bool val);
+    void start_game();
+
+    // GAME
+    void send_cell_data(game_msg msg);
+    void add_item(game_msg msg);
+    void apply_effect(game_msg msg);
+    void move_to(game_msg msg);
 };
 
 #endif // TRANSCEIVER_H

@@ -108,8 +108,6 @@ DataBase* DataBase::get_DataBase()
     return data;
 }
 
-
-
 void DataBase::save(QFile &out)
 {
     //размер контейнера sequence

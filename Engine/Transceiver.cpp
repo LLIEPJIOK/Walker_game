@@ -330,15 +330,42 @@ void Transceiver::process_msg(game_msg msg)
             send_msg(msg);
 
         emit ready_check(msg);
-    }
+    } // Change is_ready
     else if (msg.operation_type == -1 && msg.extra > 1){
         qDebug() << "Lobby data received " << msg.extra << "pl";
         id = msg.target_id;
 
         emit initiate_lobby(msg.extra);
-    }
+    } // starting lobby
     else if (msg.operation_type == 2){
         emit set_connected(msg.target_id, msg.extra);
+    } // connected/disconnected
+    else if (msg.operation_type == 3){
+        emit start_game();
+    } // starting the game
+    else if (msg.operation_type == 4){
+        emit send_cell_data(msg);
+    } // hex data (map cell state update for loading)
+    else if (msg.operation_type == 5){
+
+    } // game is ready to be played
+    else if (msg.operation_type == 6){
+        if (is_host)
+            send_msg(msg);
+
+        emit add_item(msg);
+    } // player picked up an item
+    else if (msg.operation_type == 7){
+        if (is_host)
+            send_msg(msg);
+
+        emit apply_effect(msg);
+    } // player applied effect
+    else if (msg.operation_type == 8){
+        if (is_host)
+            send_msg(msg);
+
+        emit move_to(msg);
     }
     else
         return;
