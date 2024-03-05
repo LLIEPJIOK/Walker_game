@@ -63,7 +63,6 @@ private:
 
     QVector<QPushButton*> buttons;
 
-    QVector<General_info_widget*> info_widgets;
     General_info_widget *current_info_widget;
 
 //    QVector<Inventory*> inventories;
@@ -86,11 +85,8 @@ private:
     void update_buttons();
 
     // обновляет конкретный инвентарь и слоты для экипировки по номеру
-    void update_info_widget(int id);
-
-    // обновляет все инвентари и слоты для экипировки
-    void update_info_widgets();
-
+    void update_info_widget();
+\
     // обновляет карту
     void update_map();
 
@@ -126,6 +122,9 @@ private slots:
     void set_cell_data(game_msg msg);
     void add_item_m(game_msg msg);
     void apply_effect(game_msg msg);
+    void next_turn(game_msg msg);
+    void unequip_place(game_msg msg);
+    void equip_item(game_msg msg);
 };
 
 #endif // GAME_INTERFACE_H

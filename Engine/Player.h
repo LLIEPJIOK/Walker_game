@@ -9,6 +9,7 @@
 #include <vector>
 #include <cassert>
 
+#include "Engine/Transceiver.h"
 #include "Equipment.h"
 #include "Map/Hex.h"
 
@@ -70,7 +71,9 @@ public:
     void attack(Player *pl);
     void use_potion(Potion*);
     void equip_item(Equipment* item, std::string place);
+    void equip_item(game_msg msg);
     void unequip_item(std::string place);
+    void unequip_item(game_msg msg);
     void process_active_effects();
 
 

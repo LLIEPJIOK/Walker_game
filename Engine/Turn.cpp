@@ -1,5 +1,6 @@
 #include "Turn.h"
 #include "DataBase.h"
+#include "Engine/Transceiver.h"
 
 #define seq DataBase::get_DataBase()->get_sequence()
 #define db DataBase::get_DataBase()
@@ -124,9 +125,16 @@ void Turn::process_end_of_movement()
     auto players_position = player->get_players_position();
 
     if(map[players_position].get_item() != "None") {
+        game_msg msg = {player->get_id() - 1, 0, 6, 0};
+        std::string buff = map[players_position].get_item();
+        for (int i = 0; i < 127 && i < buff.size(); i++)
+            msg.buffer[i] = buff[i];
+
+        Transceiver::get_transceiver()->send_msg(msg);
+
         picked_item = player->add_item(map[players_position].get_item());
         map[players_position].set_item("None");
-    }
+        }
 
     if(map[players_position].get_event_name() != "???")
         activated_event = Events::get_Events()->get_events()->at(map[players_position].get_event_name());

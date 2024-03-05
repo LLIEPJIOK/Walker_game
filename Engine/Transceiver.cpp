@@ -311,11 +311,6 @@ void Transceiver::send_to(game_msg msg, int _id)
     }
 }
 
-void Transceiver::resend_msg(game_msg msg)
-{
-    //resending to others
-}
-
 std::vector<SOCKET> Transceiver::get_connected()
 {
     return connected;
@@ -366,6 +361,30 @@ void Transceiver::process_msg(game_msg msg)
             send_msg(msg);
 
         emit move_to(msg);
+    }
+    else if (msg.operation_type == 10) {
+        if (is_host)
+            send_msg(msg);
+
+        emit next_turn(msg);
+    }
+    else if (msg.operation_type == 11) {
+        if (is_host)
+            send_msg(msg);
+
+        emit unequip(msg);
+    }
+    else if (msg.operation_type == 12) {
+        if (is_host)
+            send_msg(msg);
+
+        emit equip(msg);
+    }
+    else if (msg.operation_type == 13) {
+        if (is_host)
+            send_msg(msg);
+
+        emit use_potion(msg);
     }
     else
         return;

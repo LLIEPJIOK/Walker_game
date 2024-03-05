@@ -57,7 +57,6 @@ public:
     static Transceiver* get_transceiver();
     void send_msg(game_msg msg);
     void send_to(game_msg msg, int _id);
-    void resend_msg(game_msg msg);
     std::vector<SOCKET> get_connected();
 private slots:
     void process_msg(game_msg msg);
@@ -88,6 +87,10 @@ signals:
     void add_item(game_msg msg);
     void apply_effect(game_msg msg);
     void move_to(game_msg msg);
+    void next_turn(game_msg msg);
+    void unequip(game_msg msg);
+    void equip(game_msg msg);
+    void use_potion(game_msg msg);
 };
 
 #endif // TRANSCEIVER_H

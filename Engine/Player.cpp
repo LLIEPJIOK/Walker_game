@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "DataBase.h"
 #include "Effect.h"
+#include "Engine/Transceiver.h"
 #include "Turn.h"
 
 #define seq DataBase::get_DataBase()->get_sequence()
@@ -8,6 +9,8 @@ int Player::CURRENT_ID = 0;
 
 Player::Player(const std::string& _name) : PLAYER_ID(++CURRENT_ID)
 {
+    struct lesha{};
+
 	name = _name;
     players_position = Coordinates::Hex<int> {0, 0};
 
@@ -342,14 +345,84 @@ void Player::equip_item(Equipment *item, std::string place)
 
     equipped_items.at(place) = item;
     item->change_equiped();
+
+    game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 12, 0};
+    std::string txt = place;
+    txt += ' ';
+    txt += item->get_name();
+    for (int i = 0; i < 127 && i < txt.size(); i++){
+        msg.buffer[i] = txt[i];
+    }
+
+    Transceiver::get_transceiver()->send_msg(msg);
+
+
     for (const auto& i : *item->get_item_characteristics())
         characteristics[i.first] += i.second;
 
     update_chars();
 }
 
+void Player::equip_item(game_msg msg)
+{
+    std::string place;
+    int i = 0;
+    while (i < 127 && msg.buffer[i] != ' ')
+        place.push_back(msg.buffer[i]);
+
+    i++;
+    std::string eq_name;
+    while (i < 127 && msg.buffer[i] != 0)
+        eq_name.push_back(msg.buffer[i]);
+
+
+    for (auto& item : items){
+        if (!item->get_equiped() && item->get_name() == eq_name) {
+            equipped_items[place] = item;
+            item->change_equiped();
+            for (const auto& i : *item->get_item_characteristics())
+                characteristics[i.first] += i.second;
+
+            update_chars();
+
+            break;
+        }
+    }
+}
+
 void Player::unequip_item(std::string place)
 {
+    game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 11, 0};
+    std::string txt = place;
+    for (int i = 0; i < 127 && i < txt.size(); i++){
+        msg.buffer[i] = txt[i];
+    }
+
+    Transceiver::get_transceiver()->send_msg(msg);
+
+
+    if (equipped_items[place] == nullptr)
+        return;
+
+    Equipment* equipment = equipped_items[place];
+    std::string type = equipment->get_type();
+    std::string equipment_class = equipment->get_class();
+    equipped_items[place] = nullptr;
+
+    equipment->change_equiped();
+    for (auto& i : *equipment->get_item_characteristics())
+        characteristics[i.first] -= i.second;
+
+    update_chars();
+}
+
+void Player::unequip_item(game_msg msg)
+{
+    std::string place;
+    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
+        place.push_back(msg.buffer[i]);
+
+
     if (equipped_items[place] == nullptr)
         return;
 

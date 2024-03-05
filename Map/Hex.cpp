@@ -1,5 +1,5 @@
 #include "Hex.h"
-#include <cmath>
+#include <math.h>
 #include "GraphMap.h"
 
 __declspec(selectany) Coordinates::Cube<int> Coordinates::cubeDirections[6] = {
@@ -34,7 +34,7 @@ std::unordered_set<Coordinates::Hex<int> > Coordinates::range(const Hex<int> &ce
     std::unordered_set<Hex<int>> result;
 
     for (int x = -distance; x <= distance; x++) {
-        for (int y = std::max(-distance, -x - distance); y <= std::min(distance, -x + distance); y++) {
+        for (int y = max(-distance, -x - distance); y <= min(distance, -x + distance); y++) {
             if(graph_map->inBounds(center + Hex<int>{ x, y }) && graph_map->isPossible(center + Hex<int>{ x, y }))
                 result.insert(center + Hex<int>{ x, y });
         }

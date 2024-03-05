@@ -45,9 +45,12 @@ GameInterface::GameInterface(QWidget *parent)
 
     connect(General::get_general(), &General::start_game, this, &GameInterface::start);
     connect(General::get_general(), &General::load_game, this, &GameInterface::load);
+
     connect(Transceiver::get_transceiver(), &Transceiver::send_cell_data, this, &GameInterface::set_cell_data);
     connect(Transceiver::get_transceiver(), &Transceiver::add_item, this, &GameInterface::add_item_m);
     connect(Transceiver::get_transceiver(), &Transceiver::apply_effect, this, &GameInterface::apply_effect);
+    connect(Transceiver::get_transceiver(), &Transceiver::next_turn, this, &GameInterface::next_turn);
+    connect(Transceiver::get_transceiver(), &Transceiver::equip, this, &GameInterface::equip_item);
 }
 
 GameInterface::~GameInterface()
@@ -57,11 +60,7 @@ GameInterface::~GameInterface()
     delete data_base;
     delete menu;
 
-    foreach (General_info_widget* wid, info_widgets) {
-        delete wid;
-    }
-
-    info_widgets.clear();
+    delete current_info_widget;
 }
 
 void GameInterface::initialize()
@@ -72,11 +71,7 @@ void GameInterface::initialize()
     action->setGeometry(0.8 * screen_size.width(), 10 + 0.275 * screen_size.height(), 0.195 * screen_size.width(), 0.5 * screen_size.height() - 10);
     action->setVisible(true);
 
-    for(auto& i: *data_base->get_sequence()){
-        General_info_widget* wid = new General_info_widget(this, i);
-        info_widgets.push_back(wid);
-        wid->setVisible(false);
-    }
+    current_info_widget = new General_info_widget(this, data_base->get_sequence()->at(Transceiver::get_transceiver()->get_id()));
 
     pause = new PauseMenu(this);
     pause->setVisible(false);
@@ -86,7 +81,6 @@ void GameInterface::initialize()
 
     if (Transceiver::get_transceiver()->get_id() == 0)
         send_map_data();
-
     update_all();
 
     game_is_played = true;
@@ -117,7 +111,6 @@ void GameInterface::create_buttons()
     connect(buttons[3], &QPushButton::clicked, this, &GameInterface::info_button_clicked);
 }
 
-
 void GameInterface::end_game()
 {
     game_is_played = false;
@@ -129,13 +122,7 @@ void GameInterface::end_game()
     delete pause;
     pause = nullptr;
 
-
-    foreach (General_info_widget* wid, info_widgets) {
-        delete wid;
-    }
-
-    info_widgets.clear();
-
+    delete current_info_widget;
 
     for(int i = 0; i < buttons.size(); i++)
     {
@@ -202,24 +189,20 @@ void GameInterface::inventory_button_clicked()
 
 void GameInterface::next_turn_button_clicked()
 {
-    // BUTTONS
-    // INFO
     turn->next_player();
     hex_map->next_players_model();
     buttons[2]->setEnabled(false);
-    //inventory_button->setEnabled(true);
-
     buttons[1]->setEnabled(true);
 
-    current_info_widget->setVisible(false);
-    current_info_widget = info_widgets[(turn->get_turn_number()-1) % info_widgets.size()];
-
     action->set_text(""); // делает окно действий пустым
-
-    update_player_status();
-    // CAMERA
     hex_map->move_to_player();
-    // NET
+
+    game_msg msg = {Transceiver::get_transceiver()->get_id(), 0, 10, 0};
+    Transceiver::get_transceiver()->send_msg(msg);
+
+    update_buttons();
+    update_player_status();
+
 }
 
 void GameInterface::roll_button_clicked()
@@ -356,38 +339,60 @@ void GameInterface::apply_effect(game_msg msg)
     qDebug() << "Effect " << effect_name << " was applied on " << DataBase::get_DataBase()->get_sequence()->at(msg.target_id)->get_name();
 }
 
+void GameInterface::next_turn(game_msg msg)
+{
+    turn->next_player();
+    hex_map->next_players_model();
+
+    if (Transceiver::get_transceiver()->get_id() == turn->get_player()->get_id() - 1)
+    {
+        buttons[2]->setEnabled(false);
+        buttons[1]->setEnabled(true);
+    }
+
+    update_buttons();
+    update_player_status();
+
+    qDebug() << "Next turn was received!";
+}
+
+void GameInterface::unequip_place(game_msg msg)
+{
+    data_base->get_sequence()->at(msg.target_id)->unequip_item(msg);
+    action->set_text(tr("Player ") + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has unequipped some item..."));
+
+}
+
+void GameInterface::equip_item(game_msg msg)
+{
+    data_base->get_sequence()->at(msg.target_id)->equip_item(msg);
+    action->set_text(tr("Player ") + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has equipped some item..."));
+}
+
 // восстановление состояния кнопок
 void GameInterface::update_buttons()
 {
-    buttons[1]->setEnabled(!turn->was_roll());
-    buttons[2]->setEnabled(turn->get_already_moved());
-    buttons[3]->setEnabled(true);
-    buttons[0]->setEnabled(true);
+    if (Transceiver::get_transceiver()->get_id() == turn->get_player()->get_id() - 1)
+    {
+        buttons[1]->setEnabled(!turn->was_roll());
+        buttons[2]->setEnabled(turn->get_already_moved());
+        buttons[3]->setEnabled(true);
+        buttons[0]->setEnabled(true);
+    }
+    else {
+        buttons[1]->setEnabled(false);
+        buttons[2]->setEnabled(false);
+
+        buttons[3]->setEnabled(true);
+        buttons[0]->setEnabled(true);
+    }
     // NET
 }
 
 // обновляет конкретный инвентарь и слоты для экипировки по номеру
-void GameInterface::update_info_widget(int id)
+void GameInterface::update_info_widget()
 {
-    if (id < 0 || id >= (int)info_widgets.size())
-    {
-        throw std::exception("Index is out of range");
-    }
-
-    info_widgets[id]->update_all();
-}
-
-// обновляет все инвентари и слоты для экипировки
-void GameInterface::update_info_widgets()
-{
-    for (int i = 0; i < (int)info_widgets.size(); ++i)
-    {
-        update_info_widget(i);
-        if (turn->get_player() == info_widgets[i]->get_player())
-        {
-            current_info_widget = info_widgets[i];
-        }
-    }
+    current_info_widget->update_all();
 }
 
 // обновляет карту
@@ -418,7 +423,7 @@ void GameInterface::update_map()
 void GameInterface::update_all()
 {
     update_buttons();
-    update_info_widgets();
+    update_info_widget();
     update_map();
 }
 
@@ -442,7 +447,7 @@ void GameInterface::update_player_status()
 {
     Player* tmp = turn->get_player();
     update_buttons();
-    update_info_widget(tmp->get_id() - 1); // айдишники начинаются с 1
+    update_info_widget(); // айдишники начинаются с 1
     tmp->update_chars();
     tmp->die();
     //current_player_status->update_all();
@@ -471,13 +476,6 @@ void GameInterface::process_item_pick() // совершает подбор пр�
     {
         add_item(turn->get_picked_item());
         action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
-
-        game_msg msg = {turn->get_player()->get_id() - 1, 0, 6, 0};
-        std::string buff =turn->get_picked_item()->get_name();
-        for (int i = 0; i < 127 && i < buff.size(); i++)
-            msg.buffer[i] = buff[i];
-
-        Transceiver::get_transceiver()->send_msg(msg);
     }
 
     update_player_status();
