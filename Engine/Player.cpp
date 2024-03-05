@@ -250,11 +250,26 @@ void Player::attack(Player* pl)
         pdmg = characteristics["ATK"] - basa;
 
     pl->get_characteristics().at("HP") -= basa + pdmg;
+
+    game_msg msg = {Transceiver::get_transceiver()->get_id(), pl->get_id() - 1, 14, basa + pdmg};
+    if (crit <= characteristics["CRIT_CH"])
+        msg.buffer[0] = 1;
+
+    Transceiver::get_transceiver()->send_msg(msg);
+
     killed_player = pl->die();
 }
 
 void Player::use_potion(Potion* potion)
 {
+    game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 13, 0};
+    std::string txt = potion->get_name();
+    for (int i = 0; i < 127 && i < txt.size(); i++){
+        msg.buffer[i] = txt[i];
+    }
+
+    Transceiver::get_transceiver()->send_msg(msg);
+
     if (potion->get_effect_name() == "dispell"){
         Effect eff(potion->get_effect_name(), this, potion->get_duration());
         eff.execute_effect();
@@ -290,6 +305,32 @@ void Player::use_potion(Potion* potion)
         update_chars();
         potions.erase(potion);
         delete potion;
+    }
+}
+
+void Player::use_potion(std::string potion_name)
+{
+    for (auto& i : potions){
+        if (i->get_name() == potion_name){
+            for (const auto& j : *i->get_item_characteristics()) // увеличение хар-к навсегда
+            {
+                std::string ch = j.first;
+                int value = j.second;
+                if (ch == "HP" && characteristics["HP"] + value >= characteristics["MAX_HP"]) // проверка на избыток здоровья
+                {
+                    characteristics["HP"] = characteristics["MAX_HP"];
+                    continue;
+                }
+
+                characteristics[ch] += value;
+            }
+
+            Potion* pot = i;
+            potions.erase(i);
+            delete pot;
+            update_chars();
+            return;
+        }
     }
 }
 
@@ -363,19 +404,8 @@ void Player::equip_item(Equipment *item, std::string place)
     update_chars();
 }
 
-void Player::equip_item(game_msg msg)
+void Player::equip_item(std::string place, std::string eq_name)
 {
-    std::string place;
-    int i = 0;
-    while (i < 127 && msg.buffer[i] != ' ')
-        place.push_back(msg.buffer[i]);
-
-    i++;
-    std::string eq_name;
-    while (i < 127 && msg.buffer[i] != 0)
-        eq_name.push_back(msg.buffer[i]);
-
-
     for (auto& item : items){
         if (!item->get_equiped() && item->get_name() == eq_name) {
             equipped_items[place] = item;
@@ -390,37 +420,17 @@ void Player::equip_item(game_msg msg)
     }
 }
 
-void Player::unequip_item(std::string place)
+void Player::unequip_item(std::string place, bool send)
 {
-    game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 11, 0};
-    std::string txt = place;
-    for (int i = 0; i < 127 && i < txt.size(); i++){
-        msg.buffer[i] = txt[i];
+    if (send){
+        game_msg msg = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 11, 0};
+        std::string txt = place;
+        for (int i = 0; i < 127 && i < txt.size(); i++){
+            msg.buffer[i] = txt[i];
+        }
+
+        Transceiver::get_transceiver()->send_msg(msg);
     }
-
-    Transceiver::get_transceiver()->send_msg(msg);
-
-
-    if (equipped_items[place] == nullptr)
-        return;
-
-    Equipment* equipment = equipped_items[place];
-    std::string type = equipment->get_type();
-    std::string equipment_class = equipment->get_class();
-    equipped_items[place] = nullptr;
-
-    equipment->change_equiped();
-    for (auto& i : *equipment->get_item_characteristics())
-        characteristics[i.first] -= i.second;
-
-    update_chars();
-}
-
-void Player::unequip_item(game_msg msg)
-{
-    std::string place;
-    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
-        place.push_back(msg.buffer[i]);
 
 
     if (equipped_items[place] == nullptr)

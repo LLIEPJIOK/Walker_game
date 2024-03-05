@@ -13,7 +13,7 @@ public:
 
     // обновляет экипированные предметы
     void update_equiped();
-
+    void set_connected_place_item(QString place, Item* item);
 public slots:
     void place(Equipment* equip, QString place);
     void unequip(QString place);

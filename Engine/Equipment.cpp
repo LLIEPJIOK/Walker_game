@@ -103,9 +103,9 @@ Jewel::Jewel(int ID, std::string name, std::string equipment_class, std::unorder
 
 Jewel::Jewel(std::string type, int turn_number) : Equipment()
 {
-    if (turn_number < 1)
+    if (turn_number < 0)
     {
-        throw std::exception("turn number is less than 11");
+        throw std::exception("turn number is less than 0");
     }
 
 

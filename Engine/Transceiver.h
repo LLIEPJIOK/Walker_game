@@ -91,6 +91,7 @@ signals:
     void unequip(game_msg msg);
     void equip(game_msg msg);
     void use_potion(game_msg msg);
+    void attack(game_msg msg);
 };
 
 #endif // TRANSCEIVER_H

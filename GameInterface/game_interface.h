@@ -8,7 +8,6 @@
 #include "pausemenu.h"
 #include "Engine/DataBase.h"
 #include "Engine/Turn.h"
-#include "actionwindow.h"
 #include "Engine/saveandloadmanager.h"
 #include "GameInterface/player_status_widget.h"
 #include "Map/minimap.h"
@@ -20,6 +19,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QKeyEvent>
+#include <QPlainTextEdit>
 
 class GameInterface : public QMainWindow
 {
@@ -55,7 +55,7 @@ private:
 
     Menu* menu;
     InformationWindow* information_window;
-    ActionWindow *action;
+    QPlainTextEdit *action;
     PauseMenu* pause;
 
     HexMap* hex_map;
@@ -125,6 +125,8 @@ private slots:
     void next_turn(game_msg msg);
     void unequip_place(game_msg msg);
     void equip_item(game_msg msg);
+    void use_potion(game_msg msg);
+    void process_attack(game_msg msg);
 };
 
 #endif // GAME_INTERFACE_H

@@ -51,6 +51,8 @@ GameInterface::GameInterface(QWidget *parent)
     connect(Transceiver::get_transceiver(), &Transceiver::apply_effect, this, &GameInterface::apply_effect);
     connect(Transceiver::get_transceiver(), &Transceiver::next_turn, this, &GameInterface::next_turn);
     connect(Transceiver::get_transceiver(), &Transceiver::equip, this, &GameInterface::equip_item);
+    connect(Transceiver::get_transceiver(), &Transceiver::use_potion, this, &GameInterface::use_potion);
+    connect(Transceiver::get_transceiver(), &Transceiver::attack, this, &GameInterface::process_attack);
 }
 
 GameInterface::~GameInterface()
@@ -67,9 +69,13 @@ void GameInterface::initialize()
 {
     create_buttons();
 
-    action = new ActionWindow(this);
-    action->setGeometry(0.8 * screen_size.width(), 10 + 0.275 * screen_size.height(), 0.195 * screen_size.width(), 0.5 * screen_size.height() - 10);
+    action = new QPlainTextEdit(this);
+    action->setGeometry(0.8 * screen_size.width(), 10 + 0.275 * screen_size.height(), 0.195 * screen_size.width(), 0.325 * screen_size.height() - 10);
     action->setVisible(true);
+    action->setReadOnly(true);
+    action->setFont(QFont("Times", 12, QFont::Bold));
+    action->setMaximumBlockCount(500);
+    action->appendPlainText("The journey has started!");
 
     current_info_widget = new General_info_widget(this, data_base->get_sequence()->at(Transceiver::get_transceiver()->get_id()));
 
@@ -82,6 +88,8 @@ void GameInterface::initialize()
     if (Transceiver::get_transceiver()->get_id() == 0)
         send_map_data();
     update_all();
+
+
 
     game_is_played = true;
 }
@@ -193,8 +201,6 @@ void GameInterface::next_turn_button_clicked()
     hex_map->next_players_model();
     buttons[2]->setEnabled(false);
     buttons[1]->setEnabled(true);
-
-    action->set_text(""); // делает окно действий пустым
     hex_map->move_to_player();
 
     game_msg msg = {Transceiver::get_transceiver()->get_id(), 0, 10, 0};
@@ -210,7 +216,7 @@ void GameInterface::roll_button_clicked()
     // MOVEMENT
     turn->dice_roll();
     int roll = turn->get_roll();
-    action->set_text(tr("Your dice roll:") + " " + QString::number(roll));
+    action->appendPlainText((tr("Your dice roll:") + " " + QString::number(roll)));
     hex_map->want_to_move();
     buttons[1]->setEnabled(false);
     buttons[3]->setEnabled(false);
@@ -321,9 +327,7 @@ void GameInterface::add_item_m(game_msg msg)
         item_name.push_back(msg.buffer[i]);
 
     DataBase::get_DataBase()->get_sequence()->at(msg.id)->add_item(item_name);
-    action->set_text(QString::fromStdString(DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name()) + tr(" has picked up an item!") + " " + QString::fromStdString(item_name) + " " + tr("tile item."));
-
-    qDebug() << item_name << " was processed " << DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name();
+    action->appendPlainText((QString::fromStdString(DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name()) + tr(" has picked up an item!") + " " + QString::fromStdString(item_name) + " " + tr("tile item.")));
 }
 
 void GameInterface::apply_effect(game_msg msg)
@@ -336,7 +340,7 @@ void GameInterface::apply_effect(game_msg msg)
     Effect* eff = new Effect(effect_name,DataBase::get_DataBase()->get_sequence()->at(msg.target_id) , duration);
     eff->apply_effect();
 
-    qDebug() << "Effect " << effect_name << " was applied on " << DataBase::get_DataBase()->get_sequence()->at(msg.target_id)->get_name();
+    action->appendPlainText(QString(tr("Effect")) + " " + Translator::translate(effect_name.c_str()).c_str() + " " + tr("was applied on") + " " + QString::fromStdString(DataBase::get_DataBase()->get_sequence()->at(msg.target_id)->get_name()));
 }
 
 void GameInterface::next_turn(game_msg msg)
@@ -353,20 +357,65 @@ void GameInterface::next_turn(game_msg msg)
     update_buttons();
     update_player_status();
 
-    qDebug() << "Next turn was received!";
+    action->appendPlainText(tr("Next turn has started!"));
 }
 
 void GameInterface::unequip_place(game_msg msg)
 {
-    data_base->get_sequence()->at(msg.target_id)->unequip_item(msg);
-    action->set_text(tr("Player ") + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has unequipped some item..."));
+
+    std::string place;
+    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
+        place.push_back(msg.buffer[i]);
+
+    data_base->get_sequence()->at(msg.target_id)->unequip_item(place, false);
+    action->appendPlainText(tr("Player") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has unequipped") + " " + Translator::translate(place.c_str()).c_str());
 
 }
 
 void GameInterface::equip_item(game_msg msg)
 {
-    data_base->get_sequence()->at(msg.target_id)->equip_item(msg);
-    action->set_text(tr("Player ") + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has equipped some item..."));
+    std::string place;
+    int i = 0;
+    while (i < 127 && msg.buffer[i] != ' ') {
+        place.push_back(msg.buffer[i]);
+        i++;
+    }
+
+    i++;
+    std::string eq_name;
+    while (i < 127 && msg.buffer[i] != 0){
+        eq_name.push_back(msg.buffer[i]);
+        i++;
+    }
+
+    data_base->get_sequence()->at(msg.target_id)->equip_item(place, eq_name);
+    action->appendPlainText(tr("Player") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has equipped") + " " + Translator::translate(eq_name.c_str()).c_str());
+}
+
+void GameInterface::use_potion(game_msg msg)
+{
+    std::string potion_name;
+    int i = 0;
+    while (i < 127 && msg.buffer[i] != 0) {
+        potion_name.push_back(msg.buffer[i]);
+        i++;
+    }
+
+    data_base->get_sequence()->at(msg.target_id)->use_potion(potion_name);
+
+    action->appendPlainText(tr("Player") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " + tr("has drunk") + " " + Translator::translate(potion_name.c_str()).c_str());
+}
+
+void GameInterface::process_attack(game_msg msg)
+{
+    data_base->get_sequence()->at(msg.target_id)->get_characteristics().at("HP") -= msg.extra;
+
+    if (msg.buffer[0])
+        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.id)->get_name()) + " " + tr("has attacked") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) +
+                                tr("dealing") + QString::number(msg.extra) + " " + tr("damage") + " (" + tr("Critical strike") + ")");
+    else
+        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.id)->get_name()) + " " + tr("has attacked") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) +
+                                tr("dealing") + QString::number(msg.extra) + " " + tr("damage"));
 }
 
 // восстановление состояния кнопок
@@ -408,7 +457,6 @@ void GameInterface::update_map()
 
     connect(hex_map, &HexMap::can_finish_turn, this, &GameInterface::enable_next_button);
     connect(hex_map, &HexMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
-    connect(hex_map, &HexMap::action, action, &ActionWindow::set_text);
     connect(hex_map, &HexMap::event_triggered, this, &GameInterface::process_event_start);
     connect(hex_map, &HexMap::was_initialized, this, &GameInterface::all_is_ready);
 
@@ -447,11 +495,9 @@ void GameInterface::update_player_status()
 {
     Player* tmp = turn->get_player();
     update_buttons();
-    update_info_widget(); // айдишники начинаются с 1
     tmp->update_chars();
     tmp->die();
-    //current_player_status->update_all();
-    // NET
+    update_info_widget();
 }
 
 void GameInterface::process_event_start()
@@ -475,7 +521,7 @@ void GameInterface::process_item_pick() // совершает подбор пр�
     if(turn->get_picked_item())
     {
         add_item(turn->get_picked_item());
-        action->set_text(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
+        action->appendPlainText(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
     }
 
     update_player_status();

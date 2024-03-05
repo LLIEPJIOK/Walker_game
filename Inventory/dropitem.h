@@ -1,6 +1,7 @@
 #ifndef DROPITEM_H
 #define DROPITEM_H
 
+#include "Inventory/item.h"
 class DropItem : public QFrame
 {
     Q_OBJECT
@@ -12,6 +13,9 @@ public:
 
     // возвращает экипирован ли слот
     bool is_equiped();
+
+    void set_current_item(Item* item);
+    Item* get_current_item();
 public slots:
     void switch_equip(QString eq_name);
 
@@ -20,6 +24,7 @@ protected:
     virtual void paintEvent(QPaintEvent *event);
 
 private:
+    Item* current_item = nullptr;
     bool is_standart;
     QString item_type;
     QString place;

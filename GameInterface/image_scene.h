@@ -21,7 +21,7 @@ private:
 
     QListWidgetItem* prev_chosen;
 
-    void paint_item(Item* item);
+    void paint_item(Item item);
     void paint_effect(Effect_item* item);
     static std::map<QString, QString> stat_names;
 public:

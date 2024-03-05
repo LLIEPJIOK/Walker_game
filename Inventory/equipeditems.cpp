@@ -1,4 +1,5 @@
 #include "equipeditems.h"
+#include "Engine/translator.h"
 #include<QPainter>
 
 #define eqp(item) equip(inventory->get_items().at(inventory->find_equip(item)), false)
@@ -51,8 +52,18 @@ void EquipedItems::update_equiped()
 
 }
 
+void EquipedItems::set_connected_place_item(QString place, Item *item)
+{
+    place_to_name[place]->set_current_item(item);
+}
+
 void EquipedItems::unequip(QString place)
 {
+    if (place_to_name[place]->get_current_item()){
+        place_to_name[place]->get_current_item()->setText(Translator::translate(place_to_name[place]->get_current_item()->get_connected_item()->get_name().c_str()).c_str());
+        place_to_name[place]->set_current_item(nullptr);
+    }
+
     place_to_name[place]->change_icon(QPixmap(), true);
 }
 

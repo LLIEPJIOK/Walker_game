@@ -1,7 +1,6 @@
 Rusty sword
 Rusty axe
 Knuckles
-Wooden shield
 Iron mace
 Iron sword
 Iron axe

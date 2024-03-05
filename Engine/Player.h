@@ -70,10 +70,10 @@ public:
 
     void attack(Player *pl);
     void use_potion(Potion*);
+    void use_potion(std::string potion_name);
     void equip_item(Equipment* item, std::string place);
-    void equip_item(game_msg msg);
-    void unequip_item(std::string place);
-    void unequip_item(game_msg msg);
+    void equip_item(std::string place, std::string eq_name);
+    void unequip_item(std::string place, bool send = true);
     void process_active_effects();
 
 

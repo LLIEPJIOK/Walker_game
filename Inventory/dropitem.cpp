@@ -25,6 +25,16 @@ bool DropItem::is_equiped()
     return !is_standart;
 }
 
+void DropItem::set_current_item(Item *item)
+{
+    current_item = item;
+}
+
+Item *DropItem::get_current_item()
+{
+    return current_item;
+}
+
 void DropItem::switch_equip(QString eq_name)
 {
     current = QPixmap(":/equipment/Pictures/Equipment/" + eq_name + ".png");

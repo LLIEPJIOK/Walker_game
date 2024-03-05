@@ -148,6 +148,7 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 equipped_items->unequip("offhand");
                 assigned_player->unequip_item("offhand");
                 assigned_player->equip_item(it, "main_hand");
+                equipped_items->set_connected_place_item("main_hand", item);
                 equipped_items->place(it, "main_hand");
                 it->set_primary_equipped(true);
             }
@@ -155,10 +156,10 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 equipped_items->unequip("main_hand");
                 assigned_player->unequip_item("main_hand");
                 assigned_player->equip_item(it, "offhand");
+                equipped_items->set_connected_place_item("offhand", item);
                 equipped_items->place(it, "offhand");
                 it->set_primary_equipped(false);
             }
-
         }
         else if (it->get_type() == "ring"){
             if (primary && it->get_primary_equipped()){
@@ -176,6 +177,7 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 assigned_player->unequip_item("second_ring");
                 assigned_player->equip_item(it, "first_ring");
                 equipped_items->place(it, "first_ring");
+                equipped_items->set_connected_place_item("first_ring", item);
                 it->set_primary_equipped(true);
             }
             else{
@@ -183,6 +185,7 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 assigned_player->unequip_item("first_ring");
                 assigned_player->equip_item(it, "second_ring");
                 equipped_items->place(it, "second_ring");
+                equipped_items->set_connected_place_item("second_ring", item);
                 it->set_primary_equipped(false);
             }
         }
@@ -200,12 +203,14 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 assigned_player->unequip_item("main_hand");
                 assigned_player->equip_item(it, "main_hand");
                 equipped_items->place(it, "main_hand");
+                equipped_items->set_connected_place_item("main_hand", item);
                 it->set_primary_equipped(true);
             }
             else{
                 equipped_items->unequip("offhand");
                 assigned_player->unequip_item("offhand");
                 assigned_player->equip_item(it, "offhand");
+                equipped_items->set_connected_place_item("offhand", item);
                 equipped_items->place(it, "offhand");
                 it->set_primary_equipped(false);
             }
@@ -216,6 +221,7 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 assigned_player->unequip_item("first_ring");
                 assigned_player->equip_item(it, "first_ring");
                 equipped_items->place(it, "first_ring");
+                equipped_items->set_connected_place_item("first_ring", item);
                 it->set_primary_equipped(true);
             }
             else{
@@ -223,6 +229,7 @@ void General_info_widget::process_equip(Item * item, bool primary)
                 assigned_player->unequip_item("second_ring");
                 assigned_player->equip_item(it, "second_ring");
                 equipped_items->place(it, "second_ring");
+                equipped_items->set_connected_place_item("second_ring", item);
                 it->set_primary_equipped(false);
             }
         }
@@ -231,6 +238,7 @@ void General_info_widget::process_equip(Item * item, bool primary)
             equipped_items->place(it, QString::fromStdString(it->get_type()));
             assigned_player->unequip_item(it->get_type());
             assigned_player->equip_item(it, it->get_type());
+            equipped_items->set_connected_place_item(QString::fromStdString(it->get_type()), item);
         }
     }
 
@@ -246,6 +254,9 @@ void General_info_widget::process_equip(Item * item, bool primary)
 
 void General_info_widget::process_potion(Item *item)
 {
+//    while (item->being_painted)
+//        continue;
+
     class_to_inventory["potion"]->removeItemWidget(item);
     class_to_inventory["potion"]->update();
 

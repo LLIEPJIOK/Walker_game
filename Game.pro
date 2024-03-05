@@ -22,7 +22,6 @@ SOURCES += \
     Events/event_window.cpp \
     GameInterface/Player_status_widget.cpp \
     GameInterface/Advanced_chars_tab.cpp \
-    GameInterface/actionwindow.cpp \
     GameInterface/congratulationwindow.cpp \
     GameInterface/effect_item.cpp \
     GameInterface/general_info_widget.cpp \
@@ -72,7 +71,6 @@ HEADERS += \
     Events/event_window.h \
     GameInterface/Player_status_widget.h \
     GameInterface/Advanced_chars_tab.h \
-    GameInterface/actionwindow.h \
     GameInterface/congratulationwindow.h \
     GameInterface/effect_item.h \
     GameInterface/general_info_widget.h \

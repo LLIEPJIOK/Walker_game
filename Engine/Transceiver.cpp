@@ -386,6 +386,12 @@ void Transceiver::process_msg(game_msg msg)
 
         emit use_potion(msg);
     }
+    else if (msg.operation_type == 14) {
+        if (is_host)
+            send_msg(msg);
+
+        emit attack(msg);
+    }
     else
         return;
 }
