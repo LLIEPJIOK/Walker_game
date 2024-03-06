@@ -3,10 +3,6 @@
 #define CONGRATULATIONWINDOW_H
 
 
-#include <QWidget>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QLabel>
 class CongratulationWindow : public QWidget
 {
     Q_OBJECT

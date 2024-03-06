@@ -2,16 +2,6 @@
 #ifndef PLAYER_STATUS_WIDGET_H
 #define PLAYER_STATUS_WIDGET_H
 
-#include <QWidget>
-#include <QMap>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QProgressBar>
-#include <QPixmap>
-#include <QWidgetList>
-#include <QTabWidget>
-#include <QListWidget>
 #include "./Engine/Player.h"
 #include "GameInterface/effect_item.h"
 class Player_status_widget : public QWidget

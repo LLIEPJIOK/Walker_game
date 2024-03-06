@@ -260,7 +260,7 @@ void InitialSettings::update_info(game_msg msg)
         name = tr("Player") + QString::number(msg.target_id + 1);
 
 
-    edit_name->setText(name);
+    edit_name->setPlaceholderText(name);
 
     qDebug() << name;
 }

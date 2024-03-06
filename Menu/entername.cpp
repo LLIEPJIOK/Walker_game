@@ -1,7 +1,6 @@
 #include "entername.h"
 
-#include <QRegularExpression>
-#include <QRegularExpressionValidator>
+
 
 EnterName::EnterName(QString _str, QString old_name, QWidget *parent)
     : QFrame(parent)

@@ -1,13 +1,6 @@
 #ifndef INFORMATIONWINDOW_H
 #define INFORMATIONWINDOW_H
 
-#include <QFrame>
-#include <QLabel>
-#include <QApplication>
-#include <QScreen>
-#include <QPainter>
-#include <QTimer>
-
 class InformationWindow : public QFrame
 {
     Q_OBJECT

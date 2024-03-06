@@ -2,11 +2,6 @@
 #ifndef JOINGAMEWIDGET_H
 #define JOINGAMEWIDGET_H
 
-
-#include <QObject>
-#include <QWidget>
-
-
 class JoinGameWidget : public QWidget
 {
     Q_OBJECT

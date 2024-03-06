@@ -2,9 +2,6 @@
 #include "Inventory/item.h"
 #include "Engine/translator.h"
 
-#include<QPushButton>
-#include<QPainter>
-
 General_info_widget::General_info_widget(QWidget *parent, Player *pl) : QWidget(parent)
 {
     assigned_player = pl;
@@ -90,6 +87,33 @@ void General_info_widget::addItem(Equipment *item)
 {
     Item* it = new Item(item);
     class_to_inventory[QString::fromStdString(item->get_class())]->addItem(it);
+    if (item->get_equiped()){
+        if (item->get_type() == "one-handed"){
+            if (item->get_primary_equipped()) {
+                equipped_items->place(item, "main_hand");
+                equipped_items->set_connected_place_item("main_hand", it);
+            }
+            else{
+                equipped_items->place(item, "offhand");
+                equipped_items->set_connected_place_item("offhand", it);
+            }
+
+        }
+        else if (item->get_type() == "ring"){
+            if (item->get_primary_equipped()) {
+                equipped_items->place(item, "first_ring");
+                equipped_items->set_connected_place_item("first_ring", it);
+            }
+            else{
+                equipped_items->place(item, "second_ring");
+                equipped_items->set_connected_place_item("second_ring", it);
+            }
+        }
+        else{
+            equipped_items->place(item, QString::fromStdString(item->get_type()));
+            equipped_items->set_connected_place_item(QString::fromStdString(item->get_type()), it);
+        }
+    }
 }
 
 void General_info_widget::update_stats()
@@ -104,11 +128,13 @@ void General_info_widget::update_inventories()
         inv->clear();
     }
 
-    for (Equipment* eq : *assigned_player->get_items())
+    for (Equipment* eq : *assigned_player->get_items()) {
         addItem(eq);
+    }
 
-    for (Potion* pot : *assigned_player->get_potions())
+    for (Potion* pot : *assigned_player->get_potions()) {
         addItem(pot);
+    }
 }
 
 void General_info_widget::update_equipped()
@@ -125,6 +151,12 @@ void General_info_widget::update_all()
     update_inventories();
     update_equipped();
 
+}
+
+void General_info_widget::set_playable(bool state)
+{
+    for (auto& inv : class_to_inventory)
+        inv->set_playable(state);
 }
 
 void General_info_widget::process_equip(Item * item, bool primary)
@@ -254,23 +286,22 @@ void General_info_widget::process_equip(Item * item, bool primary)
 
 void General_info_widget::process_potion(Item *item)
 {
-//    while (item->being_painted)
-//        continue;
-
     class_to_inventory["potion"]->removeItemWidget(item);
     class_to_inventory["potion"]->update();
+    Sleep(30);
+    image->reset();
 
     assigned_player->use_potion(dynamic_cast<Potion*>(item->get_connected_item()));
     status->update_all();
     delete item;
-
-    image->reset();
 }
 
 void General_info_widget::back()
 {
     this->setVisible(false);
 }
+
+
 
 void General_info_widget::paintEvent(QPaintEvent *event)
 {

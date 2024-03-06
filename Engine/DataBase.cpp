@@ -1,6 +1,4 @@
 #include "DataBase.h"
-#include <fstream>
-#include <exception>
 
 DataBase* DataBase::data = 0;
 
@@ -83,6 +81,8 @@ void DataBase::generate_players(std::vector<std::pair<std::string, std::string> 
             player->add_item(i);
         }
     }
+
+    players_alive = data.size();
 }
 
 void DataBase::generate_events()
@@ -150,5 +150,20 @@ void DataBase::load(QFile &in)
     }
 
     map.load(in);
+}
+
+int DataBase::get_players_alive()
+{
+    return players_alive;
+}
+
+void DataBase::set_players_alive(int alive)
+{
+    players_alive = alive;
+}
+
+void DataBase::set_dead(int id)
+{
+    sequence[id] = nullptr;
 }
 

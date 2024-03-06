@@ -1,7 +1,5 @@
 
 #include "player_status_widget.h"
-#include <QPainter>
-
 #include "Engine/Effect.h"
 #include "GameInterface/effect_item.h"
 #include "advanced_chars_tab.h"

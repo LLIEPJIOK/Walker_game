@@ -2,7 +2,6 @@
 #include "Engine/Transceiver.h"
 #include "Turn.h"
 #include "DataBase.h"
-#include <vector>
 
 #define eff_data DataBase::get_DataBase()->get_all_effects_data()
 
@@ -56,8 +55,6 @@ void intoxication_exe (Player* target, int counter)
 
     int cur_hp = target->get_characteristics().at("HP");
     int dmg = (int)((cur_hp + counter * 5) * 0.1);
-    if (dmg == 0)
-        dmg = 1;
 
     target->get_characteristics().at("HP") -= dmg;
 }

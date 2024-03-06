@@ -3,9 +3,6 @@
 #define MOVINGAREA_H
 
 
-#include <QWidget>
-#include <QFrame>
-#include <QMouseEvent>
 #include "HexMap.h"
 
 class MovingArea : public QFrame

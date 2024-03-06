@@ -3,15 +3,6 @@
 #include "Engine/Transceiver.h"
 #include "playersmodel.h"
 
-#include <QKeyEvent>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QTimer>
-#include <QPainter>
-#include <QGraphicsItemGroup>
-#include <QApplication>
-#include <QSet>
-#include <QQueue>
 #include "GraphMap.h"
 
 class HexMap : public QGraphicsView
@@ -74,6 +65,8 @@ public:
 
     // обновляет координаты всех игроков
     void update_coords();
+
+    std::vector<PlayersModel*>* get_players();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

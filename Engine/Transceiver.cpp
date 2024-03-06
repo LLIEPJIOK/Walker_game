@@ -301,12 +301,12 @@ void Transceiver::send_to(game_msg msg, int _id)
 
     if (is_host) {
         send_mutex.lock();
-        int sbyteCount = ::send(connected[_id - 1], buffer, 200, 0);
+        ::send(connected[_id - 1], buffer, 200, 0);
         send_mutex.unlock();
     }
     else if (_id == 0){
         send_mutex.lock();
-        int sbyteCount = ::send(connected[0], buffer, 200, 0);
+        ::send(connected[0], buffer, 200, 0);
         send_mutex.unlock();
     }
 }
@@ -391,6 +391,24 @@ void Transceiver::process_msg(game_msg msg)
             send_msg(msg);
 
         emit attack(msg);
+    }
+    else if (msg.operation_type == 15) {
+        if (is_host)
+            send_msg(msg);
+
+        emit send_notification(msg);
+    }
+    else if (msg.operation_type == 16) {
+        if (is_host)
+            send_msg(msg);
+
+        emit stats_change(msg);
+    }
+    else if (msg.operation_type == 666) {
+        if (is_host)
+            send_msg(msg);
+
+        emit game_lost(msg);
     }
     else
         return;

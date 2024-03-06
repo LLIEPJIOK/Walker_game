@@ -1,7 +1,5 @@
 #pragma once
-#include <vector>
-#include <QPoint>
-#include <unordered_set>
+
 
 class GraphMap;
 

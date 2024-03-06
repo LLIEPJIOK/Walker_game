@@ -1,5 +1,4 @@
 #include "Hex.h"
-#include <math.h>
 #include "GraphMap.h"
 
 __declspec(selectany) Coordinates::Cube<int> Coordinates::cubeDirections[6] = {

@@ -1,13 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <string>
-#include <set>
-#include <map>
-#include <set>
-#include <cmath>
-#include <vector>
-#include <cassert>
+
 
 #include "Engine/Transceiver.h"
 #include "Equipment.h"
@@ -68,7 +62,7 @@ public:
 
     Equipment* add_item(const std::string& FileName);
 
-    void attack(Player *pl);
+    std::pair<int, bool> attack(Player *pl);
     void use_potion(Potion*);
     void use_potion(std::string potion_name);
     void equip_item(Equipment* item, std::string place);

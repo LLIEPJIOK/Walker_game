@@ -4,9 +4,7 @@
 
 #include "Inventory/item.h"
 #include"effect_item.h"
-#include <QWidget>
-#include<QLabel>
-#include<QPixmap>
+
 
 
 class Image_scene : public QWidget

@@ -3,13 +3,7 @@
 
 #include "movingarea.h"
 
-#include <QFrame>
-#include <QPainter>
-#include <QPoint>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include <QDragMoveEvent>
-#include <QApplication>
+
 
 class MiniMap : public QFrame
 {

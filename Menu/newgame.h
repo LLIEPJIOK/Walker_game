@@ -3,11 +3,6 @@
 
 #include "playerssettingswindow.h"
 
-#include <QMainWindow>
-#include <QSlider>
-#include <QGridLayout>
-#include <vector>
-
 class NewGame : public QMainWindow
 {
     Q_OBJECT

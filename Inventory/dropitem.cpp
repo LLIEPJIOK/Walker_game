@@ -1,5 +1,5 @@
 #include "dropitem.h"
-#include <QPainter>
+
 DropItem::DropItem(QString _item_type, QString _place, QString standart_item, QWidget *parent) : QFrame(parent)
 {
     item_type = _item_type;

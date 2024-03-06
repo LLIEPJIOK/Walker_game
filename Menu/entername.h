@@ -3,8 +3,6 @@
 
 #include "accept.h"
 
-#include <QString>
-#include <QLineEdit>
 
 class EnterName : public QFrame
 {

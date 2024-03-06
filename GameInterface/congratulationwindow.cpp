@@ -1,7 +1,6 @@
 
 #include "congratulationwindow.h"
-#include <QPainter>
-#include <QPixmap>
+
 CongratulationWindow::CongratulationWindow(QWidget *parent, QString winner)
     : QWidget{parent}
 {

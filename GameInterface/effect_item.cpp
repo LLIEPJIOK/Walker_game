@@ -1,7 +1,5 @@
 
 #include "effect_item.h"
-
-#include<QSize>
 #include"Engine/translator.h"
 
 Effect_item::Effect_item() : QListWidgetItem()

@@ -2,9 +2,6 @@
 #include "Engine/DataBase.h"
 #include "Engine/Turn.h"
 
-#include <QApplication>
-#include <QScreen>
-
 void HexMap::end_movement()
 {
     emit update_roll();
@@ -163,8 +160,16 @@ void HexMap::update_coords()
 {
     for (const auto& i : players_on_map)
     {
+        if (i == nullptr)
+            continue;
+
         update_player_coords(i->get_connected_player());
     }
+}
+
+std::vector<PlayersModel *>* HexMap::get_players()
+{
+    return &players_on_map;
 }
 
 void HexMap::mousePressEvent(QMouseEvent *event)
@@ -258,10 +263,15 @@ void HexMap::player_move()
 
 void HexMap::process_attack(PlayersModel* attacked_player)
 {
+
     Turn* turn = Turn::get_Turn();
+    if (Transceiver::get_transceiver()->get_id() != turn->get_player()->get_id() - 1)
+        return;
+
     auto current_player_coordinate_pos = current_players_model->pos();
     auto attack_range = Coordinates::range(HexMathOnScreen::pixelToHex(current_player_coordinate_pos.toPoint()), turn->get_player()->get_characteristics()["RNG"], map);
     auto attacked_player_pos = HexMathOnScreen::pixelToHex(attacked_player->pos().toPoint());
+    QString attacked_name = QString::fromStdString(attacked_player->get_connected_player()->get_name());
 
     if(turn->get_moving())
     {
@@ -269,19 +279,27 @@ void HexMap::process_attack(PlayersModel* attacked_player)
         return;
     }
     if(turn->get_has_attacked() /*&& s.find(player)!=s.end()*/)
-        emit action(tr("You have already attacked during this turned"));
+        emit action(tr("You have already attacked during this turn"));
     else
     {
         if(attack_range.find(attacked_player_pos) != attack_range.end())
         {
-            turn->get_player()->attack(attacked_player->get_connected_player());
+            auto atk = turn->get_player()->attack(attacked_player->get_connected_player());
             if(turn->get_player()->get_killed_player() != -1)
             {
+                game_msg lose_msg = {Transceiver::get_transceiver()->get_id(), turn->get_player()->get_killed_player(), 666, 0};
+                Transceiver::get_transceiver()->send_msg(lose_msg);
+
+                emit action(tr("You killed") + " " + attacked_name + " " + tr("after dealing") + " " + QString::number(atk.first) + " " + tr("damage") + " (" + tr("critical strike") + ")");
+
                 process_killed_player(turn->get_player()->get_killed_player());
                 turn->set_has_attacked(true);
                 return;
             }
-            emit action(tr("You attacked") + ":" + QString::fromStdString(attacked_player->get_connected_player()->get_name()));
+            else if (atk.second)
+                emit action(tr("You attacked") + " " + QString::fromStdString(attacked_player->get_connected_player()->get_name()) + " " + tr("dealing") + " " + QString::number(atk.first) + " " + tr("damage") + " (" + tr("critical strike") + ")");
+            else
+                emit action(tr("You attacked") + " " + QString::fromStdString(attacked_player->get_connected_player()->get_name()) + " " + tr("dealing") + " " + QString::number(atk.first) + " " + tr("damage"));
             turn->set_has_attacked(true);
 
         }
@@ -293,8 +311,10 @@ void HexMap::process_attack(PlayersModel* attacked_player)
 void HexMap::process_killed_player(int place)
 {
     delete players_on_map[place];
-    players_on_map.erase(players_on_map.begin() + (place));
-    if(players_on_map.size() == 1)
+    players_on_map[place] = nullptr;
+    DataBase::get_DataBase()->set_players_alive(DataBase::get_DataBase()->get_players_alive() - 1);
+    DataBase::get_DataBase()->set_dead(place);
+    if(DataBase::get_DataBase()->get_players_alive() == 1)
         emit win_by_killing();
 }
 

@@ -3,7 +3,7 @@
 #define ITEM_H
 
 #include "Engine/Equipment.h"
-#include<QListWidgetItem>
+
 
 
 class Item : public QListWidgetItem
@@ -16,7 +16,7 @@ public:
     Item();
     Item(Equipment* eq);
 
-    bool being_painted;
+    // bool being_painted;
 
     void update_info();
     Equipment* get_connected_item();

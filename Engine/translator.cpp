@@ -1,6 +1,5 @@
 
 #include "translator.h"
-#include <QFile>
 
 Translator::Translator()
 {

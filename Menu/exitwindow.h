@@ -1,13 +1,7 @@
 #ifndef EXITWINDOW_H
 #define EXITWINDOW_H
 
-#include <QWidget>
-#include <QPushButton>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QApplication>
+
 
 class ExitWindow : public QWidget
 {

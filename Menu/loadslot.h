@@ -1,14 +1,6 @@
 #ifndef LOADSLOT_H
 #define LOADSLOT_H
 
-#include <QWidget>
-#include <QPainter>
-#include <QLabel>
-#include <QFile>
-#include <QTextStream>
-#include <QString>
-#include <QMouseEvent>
-
 class LoadSlot : public QWidget
 {
     Q_OBJECT

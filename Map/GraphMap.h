@@ -1,11 +1,6 @@
 #pragma once
 #include "Hex.h"
-#include <unordered_set>
-#include <unordered_map>
-#include <queue>
-#include <utility>
 #include "mapcell.h"
-
 
 template<typename T, typename priority_t>
 struct PriorityQueue {

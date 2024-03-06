@@ -4,8 +4,6 @@
 #include "Engine/Player.h"
 #include "mapobject.h"
 
-#include <QTimer>
-#include <QPixmap>
 class PlayersModel : public QObject, public MapObject
 {
     Q_OBJECT

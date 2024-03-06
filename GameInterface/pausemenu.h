@@ -3,11 +3,6 @@
 
 #include "Menu/load.h"
 
-#include <QPushButton>
-#include <QMainWindow>
-#include <QVBoxLayout>
-#include <QPaintEvent>
-#include <QPainter>
 
 class PauseMenu : public QMainWindow
 {

@@ -1,10 +1,6 @@
 
 #include "image_scene.h"
 #include"Engine/translator.h"
-#include <QPainter>
-#include <mutex>
-#include<thread>
-#include<QImage>
 
 std::mutex paint_mutex;
 

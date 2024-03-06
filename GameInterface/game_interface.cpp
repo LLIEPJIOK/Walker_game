@@ -5,8 +5,6 @@
 #include "Events/event_window.h"
 #include "Engine/translator.h"
 
-#include <QApplication>
-
 #define get_plchar(character) turn->get_player()->get_characteristics().at(character)
 #define sleep(time) std::this_thread::sleep_for(std::chrono::milliseconds(time))
 
@@ -53,6 +51,8 @@ GameInterface::GameInterface(QWidget *parent)
     connect(Transceiver::get_transceiver(), &Transceiver::equip, this, &GameInterface::equip_item);
     connect(Transceiver::get_transceiver(), &Transceiver::use_potion, this, &GameInterface::use_potion);
     connect(Transceiver::get_transceiver(), &Transceiver::attack, this, &GameInterface::process_attack);
+    connect(Transceiver::get_transceiver(), &Transceiver::game_lost, this, &GameInterface::process_killed);
+    connect(Transceiver::get_transceiver(), &Transceiver::stats_change, this, &GameInterface::process_raw_stats);
 }
 
 GameInterface::~GameInterface()
@@ -61,7 +61,6 @@ GameInterface::~GameInterface()
     delete turn;
     delete data_base;
     delete menu;
-
     delete current_info_widget;
 }
 
@@ -75,7 +74,7 @@ void GameInterface::initialize()
     action->setReadOnly(true);
     action->setFont(QFont("Times", 12, QFont::Bold));
     action->setMaximumBlockCount(500);
-    action->appendPlainText("The journey has started!");
+    action->appendPlainText(tr("The journey has started!"));
 
     current_info_widget = new General_info_widget(this, data_base->get_sequence()->at(Transceiver::get_transceiver()->get_id()));
 
@@ -85,12 +84,13 @@ void GameInterface::initialize()
     connect(pause, &PauseMenu::main_menu_clicked, this, &GameInterface::to_main);
     connect(pause, &PauseMenu::save_game_signal, this, &GameInterface::save_game);
 
+
     if (Transceiver::get_transceiver()->get_id() == 0)
         send_map_data();
     update_all();
 
 
-
+    current_info_widget->set_playable(Transceiver::get_transceiver()->get_id() == turn->get_player()->get_id() - 1);
     game_is_played = true;
 }
 
@@ -197,10 +197,12 @@ void GameInterface::inventory_button_clicked()
 
 void GameInterface::next_turn_button_clicked()
 {
+    action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " -> " + tr("Has finished their turn"));
     turn->next_player();
     hex_map->next_players_model();
     buttons[2]->setEnabled(false);
     buttons[1]->setEnabled(true);
+    current_info_widget->set_playable(false);
     hex_map->move_to_player();
 
     game_msg msg = {Transceiver::get_transceiver()->get_id(), 0, 10, 0};
@@ -208,19 +210,18 @@ void GameInterface::next_turn_button_clicked()
 
     update_buttons();
     update_player_status();
+    action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " -> " + tr("Has started their turn"));
 
 }
 
 void GameInterface::roll_button_clicked()
 {
-    // MOVEMENT
     turn->dice_roll();
     int roll = turn->get_roll();
-    action->appendPlainText((tr("Your dice roll:") + " " + QString::number(roll)));
+    //action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " -> " + tr("Dice roll:") + " " + QString::number(roll));
     hex_map->want_to_move();
     buttons[1]->setEnabled(false);
     buttons[3]->setEnabled(false);
-    // NET
 }
 
 void GameInterface::info_button_clicked()
@@ -239,17 +240,21 @@ void GameInterface::enable_next_button()
 void GameInterface::add_item(Equipment *item)
 {
     // INVENTORY
+    action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " -> " + tr("gets item") + " " + QString::fromStdString(Translator::translate(item->get_name().c_str())));
     current_info_widget->addItem(item);
 }
 
 void GameInterface::pause_button()
 {
-    if (current_info_widget->isVisible()) {
+    if (current_info_widget) {
+        if (current_info_widget->isVisible()) {
+            current_info_widget->setVisible(false);
+            return;
+        }
+
         current_info_widget->setVisible(false);
-        return;
     }
 
-    current_info_widget->setVisible(false);
     pause->setVisible(!pause->isVisible());
     pause->raise();
 }
@@ -327,7 +332,7 @@ void GameInterface::add_item_m(game_msg msg)
         item_name.push_back(msg.buffer[i]);
 
     DataBase::get_DataBase()->get_sequence()->at(msg.id)->add_item(item_name);
-    action->appendPlainText((QString::fromStdString(DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name()) + tr(" has picked up an item!") + " " + QString::fromStdString(item_name) + " " + tr("tile item.")));
+    action->appendPlainText(QString::fromStdString(DataBase::get_DataBase()->get_sequence()->at(msg.id)->get_name()) + " -> " + tr("gets item") + " " + QString::fromStdString(Translator::translate(item_name.c_str())));
 }
 
 void GameInterface::apply_effect(game_msg msg)
@@ -345,19 +350,22 @@ void GameInterface::apply_effect(game_msg msg)
 
 void GameInterface::next_turn(game_msg msg)
 {
+    action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " -> " + tr("Has finished their turn"));
     turn->next_player();
     hex_map->next_players_model();
+
+    current_info_widget->set_playable(false);
 
     if (Transceiver::get_transceiver()->get_id() == turn->get_player()->get_id() - 1)
     {
         buttons[2]->setEnabled(false);
         buttons[1]->setEnabled(true);
+        current_info_widget->set_playable(true);
     }
 
     update_buttons();
     update_player_status();
-
-    action->appendPlainText(tr("Next turn has started!"));
+    action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " -> " + tr("Has started their turn"));
 }
 
 void GameInterface::unequip_place(game_msg msg)
@@ -411,11 +419,52 @@ void GameInterface::process_attack(game_msg msg)
     data_base->get_sequence()->at(msg.target_id)->get_characteristics().at("HP") -= msg.extra;
 
     if (msg.buffer[0])
-        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.id)->get_name()) + " " + tr("has attacked") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) +
-                                tr("dealing") + QString::number(msg.extra) + " " + tr("damage") + " (" + tr("Critical strike") + ")");
+        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.id)->get_name()) + " " + tr("has attacked") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " +
+                                tr("dealing") + " " + QString::number(msg.extra) + " " + tr("damage") + " (" + tr("Critical strike") + ")");
     else
-        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.id)->get_name()) + " " + tr("has attacked") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) +
-                                tr("dealing") + QString::number(msg.extra) + " " + tr("damage"));
+        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.id)->get_name()) + " " + tr("has attacked") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + " " +
+                                tr("dealing") + " " + QString::number(msg.extra) + " " + tr("damage"));
+    update_player_status();
+}
+
+void GameInterface::process_notification(game_msg msg)
+{
+    QString note;
+    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
+        note.push_back(msg.buffer[i]);
+
+    action->appendPlainText(note);
+}
+
+void GameInterface::process_killed(game_msg msg)
+{
+    action->appendPlainText(QString::fromStdString(turn->get_player()->get_name()) + " " + tr("killed") + " " + QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()));
+    data_base->get_sequence()->at(msg.target_id)->get_characteristics()["HP"] = 0;
+    data_base->get_sequence()->at(msg.target_id)->die();
+    delete hex_map->get_players()->at(msg.target_id);
+    data_base->set_dead(msg.target_id);
+
+    if (Transceiver::get_transceiver()->get_id() == msg.target_id){
+        current_info_widget->setVisible(false);
+        delete current_info_widget;
+        current_info_widget = nullptr;
+
+        for (int i = 1; i < buttons.size(); i++)
+            buttons[i]->setEnabled(false);
+    } // it is killed player.
+}
+
+void GameInterface::process_raw_stats(game_msg msg)
+{
+    std::string stat;
+    for (int i = 0; i < 127 && msg.buffer[i] != 0; i++)
+        stat.push_back(msg.buffer[i]);
+
+    data_base->get_sequence()->at(msg.target_id)->get_characteristics()[stat] +=  msg.extra;
+    if (msg.extra > 0)
+        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + "+" + QString::number(msg.extra) + " " + QString::fromStdString(stat));
+    else
+        action->appendPlainText(QString::fromStdString(data_base->get_sequence()->at(msg.target_id)->get_name()) + "-" + QString::number(msg.extra) + " " + QString::fromStdString(stat));
 }
 
 // восстановление состояния кнопок
@@ -459,6 +508,7 @@ void GameInterface::update_map()
     connect(hex_map, &HexMap::win_by_killing, this, &GameInterface::congratulate_the_winner);
     connect(hex_map, &HexMap::event_triggered, this, &GameInterface::process_event_start);
     connect(hex_map, &HexMap::was_initialized, this, &GameInterface::all_is_ready);
+    connect(hex_map, &HexMap::action, this, &GameInterface::notify);
 
     mini_map = new MiniMap(this, hex_map);
     mini_map->setGeometry(0.8 * screen_size.width(), 0.6 * screen_size.height(), 0.195 * screen_size.width(), 0.347 * screen_size.height());
@@ -521,9 +571,13 @@ void GameInterface::process_item_pick() // совершает подбор пр�
     if(turn->get_picked_item())
     {
         add_item(turn->get_picked_item());
-        action->appendPlainText(tr("You have picked up an item!") + " " + QString::fromStdString(Translator::translate(turn->get_picked_item()->get_name().c_str())) + " " + tr("tile item."));
     }
 
     update_player_status();
     // NET
+}
+
+void GameInterface::notify(QString msg)
+{
+    action->appendPlainText(msg);
 }

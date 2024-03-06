@@ -3,10 +3,6 @@
 
 #include "creditstext.h"
 
-#include <QLabel>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QKeyEvent>
 
 class Credits : public QGraphicsView
 {

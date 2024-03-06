@@ -4,8 +4,6 @@
 
 
 #include "Inventory/item.h"
-#include <QWidget>
-#include<QListWidget>
 
 
 class Inventory_modified : public QListWidget
@@ -13,9 +11,13 @@ class Inventory_modified : public QListWidget
     Q_OBJECT
 private:
     QPixmap background;
+
+    bool state = true;
 public:
     Inventory_modified();
     Inventory_modified(QWidget* parent);
+
+    void set_playable(bool _state);
 protected:
     void mousePressEvent(QMouseEvent* event);
 public slots:

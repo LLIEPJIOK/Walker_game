@@ -2,14 +2,6 @@
 #ifndef ADVANCED_CHARS_TAB_H
 #define ADVANCED_CHARS_TAB_H
 
-
-#include <QObject>
-#include <QWidget>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QMap>
-#include <QVector>
 #include "Engine/Player.h"
 
 

@@ -17,12 +17,12 @@
 <context>
     <name>CongratulationWindow</name>
     <message>
-        <location filename="GameInterface/congratulationwindow.cpp" line="12"/>
+        <location filename="GameInterface/congratulationwindow.cpp" line="11"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="GameInterface/congratulationwindow.cpp" line="20"/>
+        <location filename="GameInterface/congratulationwindow.cpp" line="19"/>
         <source>Congratulations</source>
         <translation>Поздравляем</translation>
     </message>
@@ -37,28 +37,28 @@
 <context>
     <name>EnterName</name>
     <message>
-        <location filename="Menu/entername.cpp" line="28"/>
+        <location filename="Menu/entername.cpp" line="27"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="Menu/entername.cpp" line="40"/>
-        <location filename="Menu/entername.cpp" line="117"/>
+        <location filename="Menu/entername.cpp" line="39"/>
+        <location filename="Menu/entername.cpp" line="116"/>
         <source>Enter the desired save name</source>
         <translation>Введите название сохранения</translation>
     </message>
     <message>
-        <location filename="Menu/entername.cpp" line="42"/>
+        <location filename="Menu/entername.cpp" line="41"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="Menu/entername.cpp" line="46"/>
+        <location filename="Menu/entername.cpp" line="45"/>
         <source>Change</source>
         <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="Menu/entername.cpp" line="125"/>
+        <location filename="Menu/entername.cpp" line="124"/>
         <source>Are you sure?</source>
         <translation>Вы уверены?</translation>
     </message>
@@ -66,32 +66,32 @@
 <context>
     <name>Event_window</name>
     <message>
-        <location filename="Events/event_window.cpp" line="49"/>
+        <location filename="Events/event_window.cpp" line="47"/>
         <source>Agility</source>
         <translation>Ловкость</translation>
     </message>
     <message>
-        <location filename="Events/event_window.cpp" line="53"/>
+        <location filename="Events/event_window.cpp" line="51"/>
         <source>Strength</source>
         <translation>Сила</translation>
     </message>
     <message>
-        <location filename="Events/event_window.cpp" line="57"/>
+        <location filename="Events/event_window.cpp" line="55"/>
         <source>Intelligence</source>
         <translation>Интеллект</translation>
     </message>
     <message>
-        <location filename="Events/event_window.cpp" line="61"/>
+        <location filename="Events/event_window.cpp" line="59"/>
         <source>Success rate of the event is based on your</source>
         <translation>Шанс успешного завершения события зависит от значения атрибута</translation>
     </message>
     <message>
-        <location filename="Events/event_window.cpp" line="62"/>
+        <location filename="Events/event_window.cpp" line="60"/>
         <source>Current stat</source>
         <translation>Текущее значение</translation>
     </message>
     <message>
-        <location filename="Events/event_window.cpp" line="124"/>
+        <location filename="Events/event_window.cpp" line="122"/>
         <source>Continue</source>
         <translation>Продолжить</translation>
     </message>
@@ -120,14 +120,97 @@
 <context>
     <name>GameInterface</name>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="80"/>
+        <location filename="GameInterface/game_interface.cpp" line="77"/>
+        <source>The journey has started!</source>
+        <translation>Путешествие начинается!</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="112"/>
         <source>Roll</source>
         <translation>Бросок</translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="83"/>
+        <location filename="GameInterface/game_interface.cpp" line="115"/>
         <source>End turn</source>
         <translation>Закончить ход</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="200"/>
+        <location filename="GameInterface/game_interface.cpp" line="353"/>
+        <source>Has finished their turn</source>
+        <translation>Закончил свой ход</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="213"/>
+        <location filename="GameInterface/game_interface.cpp" line="368"/>
+        <source>Has started their turn</source>
+        <translation>Начал свой ход</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="243"/>
+        <location filename="GameInterface/game_interface.cpp" line="335"/>
+        <source>gets item</source>
+        <translation>получает предмет</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="348"/>
+        <source>Effect</source>
+        <translation>Эффект</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="348"/>
+        <source>was applied on</source>
+        <translation>был применен к</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="379"/>
+        <location filename="GameInterface/game_interface.cpp" line="400"/>
+        <location filename="GameInterface/game_interface.cpp" line="414"/>
+        <source>Player</source>
+        <translation>Игрок</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="379"/>
+        <source>has unequipped</source>
+        <translation>снял</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="400"/>
+        <source>has equipped</source>
+        <translation>экипировал</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="414"/>
+        <source>has drunk</source>
+        <translation>выпил</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="422"/>
+        <location filename="GameInterface/game_interface.cpp" line="425"/>
+        <source>has attacked</source>
+        <translation>атаковал</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="423"/>
+        <location filename="GameInterface/game_interface.cpp" line="426"/>
+        <source>dealing</source>
+        <translation>нанеся</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="423"/>
+        <location filename="GameInterface/game_interface.cpp" line="426"/>
+        <source>damage</source>
+        <translation>урона</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="423"/>
+        <source>Critical strike</source>
+        <translation>Критический удар</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/game_interface.cpp" line="441"/>
+        <source>killed</source>
+        <translation>убил</translation>
     </message>
     <message>
         <source>Inventory</source>
@@ -138,98 +221,144 @@
         <translation type="vanished">Статус</translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="86"/>
+        <location filename="GameInterface/game_interface.cpp" line="118"/>
         <source>Info</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="214"/>
         <source>Your dice roll:</source>
-        <translation>Вы выбросили:</translation>
+        <translation type="vanished">Вы выбросили:</translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="281"/>
+        <location filename="GameInterface/game_interface.cpp" line="283"/>
         <source>Saved!</source>
         <translation>Сохранено!</translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="389"/>
         <source>You have picked up an item!</source>
-        <translation>Вы подобрали предмет</translation>
+        <translation type="vanished">Вы подобрали предмет</translation>
     </message>
     <message>
-        <location filename="GameInterface/game_interface.cpp" line="389"/>
         <source>tile item.</source>
-        <translation>предмет клетки</translation>
+        <translation type="vanished">предмет клетки</translation>
     </message>
 </context>
 <context>
     <name>GameMap</name>
     <message>
-        <location filename="Map/gamemap.cpp" line="195"/>
         <source>You cannot attack while moving!</source>
-        <translation>Вы не можете атаковать в движении</translation>
+        <translation type="vanished">Вы не можете атаковать в движении</translation>
     </message>
     <message>
-        <location filename="Map/gamemap.cpp" line="199"/>
         <source>You have already attacked during this turned</source>
-        <translation>Вы уже атаковали на этом ходу</translation>
+        <translation type="vanished">Вы уже атаковали на этом ходу</translation>
     </message>
     <message>
-        <location filename="Map/gamemap.cpp" line="211"/>
         <source>You attacked</source>
-        <translation>Вы атаковали</translation>
+        <translation type="vanished">Вы атаковали</translation>
     </message>
     <message>
-        <location filename="Map/gamemap.cpp" line="216"/>
         <source>Too far away! Come closer!</source>
-        <translation>Слишком далеко!</translation>
+        <translation type="vanished">Слишком далеко!</translation>
     </message>
 </context>
 <context>
     <name>General_info_widget</name>
     <message>
-        <location filename="GameInterface/general_info_widget.cpp" line="37"/>
+        <location filename="GameInterface/general_info_widget.cpp" line="35"/>
         <source>Status</source>
         <translation>Статус</translation>
     </message>
     <message>
-        <location filename="GameInterface/general_info_widget.cpp" line="41"/>
+        <location filename="GameInterface/general_info_widget.cpp" line="39"/>
         <source>Weapons</source>
         <translation>Оружие</translation>
     </message>
     <message>
-        <location filename="GameInterface/general_info_widget.cpp" line="45"/>
+        <location filename="GameInterface/general_info_widget.cpp" line="43"/>
         <source>Armour</source>
         <translation>Броня</translation>
     </message>
     <message>
-        <location filename="GameInterface/general_info_widget.cpp" line="49"/>
+        <location filename="GameInterface/general_info_widget.cpp" line="47"/>
         <source>Jewels</source>
         <translation>Драгоценности</translation>
     </message>
     <message>
-        <location filename="GameInterface/general_info_widget.cpp" line="53"/>
+        <location filename="GameInterface/general_info_widget.cpp" line="52"/>
         <source>Potions</source>
         <translation>Зелья</translation>
     </message>
     <message>
-        <location filename="GameInterface/general_info_widget.cpp" line="236"/>
+        <location filename="GameInterface/general_info_widget.cpp" line="278"/>
         <source>equipped</source>
         <translation>экипировано</translation>
+    </message>
+</context>
+<context>
+    <name>HexMap</name>
+    <message>
+        <location filename="Map/HexMap.cpp" line="278"/>
+        <source>You cannot attack while moving!</source>
+        <translation>Вы не можете атаковать в движении</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="282"/>
+        <source>You have already attacked during this turn</source>
+        <translation>Вы уже атаковали на этом ходу</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="293"/>
+        <source>You killed</source>
+        <translation>Вы убили</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="293"/>
+        <source>after dealing</source>
+        <translation>нанеся</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="293"/>
+        <location filename="Map/HexMap.cpp" line="300"/>
+        <location filename="Map/HexMap.cpp" line="302"/>
+        <source>damage</source>
+        <translation>урона</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="293"/>
+        <location filename="Map/HexMap.cpp" line="300"/>
+        <source>critical strike</source>
+        <translation>критический удар</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="300"/>
+        <location filename="Map/HexMap.cpp" line="302"/>
+        <source>You attacked</source>
+        <translation>Вы атаковали</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="300"/>
+        <location filename="Map/HexMap.cpp" line="302"/>
+        <source>dealing</source>
+        <translation>нанеся</translation>
+    </message>
+    <message>
+        <location filename="Map/HexMap.cpp" line="307"/>
+        <source>Too far away! Come closer!</source>
+        <translation>Слишком далеко!</translation>
     </message>
 </context>
 <context>
     <name>Image_scene</name>
     <message>
         <location filename="GameInterface/image_scene.cpp" line="24"/>
-        <location filename="GameInterface/image_scene.cpp" line="90"/>
+        <location filename="GameInterface/image_scene.cpp" line="105"/>
         <source>General</source>
         <translation>Общее</translation>
     </message>
     <message>
         <location filename="GameInterface/image_scene.cpp" line="27"/>
-        <location filename="GameInterface/image_scene.cpp" line="93"/>
+        <location filename="GameInterface/image_scene.cpp" line="108"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
@@ -240,7 +369,7 @@
     </message>
     <message>
         <location filename="GameInterface/image_scene.cpp" line="33"/>
-        <location filename="GameInterface/image_scene.cpp" line="96"/>
+        <location filename="GameInterface/image_scene.cpp" line="111"/>
         <source>Type</source>
         <translation>Тип</translation>
     </message>
@@ -265,12 +394,17 @@
         <translation>Длительность</translation>
     </message>
     <message>
-        <location filename="GameInterface/image_scene.cpp" line="99"/>
+        <location filename="GameInterface/image_scene.cpp" line="64"/>
+        <source>Instant gains</source>
+        <translation>Мгновенно получите</translation>
+    </message>
+    <message>
+        <location filename="GameInterface/image_scene.cpp" line="114"/>
         <source>Duration</source>
         <translation>Длительность</translation>
     </message>
     <message>
-        <location filename="GameInterface/image_scene.cpp" line="105"/>
+        <location filename="GameInterface/image_scene.cpp" line="120"/>
         <source>Temporary buffs</source>
         <translation>Временные изменения</translation>
     </message>
@@ -278,62 +412,108 @@
 <context>
     <name>InitialSettings</name>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="18"/>
-        <location filename="Menu/initialsettings.cpp" line="213"/>
-        <location filename="Menu/initialsettings.cpp" line="249"/>
-        <location filename="Menu/initialsettings.cpp" line="250"/>
-        <location filename="Menu/initialsettings.cpp" line="261"/>
+        <location filename="Menu/initialsettings.cpp" line="20"/>
+        <location filename="Menu/initialsettings.cpp" line="22"/>
+        <location filename="Menu/initialsettings.cpp" line="221"/>
+        <location filename="Menu/initialsettings.cpp" line="233"/>
+        <location filename="Menu/initialsettings.cpp" line="235"/>
+        <location filename="Menu/initialsettings.cpp" line="260"/>
+        <location filename="Menu/initialsettings.cpp" line="313"/>
+        <location filename="Menu/initialsettings.cpp" line="314"/>
+        <location filename="Menu/initialsettings.cpp" line="334"/>
         <source>Player</source>
         <translation>Игрок</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="43"/>
-        <location filename="Menu/initialsettings.cpp" line="214"/>
-        <location filename="Menu/initialsettings.cpp" line="262"/>
+        <location filename="Menu/initialsettings.cpp" line="20"/>
+        <source>Host</source>
+        <translation>Хост</translation>
+    </message>
+    <message>
+        <location filename="Menu/initialsettings.cpp" line="22"/>
+        <location filename="Menu/initialsettings.cpp" line="235"/>
+        <source>Not Connected</source>
+        <translation>Не присоединился</translation>
+    </message>
+    <message>
+        <location filename="Menu/initialsettings.cpp" line="25"/>
+        <location filename="Menu/initialsettings.cpp" line="241"/>
+        <source>You</source>
+        <translation>Вы</translation>
+    </message>
+    <message>
+        <location filename="Menu/initialsettings.cpp" line="51"/>
+        <location filename="Menu/initialsettings.cpp" line="222"/>
+        <location filename="Menu/initialsettings.cpp" line="335"/>
         <source>Enter your name</source>
         <translation>Введите имя</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="49"/>
-        <location filename="Menu/initialsettings.cpp" line="215"/>
+        <location filename="Menu/initialsettings.cpp" line="57"/>
+        <location filename="Menu/initialsettings.cpp" line="223"/>
         <source>Ready!</source>
         <translation>Готов!</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="58"/>
-        <location filename="Menu/initialsettings.cpp" line="216"/>
-        <location filename="Menu/initialsettings.cpp" line="291"/>
-        <location filename="Menu/initialsettings.cpp" line="315"/>
-        <location filename="Menu/initialsettings.cpp" line="338"/>
+        <location filename="Menu/initialsettings.cpp" line="66"/>
+        <location filename="Menu/initialsettings.cpp" line="224"/>
+        <location filename="Menu/initialsettings.cpp" line="251"/>
+        <location filename="Menu/initialsettings.cpp" line="373"/>
+        <location filename="Menu/initialsettings.cpp" line="397"/>
+        <location filename="Menu/initialsettings.cpp" line="420"/>
         <source>Distribute points</source>
         <translation>Распределите очки</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="58"/>
-        <location filename="Menu/initialsettings.cpp" line="216"/>
-        <location filename="Menu/initialsettings.cpp" line="291"/>
-        <location filename="Menu/initialsettings.cpp" line="315"/>
-        <location filename="Menu/initialsettings.cpp" line="338"/>
+        <location filename="Menu/initialsettings.cpp" line="66"/>
+        <location filename="Menu/initialsettings.cpp" line="224"/>
+        <location filename="Menu/initialsettings.cpp" line="251"/>
+        <location filename="Menu/initialsettings.cpp" line="373"/>
+        <location filename="Menu/initialsettings.cpp" line="397"/>
+        <location filename="Menu/initialsettings.cpp" line="420"/>
         <source>between following attributes</source>
         <translation>между следующими атрибутами</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="67"/>
-        <location filename="Menu/initialsettings.cpp" line="217"/>
+        <location filename="Menu/initialsettings.cpp" line="75"/>
+        <location filename="Menu/initialsettings.cpp" line="225"/>
         <source>Strength</source>
         <translation>Сила</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="103"/>
-        <location filename="Menu/initialsettings.cpp" line="218"/>
+        <location filename="Menu/initialsettings.cpp" line="111"/>
+        <location filename="Menu/initialsettings.cpp" line="226"/>
         <source>Agility</source>
         <translation>Ловкость</translation>
     </message>
     <message>
-        <location filename="Menu/initialsettings.cpp" line="139"/>
-        <location filename="Menu/initialsettings.cpp" line="219"/>
+        <location filename="Menu/initialsettings.cpp" line="147"/>
+        <location filename="Menu/initialsettings.cpp" line="227"/>
         <source>Intelligence</source>
         <translation>Интеллект</translation>
+    </message>
+    <message>
+        <location filename="Menu/initialsettings.cpp" line="233"/>
+        <source>Connected</source>
+        <translation>Присоединился</translation>
+    </message>
+</context>
+<context>
+    <name>JoinGameWidget</name>
+    <message>
+        <location filename="Menu/joingamewidget.cpp" line="19"/>
+        <source>JOIN</source>
+        <translation>ПРИСОЕДИНИТСЯ</translation>
+    </message>
+    <message>
+        <location filename="Menu/joingamewidget.cpp" line="23"/>
+        <source>CANCEL</source>
+        <translation>ОТМЕНА</translation>
+    </message>
+    <message>
+        <location filename="Menu/joingamewidget.cpp" line="32"/>
+        <source>Enter Host IP Adress</source>
+        <translation>Введите IP адрес хоста (локальный)</translation>
     </message>
 </context>
 <context>
@@ -400,32 +580,40 @@
 <context>
     <name>Menu</name>
     <message>
-        <location filename="Menu/menu.cpp" line="25"/>
-        <location filename="Menu/menu.cpp" line="141"/>
         <source>New game</source>
-        <translation>Новая игра</translation>
+        <translation type="vanished">Новая игра</translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="27"/>
-        <location filename="Menu/menu.cpp" line="142"/>
         <source>Load</source>
-        <translation>Загрузить</translation>
+        <translation type="vanished">Загрузить</translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="29"/>
-        <location filename="Menu/menu.cpp" line="143"/>
+        <location filename="Menu/menu.cpp" line="33"/>
+        <location filename="Menu/menu.cpp" line="182"/>
+        <source>Create Lobby</source>
+        <translation>Создать лобби</translation>
+    </message>
+    <message>
+        <location filename="Menu/menu.cpp" line="35"/>
+        <location filename="Menu/menu.cpp" line="183"/>
+        <source>Join Lobby</source>
+        <translation>Присоединится к лобби</translation>
+    </message>
+    <message>
+        <location filename="Menu/menu.cpp" line="37"/>
+        <location filename="Menu/menu.cpp" line="184"/>
         <source>About</source>
         <translation>Про нас</translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="31"/>
-        <location filename="Menu/menu.cpp" line="144"/>
+        <location filename="Menu/menu.cpp" line="39"/>
+        <location filename="Menu/menu.cpp" line="185"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="Menu/menu.cpp" line="33"/>
-        <location filename="Menu/menu.cpp" line="145"/>
+        <location filename="Menu/menu.cpp" line="41"/>
+        <location filename="Menu/menu.cpp" line="186"/>
         <source>English</source>
         <translation>Русский</translation>
     </message>
@@ -433,20 +621,20 @@
 <context>
     <name>NewGame</name>
     <message>
-        <location filename="Menu/newgame.cpp" line="10"/>
-        <location filename="Menu/newgame.cpp" line="89"/>
+        <location filename="Menu/newgame.cpp" line="12"/>
+        <location filename="Menu/newgame.cpp" line="93"/>
         <source>Quantity of players</source>
         <translation>Количество игроков</translation>
     </message>
     <message>
-        <location filename="Menu/newgame.cpp" line="41"/>
-        <location filename="Menu/newgame.cpp" line="87"/>
+        <location filename="Menu/newgame.cpp" line="43"/>
+        <location filename="Menu/newgame.cpp" line="91"/>
         <source>Continue</source>
         <translation>Продолжить</translation>
     </message>
     <message>
-        <location filename="Menu/newgame.cpp" line="46"/>
-        <location filename="Menu/newgame.cpp" line="88"/>
+        <location filename="Menu/newgame.cpp" line="48"/>
+        <location filename="Menu/newgame.cpp" line="92"/>
         <source>Return</source>
         <translation>Назад</translation>
     </message>
@@ -469,63 +657,63 @@
 <context>
     <name>Player_status_widget</name>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="72"/>
-        <location filename="GameInterface/Player_status_widget.cpp" line="134"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="69"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="131"/>
         <source>Current Health</source>
         <translation>Текущее здоровье</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="135"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="132"/>
         <source>Maximum Health</source>
         <translation>Максимальное здоровье</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="136"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="133"/>
         <source>Current Armour</source>
         <translation>Текущая броня</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="137"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="134"/>
         <source>Flat Armour</source>
         <translation>Броня</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="138"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="135"/>
         <source>Armour Multiplier (%)</source>
         <translation>Мультипликатор брони (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="139"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="136"/>
         <source>Current Damage Prevention Percentage</source>
         <translation>Процент поглощения урона</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="140"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="137"/>
         <source>Vitality</source>
         <translation>Живучесть</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="79"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="76"/>
         <source>Current Attack</source>
         <translation>Текущая атака</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="49"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="46"/>
         <source>Character Sheet of</source>
         <translation>Карточка персонажа</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="56"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="53"/>
         <source>General</source>
         <translation>Общее</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="66"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="63"/>
         <source>Name</source>
         <translation>Имя</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="125"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="122"/>
         <source>Advanced Characteristics</source>
         <translation>Подробнее</translation>
     </message>
@@ -538,112 +726,112 @@
         <translation type="vanished">Множитель крит. удара</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="143"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="140"/>
         <source>Current Attack (total)</source>
         <translation>Текущая атака (итог)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="144"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="141"/>
         <source>Flat Attack</source>
         <translation>Чистая атака</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="145"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="142"/>
         <source>Multiplier of Attack (%)</source>
         <translation>Мультипликатор атаки (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="147"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="144"/>
         <source>Crit Chance (total)</source>
         <translation>Шанс крита (итог)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="148"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="145"/>
         <source>Crit Chance from Agility (%)</source>
         <translation>Шанс крита от ЛВК (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="149"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="146"/>
         <source>Flat Crit Chance (%)</source>
         <translation>Шанс крита (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="150"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="147"/>
         <source>Crit Chance Multiplier(%)</source>
         <translation>Мультипликатор крит шанса (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="152"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="149"/>
         <source>Critical Damage (total) (%)</source>
         <translation>Крит. урон (итог)(%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="153"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="150"/>
         <source>Flat Critical Damage (%)</source>
         <translation>Крит урон (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="154"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="151"/>
         <source>Critical Damage from Intelligence (%)</source>
         <translation>Крит урон от ИНТ (%)</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="155"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="152"/>
         <source>Critical Damage Multiplier (%)</source>
         <translation>Мультипликатор крит урона</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="157"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="154"/>
         <source>Piercing Damage (through armour)</source>
         <translation>Прорубающий урон</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="158"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="155"/>
         <source>Offence</source>
         <translation>Нападение</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="161"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="158"/>
         <source>Intelligence</source>
         <translation>Интеллект</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="162"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="159"/>
         <source>Strength</source>
         <translation>Сила</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="163"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="160"/>
         <source>Agility</source>
         <translation>Ловкость</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="164"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="161"/>
         <source>Attributes</source>
         <translation>Атрибуты</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="167"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="164"/>
         <source>Movement Roll Modifier</source>
         <translation>Модификатор движения</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="168"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="165"/>
         <source>Number of Dice</source>
         <translation>Количество кубиков</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="169"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="166"/>
         <source>Event Roll Modifier</source>
         <translation>Модификатор бросков событий</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="170"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="167"/>
         <source>Rolls</source>
         <translation>Броски</translation>
     </message>
     <message>
-        <location filename="GameInterface/Player_status_widget.cpp" line="194"/>
+        <location filename="GameInterface/Player_status_widget.cpp" line="193"/>
         <source>Applied Effects</source>
         <translation>Действующие эффекты</translation>
     </message>
@@ -651,14 +839,14 @@
 <context>
     <name>PlayersSettingsWindow</name>
     <message>
-        <location filename="Menu/playerssettingswindow.cpp" line="27"/>
-        <location filename="Menu/playerssettingswindow.cpp" line="99"/>
+        <location filename="Menu/playerssettingswindow.cpp" line="28"/>
+        <location filename="Menu/playerssettingswindow.cpp" line="110"/>
         <source>Start!</source>
         <translation>Начать!</translation>
     </message>
     <message>
-        <location filename="Menu/playerssettingswindow.cpp" line="36"/>
-        <location filename="Menu/playerssettingswindow.cpp" line="100"/>
+        <location filename="Menu/playerssettingswindow.cpp" line="37"/>
+        <location filename="Menu/playerssettingswindow.cpp" line="111"/>
         <source>Return</source>
         <translation>Назад</translation>
     </message>

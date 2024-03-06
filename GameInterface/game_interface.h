@@ -13,14 +13,6 @@
 #include "Map/minimap.h"
 
 
-#include <QMainWindow>
-#include <QWidget>
-#include <QFrame>
-#include <QLabel>
-#include <QPushButton>
-#include <QKeyEvent>
-#include <QPlainTextEdit>
-
 class GameInterface : public QMainWindow
 {
     Q_OBJECT
@@ -30,14 +22,10 @@ public:
     ~GameInterface();
 
 public slots:
-    // обновляет инвентарь, слоты экипировки, лэйблы текщуго игрока
     void update_player_status();
-
-    // создание окна события при вызове события
     void process_event_start();
-
-    // обработка подбора предмета
     void process_item_pick();
+    void notify(QString msg);
 
 private:
     QFont font;
@@ -63,7 +51,7 @@ private:
 
     QVector<QPushButton*> buttons;
 
-    General_info_widget *current_info_widget;
+    General_info_widget *current_info_widget = nullptr;
 
 //    QVector<Inventory*> inventories;
 //    Inventory *current_inventory;
@@ -127,6 +115,9 @@ private slots:
     void equip_item(game_msg msg);
     void use_potion(game_msg msg);
     void process_attack(game_msg msg);
+    void process_notification(game_msg msg);
+    void process_killed(game_msg msg);
+    void process_raw_stats(game_msg msg);
 };
 
 #endif // GAME_INTERFACE_H

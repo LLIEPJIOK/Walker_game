@@ -2,8 +2,6 @@
 #include "Turn.h"
 #include "DataBase.h"
 
-#include <QDebug>
-
 SaveAndLoadManager::SaveAndLoadManager(QString file_name_)
 {
     //присваивание значения переменной file_name

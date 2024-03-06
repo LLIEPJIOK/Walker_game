@@ -1,8 +1,6 @@
 
 #include "Event.h"
 #include "Engine/Effect.h"
-#include <QTextStream>
-#include <sys/stat.h> // для проверки валидности пути файла
 
 Events* Events::Events_data = 0;
 
@@ -105,6 +103,11 @@ int loggers_event::get_requirement(Player *pl)
 void loggers_event::execute_success(Player* pl)
 {
     int healed = (pl->get_characteristics().at("MAX_HP") - pl->get_characteristics().at("HP")) * 0.1; // 10% от разницы
+    game_msg msg1 = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 16, healed, "HP"};
+    Transceiver::get_transceiver()->send_msg(msg1);
+    game_msg msg2 = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 16, 1, "STR"};
+    Transceiver::get_transceiver()->send_msg(msg2);
+
     pl->get_characteristics().at("HP") += healed;
     pl->get_characteristics().at("STR") += 1;
 }
@@ -112,6 +115,8 @@ void loggers_event::execute_success(Player* pl)
 void loggers_event::execute_failure(Player* pl)
 {
     int damaged = pl->get_characteristics().at("HP") * 0.1; // 10% от текущего хп
+    game_msg msg2 = {Transceiver::get_transceiver()->get_id(), Transceiver::get_transceiver()->get_id(), 16, -damaged, "HP"};
+    Transceiver::get_transceiver()->send_msg(msg2);
     pl->get_characteristics().at("HP") -= damaged;
 }
 

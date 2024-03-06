@@ -228,7 +228,14 @@ void Turn::next_player()
         player->process_active_effects();
         player->set_killed_player(-1);
     }
+
+
     player = seq->at(turn_number % seq->size());
+    while (player == nullptr) {
+        turn_number++;
+        player = seq->at(turn_number % seq->size());
+    }
+
     turn_number++;
     roll = 0;
     is_moving = false;

@@ -2,15 +2,6 @@
 #ifndef EVENT_WINDOW_H
 #define EVENT_WINDOW_H
 
-#include <QPixmap>
-#include <QWindow>
-#include <QWidget>
-#include <QFrame>
-#include <QPushButton>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QString>
 #include "Engine/Player.h"
 #include "Event.h"
 

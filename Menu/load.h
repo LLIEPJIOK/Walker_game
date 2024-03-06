@@ -5,9 +5,6 @@
 #include "entername.h"
 #include "accept.h"
 
-#include <QList>
-#include <QHBoxLayout>
-
 class Load : public QWidget
 {
     Q_OBJECT

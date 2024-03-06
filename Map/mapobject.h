@@ -1,14 +1,6 @@
 #ifndef MAPOBJECT_H
 #define MAPOBJECT_H
 
-
-#include <QWidget>
-#include <QObject>
-#include <QGraphicsItem>
-#include <QPainter>
-#include <QRectF>
-#include <QGraphicsSceneMouseEvent>
-
 class MapObject : public QGraphicsItem
 {
 public:

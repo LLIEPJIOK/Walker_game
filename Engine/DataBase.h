@@ -1,6 +1,5 @@
 #ifndef DATABASE_H
 #define DATABASE_H
-#include <QFile>
 #include "Player.h"
 #include "Map/GraphMap.h"
 
@@ -12,7 +11,7 @@ class DataBase
 {
 
     GraphMap map;
-
+    int players_alive;
     std::vector <std::string> equipment_list;
 
     nlohmann::json all_equipment;
@@ -44,6 +43,11 @@ public:
 
     void save(QFile &out);
     void load(QFile &in);
+
+    int get_players_alive();
+    void set_players_alive(int alive);
+
+    void set_dead(int id);
 };
 
 #endif //DATABASE_H

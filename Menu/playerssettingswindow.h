@@ -4,11 +4,6 @@
 #include "Engine/Transceiver.h"
 #include "initialsettings.h"
 
-#include <QList>
-#include <QApplication>
-#include <QScreen>
-#include <QPalette>
-
 class PlayersSettingsWindow : public QWidget
 {
     Q_OBJECT

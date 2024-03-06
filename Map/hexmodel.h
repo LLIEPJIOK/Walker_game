@@ -3,8 +3,6 @@
 
 #include "mapobject.h"
 #include "Hex.h"
-#include <QPolygonF>
-#include <QObject>
 
 class HexModel : public QObject, public MapObject
 {

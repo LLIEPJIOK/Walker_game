@@ -1,10 +1,6 @@
 #ifndef SAVEANDLOADMANAGER_H
 #define SAVEANDLOADMANAGER_H
 
-#include <string>
-#include <QString>
-#include <QFile>
-
 //класс для контроля загрузки и сохранения
 class SaveAndLoadManager
 {

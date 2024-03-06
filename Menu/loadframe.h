@@ -3,13 +3,6 @@
 
 #include "loadslot.h"
 
-#include <QMainWindow>
-#include <QList>
-#include <QVBoxLayout>
-#include <QApplication>
-#include <QScreen>
-#include <QScrollArea>
-
 class LoadFrame : public QMainWindow
 {
     Q_OBJECT

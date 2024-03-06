@@ -164,7 +164,8 @@ Player::~Player()
     for (auto& i : potions)
         delete i;
 
-    potions.clear();
+    for (auto& i : active_effects)
+        delete i;
 
     CURRENT_ID--;
 }
@@ -230,15 +231,15 @@ std::map<std::string, Equipment*>* Player::get_equipped_items()
     return &equipped_items;
 }
 
-void Player::attack(Player* pl)
+std::pair<int, bool> Player::attack(Player* pl)
 {
-    int basa = characteristics["ATK"];
+    double basa = characteristics["ATK"];
     int crit = rand() % 100 + 1;
-    int multi = 100;
+    double multi = 100;
     if(characteristics["CRIT_CH"] >= crit)
         multi += characteristics["CRIT_DMG"];
     basa *= multi;
-    int pdmg = characteristics["PIERCE"];
+    double pdmg = characteristics["PIERCE"];
     basa /= 100;
 
     if(basa <= pl->get_characteristics().at("ARM")) // anti-healing
@@ -251,13 +252,15 @@ void Player::attack(Player* pl)
 
     pl->get_characteristics().at("HP") -= basa + pdmg;
 
-    game_msg msg = {Transceiver::get_transceiver()->get_id(), pl->get_id() - 1, 14, basa + pdmg};
+    game_msg msg = {Transceiver::get_transceiver()->get_id(), pl->get_id() - 1, 14, static_cast<int>(basa + pdmg)};
     if (crit <= characteristics["CRIT_CH"])
         msg.buffer[0] = 1;
 
     Transceiver::get_transceiver()->send_msg(msg);
 
     killed_player = pl->die();
+
+    return {static_cast<int>(basa + pdmg), crit <= characteristics["CRIT_CH"]};
 }
 
 void Player::use_potion(Potion* potion)
@@ -342,16 +345,22 @@ int Player::die()
         auto s = DataBase::get_DataBase()->get_sequence();
         for(auto i = s->begin(); i != s->end(); i++)
         {
+            if (*i == nullptr){
+                to_return++;
+                continue;
+            }
             if(*i == this)
             {
-                s->erase(i);
                 break;
             }
             to_return++;
         }
+
+        s->at(to_return) = nullptr;
         delete this;
         return to_return;
 	}
+
     return -1;
 }
 

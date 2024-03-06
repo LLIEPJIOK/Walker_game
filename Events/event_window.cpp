@@ -3,8 +3,6 @@
 #include "Event.h"
 #include "Engine/translator.h"
 
-#include <QPainter>
-
 Event_window::Event_window(QWidget *parent, Player *_target, Event *event)
     : QWidget(parent)
 {

@@ -4,14 +4,6 @@
 #include "Player.h"
 #include "Events/Event.h"
 
-#include <iostream>
-#include <ctime>
-#include <string>
-#include <cmath>
-#include <iomanip>
-#include <thread>
-#include <chrono>
-#include <QFile>
 
 class Turn
 {
@@ -20,6 +12,7 @@ private:
     Player* player;
 
     int turn_number;
+    int players_alive;
     bool game_over;
 
     int roll;
@@ -44,6 +37,7 @@ public:
     void set_player(Player* player);
     void next_player();
     int get_turn_number();
+
 
     void dice_roll();
     int get_roll();

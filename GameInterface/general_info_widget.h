@@ -6,8 +6,6 @@
 #include"player_status_widget.h"
 #include"Inventory/equipeditems.h"
 
-#include <QWidget>
-
 
 class General_info_widget : public QWidget
 {
@@ -35,6 +33,7 @@ public:
     void update_inventories();
     void update_equipped();
     void update_all();
+    void set_playable(bool state);
 public slots:
     void process_equip(Item* item, bool primary);
     void process_potion(Item* item);

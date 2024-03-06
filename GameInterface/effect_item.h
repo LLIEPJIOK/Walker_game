@@ -3,9 +3,7 @@
 #define EFFECT_ITEM_H
 
 #include "Engine/Effect.h"
-#include <QObject>
-#include <QWidget>
-#include<QListWidgetItem>
+
 
 
 class Effect_item : public QListWidgetItem

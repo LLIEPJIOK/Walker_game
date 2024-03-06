@@ -6,10 +6,6 @@
 #include "credits.h"
 #include "load.h"
 
-#include <QPainter>
-#include <QPaintEvent>
-#include<QTranslator>
-
 class Menu : public QMainWindow
 {
     Q_OBJECT

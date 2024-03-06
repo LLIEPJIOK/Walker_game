@@ -1,17 +1,12 @@
 
 #ifndef TRANSCEIVER_H
 #define TRANSCEIVER_H
-
-#include <stack>
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 
-#include <QObject>
+
 #include"Ws2tcpip.h"
 
-#include<WinSock2.h>
-#include<process.h>
-#include<iostream>
 #pragma comment(lib,"WS2_32")
 
 struct game_msg{
@@ -92,6 +87,9 @@ signals:
     void equip(game_msg msg);
     void use_potion(game_msg msg);
     void attack(game_msg msg);
+    void send_notification(game_msg msg);
+    void game_lost(game_msg msg);
+    void stats_change(game_msg msg);
 };
 
 #endif // TRANSCEIVER_H

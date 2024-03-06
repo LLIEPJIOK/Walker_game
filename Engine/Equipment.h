@@ -1,10 +1,6 @@
 #ifndef EQUIPMENT_H
 #define EQUIPMENT_H
 
-#include <map>
-#include <random>
-#include <string>
-#include <QFile>
 #define stringify( name ) #name
 
 class Equipment

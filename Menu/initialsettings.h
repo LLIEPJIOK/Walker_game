@@ -2,13 +2,6 @@
 #define INITIALSETTINGS_H
 
 #include "Engine/Transceiver.h"
-#include <Qlabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QCheckBox>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <string>
 
 class InitialSettings : public QFrame
 {

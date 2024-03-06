@@ -2,11 +2,6 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-#include <iostream>
-#include <vector>
-#include <QObject>
-#include <map>
-#include <fstream>
 #include "Json/json.hpp"
 #include "Engine/Player.h"
 
