@@ -13,7 +13,8 @@ HexModel::HexModel(const Coordinates::Hex<int>& hex_) : QObject(nullptr), MapObj
 void HexModel::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QPen pen;
-    painter->setBrush(Qt::darkGreen);
+
+
 
     if(is_way)
     {

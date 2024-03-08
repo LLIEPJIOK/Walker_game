@@ -11,7 +11,7 @@ __declspec(selectany) Coordinates::Hex<int> Coordinates::hexDirections[6] = {
     { 0, 1 }, { -1, 1 }, { -1, 0 }
 };
 
-int HexMathOnScreen:: size = 50;
+int HexMathOnScreen:: size = 75;
 
 Coordinates::Hex<int> Coordinates::neighbour(const Hex<int> &coordinate, Direction direction) {
     return coordinate + hexDirections[direction];

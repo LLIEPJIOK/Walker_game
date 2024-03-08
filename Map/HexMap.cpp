@@ -41,7 +41,9 @@ HexMap::HexMap(QWidget *parent, GraphMap* map_) : QGraphicsView(parent) {
     int h =  map->getHeight() * std::sqrt(3) * HexMathOnScreen::size;
     source_pixmap = QPixmap(w, h);
 
+
     source_pixmap_painter.begin(&source_pixmap);
+    source_pixmap_painter.setBrush(QBrush(QImage(":/tiles/Pictures/Tiles/forest_8.png")));
 
     timer->start(50);
 
@@ -85,6 +87,7 @@ void HexMap::update_current_area(QPoint position)
 
     QPixmap pixmap(this->width(), this->height());
     QPainter painter(&pixmap);
+    source_pixmap_painter.setBrush(QBrush(QImage(":/tiles/Pictures/Tiles/forest_8.png")));
 
     painter.setRenderHint(QPainter::Antialiasing);
 
@@ -118,6 +121,7 @@ void HexMap::move_to_player()
 
 void HexMap::want_to_move()
 {
+    source_pixmap_painter.setBrush(QBrush(QImage(":/tiles/Pictures/Tiles/forest_8.png")));
     auto player_pos = current_players_model->pos();
     int roll = Turn::get_Turn()->get_roll();
 
@@ -135,6 +139,7 @@ void HexMap::want_to_move()
 void HexMap::trace_hexes(std::unordered_set<Location> hexes, QColor trace_color)
 {
     source_pixmap_painter.setPen(trace_color);
+
     for(const auto& way : ways) {
         draw_hex(way);
     }
@@ -147,6 +152,7 @@ void HexMap::draw_hex(const Location& location)
     for(const auto& i : hex_corners) {
         polygon << i;
     }
+
     source_pixmap_painter.drawPolygon(polygon);
 }
 
@@ -194,6 +200,7 @@ void HexMap::initialize()
     auto sequence = DataBase::get_DataBase()->get_sequence();
 
     source_pixmap_painter.setRenderHint(QPainter::Antialiasing);
+    source_pixmap_painter.setBrush(QBrush(QImage(":/tiles/Pictures/Tiles/forest_8.png")));
 
     for(const auto& i : map->getMap()) {
         draw_hex(i.first);
@@ -204,7 +211,7 @@ void HexMap::initialize()
 
     for(int i = 0; i < sequence->size(); i++)
     {
-        PlayersModel *players_model = new PlayersModel(graphics_scene, 0.8 * HexMathOnScreen::size, 0.8 * HexMathOnScreen::size, icons[i]);
+        PlayersModel *players_model = new PlayersModel(graphics_scene, 1 * HexMathOnScreen::size, 1 * HexMathOnScreen::size, icons[i]);
 
         connect(players_model, &PlayersModel::target_to_attack, this, &HexMap::process_attack);
 
