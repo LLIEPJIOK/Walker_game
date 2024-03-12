@@ -521,7 +521,7 @@ void GameInterface::update_map()
 void GameInterface::update_all()
 {
     update_buttons();
-    update_info_widget();
+    //update_info_widget();
     update_map();
 }
 
@@ -547,7 +547,7 @@ void GameInterface::update_player_status()
     update_buttons();
     tmp->update_chars();
     tmp->die();
-    update_info_widget();
+    //update_info_widget();
 }
 
 void GameInterface::process_event_start()

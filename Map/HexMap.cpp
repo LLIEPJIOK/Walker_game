@@ -232,7 +232,7 @@ void HexMap::player_move()
     QPointF to_move(0, 0);
     auto player_pos = current_players_model->pos().toPoint();
 
-    QPoint destination = coordinate_path.first().toPoint();
+    QPoint destination = QPoint(coordinate_path.first().toPoint().x() - 50, coordinate_path.first().toPoint().y() - 50);
 
 
 
